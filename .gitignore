@@ -1,0 +1,23 @@
+# Dependencias
+node_modules/
+.pnpm-store/
+
+# Variaveis de ambiente locais
+.env
+.env.*
+!.env.example
+
+# Builds e artefatos compilados temporarios
+dist/
+build/
+.turbo/
+*.tsbuildinfo
+
+# Caches e temporarios
+*.log
+*.tmp
+*.temp
+.cache/
+.DS_Store
+Thumbs.db
+Desktop.ini
