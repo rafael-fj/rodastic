@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2026-11-10
 
 ### Added
 - Inicialização do repositório, configuração de `.gitattributes` (Git LFS), `.gitignore`, templates de Issue/PR e workflow de CI (guarda de arquivos > 90 MB).
@@ -24,3 +24,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `packages/protocol/src/`: Codec binário de pacotes com cabeçalho BlitzTech de 8 bytes, handshake `0x03`/`0x04`, sincronização de relógio `0x0B` com tabela de RTTs comprimidos, protocolo de lobby `0x25` (`subTypes 0x00..0x14`), barreiras `readyMask1..3`, comando de input `0xC2` e snapshot de mundo `0xC1`.
 - `packages/server/src/`: Servidor autoritativo Node.js + WebSocket (`ws`) com gerenciamento de múltiplas salas, suporte a Bots IA, máquina de estados online (`0x78 -> 0x7A -> 0x8F -> 0x99 -> 0xB8`), loop de física a `60 Hz`, endpoints `/api/health` e `/api/rooms` e servidor estático integrado.
 - `packages/client/src/`: Cliente navegador em PixiJS v8 + Web Audio API renderizando os sprites `.png` e efeitos `.wav` extraídos do jogo original, predição client-side com reconciliação suave, interpolação de entidades remotas, HUD em tempo real, Lobby interativo e Pódio pós-partida.
+- `docs/spec/fidelity-checklist.md` e `packages/physics/src/golden-regression.test.ts`: Checklist completo de paridade com `Rotastic.exe` e suíte de regressão determinística cobrindo as 19 arenas, Slaughter e Morte Súbita.
