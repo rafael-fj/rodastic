@@ -3,29 +3,230 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rotastic — Multiplayer Web</title>
+    <title>Rotastic — Multiplayer Web Arena</title>
     <style>
+      * {
+        box-sizing: border-box;
+        user-select: none;
+      }
       html, body {
         margin: 0;
         padding: 0;
         width: 100%;
         height: 100%;
         overflow: hidden;
-        background: #0b0d14;
-        color: #f4f6fb;
+        background: radial-gradient(circle at center, #181c2b 0%, #090b11 100%);
+        color: #f8fafc;
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       }
       #app {
+        position: relative;
         width: 100%;
         height: 100%;
+      }
+      canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      #ui-layer {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 14px 20px;
+      }
+      .hud-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        pointer-events: auto;
+      }
+      .hud-cards {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .player-hud-card {
+        background: rgba(15, 23, 42, 0.85);
+        border: 2px solid #334155;
+        border-radius: 10px;
+        padding: 6px 12px;
+        min-width: 145px;
+        backdrop-filter: blur(6px);
+      }
+      .player-hud-card .p-name {
+        font-size: 13px;
+        font-weight: 700;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .player-hud-card .p-score {
+        font-size: 20px;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+      }
+      .player-hud-card .p-sub {
+        font-size: 11px;
+        color: #94a3b8;
+      }
+      .match-timer-box {
+        background: rgba(15, 23, 42, 0.9);
+        border: 2px solid #f59e0b;
+        border-radius: 12px;
+        padding: 6px 18px;
+        text-align: center;
+        min-width: 170px;
+      }
+      .match-timer-box .mode-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #fbbf24;
+        font-weight: 700;
+      }
+      .match-timer-box .timer-val {
+        font-size: 24px;
+        font-weight: 900;
+      }
+      .modal-backdrop {
+        position: absolute;
+        inset: 0;
         display: flex;
         align-items: center;
         justify-content: center;
+        background: rgba(6, 9, 17, 0.78);
+        backdrop-filter: blur(5px);
+        pointer-events: auto;
+        z-index: 20;
+      }
+      .panel {
+        background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+        border: 2px solid #475569;
+        border-radius: 16px;
+        padding: 22px 26px;
+        width: min(860px, 94vw);
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+      }
+      .panel h1 {
+        margin: 0 0 6px 0;
+        font-size: 26px;
+        color: #fbbf24;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .panel p.subtitle {
+        margin: 0 0 16px 0;
+        font-size: 13px;
+        color: #94a3b8;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      @media (max-width: 700px) {
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+      .slot-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .slot-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(30, 41, 59, 0.75);
+        border: 1px solid #334155;
+        border-radius: 10px;
+        padding: 8px 12px;
+      }
+      .form-row {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 10px;
+      }
+      .form-row label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #cbd5e1;
+      }
+      input, select, button {
+        font-family: inherit;
+        font-size: 14px;
+        border-radius: 8px;
+        padding: 8px 12px;
+        border: 1px solid #475569;
+        background: #0f172a;
+        color: #f8fafc;
+      }
+      button {
+        cursor: pointer;
+        font-weight: 700;
+        transition: transform 0.1s, background 0.15s;
+      }
+      button:hover {
+        transform: translateY(-1px);
+      }
+      .btn-primary {
+        background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+        color: #0f172a;
+        border-color: #fbbf24;
+      }
+      .btn-secondary {
+        background: #334155;
+        color: #f8fafc;
+      }
+      .btn-success {
+        background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
+        color: #052e16;
+        border-color: #4ade80;
+      }
+      .controls-hint {
+        font-size: 12px;
+        color: #cbd5e1;
+        background: rgba(15, 23, 42, 0.75);
+        padding: 6px 12px;
+        border-radius: 8px;
+        border: 1px solid #334155;
+        pointer-events: auto;
       }
     </style>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div id="ui-layer">
+        <div class="hud-bar">
+          <div class="hud-cards" id="hud-players"></div>
+          <div class="match-timer-box" id="hud-timer-box">
+            <div class="mode-label" id="hud-mode-label">COLLECT</div>
+            <div class="timer-val" id="hud-timer-val">02:00</div>
+            <div style="font-size: 11px; color: #94a3b8" id="hud-net-info">RTT: -- ms</div>
+          </div>
+        </div>
+        <div class="hud-bar">
+          <div class="controls-hint">
+            <b>Controles:</b> Segure <code>Espaço</code>, <code>Clique Esquerdo</code> ou <code>W / ↑</code> para engatar na âncora mais próxima e girar • Solte para lançar • <code>A / D</code> ou <code>← / →</code> para embalar • Corte a corda dos rivais em alta velocidade!
+          </div>
+          <div style="display: flex; gap: 8px">
+            <button class="btn-secondary" id="btn-toggle-lobby">Sala / Config</button>
+            <button class="btn-secondary" id="btn-toggle-mute">🔊 Áudio</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-backdrop" id="modal-overlay"></div>
+    </div>
     <script type="module" src="/src/index.ts"></script>
   </body>
 </html>
