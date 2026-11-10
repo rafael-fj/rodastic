@@ -1,0 +1,1286 @@
+{
+  "generatedAt": "2026-11-10T14:47:45.513Z",
+  "counts": {
+    "steamNetStrings": 34,
+    "fengineNetStrings": 66,
+    "gameOnlineStrings": 152,
+    "refmSchemas": 0
+  },
+  "refmSchemas": {},
+  "fetmReplicationNodes": {
+    "w_multi_dm_lvl01_fetm.json": {
+      "totalMatches": 0,
+      "matches": []
+    },
+    "w_multi_coll_lvl01_fetm.json": {
+      "totalMatches": 0,
+      "matches": []
+    }
+  },
+  "steamNetStrings": [
+    {
+      "codeVA": "0x006B5F7B",
+      "stringVA": "0x0099B724",
+      "text": "name"
+    },
+    {
+      "codeVA": "0x006B5FB1",
+      "stringVA": "0x0099B71C",
+      "text": "desc"
+    },
+    {
+      "codeVA": "0x006B6774",
+      "stringVA": "0x0099B738",
+      "text": "Achievements"
+    },
+    {
+      "codeVA": "0x006BABC5",
+      "stringVA": "0x0099B760",
+      "text": "%S %2d / %2d"
+    },
+    {
+      "codeVA": "0x006BAC21",
+      "stringVA": "0x0099B758",
+      "text": "%S %d"
+    },
+    {
+      "codeVA": "0x006BAC62",
+      "stringVA": "0x0099B758",
+      "text": "%S %d"
+    },
+    {
+      "codeVA": "0x006BB97C",
+      "stringVA": "0x0099B770",
+      "text": "BlitzTech Test"
+    },
+    {
+      "codeVA": "0x006BC3D5",
+      "stringVA": "0x0099B780",
+      "text": "PC Steam Server"
+    },
+    {
+      "codeVA": "0x006BD0BC",
+      "stringVA": "0x0099B790",
+      "text": "Client Lobby"
+    },
+    {
+      "codeVA": "0x006BDC4D",
+      "stringVA": "0x0099B7C4",
+      "text": "insession"
+    },
+    {
+      "codeVA": "0x006BDC77",
+      "stringVA": "0x0099B7C4",
+      "text": "insession"
+    },
+    {
+      "codeVA": "0x006BDD62",
+      "stringVA": "0x0099B7F4",
+      "text": "%s's lobby %d"
+    },
+    {
+      "codeVA": "0x006BDD82",
+      "stringVA": "0x0099B724",
+      "text": "name"
+    },
+    {
+      "codeVA": "0x006BDDAC",
+      "stringVA": "0x0099B7C4",
+      "text": "insession"
+    },
+    {
+      "codeVA": "0x006BDDFF",
+      "stringVA": "0x0099B7E8",
+      "text": "maxplayers"
+    },
+    {
+      "codeVA": "0x006BDE51",
+      "stringVA": "0x0099B7DC",
+      "text": "noofplayers"
+    },
+    {
+      "codeVA": "0x006BDE79",
+      "stringVA": "0x0099B7D4",
+      "text": "Attr%d"
+    },
+    {
+      "codeVA": "0x006BDF2B",
+      "stringVA": "0x0099B7D4",
+      "text": "Attr%d"
+    },
+    {
+      "codeVA": "0x006BED2D",
+      "stringVA": "0x0099B7C4",
+      "text": "insession"
+    },
+    {
+      "codeVA": "0x006BED75",
+      "stringVA": "0x0099B7D4",
+      "text": "Attr%d"
+    },
+    {
+      "codeVA": "0x006BEF69",
+      "stringVA": "0x0099B724",
+      "text": "name"
+    },
+    {
+      "codeVA": "0x006BEFC5",
+      "stringVA": "0x0099B7E8",
+      "text": "maxplayers"
+    },
+    {
+      "codeVA": "0x006BF013",
+      "stringVA": "0x0099B7DC",
+      "text": "noofplayers"
+    },
+    {
+      "codeVA": "0x006BF07E",
+      "stringVA": "0x0099B7D4",
+      "text": "Attr%d"
+    },
+    {
+      "codeVA": "0x006BF2A1",
+      "stringVA": "0x0099B81C",
+      "text": "Pending:%d"
+    },
+    {
+      "codeVA": "0x006C283F",
+      "stringVA": "0x0099B878",
+      "text": "Fatal Error"
+    },
+    {
+      "codeVA": "0x006C3CFC",
+      "stringVA": "0x0099B884",
+      "text": "LobbyInvite"
+    },
+    {
+      "codeVA": "0x006C4C16",
+      "stringVA": "0x0099BCD0",
+      "text": "_audioStreamLoad"
+    },
+    {
+      "codeVA": "0x006C4C1B",
+      "stringVA": "0x0099BCC8",
+      "text": "%s0x%x"
+    },
+    {
+      "codeVA": "0x006C4CB9",
+      "stringVA": "0x00996F64",
+      "text": ".pc"
+    },
+    {
+      "codeVA": "0x006CE2D8",
+      "stringVA": "0x0099C350",
+      "text": "eax.dll"
+    },
+    {
+      "codeVA": "0x006CE2F5",
+      "stringVA": "0x0099C338",
+      "text": "EAXDirectSoundCreate8"
+    },
+    {
+      "codeVA": "0x006D4B39",
+      "stringVA": "0x0099CC74",
+      "text": ".%s.%d.vb"
+    },
+    {
+      "codeVA": "0x006D4CE0",
+      "stringVA": "0x0099CC80",
+      "text": "[skin]"
+    }
+  ],
+  "fengineNetStrings": [
+    {
+      "codeVA": "0x007B6D56",
+      "stringVA": "0x00978DAC",
+      "text": "CFBehaviourTileMesh"
+    },
+    {
+      "codeVA": "0x007B6D63",
+      "stringVA": "0x00978DAC",
+      "text": "CFBehaviourTileMesh"
+    },
+    {
+      "codeVA": "0x007B70C0",
+      "stringVA": "0x009A77F8",
+      "text": "<noentclass>"
+    },
+    {
+      "codeVA": "0x007B74DC",
+      "stringVA": "0x009A77F8",
+      "text": "<noentclass>"
+    },
+    {
+      "codeVA": "0x007B7C86",
+      "stringVA": "0x00978860",
+      "text": "blitztech::engine::BehaviourTimerCounter"
+    },
+    {
+      "codeVA": "0x007B7C93",
+      "stringVA": "0x00978860",
+      "text": "blitztech::engine::BehaviourTimerCounter"
+    },
+    {
+      "codeVA": "0x007B7F56",
+      "stringVA": "0x00978DC0",
+      "text": "CFBehaviourTrackingCamera"
+    },
+    {
+      "codeVA": "0x007B7F63",
+      "stringVA": "0x00978DC0",
+      "text": "CFBehaviourTrackingCamera"
+    },
+    {
+      "codeVA": "0x007B89E6",
+      "stringVA": "0x00978934",
+      "text": "CFBehaviourTriggerBeam"
+    },
+    {
+      "codeVA": "0x007B89F3",
+      "stringVA": "0x00978934",
+      "text": "CFBehaviourTriggerBeam"
+    },
+    {
+      "codeVA": "0x007B9BD6",
+      "stringVA": "0x00978CA8",
+      "text": "blitztech::overlay::BehaviourVideoTextureOverlay"
+    },
+    {
+      "codeVA": "0x007B9BE3",
+      "stringVA": "0x00978CA8",
+      "text": "blitztech::overlay::BehaviourVideoTextureOverlay"
+    },
+    {
+      "codeVA": "0x007BD6F6",
+      "stringVA": "0x00978D78",
+      "text": "CFBehaviourSpriteBatches"
+    },
+    {
+      "codeVA": "0x007BDD23",
+      "stringVA": "0x009ABC8C",
+      "text": "World"
+    },
+    {
+      "codeVA": "0x007BDD5F",
+      "stringVA": "0x009ABC74",
+      "text": "CodeCreatedSector%03d"
+    },
+    {
+      "codeVA": "0x007BE429",
+      "stringVA": "0x009ABC68",
+      "text": "%s%s_fetm"
+    },
+    {
+      "codeVA": "0x007BE4CF",
+      "stringVA": "0x0099D570",
+      "text": "%s\\%s"
+    },
+    {
+      "codeVA": "0x007BE5A6",
+      "stringVA": "0x0099D974",
+      "text": "world"
+    },
+    {
+      "codeVA": "0x007BE5DE",
+      "stringVA": "0x0099D974",
+      "text": "world"
+    },
+    {
+      "codeVA": "0x007BECDD",
+      "stringVA": "0x009ABCA8",
+      "text": "%s.fetm"
+    },
+    {
+      "codeVA": "0x007BED10",
+      "stringVA": "0x009ABC68",
+      "text": "%s%s_fetm"
+    },
+    {
+      "codeVA": "0x007BEE48",
+      "stringVA": "0x009ABC94",
+      "text": "Static Visibility"
+    },
+    {
+      "codeVA": "0x007BF3B4",
+      "stringVA": "0x009ABC68",
+      "text": "%s%s_fetm"
+    },
+    {
+      "codeVA": "0x007BF5EE",
+      "stringVA": "0x009ABCB0",
+      "text": "Actor Prep"
+    },
+    {
+      "codeVA": "0x007BF75D",
+      "stringVA": "0x009ABCBC",
+      "text": "Animation Update Eval Blend Prep"
+    },
+    {
+      "codeVA": "0x007C0665",
+      "stringVA": "0x009ABC68",
+      "text": "%s%s_fetm"
+    },
+    {
+      "codeVA": "0x007C5C47",
+      "stringVA": "0x009A77F8",
+      "text": "<noentclass>"
+    },
+    {
+      "codeVA": "0x007C5DA1",
+      "stringVA": "0x009ABC68",
+      "text": "%s%s_fetm"
+    },
+    {
+      "codeVA": "0x007C74AF",
+      "stringVA": "0x009ABCFC",
+      "text": "fet_%s"
+    },
+    {
+      "codeVA": "0x007C7B32",
+      "stringVA": "0x009ABCF4",
+      "text": "%saudio"
+    },
+    {
+      "codeVA": "0x007C7DB0",
+      "stringVA": "0x009ABCE0",
+      "text": "<render callback>"
+    },
+    {
+      "codeVA": "0x007C8A2C",
+      "stringVA": "0x009ABC8C",
+      "text": "World"
+    },
+    {
+      "codeVA": "0x007C8C76",
+      "stringVA": "0x009ABD04",
+      "text": "SPR"
+    },
+    {
+      "codeVA": "0x007C9191",
+      "stringVA": "0x009A77F8",
+      "text": "<noentclass>"
+    },
+    {
+      "codeVA": "0x007C9725",
+      "stringVA": "0x00978804",
+      "text": "CFNodeReferencing"
+    },
+    {
+      "codeVA": "0x007C9D25",
+      "stringVA": "0x009A77F8",
+      "text": "<noentclass>"
+    },
+    {
+      "codeVA": "0x007C9DA0",
+      "stringVA": "0x009AA8A8",
+      "text": "dummy"
+    },
+    {
+      "codeVA": "0x007CB351",
+      "stringVA": "0x00978FCC",
+      "text": "blitztech::engine::SimulationObjectBase"
+    },
+    {
+      "codeVA": "0x007D2C96",
+      "stringVA": "0x00978804",
+      "text": "CFNodeReferencing"
+    },
+    {
+      "codeVA": "0x007D2CA3",
+      "stringVA": "0x00978804",
+      "text": "CFNodeReferencing"
+    },
+    {
+      "codeVA": "0x007D32A6",
+      "stringVA": "0x009787DC",
+      "text": "blitztech::engine::BehaviourPoolInfo"
+    },
+    {
+      "codeVA": "0x007D4DFB",
+      "stringVA": "0x009ABE10",
+      "text": "_reflectionBlur"
+    },
+    {
+      "codeVA": "0x007DDCF6",
+      "stringVA": "0x00978FCC",
+      "text": "blitztech::engine::SimulationObjectBase"
+    },
+    {
+      "codeVA": "0x007DDD03",
+      "stringVA": "0x00978FCC",
+      "text": "blitztech::engine::SimulationObjectBase"
+    },
+    {
+      "codeVA": "0x007DDD76",
+      "stringVA": "0x009AC0AC",
+      "text": "CFSimulationObject"
+    },
+    {
+      "codeVA": "0x007DDD83",
+      "stringVA": "0x009AC0AC",
+      "text": "CFSimulationObject"
+    },
+    {
+      "codeVA": "0x007EBCF6",
+      "stringVA": "0x00978828",
+      "text": "CFStateMachine"
+    },
+    {
+      "codeVA": "0x007EBD03",
+      "stringVA": "0x00978828",
+      "text": "CFStateMachine"
+    },
+    {
+      "codeVA": "0x007EC286",
+      "stringVA": "0x009A77F8",
+      "text": "<noentclass>"
+    },
+    {
+      "codeVA": "0x007ED6C7",
+      "stringVA": "0x0097879C",
+      "text": "CFStateMachineCondition"
+    },
+    {
+      "codeVA": "0x007EDFD9",
+      "stringVA": "0x009787B4",
+      "text": "CFStateMachineState"
+    },
+    {
+      "codeVA": "0x007EEDB6",
+      "stringVA": "0x009AC23C",
+      "text": "0x%.8x"
+    },
+    {
+      "codeVA": "0x007EF6B2",
+      "stringVA": "0x009A77F8",
+      "text": "<noentclass>"
+    },
+    {
+      "codeVA": "0x007F4D58",
+      "stringVA": "0x009AC270",
+      "text": "_r%d"
+    },
+    {
+      "codeVA": "0x007FE273",
+      "stringVA": "0x00978AE4",
+      "text": "blitztech::engine::BehaviourObserveNode"
+    },
+    {
+      "codeVA": "0x007FE303",
+      "stringVA": "0x00978AE4",
+      "text": "blitztech::engine::BehaviourObserveNode"
+    },
+    {
+      "codeVA": "0x007FE3E6",
+      "stringVA": "0x00978838",
+      "text": "blitztech::engine::BehaviourActionList"
+    },
+    {
+      "codeVA": "0x007FE53C",
+      "stringVA": "0x00978860",
+      "text": "blitztech::engine::BehaviourTimerCounter"
+    },
+    {
+      "codeVA": "0x007FE5FC",
+      "stringVA": "0x00978860",
+      "text": "blitztech::engine::BehaviourTimerCounter"
+    },
+    {
+      "codeVA": "0x007FE6F3",
+      "stringVA": "0x00978860",
+      "text": "blitztech::engine::BehaviourTimerCounter"
+    },
+    {
+      "codeVA": "0x007FE789",
+      "stringVA": "0x00978860",
+      "text": "blitztech::engine::BehaviourTimerCounter"
+    },
+    {
+      "codeVA": "0x007FE81C",
+      "stringVA": "0x00978860",
+      "text": "blitztech::engine::BehaviourTimerCounter"
+    },
+    {
+      "codeVA": "0x00801371",
+      "stringVA": "0x009AC30C",
+      "text": "%s%s_%s"
+    },
+    {
+      "codeVA": "0x008013B4",
+      "stringVA": "0x00994674",
+      "text": "%s%s"
+    },
+    {
+      "codeVA": "0x00801472",
+      "stringVA": "0x00994674",
+      "text": "%s%s"
+    },
+    {
+      "codeVA": "0x008023AC",
+      "stringVA": "0x0099C740",
+      "text": "Sector"
+    }
+  ],
+  "gameOnlineStrings": [
+    {
+      "codeVA": "0x0052C016",
+      "stringVA": "0x00986C00",
+      "text": "OnBecameFirst"
+    },
+    {
+      "codeVA": "0x0052C051",
+      "stringVA": "0x00986C68",
+      "text": "OnBecameSecond"
+    },
+    {
+      "codeVA": "0x0052C08D",
+      "stringVA": "0x00986CB0",
+      "text": "OnBecameSecond"
+    },
+    {
+      "codeVA": "0x0052C0C9",
+      "stringVA": "0x00986D14",
+      "text": "OnPutToSea"
+    },
+    {
+      "codeVA": "0x0052C104",
+      "stringVA": "0x00986D54",
+      "text": "OnPutToSea"
+    },
+    {
+      "codeVA": "0x0052C140",
+      "stringVA": "0x00986DB8",
+      "text": "OnIsFarBehind"
+    },
+    {
+      "codeVA": "0x0052C17C",
+      "stringVA": "0x00986E00",
+      "text": "OnIsFarBehind"
+    },
+    {
+      "codeVA": "0x0052C1B7",
+      "stringVA": "0x00986E68",
+      "text": "OnStruggleTime"
+    },
+    {
+      "codeVA": "0x0052C1F3",
+      "stringVA": "0x00986EB0",
+      "text": "OnStruggleTime"
+    },
+    {
+      "codeVA": "0x0052C22F",
+      "stringVA": "0x00986F1C",
+      "text": "OnMyBestVictim"
+    },
+    {
+      "codeVA": "0x0052C26A",
+      "stringVA": "0x00986F64",
+      "text": "OnMyBestVictim"
+    },
+    {
+      "codeVA": "0x0052C2A6",
+      "stringVA": "0x00986FC8",
+      "text": "OnRevenge"
+    },
+    {
+      "codeVA": "0x0052C2E2",
+      "stringVA": "0x00987008",
+      "text": "OnRevenge"
+    },
+    {
+      "codeVA": "0x0052C31D",
+      "stringVA": "0x00987068",
+      "text": "OnKillInARow"
+    },
+    {
+      "codeVA": "0x0052C359",
+      "stringVA": "0x009870B0",
+      "text": "OnKillInARow"
+    },
+    {
+      "codeVA": "0x0052C395",
+      "stringVA": "0x00987120",
+      "text": "OnFastKillInARow"
+    },
+    {
+      "codeVA": "0x0052C3D0",
+      "stringVA": "0x00987170",
+      "text": "OnFastKillInARow"
+    },
+    {
+      "codeVA": "0x0052C40C",
+      "stringVA": "0x009871E0",
+      "text": "OnQuickPickUp"
+    },
+    {
+      "codeVA": "0x0052C448",
+      "stringVA": "0x00987228",
+      "text": "OnQuickPickUp"
+    },
+    {
+      "codeVA": "0x0052C483",
+      "stringVA": "0x00987290",
+      "text": "OnQuickScore"
+    },
+    {
+      "codeVA": "0x0052C4BF",
+      "stringVA": "0x009872D8",
+      "text": "OnQuickScore"
+    },
+    {
+      "codeVA": "0x0052C4FB",
+      "stringVA": "0x00987340",
+      "text": "OnPickupInARow"
+    },
+    {
+      "codeVA": "0x0052C536",
+      "stringVA": "0x00987388",
+      "text": "OnPickupInARow"
+    },
+    {
+      "codeVA": "0x0052C572",
+      "stringVA": "0x009873F4",
+      "text": "OnScoreInARow"
+    },
+    {
+      "codeVA": "0x0052C5AE",
+      "stringVA": "0x0098743C",
+      "text": "OnScoreInARow"
+    },
+    {
+      "codeVA": "0x0052C5E9",
+      "stringVA": "0x0098749C",
+      "text": "OnLostBalls"
+    },
+    {
+      "codeVA": "0x0052C625",
+      "stringVA": "0x009874DC",
+      "text": "OnLostBalls"
+    },
+    {
+      "codeVA": "0x0052C661",
+      "stringVA": "0x00987530",
+      "text": "OnGoal"
+    },
+    {
+      "codeVA": "0x0052C69C",
+      "stringVA": "0x00987568",
+      "text": "OnGoal"
+    },
+    {
+      "codeVA": "0x0052C6D8",
+      "stringVA": "0x009875C4",
+      "text": "OnSoFlagSoClose"
+    },
+    {
+      "codeVA": "0x0052C714",
+      "stringVA": "0x0098760C",
+      "text": "OnSoFlagSoClose"
+    },
+    {
+      "codeVA": "0x0052C74F",
+      "stringVA": "0x00987678",
+      "text": "OnFlagInARow"
+    },
+    {
+      "codeVA": "0x0052C78B",
+      "stringVA": "0x009876C0",
+      "text": "OnFlagInARow"
+    },
+    {
+      "codeVA": "0x0052C7C7",
+      "stringVA": "0x00987720",
+      "text": "OnFlagMove"
+    },
+    {
+      "codeVA": "0x0052C802",
+      "stringVA": "0x00987760",
+      "text": "OnFlagMove"
+    },
+    {
+      "codeVA": "0x0052C83E",
+      "stringVA": "0x009877DC",
+      "text": "OnChangeRotationDirection"
+    },
+    {
+      "codeVA": "0x0052C87A",
+      "stringVA": "0x0098783C",
+      "text": "OnChangeRotationDirection"
+    },
+    {
+      "codeVA": "0x0052C8B5",
+      "stringVA": "0x009878BC",
+      "text": "OnGoalInARow"
+    },
+    {
+      "codeVA": "0x0052C8F1",
+      "stringVA": "0x00987904",
+      "text": "OnGoalInARow"
+    },
+    {
+      "codeVA": "0x0052C92D",
+      "stringVA": "0x00987984",
+      "text": "OnPlayPartialScoreAnimation"
+    },
+    {
+      "codeVA": "0x0052C968",
+      "stringVA": "0x009879E4",
+      "text": "OnPlayPartialScoreAnimation"
+    },
+    {
+      "codeVA": "0x0052C9A4",
+      "stringVA": "0x00987A80",
+      "text": "OnPlayFinalScoreAnimation"
+    },
+    {
+      "codeVA": "0x0052C9E0",
+      "stringVA": "0x00987AE4",
+      "text": "OnPlayFinalScoreAnimation"
+    },
+    {
+      "codeVA": "0x0052CA1B",
+      "stringVA": "0x00987B7C",
+      "text": "OnPlayBronzeHelmetAnimation"
+    },
+    {
+      "codeVA": "0x0052CA57",
+      "stringVA": "0x00987BDC",
+      "text": "OnPlayBronzeHelmetAnimation"
+    },
+    {
+      "codeVA": "0x0052CA93",
+      "stringVA": "0x00987C78",
+      "text": "OnPlaySilverHelmetAnimation"
+    },
+    {
+      "codeVA": "0x0052CACE",
+      "stringVA": "0x00987CDC",
+      "text": "OnPlaySilverHelmetAnimation"
+    },
+    {
+      "codeVA": "0x0052CB0A",
+      "stringVA": "0x00987D78",
+      "text": "OnPlayGoldHelmetAnimation"
+    },
+    {
+      "codeVA": "0x0052CB46",
+      "stringVA": "0x00987DDC",
+      "text": "OnPlayGoldHelmetAnimation"
+    },
+    {
+      "codeVA": "0x0052CB81",
+      "stringVA": "0x00987E7C",
+      "text": "OnPlayDiamondHelmetAnimation"
+    },
+    {
+      "codeVA": "0x0052CBBD",
+      "stringVA": "0x00987EE8",
+      "text": "OnPlayDiamondHelmetAnimation"
+    },
+    {
+      "codeVA": "0x0052CBF9",
+      "stringVA": "0x00987F88",
+      "text": "OnPlayWorldUnlockAnimation"
+    },
+    {
+      "codeVA": "0x0052CC34",
+      "stringVA": "0x00987FEC",
+      "text": "OnPlayWorldUnlockAnimation"
+    },
+    {
+      "codeVA": "0x0052CC70",
+      "stringVA": "0x00988070",
+      "text": "OnSpeakerSound"
+    },
+    {
+      "codeVA": "0x0052CCAC",
+      "stringVA": "0x009880B8",
+      "text": "OnSpeakerSound"
+    },
+    {
+      "codeVA": "0x0052CCE7",
+      "stringVA": "0x0098812C",
+      "text": "OnAudioStreamPlay"
+    },
+    {
+      "codeVA": "0x0052CD23",
+      "stringVA": "0x0098817C",
+      "text": "OnAudioStreamPlay"
+    },
+    {
+      "codeVA": "0x0052CD5F",
+      "stringVA": "0x009881F4",
+      "text": "OnAudioStreamStop"
+    },
+    {
+      "codeVA": "0x0052CD9A",
+      "stringVA": "0x00988244",
+      "text": "OnAudioStreamStop"
+    },
+    {
+      "codeVA": "0x0052CDD6",
+      "stringVA": "0x009882C4",
+      "text": "OnAudioStreamStopAll"
+    },
+    {
+      "codeVA": "0x0052CE12",
+      "stringVA": "0x0098831C",
+      "text": "OnAudioStreamStopAll"
+    },
+    {
+      "codeVA": "0x0052CE4D",
+      "stringVA": "0x009883B4",
+      "text": "OnAudioStreamStopAllExceptOne"
+    },
+    {
+      "codeVA": "0x0052CE89",
+      "stringVA": "0x00988420",
+      "text": "OnAudioStreamStopAllExceptOne"
+    },
+    {
+      "codeVA": "0x0052CEC5",
+      "stringVA": "0x009884B0",
+      "text": "OnStopSoundsById"
+    },
+    {
+      "codeVA": "0x0052CF00",
+      "stringVA": "0x00988500",
+      "text": "OnStopSoundsById"
+    },
+    {
+      "codeVA": "0x0052CF3C",
+      "stringVA": "0x00988578",
+      "text": "OnSetPickupPitch"
+    },
+    {
+      "codeVA": "0x0052CF78",
+      "stringVA": "0x009885C8",
+      "text": "OnSetPickupPitch"
+    },
+    {
+      "codeVA": "0x0052CFB3",
+      "stringVA": "0x00988630",
+      "text": "OnBGMPause"
+    },
+    {
+      "codeVA": "0x0052CFEF",
+      "stringVA": "0x00988670",
+      "text": "OnBGMPause"
+    },
+    {
+      "codeVA": "0x0052D02B",
+      "stringVA": "0x009886DC",
+      "text": "OnBackToFrontEnd"
+    },
+    {
+      "codeVA": "0x0052D066",
+      "stringVA": "0x0098872C",
+      "text": "OnBackToFrontEnd"
+    },
+    {
+      "codeVA": "0x0052D0A2",
+      "stringVA": "0x009887A4",
+      "text": "OnBeamCollisionFx"
+    },
+    {
+      "codeVA": "0x0052D0DE",
+      "stringVA": "0x009887F4",
+      "text": "OnBeamCollisionFx"
+    },
+    {
+      "codeVA": "0x0052D119",
+      "stringVA": "0x0098885C",
+      "text": "OnTrickFx"
+    },
+    {
+      "codeVA": "0x0052D155",
+      "stringVA": "0x0098889C",
+      "text": "OnTrickFx"
+    },
+    {
+      "codeVA": "0x0052D31B",
+      "stringVA": "0x00988924",
+      "text": "gameLevelPackage"
+    },
+    {
+      "codeVA": "0x0052D344",
+      "stringVA": "0x00988938",
+      "text": "packages"
+    },
+    {
+      "codeVA": "0x0052D349",
+      "stringVA": "0x00988944",
+      "text": "w_julien_Multi04"
+    },
+    {
+      "codeVA": "0x0052E0D0",
+      "stringVA": "0x00988E74",
+      "text": "Mode_Localisation"
+    },
+    {
+      "codeVA": "0x0052E1E9",
+      "stringVA": "0x00988E40",
+      "text": "bgm"
+    },
+    {
+      "codeVA": "0x0052E203",
+      "stringVA": "0x00988E44",
+      "text": "bgmmenu"
+    },
+    {
+      "codeVA": "0x0052E21D",
+      "stringVA": "0x00988E4C",
+      "text": "bgmsubmenu"
+    },
+    {
+      "codeVA": "0x0052E237",
+      "stringVA": "0x00988E58",
+      "text": "bgmplaylist1"
+    },
+    {
+      "codeVA": "0x0052E24F",
+      "stringVA": "0x00988E68",
+      "text": "videoUpsell"
+    },
+    {
+      "codeVA": "0x0052E478",
+      "stringVA": "0x00989028",
+      "text": "Mode_FrameworkMode"
+    },
+    {
+      "codeVA": "0x0052E4A0",
+      "stringVA": "0x0098903C",
+      "text": "w_Loca"
+    },
+    {
+      "codeVA": "0x0052E700",
+      "stringVA": "0x009891E8",
+      "text": "TintColor"
+    },
+    {
+      "codeVA": "0x0052E7AC",
+      "stringVA": "0x009891F4",
+      "text": "UVMulXYAddZW"
+    },
+    {
+      "codeVA": "0x0052EE2F",
+      "stringVA": "0x0098930C",
+      "text": "TintColor"
+    },
+    {
+      "codeVA": "0x00532471",
+      "stringVA": "0x00989A88",
+      "text": "UVMulXYAddZW"
+    },
+    {
+      "codeVA": "0x00532BF7",
+      "stringVA": "0x00989C88",
+      "text": "gameLevelPackage"
+    },
+    {
+      "codeVA": "0x00533127",
+      "stringVA": "0x00989C9C",
+      "text": "%s-Copy"
+    },
+    {
+      "codeVA": "0x005342A9",
+      "stringVA": "0x0098A02C",
+      "text": "Sequence_HalfTime"
+    },
+    {
+      "codeVA": "0x005343BA",
+      "stringVA": "0x0098A040",
+      "text": "Sequence_HalfFrag"
+    },
+    {
+      "codeVA": "0x00534551",
+      "stringVA": "0x00989FD4",
+      "text": "Sequence_HalfTime"
+    },
+    {
+      "codeVA": "0x00534569",
+      "stringVA": "0x00989FE8",
+      "text": "Sequence_HalfFrag"
+    },
+    {
+      "codeVA": "0x00534579",
+      "stringVA": "0x00989FFC",
+      "text": "MM_DeathMatch_Frag"
+    },
+    {
+      "codeVA": "0x00534589",
+      "stringVA": "0x0098A010",
+      "text": "MM_DeathMatch_Time"
+    },
+    {
+      "codeVA": "0x005348AD",
+      "stringVA": "0x0098A06C",
+      "text": "rockets.wav"
+    },
+    {
+      "codeVA": "0x00534B1A",
+      "stringVA": "0x0098A024",
+      "text": "%d/%d"
+    },
+    {
+      "codeVA": "0x005353F6",
+      "stringVA": "0x0098A194",
+      "text": "Global"
+    },
+    {
+      "codeVA": "0x00536181",
+      "stringVA": "0x0098A2B4",
+      "text": "UVMulXYAddZW"
+    },
+    {
+      "codeVA": "0x005361AB",
+      "stringVA": "0x0098A2C4",
+      "text": "TintColor"
+    },
+    {
+      "codeVA": "0x0053858F",
+      "stringVA": "0x0098A4DC",
+      "text": "%d  %.3d"
+    },
+    {
+      "codeVA": "0x00538767",
+      "stringVA": "0x0098A4EC",
+      "text": "x%d"
+    },
+    {
+      "codeVA": "0x00538781",
+      "stringVA": "0x0098A4F0",
+      "text": "MAX"
+    },
+    {
+      "codeVA": "0x00538AEB",
+      "stringVA": "0x0098A4F4",
+      "text": "x%d"
+    },
+    {
+      "codeVA": "0x00538EC0",
+      "stringVA": "0x0098A4F8",
+      "text": "x%d"
+    },
+    {
+      "codeVA": "0x0053958C",
+      "stringVA": "0x0098A4CC",
+      "text": "Global"
+    },
+    {
+      "codeVA": "0x00539B79",
+      "stringVA": "0x0098A4D4",
+      "text": "+%d"
+    },
+    {
+      "codeVA": "0x00539D85",
+      "stringVA": "0x0098A4FC",
+      "text": "+%d"
+    },
+    {
+      "codeVA": "0x0053B5DE",
+      "stringVA": "0x0098A80C",
+      "text": "x%d"
+    },
+    {
+      "codeVA": "0x0053CD42",
+      "stringVA": "0x0098A928",
+      "text": "OnBecameFirst"
+    },
+    {
+      "codeVA": "0x0053CD79",
+      "stringVA": "0x0098A938",
+      "text": "OnBecameSecond"
+    },
+    {
+      "codeVA": "0x0053D238",
+      "stringVA": "0x0098AA54",
+      "text": "UVOffset"
+    },
+    {
+      "codeVA": "0x0053E0E7",
+      "stringVA": "0x00978D64",
+      "text": "CFBehaviourEffect"
+    },
+    {
+      "codeVA": "0x0053E197",
+      "stringVA": "0x00979050",
+      "text": "CFBehaviourParticleSystem"
+    },
+    {
+      "codeVA": "0x0053E661",
+      "stringVA": "0x0098AD98",
+      "text": "UVMulXYAddZW"
+    },
+    {
+      "codeVA": "0x0053E68B",
+      "stringVA": "0x0098ADA8",
+      "text": "TintColor"
+    },
+    {
+      "codeVA": "0x00540082",
+      "stringVA": "0x0098B308",
+      "text": "UVMulXYAddZW"
+    },
+    {
+      "codeVA": "0x005400AC",
+      "stringVA": "0x0098B318",
+      "text": "TintColor"
+    },
+    {
+      "codeVA": "0x0054132F",
+      "stringVA": "0x0098B300",
+      "text": "Global"
+    },
+    {
+      "codeVA": "0x00542F17",
+      "stringVA": "0x00978964",
+      "text": "CFBehaviourTriggerPlane"
+    },
+    {
+      "codeVA": "0x00543561",
+      "stringVA": "0x0098B734",
+      "text": "UVMulXYAddZW"
+    },
+    {
+      "codeVA": "0x0054358B",
+      "stringVA": "0x0098B744",
+      "text": "AddColor"
+    },
+    {
+      "codeVA": "0x00543E71",
+      "stringVA": "0x0098B8C0",
+      "text": "UVMulXYAddZW"
+    },
+    {
+      "codeVA": "0x00543E9B",
+      "stringVA": "0x0098B8D0",
+      "text": "TintColor"
+    },
+    {
+      "codeVA": "0x00544611",
+      "stringVA": "0x0098B9E4",
+      "text": "UVMulXYAddZW"
+    },
+    {
+      "codeVA": "0x0054463B",
+      "stringVA": "0x0098B9F4",
+      "text": "TintColor"
+    },
+    {
+      "codeVA": "0x00544F37",
+      "stringVA": "0x00978A60",
+      "text": "CFBehaviourSpline"
+    },
+    {
+      "codeVA": "0x00546619",
+      "stringVA": "0x0098BE04",
+      "text": "GameVB"
+    },
+    {
+      "codeVA": "0x00546640",
+      "stringVA": "0x0098BE0C",
+      "text": "GameID"
+    },
+    {
+      "codeVA": "0x0054713B",
+      "stringVA": "0x0098BF30",
+      "text": "TrickEffect"
+    },
+    {
+      "codeVA": "0x0054B415",
+      "stringVA": "0x0098C4B4",
+      "text": "BeamEffect"
+    },
+    {
+      "codeVA": "0x0054B717",
+      "stringVA": "0x0097897C",
+      "text": "CFBehaviourTriggerSphere"
+    },
+    {
+      "codeVA": "0x0055344E",
+      "stringVA": "0x0098E340",
+      "text": "%d/%d"
+    },
+    {
+      "codeVA": "0x0055346E",
+      "stringVA": "0x0098E348",
+      "text": "%d/%d"
+    },
+    {
+      "codeVA": "0x005535B1",
+      "stringVA": "0x0098E26C",
+      "text": "MM_Collecte_Pickup"
+    },
+    {
+      "codeVA": "0x005535C9",
+      "stringVA": "0x0098E280",
+      "text": "MM_Collecte_Points"
+    },
+    {
+      "codeVA": "0x005535D9",
+      "stringVA": "0x0098E294",
+      "text": "Sequence_HalfPickup"
+    },
+    {
+      "codeVA": "0x005535E9",
+      "stringVA": "0x0098E2A8",
+      "text": "Sequence_85Points"
+    },
+    {
+      "codeVA": "0x005535F9",
+      "stringVA": "0x0098E2BC",
+      "text": "Sequence_50Points"
+    },
+    {
+      "codeVA": "0x00553609",
+      "stringVA": "0x0098E2D0",
+      "text": "Sequence_95Points"
+    },
+    {
+      "codeVA": "0x00553E7F",
+      "stringVA": "0x0098E2E4",
+      "text": "Sequence_HalfPickup"
+    },
+    {
+      "codeVA": "0x00553F6F",
+      "stringVA": "0x0098E2F8",
+      "text": "Sequence_85Points"
+    },
+    {
+      "codeVA": "0x00553FED",
+      "stringVA": "0x0098E30C",
+      "text": "Sequence_50Points"
+    },
+    {
+      "codeVA": "0x0055407E",
+      "stringVA": "0x0098E320",
+      "text": "Sequence_95Points"
+    },
+    {
+      "codeVA": "0x005540DA",
+      "stringVA": "0x0098E334",
+      "text": "rockets.wav"
+    },
+    {
+      "codeVA": "0x0055444D",
+      "stringVA": "0x0098E36C",
+      "text": "rockets.wav"
+    },
+    {
+      "codeVA": "0x00554CC4",
+      "stringVA": "0x0098E4B8",
+      "text": "MODESOLOSWITCHCOUNT"
+    },
+    {
+      "codeVA": "0x00554E8F",
+      "stringVA": "0x0098E4CC",
+      "text": "MODESOLOSWITCHCOUNT"
+    },
+    {
+      "codeVA": "0x00554F34",
+      "stringVA": "0x0098E5C4",
+      "text": "MODESOLOBREAKABLECOUNT"
+    }
+  ]
+}
