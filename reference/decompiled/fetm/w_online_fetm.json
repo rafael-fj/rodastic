@@ -1,0 +1,3065 @@
+{
+  "fileName": "w_online_fetm.pc",
+  "fetmName": "w_online.fetm",
+  "sizeBytes": 20219,
+  "authorAndDate": "06/10/2012 at 16:21:13 by Pascal-L",
+  "entityClassSummary": {
+    "ec_stock_World_Rendering_Options": 1,
+    "ec_stock_viewport_size": 2
+  },
+  "totalStrings": 325,
+  "nodes": [
+    {
+      "offset": 3,
+      "text": "06/10/2012 at 16:21:13 by Pascal-L",
+      "taggedFloats": []
+    },
+    {
+      "offset": 41,
+      "text": "ec_stock_World_Rendering_Options",
+      "taggedFloats": [
+        1,
+        100,
+        50,
+        1,
+        3,
+        1
+      ]
+    },
+    {
+      "offset": 281,
+      "text": "ec_stock_viewport_size",
+      "taggedFloats": []
+    },
+    {
+      "offset": 328,
+      "text": "ec_stock_viewport_size",
+      "taggedFloats": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "offset": 486,
+      "text": "world",
+      "taggedFloats": [
+        100,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 581,
+      "text": "sector",
+      "taggedFloats": []
+    },
+    {
+      "offset": 589,
+      "text": "World",
+      "taggedFloats": []
+    },
+    {
+      "offset": 596,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        10,
+        1000,
+        2,
+        -25,
+        -247.1142,
+        -25,
+        28.8522,
+        25,
+        105.8755
+      ]
+    },
+    {
+      "offset": 728,
+      "text": "controller",
+      "taggedFloats": []
+    },
+    {
+      "offset": 740,
+      "text": "Menu Controller",
+      "taggedFloats": []
+    },
+    {
+      "offset": 763,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        3.8522,
+        -222.1142,
+        80.8755,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 926,
+      "text": "Start",
+      "taggedFloats": [
+        0.3,
+        0.05
+      ]
+    },
+    {
+      "offset": 950,
+      "text": "Back",
+      "taggedFloats": [
+        0.3,
+        0.05
+      ]
+    },
+    {
+      "offset": 973,
+      "text": "Move Up Down",
+      "taggedFloats": [
+        0.3,
+        0.05
+      ]
+    },
+    {
+      "offset": 1050,
+      "text": "Move Left Right",
+      "taggedFloats": [
+        0.3,
+        0.05
+      ]
+    },
+    {
+      "offset": 1130,
+      "text": "Primary Select",
+      "taggedFloats": [
+        0.3,
+        0.05
+      ]
+    },
+    {
+      "offset": 1196,
+      "text": "Primary Cancel",
+      "taggedFloats": [
+        0.3,
+        0.05
+      ]
+    },
+    {
+      "offset": 1262,
+      "text": "Secondary Select",
+      "taggedFloats": [
+        0.3,
+        0.05
+      ]
+    },
+    {
+      "offset": 1319,
+      "text": "Secondary Cancel",
+      "taggedFloats": [
+        0.3,
+        0.05
+      ]
+    },
+    {
+      "offset": 1376,
+      "text": "Auxiliary One",
+      "taggedFloats": [
+        0.3,
+        0.05
+      ]
+    },
+    {
+      "offset": 1408,
+      "text": "Auxiliary Two",
+      "taggedFloats": [
+        0.3,
+        0.05
+      ]
+    },
+    {
+      "offset": 1440,
+      "text": "Auxiliary Three",
+      "taggedFloats": [
+        0.3,
+        0.05
+      ]
+    },
+    {
+      "offset": 1474,
+      "text": "Auxiliary Four",
+      "taggedFloats": [
+        0.3,
+        0.05
+      ]
+    },
+    {
+      "offset": 1507,
+      "text": "Left Stick Button",
+      "taggedFloats": [
+        0.3,
+        0.05
+      ]
+    },
+    {
+      "offset": 1543,
+      "text": "Right Stick Button",
+      "taggedFloats": [
+        0.3,
+        0.05
+      ]
+    },
+    {
+      "offset": 1580,
+      "text": "Quiz Button",
+      "taggedFloats": [
+        0.3,
+        0.05
+      ]
+    },
+    {
+      "offset": 1610,
+      "text": "Home",
+      "taggedFloats": [
+        0.3,
+        0.05,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 1657,
+      "text": "sector",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1665,
+      "text": "MenuSteam",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1676,
+      "text": "OnlineMenuSectorSteam",
+      "taggedFloats": [
+        100,
+        5000,
+        2
+      ]
+    },
+    {
+      "offset": 1969,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1979,
+      "text": "Button1 Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1992,
+      "text": "CFWorldNodeOnlineButton",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2021,
+      "text": "OnlineButton",
+      "taggedFloats": [
+        -91.6466,
+        303.9822,
+        288.9569,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 2248,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2285,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2297,
+      "text": "OverlaySet Button1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2323,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        240,
+        -168,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -240,
+        -24,
+        0,
+        0,
+        0,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 2515,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        240,
+        24,
+        1,
+        1
+      ]
+    },
+    {
+      "offset": 2578,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2593,
+      "text": "SOButton1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2610,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -24,
+        12,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -208,
+        -8,
+        0,
+        0,
+        8,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 2778,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        208,
+        16,
+        1,
+        0.5,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 2865,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2882,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2899,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2942,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2958,
+      "text": "TOButton1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2975,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -24,
+        -24,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 3143,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        24,
+        24,
+        1,
+        1
+      ]
+    },
+    {
+      "offset": 3183,
+      "text": "g_Framework_Pad_PrimarySelect",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 3259,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3269,
+      "text": "Button2 Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3282,
+      "text": "CFWorldNodeOnlineButton",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3311,
+      "text": "OnlineButton",
+      "taggedFloats": [
+        -25.685,
+        303.9822,
+        284.1406,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 3538,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3575,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3587,
+      "text": "OverlaySet Button2",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3613,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        216,
+        -144,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -240,
+        -24,
+        0,
+        0,
+        0,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 3805,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        240,
+        24,
+        1,
+        1
+      ]
+    },
+    {
+      "offset": 3868,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3883,
+      "text": "SOButton2",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3900,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -24,
+        12,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -208,
+        -8,
+        0,
+        0,
+        8,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 4068,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        208,
+        16,
+        1,
+        0.5,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 4155,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4172,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4189,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4232,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4248,
+      "text": "TOButton2",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4265,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -24,
+        -24,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 4433,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        24,
+        24,
+        1,
+        1
+      ]
+    },
+    {
+      "offset": 4473,
+      "text": "g_Framework_Pad_PrimaryCancel",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 4549,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4559,
+      "text": "Button3 Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4572,
+      "text": "CFWorldNodeOnlineButton",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4601,
+      "text": "OnlineButton",
+      "taggedFloats": [
+        30.7418,
+        303.9822,
+        279.4185,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 4828,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4865,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4877,
+      "text": "OverlaySet Button3",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4903,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -240,
+        -168,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -24,
+        0,
+        240,
+        0,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 5095,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        240,
+        24,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 5158,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5173,
+      "text": "SOButton3",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5190,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        24,
+        12,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -8,
+        0,
+        208,
+        8,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 5358,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        208,
+        16,
+        0,
+        0.5,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 5445,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5462,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5479,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5522,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5538,
+      "text": "TOButton3",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5555,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -24,
+        0,
+        24,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 5723,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        24,
+        24,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 5763,
+      "text": "g_Framework_Pad_SecondarySelect",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 5841,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5851,
+      "text": "Button4 Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5864,
+      "text": "CFWorldNodeOnlineButton",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5893,
+      "text": "OnlineButton",
+      "taggedFloats": [
+        92.5668,
+        303.9822,
+        279.4185,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 6120,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6157,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6169,
+      "text": "OverlaySet Button4",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6195,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -216,
+        -144,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -24,
+        0,
+        240,
+        0,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 6387,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        240,
+        24,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 6450,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6465,
+      "text": "SOButton4",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6482,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        24,
+        12,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -8,
+        0,
+        208,
+        8,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 6650,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        208,
+        16,
+        0,
+        0.5,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 6737,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6754,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6771,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6814,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6830,
+      "text": "TOButton4",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6847,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -24,
+        0,
+        24,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 7015,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        24,
+        24,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 7055,
+      "text": "g_Framework_Pad_SecondaryCancel",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 7133,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7143,
+      "text": "Custom Match Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7161,
+      "text": "CFWorldNodeOnlineMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7188,
+      "text": "OnlineMenu",
+      "taggedFloats": [
+        170.1301,
+        -125.3846,
+        45.9091,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 7446,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7483,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7495,
+      "text": "OverlaySet Custom",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7520,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -256,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -96,
+        0,
+        320,
+        96,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 7712,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        320,
+        192,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 7775,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7790,
+      "text": "SOListing",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7807,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        96,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        320,
+        16,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 7975,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        320,
+        16,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 8062,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8079,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8096,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8139,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8149,
+      "text": "ErrorMsg Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8163,
+      "text": "CFWorldNodeOnlineMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8190,
+      "text": "OnlineMenu",
+      "taggedFloats": [
+        -172.5186,
+        -215.8818,
+        -282.4696,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 8448,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8485,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8497,
+      "text": "OverlaySet ErrorMsg",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8524,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -192,
+        -96,
+        0,
+        192,
+        96,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 8716,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        384,
+        192,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 8779,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8794,
+      "text": "SOError",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8809,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -192,
+        -64,
+        0,
+        192,
+        64,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 8977,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        384,
+        128,
+        0.5,
+        0.5,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 9065,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9082,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9099,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9142,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9152,
+      "text": "Host Settings Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9171,
+      "text": "CFWorldNodeOnlineMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9198,
+      "text": "OnlineMenu",
+      "taggedFloats": [
+        -28.0331,
+        -93.0262,
+        9.4501,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 9456,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9493,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9505,
+      "text": "OverlaySet Host Settings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9537,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -192,
+        -128,
+        0,
+        192,
+        128,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 9729,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        384,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 9792,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9807,
+      "text": "SOHostSettings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9829,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        124.9238,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -160,
+        0,
+        0,
+        160,
+        32,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 9997,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        320,
+        32,
+        0.5,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 10084,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10101,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10118,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10161,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10171,
+      "text": "InfoMsg Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10184,
+      "text": "CFWorldNodeOnlineMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10211,
+      "text": "OnlineMenu",
+      "taggedFloats": [
+        14.3183,
+        -230.4675,
+        -274.1555,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 10469,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10506,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10518,
+      "text": "OverlaySet InfoMsg",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10544,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -192,
+        -96,
+        0,
+        192,
+        96,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 10736,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        384,
+        192,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 10799,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10814,
+      "text": "SOInfo",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10828,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -192,
+        -96,
+        0,
+        192,
+        96,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 10996,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        384,
+        192,
+        0.5,
+        0.5,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 11084,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11101,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11118,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11161,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11171,
+      "text": "InGame Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11183,
+      "text": "CFWorldNodeOnlineMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11210,
+      "text": "OnlineMenu",
+      "taggedFloats": [
+        -201.9375,
+        -93.0262,
+        -189.9786,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 11468,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11505,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11517,
+      "text": "OverlaySet InGame",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11542,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -192,
+        -128,
+        0,
+        192,
+        128,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 11734,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        384,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 11797,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11812,
+      "text": "SOInGame",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11828,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        124.9238,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -160,
+        0,
+        0,
+        160,
+        32,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 11996,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        320,
+        32,
+        0.5,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 12083,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12100,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12117,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12160,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12170,
+      "text": "LAN Menu Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12184,
+      "text": "CFWorldNodeOnlineMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12211,
+      "text": "OnlineMenu",
+      "taggedFloats": [
+        -115.3946,
+        -93.0262,
+        325.0209,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 12469,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12506,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12518,
+      "text": "OverlaySet LanMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12544,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -192,
+        -128,
+        0,
+        192,
+        128,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 12736,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        384,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 12799,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12814,
+      "text": "SOLanMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12831,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        124.9238,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -160,
+        0,
+        0,
+        160,
+        32,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 12999,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        320,
+        32,
+        0.5,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 13086,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13103,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13120,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13163,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13173,
+      "text": "Lobby Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13184,
+      "text": "CFWorldNodeOnlineMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13211,
+      "text": "OnlineMenu",
+      "taggedFloats": [
+        379.3287,
+        -93.0262,
+        55.8287,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 13469,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13506,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13518,
+      "text": "OverlaySet Lobby",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13542,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -192,
+        -128,
+        0,
+        192,
+        128,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 13734,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        384,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 13797,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13812,
+      "text": "SOLobby",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13827,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        124.9238,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -160,
+        0,
+        0,
+        160,
+        12,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 13995,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        320,
+        12,
+        0.5,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 14082,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14099,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14116,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14159,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14169,
+      "text": "Main Menu Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14184,
+      "text": "CFWorldNodeOnlineMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14211,
+      "text": "OnlineMenu",
+      "taggedFloats": [
+        -449.7759,
+        -93.0262,
+        -76.0502,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 14469,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14506,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14518,
+      "text": "OverlaySet MainMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14545,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -192,
+        -128,
+        0,
+        192,
+        128,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 14737,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        384,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 14800,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14815,
+      "text": "SOMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14829,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        124.9238,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -160,
+        0,
+        0,
+        160,
+        32,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 14997,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        320,
+        32,
+        0.5,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 15084,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15101,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15118,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15161,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15171,
+      "text": "Match Info Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15187,
+      "text": "CFWorldNodeOnlineMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15214,
+      "text": "OnlineMenu",
+      "taggedFloats": [
+        218.4191,
+        -185.5843,
+        -288.9655,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 15472,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15509,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15521,
+      "text": "OverlaySet MatchInfo",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15549,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        64,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -96,
+        0,
+        128,
+        96,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 15741,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        128,
+        192,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 15804,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15819,
+      "text": "SOMatchInfo",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15838,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        128,
+        96,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -128,
+        0,
+        0,
+        0,
+        16,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 16006,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        128,
+        16,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 16093,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16110,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16127,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16170,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16180,
+      "text": "PostGame Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16194,
+      "text": "CFWorldNodeOnlineMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16221,
+      "text": "OnlineMenu",
+      "taggedFloats": [
+        726.4294,
+        -93.0262,
+        111.0391,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 16479,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16516,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16528,
+      "text": "OverlaySet PostGame",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16555,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -192,
+        -128,
+        0,
+        192,
+        128,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 16747,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        384,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 16810,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16825,
+      "text": "SOPostGame",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16843,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        124.9238,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -160,
+        0,
+        0,
+        160,
+        32,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 17011,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        320,
+        32,
+        0.5,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 17098,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17115,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17132,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17175,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17185,
+      "text": "Query Settings Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17205,
+      "text": "CFWorldNodeOnlineMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17232,
+      "text": "OnlineMenu",
+      "taggedFloats": [
+        -292.1467,
+        -93.0262,
+        -50.9774,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 17490,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17527,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17539,
+      "text": "OverlaySet QSettings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17567,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -192,
+        -128,
+        0,
+        192,
+        128,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 17759,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        384,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 17822,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17837,
+      "text": "SOQuerySettings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17860,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        124.9238,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -160,
+        0,
+        0,
+        160,
+        32,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 18028,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        320,
+        32,
+        0.5,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 18115,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18132,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18149,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18192,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18202,
+      "text": "Signins Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18215,
+      "text": "CFWorldNodeOnlineMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18242,
+      "text": "OnlineMenu",
+      "taggedFloats": [
+        538.3881,
+        309.5991,
+        460.2215,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 18500,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18537,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18549,
+      "text": "OverlaySet Signins",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18575,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        256,
+        144,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -384,
+        -16,
+        0,
+        0,
+        16,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 18767,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        384,
+        32,
+        1,
+        0.5
+      ]
+    },
+    {
+      "offset": 18830,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18845,
+      "text": "SOSignin",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18861,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -253.151,
+        -8,
+        0,
+        0,
+        8,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 19029,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        253.151,
+        16,
+        1,
+        0.5,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 19116,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19133,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19150,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19193,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19203,
+      "text": "Title Ref",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19214,
+      "text": "CFWorldNodeOnlineMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19241,
+      "text": "OnlineMenu",
+      "taggedFloats": [
+        -545.7682,
+        303.9822,
+        44.5428,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 19499,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19536,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19548,
+      "text": "OverlaySet Title",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19572,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -256,
+        144,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -16,
+        0,
+        384,
+        16,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 19764,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        384,
+        32,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 19827,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19842,
+      "text": "SOTitle",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19857,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -8,
+        0,
+        240,
+        8,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 20025,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        240,
+        16,
+        0,
+        0.5,
+        0,
+        0,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 20112,
+      "text": "LucidaConsole",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20129,
+      "text": "OnlineStrings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20146,
+      "text": "ACTION1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20189,
+      "text": "basicnodes",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20203,
+      "text": "noderefs",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20215,
+      "text": "end",
+      "taggedFloats": []
+    }
+  ]
+}

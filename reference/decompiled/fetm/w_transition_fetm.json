@@ -1,0 +1,3462 @@
+{
+  "fileName": "w_transition_fetm.pc",
+  "fetmName": "w_transition.fetm",
+  "sizeBytes": 29324,
+  "authorAndDate": "11/10/2012 at 14:23:17 by Pascal-L",
+  "entityClassSummary": {
+    "ec_stock_World_Rendering_Options": 1,
+    "ec_stock_viewport_size": 2,
+    "CRotastic_MenuPage_TransitionLoading": 1
+  },
+  "totalStrings": 368,
+  "nodes": [
+    {
+      "offset": 3,
+      "text": "11/10/2012 at 14:23:17 by Pascal-L",
+      "taggedFloats": []
+    },
+    {
+      "offset": 41,
+      "text": "ec_stock_World_Rendering_Options",
+      "taggedFloats": [
+        1,
+        100,
+        50,
+        1,
+        3,
+        1
+      ]
+    },
+    {
+      "offset": 281,
+      "text": "ec_stock_viewport_size",
+      "taggedFloats": []
+    },
+    {
+      "offset": 328,
+      "text": "ec_stock_viewport_size",
+      "taggedFloats": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "offset": 486,
+      "text": "world",
+      "taggedFloats": [
+        100,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 581,
+      "text": "sector",
+      "taggedFloats": []
+    },
+    {
+      "offset": 589,
+      "text": "World",
+      "taggedFloats": []
+    },
+    {
+      "offset": 596,
+      "text": "Framework_Transition_Mode",
+      "taggedFloats": [
+        10,
+        1000,
+        2,
+        -61.7604,
+        -25,
+        -91.6679,
+        0,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 774,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 784,
+      "text": "TransitionType_Blank_LoadGame",
+      "taggedFloats": []
+    },
+    {
+      "offset": 815,
+      "text": "blitztech::framework::transition::CTransition_Static",
+      "taggedFloats": []
+    },
+    {
+      "offset": 873,
+      "text": "Framework_Transition_Static",
+      "taggedFloats": [
+        0,
+        0.3,
+        0.5,
+        -29.109,
+        0,
+        -66.6679,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 1131,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1166,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1176,
+      "text": "TransitionType_ExitGame_NoFade",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1208,
+      "text": "blitztech::framework::transition::CTransition_Static",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1266,
+      "text": "Framework_Transition_Static",
+      "taggedFloats": [
+        0,
+        0.5,
+        0,
+        -29.109,
+        0,
+        -66.6679,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 1524,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1559,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1569,
+      "text": "TransitionType_Hint_Frontend",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1599,
+      "text": "blitztech::framework::transition::CTransition_SingleHint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1661,
+      "text": "Framework_Transition_SingleHint",
+      "taggedFloats": [
+        3,
+        0.5,
+        0.5,
+        -36.7604,
+        0,
+        -66.6679,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 1916,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1951,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1961,
+      "text": "TransitionType_Hint_GameLocal",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1992,
+      "text": "blitztech::framework::transition::CTransition_SingleHint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2054,
+      "text": "Framework_Transition_SingleHint",
+      "taggedFloats": [
+        3,
+        0.5,
+        0.5,
+        -36.7604,
+        0,
+        -66.6679,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 2309,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2344,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2354,
+      "text": "TransitionType_Hint_GameOnline",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2386,
+      "text": "blitztech::framework::transition::CTransition_SingleHint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2448,
+      "text": "Framework_Transition_SingleHint",
+      "taggedFloats": [
+        3,
+        0.5,
+        0.5,
+        -36.7604,
+        0,
+        -66.6679,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 2703,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2738,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2748,
+      "text": "TransitionType_Hint_Level",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2775,
+      "text": "blitztech::framework::transition::CTransition_SingleHint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2837,
+      "text": "Framework_Transition_SingleHint",
+      "taggedFloats": [
+        2,
+        0.5,
+        0.5,
+        -36.7604,
+        0,
+        -66.6679,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 3092,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3127,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3137,
+      "text": "TransitionType_Quick",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3159,
+      "text": "blitztech::framework::transition::CTransition_Quick",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3216,
+      "text": "Framework_Transition_Quick",
+      "taggedFloats": [
+        0,
+        0.3,
+        0.5,
+        -36.7604,
+        0,
+        -66.6679,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 3466,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3501,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3511,
+      "text": "TransitionType_SingleHint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3538,
+      "text": "blitztech::framework::transition::CTransition_SingleHint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3600,
+      "text": "Framework_Transition_SingleHint",
+      "taggedFloats": [
+        3,
+        0.5,
+        0.5,
+        -36.7604,
+        0,
+        -66.6679,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 3855,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3890,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3900,
+      "text": "TransitionType_Video",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3922,
+      "text": "blitztech::framework::transition::CTransition_Video",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3979,
+      "text": "Framework_Transition_Video",
+      "taggedFloats": [
+        0,
+        0.5,
+        0.5,
+        -36.7604,
+        0,
+        -66.6679,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 4233,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4268,
+      "text": "sector",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4276,
+      "text": "TransitionPages",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4293,
+      "text": "Framework_Menu_Sector",
+      "taggedFloats": [
+        100,
+        5000,
+        2,
+        -1134.4114,
+        -553.3605,
+        -2341.4763,
+        2209.2529,
+        1935.9601,
+        82.5241
+      ]
+    },
+    {
+      "offset": 4488,
+      "text": "camera",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4496,
+      "text": "Camera001",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4513,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        540,
+        -2317.6499,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 4662,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4696,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        10000
+      ]
+    },
+    {
+      "offset": 4816,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0.7854,
+        15,
+        2317.6499
+      ]
+    },
+    {
+      "offset": 4868,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4878,
+      "text": "Menu Properties",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4901,
+      "text": "Framework_Menu_Properties",
+      "taggedFloats": [
+        35.0154,
+        4352.8394,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 5165,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5202,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5214,
+      "text": "Common Buttons",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5236,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -640,
+        -360,
+        0,
+        640,
+        360,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 5428,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1280,
+        720,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 5491,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5509,
+      "text": "CommonButtons_00_Primary",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5541,
+      "text": "Framework_MenuButton",
+      "taggedFloats": [
+        362.4662,
+        -287,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -115,
+        -10,
+        0,
+        115,
+        10,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 5752,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        230,
+        20,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 5800,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5816,
+      "text": "CommonButtons_00_Primary_Img",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5852,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        90,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -17.5,
+        -17.5,
+        0,
+        17.5,
+        17.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 6020,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        35,
+        35,
+        0.5,
+        0.5,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 6100,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6115,
+      "text": "CommonButtons_00_Primary_Str",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6151,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -20,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -80,
+        -12.5,
+        0,
+        80,
+        12.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 6319,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        160,
+        25,
+        0.5,
+        0.5,
+        0,
+        1.5,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 6406,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6464,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6482,
+      "text": "CommonButtons_01_Secondary",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6516,
+      "text": "Framework_MenuButton",
+      "taggedFloats": [
+        400,
+        -252,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -115,
+        -10,
+        0,
+        115,
+        10,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 6727,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        230,
+        20,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 6775,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6791,
+      "text": "CommonButtons_01_Secondary_Img",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6829,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        90,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -17.5,
+        -17.5,
+        0,
+        17.5,
+        17.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 6997,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        35,
+        35,
+        0.5,
+        0.5,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 7077,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7092,
+      "text": "CommonButtons_01_Secondary_Str",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7130,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -20,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -80,
+        -12.5,
+        0,
+        80,
+        12.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 7298,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        160,
+        25,
+        0.5,
+        0.5,
+        0,
+        1.5,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 7385,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7443,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7461,
+      "text": "CommonButtons_02_Tertiary",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7494,
+      "text": "Framework_MenuButton",
+      "taggedFloats": [
+        -360,
+        -287,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -115,
+        -10,
+        0,
+        115,
+        10,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 7705,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        230,
+        20,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 7753,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7769,
+      "text": "CommonButtons_02_Tertiary_Img",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7806,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -90,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -17.5,
+        -17.5,
+        0,
+        17.5,
+        17.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 7974,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        35,
+        35,
+        0.5,
+        0.5,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 8054,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8069,
+      "text": "CommonButtons_02_Tertiary_Str",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8106,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        20,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -80,
+        -12.5,
+        0,
+        80,
+        12.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 8274,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        160,
+        25,
+        0.5,
+        0.5,
+        0,
+        1.5,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 8361,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8419,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8437,
+      "text": "CommonButtons_03_Quaternary",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8472,
+      "text": "Framework_MenuButton",
+      "taggedFloats": [
+        -400,
+        -252,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -115,
+        -10,
+        0,
+        115,
+        10,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 8683,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        230,
+        20,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 8731,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8747,
+      "text": "CommonButtons_03_Quaternary_Img",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8786,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -90,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -17.5,
+        -17.5,
+        0,
+        17.5,
+        17.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 8954,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        35,
+        35,
+        0.5,
+        0.5,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 9034,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9049,
+      "text": "CommonButtons_03_Quaternary_Str",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9088,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        20,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -80,
+        -12.5,
+        0,
+        80,
+        12.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 9256,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        160,
+        25,
+        0.5,
+        0.5,
+        0,
+        1.5,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 9343,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9401,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9419,
+      "text": "CommonButtons_04_RightShoulder",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9457,
+      "text": "Framework_MenuButton",
+      "taggedFloats": [
+        400,
+        -217,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -115,
+        -10,
+        0,
+        115,
+        10,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 9668,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        230,
+        20,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 9716,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9732,
+      "text": "CommonButtons_04_RShoulder_Img",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9770,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        90,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -17.5,
+        -17.5,
+        0,
+        17.5,
+        17.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 9938,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        35,
+        35,
+        0.5,
+        0.5,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 10018,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10033,
+      "text": "CommonButtons_04_RShoulder_Str",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10071,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -20,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -80,
+        -12.5,
+        0,
+        80,
+        12.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 10239,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        160,
+        25,
+        0.5,
+        0.5,
+        0,
+        1.5,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 10326,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10384,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10402,
+      "text": "CommonButtons_05_LeftShoulder",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10439,
+      "text": "Framework_MenuButton",
+      "taggedFloats": [
+        -400,
+        -217,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -115,
+        -10,
+        0,
+        115,
+        10,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 10650,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        230,
+        20,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 10698,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10714,
+      "text": "CommonButtons_05_LShoulder_Img",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10752,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -90,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -17.5,
+        -17.5,
+        0,
+        17.5,
+        17.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 10920,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        35,
+        35,
+        0.5,
+        0.5,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 11000,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11015,
+      "text": "CommonButtons_05_LShoulder_Str",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11053,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        20,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -80,
+        -12.5,
+        0,
+        80,
+        12.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 11221,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        160,
+        25,
+        0.5,
+        0.5,
+        0,
+        1.5,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 11308,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11366,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11384,
+      "text": "CommonButtons_06_AuxiliaryThree",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11423,
+      "text": "Framework_MenuButton",
+      "taggedFloats": [
+        -400,
+        -217,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -115,
+        -10,
+        0,
+        115,
+        10,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 11634,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        230,
+        20,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 11682,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11698,
+      "text": "CommonButtons_06_AThree_Img",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11733,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -90,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -17.5,
+        -17.5,
+        0,
+        17.5,
+        17.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 11901,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        35,
+        35,
+        0.5,
+        0.5,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 11981,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11996,
+      "text": "CommonButtons_06_AThree_Str",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12031,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        20,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -80,
+        -12.5,
+        0,
+        80,
+        12.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 12199,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        160,
+        25,
+        0.5,
+        0.5,
+        0,
+        1.5,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 12286,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12344,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12362,
+      "text": "CommonButtons_07_AuxiliaryFour",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12400,
+      "text": "Framework_MenuButton",
+      "taggedFloats": [
+        400,
+        -217,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -115,
+        -10,
+        0,
+        115,
+        10,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 12611,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        230,
+        20,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 12659,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12675,
+      "text": "CommonButtons_07_AFour_Img",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12709,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        90,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -17.5,
+        -17.5,
+        0,
+        17.5,
+        17.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 12877,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        35,
+        35,
+        0.5,
+        0.5,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 12957,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12972,
+      "text": "CommonButtons_07_AFour_Str",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13006,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -20,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -80,
+        -12.5,
+        0,
+        80,
+        12.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 13174,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        160,
+        25,
+        0.5,
+        0.5,
+        0,
+        1.5,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 13261,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13319,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13337,
+      "text": "CommonButtons_Banner",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13365,
+      "text": "Framework_MenuButton_Banner",
+      "taggedFloats": [
+        0,
+        -330,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -640,
+        -125,
+        0,
+        640,
+        125,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 13567,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1280,
+        250,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 13615,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13631,
+      "text": "CommonButtons_Banner_Background",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13670,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        3.7968,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -640,
+        -128.7968,
+        0,
+        640,
+        128.7968,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 13838,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1280,
+        257.5936,
+        0.5,
+        0.5,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 13918,
+      "text": "datatable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13929,
+      "text": "Default Button Glyphs",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13958,
+      "text": "Framework_MenuButton_ImageList",
+      "taggedFloats": [
+        2271.1523,
+        -1453.5389,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 14151,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14207,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14263,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14319,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14375,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14431,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14487,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14543,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14599,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14655,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14711,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14767,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14823,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14879,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14935,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14991,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15047,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15103,
+      "text": "Framework_MenuButton_Image",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15165,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15175,
+      "text": "Default Menu Actions",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15203,
+      "text": "Framework_MenuDefaultActions",
+      "taggedFloats": [
+        0,
+        0.2,
+        0.2
+      ]
+    },
+    {
+      "offset": 17850,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17885,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17895,
+      "text": "Default Menu Flows",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17921,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1684.3992,
+        0,
+        -1148.9708,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 18113,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18150,
+      "text": "datatable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18161,
+      "text": "MainMenuPageFlow",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18185,
+      "text": "Framework_Menu_MenuFlow",
+      "taggedFloats": [
+        1792.3837,
+        0,
+        -1163.2277,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 18373,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18425,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18483,
+      "text": "datatable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18494,
+      "text": "MultiplayerPageFlow",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18521,
+      "text": "Framework_Menu_MenuFlow",
+      "taggedFloats": [
+        1792.3837,
+        0,
+        -1163.2277,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 18709,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18761,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18813,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18871,
+      "text": "datatable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18882,
+      "text": "OnlineErrorPageFlow",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18909,
+      "text": "Framework_Menu_MenuFlow",
+      "taggedFloats": [
+        1792.3837,
+        0,
+        -1163.2277,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 19097,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19149,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19201,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19253,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19305,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19357,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19409,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19467,
+      "text": "datatable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19478,
+      "text": "OnlineLobbyPageFlow",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19505,
+      "text": "Framework_Menu_MenuFlow",
+      "taggedFloats": [
+        1792.3837,
+        0,
+        -1163.2277,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 19693,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19745,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19797,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19849,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19901,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19959,
+      "text": "datatable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19970,
+      "text": "OnlineMainMenuPageFlow",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20000,
+      "text": "Framework_Menu_MenuFlow",
+      "taggedFloats": [
+        1792.3837,
+        0,
+        -1163.2277,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 20188,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20240,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20292,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20344,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20402,
+      "text": "datatable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20413,
+      "text": "OnlineMessagePageFlow",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20442,
+      "text": "Framework_Menu_MenuFlow",
+      "taggedFloats": [
+        1792.3837,
+        0,
+        -1163.2277,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 20630,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20682,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20734,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20786,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20838,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20890,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20942,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21000,
+      "text": "datatable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21011,
+      "text": "OnlinePostLobbyPageFlow",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21042,
+      "text": "Framework_Menu_MenuFlow",
+      "taggedFloats": [
+        1792.3837,
+        0,
+        -1163.2277,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 21230,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21282,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21334,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21386,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21438,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21490,
+      "text": "Framework_Menu_MenuFlow_Entry",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21548,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21560,
+      "text": "Default Menu Highlights",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21591,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -215.6809,
+        100.3116,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -63.3838,
+        -26.7278,
+        0,
+        63.3838,
+        26.7278,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 21783,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        126.7675,
+        53.4556,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 21846,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21862,
+      "text": "CommonHighlight_01",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21882,
+      "text": "blitztech::framework::menu::HighLight",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21925,
+      "text": "Framework_Menu_HighLight",
+      "taggedFloats": [
+        416.4189,
+        -184.0897,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -225,
+        -14.7225,
+        0,
+        225,
+        14.7225,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 22150,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        450,
+        29.445,
+        0.5,
+        0.5,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 22232,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22248,
+      "text": "CommonHighlight_01_Left_Single",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22286,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -225,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -7.5,
+        -7.5,
+        0,
+        7.5,
+        7.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 22454,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        15,
+        15,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 22494,
+      "text": "Framework_Menu_Highlight_White",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 22571,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22587,
+      "text": "CommonHighlight_01_Right_Single",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22626,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        225,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -7.5,
+        -7.5,
+        0,
+        7.5,
+        7.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 22794,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        15,
+        15,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 22834,
+      "text": "Framework_Menu_Highlight_White",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 22911,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22923,
+      "text": "TP_004_LoadGame_Blank",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22946,
+      "text": "blitztech::framework::menu::MenuPage_TransitionPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23003,
+      "text": "Framework_MenuPage_TransitionPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23891,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 23954,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23969,
+      "text": "BlankLoadingMessage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23996,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        -167.6836,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -450,
+        -12.5746,
+        0,
+        450,
+        12.5746,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 24164,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        900,
+        25.1492,
+        0.5,
+        0.5,
+        0,
+        0,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 24251,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 24269,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 24290,
+      "text": "LOAD_LOADING",
+      "taggedFloats": []
+    },
+    {
+      "offset": 24340,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 24356,
+      "text": "BlankLoadingBar",
+      "taggedFloats": []
+    },
+    {
+      "offset": 24379,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        -35,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -20,
+        -20,
+        0,
+        20,
+        20,
+        0,
+        0,
+        0,
+        360,
+        0.7,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 24613,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        40,
+        40,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 24653,
+      "text": "t_Framework_LoadingIcon",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 24723,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 24735,
+      "text": "TP_005_LoadGame_RotasticHint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 24765,
+      "text": "CRotastic_MenuPage_TransitionLoading",
+      "taggedFloats": []
+    },
+    {
+      "offset": 24807,
+      "text": "Rotastic_MenuPage_TransitionLoading",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25631,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 25694,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25709,
+      "text": "01_Rotastic_Tips_Desc",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25738,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -302.1181,
+        -325.9099,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -600,
+        -150,
+        0,
+        600,
+        150,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 25906,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1200,
+        300,
+        0.5,
+        0.5,
+        0,
+        3,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 25994,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 26052,
+      "text": "prop",
+      "taggedFloats": []
+    },
+    {
+      "offset": 26058,
+      "text": "Help_Generic",
+      "taggedFloats": []
+    },
+    {
+      "offset": 26078,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        815.8767,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -1047.5118,
+        -271.36,
+        1037.4268,
+        1133.4438,
+        0
+      ]
+    },
+    {
+      "offset": 26227,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 26261,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 26309,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 26392,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0
+      ]
+    },
+    {
+      "offset": 26507,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        10000
+      ]
+    },
+    {
+      "offset": 26620,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0.01,
+        0.0025
+      ]
+    },
+    {
+      "offset": 26673,
+      "text": "o_help_generic",
+      "taggedFloats": [
+        0
+      ]
+    },
+    {
+      "offset": 26698,
+      "text": "<nomesh>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 26719,
+      "text": "<nomesh>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 26731,
+      "text": "<noanimtree>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 26761,
+      "text": "<nomesh>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 26773,
+      "text": "<nomesh>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 26793,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 26808,
+      "text": "RotasticHint_LoadingMessage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 26843,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        660.2858,
+        -411.163,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -250,
+        -50,
+        0,
+        250,
+        50,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 27011,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        500,
+        100,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.6,
+        0.6,
+        0
+      ]
+    },
+    {
+      "offset": 27098,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27116,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27137,
+      "text": "LOAD_LOADING",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27187,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27203,
+      "text": "RotasticHint_Loading",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27231,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        99.6737,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -32,
+        -32,
+        0,
+        32,
+        32,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 27399,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        64,
+        64,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 27439,
+      "text": "t_LoadR02_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 27497,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27513,
+      "text": "RotasticHint_LoadingBar",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27544,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        99.6737,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -64,
+        -64,
+        0,
+        64,
+        64,
+        0,
+        0,
+        0,
+        360,
+        0.7,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 27778,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        128,
+        128,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 27818,
+      "text": "t_LoadCercle01_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 27881,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27897,
+      "text": "RotasticLoading_BG",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27923,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 28091,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 28131,
+      "text": "t_Menu_Loading_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 28194,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 28206,
+      "text": "Transition Components",
+      "taggedFloats": []
+    },
+    {
+      "offset": 28235,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 28427,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 28490,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 28505,
+      "text": "Loading Message",
+      "taggedFloats": []
+    },
+    {
+      "offset": 28528,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        -240,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -450,
+        -12.5746,
+        0,
+        450,
+        12.5746,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 28747,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        900,
+        25.1492,
+        0.5,
+        0.5,
+        0,
+        0,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 28834,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 28852,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 28873,
+      "text": "LOAD_LOADING",
+      "taggedFloats": []
+    },
+    {
+      "offset": 28923,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 28939,
+      "text": "LoadingBar",
+      "taggedFloats": []
+    },
+    {
+      "offset": 28957,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        -35,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -20,
+        -20,
+        0,
+        20,
+        20,
+        0,
+        0,
+        0,
+        360,
+        0.7,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 29191,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        40,
+        40,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 29231,
+      "text": "t_LoadCercle02_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 29294,
+      "text": "basicnodes",
+      "taggedFloats": []
+    },
+    {
+      "offset": 29308,
+      "text": "noderefs",
+      "taggedFloats": []
+    },
+    {
+      "offset": 29320,
+      "text": "end",
+      "taggedFloats": []
+    }
+  ]
+}

@@ -1,0 +1,3952 @@
+{
+  "package": "w_loca_refm.pc",
+  "entries": [
+    {
+      "name": "refdata_worldnoderefpoint_0x7d192771",
+      "hash": "0x09BBD2E7",
+      "sizeBytes": 1316,
+      "versionOrDepth": 15,
+      "instanceHash": "0x5D09B663",
+      "magic": "0x743BC4A1",
+      "classTypeHash": "0x7D192771",
+      "propCount": 43,
+      "propTableOffset": 88,
+      "valuePoolOffset": 1060,
+      "properties": [
+        {
+          "index": 0,
+          "propHash": "0x1410EDDC",
+          "propType": 8,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 1,
+          "propHash": "0xFE6A38CD",
+          "propType": 9,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x00000001",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 2,
+          "propHash": "0xF6022F79",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 3,
+          "propHash": "0x37A53C97",
+          "propType": 10,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF20",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 4,
+          "propHash": "0xB883FC69",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 5,
+          "propHash": "0xA0C804BA",
+          "propType": 27,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 6,
+          "propHash": "0x7E3F5D64",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 7,
+          "propHash": "0xD6BFCB92",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 8,
+          "propHash": "0xBAC031C1",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 9,
+          "propHash": "0xDF4DEED3",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 10,
+          "propHash": "0xF6B3C8F0",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 11,
+          "propHash": "0x8962F99C",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 12,
+          "propHash": "0xB7D70B03",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 13,
+          "propHash": "0xBD0F8C61",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 14,
+          "propHash": "0x175C63BC",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 15,
+          "propHash": "0x754B9A57",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 16,
+          "propHash": "0x8D50072A",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 17,
+          "propHash": "0x8C26E782",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 18,
+          "propHash": "0xC1BA0AFF",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 19,
+          "propHash": "0xFB7E52F7",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 20,
+          "propHash": "0x55CFA29D",
+          "propType": 26,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF0A",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 21,
+          "propHash": "0x9FCCFCD0",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 948
+        },
+        {
+          "index": 22,
+          "propHash": "0x716ECBFF",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 964
+        },
+        {
+          "index": 23,
+          "propHash": "0xAF8BB30F",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 24,
+          "propHash": "0x06D3CF73",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 25,
+          "propHash": "0xD5C1843E",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 26,
+          "propHash": "0xB72CB183",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 980
+        },
+        {
+          "index": 27,
+          "propHash": "0x443BC580",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 996
+        },
+        {
+          "index": 28,
+          "propHash": "0x9D57B38B",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1012
+        },
+        {
+          "index": 29,
+          "propHash": "0x498B73B2",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1028
+        },
+        {
+          "index": 30,
+          "propHash": "0x723D52FC",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 31,
+          "propHash": "0xC3B8851B",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 32,
+          "propHash": "0x599617AC",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1044
+        },
+        {
+          "index": 33,
+          "propHash": "0xB4C0BCB8",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 34,
+          "propHash": "0xE4E2B854",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 35,
+          "propHash": "0x8142D832",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 36,
+          "propHash": "0x8C01FEEB",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 37,
+          "propHash": "0x88C0E35C",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 38,
+          "propHash": "0x9687B359",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 39,
+          "propHash": "0x4DC8828A",
+          "propType": 8,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 40,
+          "propHash": "0x035CF088",
+          "propType": 9,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x00000001",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 41,
+          "propHash": "0xC7862C7D",
+          "propType": 9,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x00000101",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 42,
+          "propHash": "0xB09AD9D1",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        }
+      ],
+      "extractedStrings": [],
+      "candidateFloats": []
+    },
+    {
+      "name": "refdata_framework_base_mode_0x234a19f7",
+      "hash": "0x19071D87",
+      "sizeBytes": 168,
+      "versionOrDepth": 5,
+      "instanceHash": "0xA9711890",
+      "magic": "0x3B2807E4",
+      "classTypeHash": "0x234A19F7",
+      "propCount": 2,
+      "propTableOffset": 88,
+      "valuePoolOffset": 152,
+      "properties": [
+        {
+          "index": 0,
+          "propHash": "0xD11B1879",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 770,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 128
+        },
+        {
+          "index": 1,
+          "propHash": "0x069A6FB4",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 770,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 140
+        }
+      ],
+      "extractedStrings": [],
+      "candidateFloats": []
+    },
+    {
+      "name": "refdata_worldnodestringoverlay_0x67f383db",
+      "hash": "0x270903D1",
+      "sizeBytes": 2324,
+      "versionOrDepth": 15,
+      "instanceHash": "0x9FF6AE81",
+      "magic": "0x743BC4A1",
+      "classTypeHash": "0x67F383DB",
+      "propCount": 66,
+      "propTableOffset": 88,
+      "valuePoolOffset": 1812,
+      "properties": [
+        {
+          "index": 0,
+          "propHash": "0x1410EDDC",
+          "propType": 8,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 1,
+          "propHash": "0xFE6A38CD",
+          "propType": 9,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x00000001",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 2,
+          "propHash": "0xF6022F79",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 3,
+          "propHash": "0x37A53C97",
+          "propType": 10,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF20",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 4,
+          "propHash": "0xB883FC69",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 5,
+          "propHash": "0xA0C804BA",
+          "propType": 27,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 6,
+          "propHash": "0x7E3F5D64",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 7,
+          "propHash": "0xD6BFCB92",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 8,
+          "propHash": "0xBAC031C1",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 9,
+          "propHash": "0xDF4DEED3",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 10,
+          "propHash": "0xF6B3C8F0",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 11,
+          "propHash": "0x8962F99C",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 12,
+          "propHash": "0xB7D70B03",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 13,
+          "propHash": "0xBD0F8C61",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 14,
+          "propHash": "0x175C63BC",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 15,
+          "propHash": "0x754B9A57",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 16,
+          "propHash": "0x8D50072A",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 17,
+          "propHash": "0x8C26E782",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 18,
+          "propHash": "0xC1BA0AFF",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 19,
+          "propHash": "0xFB7E52F7",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 20,
+          "propHash": "0x55CFA29D",
+          "propType": 26,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF0A",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 21,
+          "propHash": "0x5EA26F95",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 22,
+          "propHash": "0x956AD436",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1408
+        },
+        {
+          "index": 23,
+          "propHash": "0xD43D4E43",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1424
+        },
+        {
+          "index": 24,
+          "propHash": "0xD0FC53F4",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1440
+        },
+        {
+          "index": 25,
+          "propHash": "0xDDBF752D",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1456
+        },
+        {
+          "index": 26,
+          "propHash": "0xFFD271B6",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1472
+        },
+        {
+          "index": 27,
+          "propHash": "0xFB136C01",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1488
+        },
+        {
+          "index": 28,
+          "propHash": "0xF6504AD8",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1504
+        },
+        {
+          "index": 29,
+          "propHash": "0x837165EE",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1520
+        },
+        {
+          "index": 30,
+          "propHash": "0x87B07859",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1536
+        },
+        {
+          "index": 31,
+          "propHash": "0x30800EDC",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1552
+        },
+        {
+          "index": 32,
+          "propHash": "0xAED9AEF0",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1568
+        },
+        {
+          "index": 33,
+          "propHash": "0x44B77330",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 34,
+          "propHash": "0x72581CC0",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 35,
+          "propHash": "0xDF6D9D11",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 36,
+          "propHash": "0x0C1F89D1",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 37,
+          "propHash": "0x42DC24A2",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1584
+        },
+        {
+          "index": 38,
+          "propHash": "0x461D3915",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1600
+        },
+        {
+          "index": 39,
+          "propHash": "0x8F2BC49F",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 40,
+          "propHash": "0x20F97076",
+          "propType": 16,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 41,
+          "propHash": "0x1CCFE9F4",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1616
+        },
+        {
+          "index": 42,
+          "propHash": "0x5FBF1999",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 770,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1632
+        },
+        {
+          "index": 43,
+          "propHash": "0x5FD979C5",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 770,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1644
+        },
+        {
+          "index": 44,
+          "propHash": "0xE664BBEC",
+          "propType": 24,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 45,
+          "propHash": "0x69330523",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 770,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1656
+        },
+        {
+          "index": 46,
+          "propHash": "0x30EDDDA8",
+          "propType": 13,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1668
+        },
+        {
+          "index": 47,
+          "propHash": "0x68830339",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 48,
+          "propHash": "0x31EB18F3",
+          "propType": 16,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 49,
+          "propHash": "0xF82749A6",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 50,
+          "propHash": "0x703FB5CD",
+          "propType": 13,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1684
+        },
+        {
+          "index": 51,
+          "propHash": "0x00F8E8ED",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 52,
+          "propHash": "0x05BFCEA7",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 53,
+          "propHash": "0x01A9EC5D",
+          "propType": 13,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1700
+        },
+        {
+          "index": 54,
+          "propHash": "0xE7A7AAD0",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1716
+        },
+        {
+          "index": 55,
+          "propHash": "0xCBB20A1E",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 56,
+          "propHash": "0x3A22FE91",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 57,
+          "propHash": "0x66901007",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 58,
+          "propHash": "0xE27AE8E6",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1732
+        },
+        {
+          "index": 59,
+          "propHash": "0xE6BBF551",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1748
+        },
+        {
+          "index": 60,
+          "propHash": "0x743EEA5E",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1764
+        },
+        {
+          "index": 61,
+          "propHash": "0x2008E112",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1780
+        },
+        {
+          "index": 62,
+          "propHash": "0x624ACFF4",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 63,
+          "propHash": "0x2E1FF4CF",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1796
+        },
+        {
+          "index": 64,
+          "propHash": "0xD3D37A08",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 65,
+          "propHash": "0x258D9AED",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        }
+      ],
+      "extractedStrings": [],
+      "candidateFloats": []
+    },
+    {
+      "name": "refdata_ec_stock_world_rendering_options_0xc6bfce61",
+      "hash": "0x4C7D2697",
+      "sizeBytes": 2708,
+      "versionOrDepth": 15,
+      "instanceHash": "0x7EAEB179",
+      "magic": "0x743BC4A1",
+      "classTypeHash": "0xC6BFCE61",
+      "propCount": 73,
+      "propTableOffset": 88,
+      "valuePoolOffset": 2196,
+      "properties": [
+        {
+          "index": 0,
+          "propHash": "0xFDB47DB5",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 1,
+          "propHash": "0x913FBDA5",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 2,
+          "propHash": "0x1E8EF26A",
+          "propType": 13,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1548
+        },
+        {
+          "index": 3,
+          "propHash": "0xC64053AB",
+          "propType": 13,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1564
+        },
+        {
+          "index": 4,
+          "propHash": "0x5BDC4D41",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 5,
+          "propHash": "0xBCF2F9A0",
+          "propType": 3,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1580
+        },
+        {
+          "index": 6,
+          "propHash": "0xADABF93B",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 7,
+          "propHash": "0xE2263BED",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1596
+        },
+        {
+          "index": 8,
+          "propHash": "0xDCC16AC8",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1612
+        },
+        {
+          "index": 9,
+          "propHash": "0x343B5146",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 10,
+          "propHash": "0x0E698C48",
+          "propType": 2,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1628
+        },
+        {
+          "index": 11,
+          "propHash": "0xB57EF5EB",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 12,
+          "propHash": "0x9991DA21",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 13,
+          "propHash": "0x9E939CFF",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1644
+        },
+        {
+          "index": 14,
+          "propHash": "0x9C8ACD77",
+          "propType": 7,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1656
+        },
+        {
+          "index": 15,
+          "propHash": "0xD66CF7AA",
+          "propType": 3,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1672
+        },
+        {
+          "index": 16,
+          "propHash": "0xE775369C",
+          "propType": 3,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1688
+        },
+        {
+          "index": 17,
+          "propHash": "0xB745DEDA",
+          "propType": 7,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1704
+        },
+        {
+          "index": 18,
+          "propHash": "0xEBF12AA2",
+          "propType": 7,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1720
+        },
+        {
+          "index": 19,
+          "propHash": "0xADAABE8E",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1736
+        },
+        {
+          "index": 20,
+          "propHash": "0x17677ED6",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 21,
+          "propHash": "0xFE727035",
+          "propType": 3,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1748
+        },
+        {
+          "index": 22,
+          "propHash": "0x629BF972",
+          "propType": 3,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1764
+        },
+        {
+          "index": 23,
+          "propHash": "0x3A3DAACB",
+          "propType": 3,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1780
+        },
+        {
+          "index": 24,
+          "propHash": "0x3A5DA992",
+          "propType": 3,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1796
+        },
+        {
+          "index": 25,
+          "propHash": "0xC74A9E57",
+          "propType": 3,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1812
+        },
+        {
+          "index": 26,
+          "propHash": "0x0DB0B2AE",
+          "propType": 3,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1828
+        },
+        {
+          "index": 27,
+          "propHash": "0x7B624C9E",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 28,
+          "propHash": "0x874333F6",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 29,
+          "propHash": "0xCC800BB9",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 30,
+          "propHash": "0xB4D62AFA",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 31,
+          "propHash": "0x91A070E8",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 32,
+          "propHash": "0x864AF4CC",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 33,
+          "propHash": "0xD8ACC468",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1844
+        },
+        {
+          "index": 34,
+          "propHash": "0x3611859F",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1860
+        },
+        {
+          "index": 35,
+          "propHash": "0x1025763E",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1876
+        },
+        {
+          "index": 36,
+          "propHash": "0x067C3229",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1892
+        },
+        {
+          "index": 37,
+          "propHash": "0xFB565C53",
+          "propType": 3,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1908
+        },
+        {
+          "index": 38,
+          "propHash": "0x02C2C683",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 39,
+          "propHash": "0x057C68EA",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1924
+        },
+        {
+          "index": 40,
+          "propHash": "0xC518A345",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 41,
+          "propHash": "0x18256B26",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 42,
+          "propHash": "0x9E58E0EF",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 43,
+          "propHash": "0xB5C367FB",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 44,
+          "propHash": "0x1478754D",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 45,
+          "propHash": "0xF9EEC103",
+          "propType": 5,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1936
+        },
+        {
+          "index": 46,
+          "propHash": "0xBF551166",
+          "propType": 5,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1952
+        },
+        {
+          "index": 47,
+          "propHash": "0xA7E80EEA",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1968
+        },
+        {
+          "index": 48,
+          "propHash": "0xA14FF0B6",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1980
+        },
+        {
+          "index": 49,
+          "propHash": "0xBA32AB21",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1992
+        },
+        {
+          "index": 50,
+          "propHash": "0xD158BF9E",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 2004
+        },
+        {
+          "index": 51,
+          "propHash": "0xC5966CF8",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 52,
+          "propHash": "0xE3665883",
+          "propType": 28,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 53,
+          "propHash": "0x2FB82371",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 54,
+          "propHash": "0x275BEA68",
+          "propType": 3,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 2016
+        },
+        {
+          "index": 55,
+          "propHash": "0x4D7C5B7E",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 56,
+          "propHash": "0x9500B7E4",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 57,
+          "propHash": "0x9E1AF0FF",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 58,
+          "propHash": "0xFD8B24AB",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 59,
+          "propHash": "0xAB964B50",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 60,
+          "propHash": "0x8411FCDB",
+          "propType": 5,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 2032
+        },
+        {
+          "index": 61,
+          "propHash": "0x91115252",
+          "propType": 5,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 2048
+        },
+        {
+          "index": 62,
+          "propHash": "0x1BB83106",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 2064
+        },
+        {
+          "index": 63,
+          "propHash": "0x6E01890D",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 2076
+        },
+        {
+          "index": 64,
+          "propHash": "0x7974E3D4",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 2088
+        },
+        {
+          "index": 65,
+          "propHash": "0xCC78E508",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 2100
+        },
+        {
+          "index": 66,
+          "propHash": "0xD0197492",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 2112
+        },
+        {
+          "index": 67,
+          "propHash": "0x8B21652C",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 2124
+        },
+        {
+          "index": 68,
+          "propHash": "0xF8B4D4FF",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 2136
+        },
+        {
+          "index": 69,
+          "propHash": "0xFFEBBFEC",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 2148
+        },
+        {
+          "index": 70,
+          "propHash": "0x0094A00C",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 2160
+        },
+        {
+          "index": 71,
+          "propHash": "0x05DA8665",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 2172
+        },
+        {
+          "index": 72,
+          "propHash": "0xF79F930F",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 258,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 2184
+        }
+      ],
+      "extractedStrings": [],
+      "candidateFloats": []
+    },
+    {
+      "name": "refdata_ec_stock_viewport_size_0x0f4d4d24",
+      "hash": "0x4F65B102",
+      "sizeBytes": 176,
+      "versionOrDepth": 8,
+      "instanceHash": "0x8C598A99",
+      "magic": "0x743BC4A1",
+      "classTypeHash": "0x0F4D4D24",
+      "propCount": 2,
+      "propTableOffset": 88,
+      "valuePoolOffset": 160,
+      "properties": [
+        {
+          "index": 0,
+          "propHash": "0xD54AB612",
+          "propType": 3,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 128
+        },
+        {
+          "index": 1,
+          "propHash": "0xB60D2DE2",
+          "propType": 3,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 144
+        }
+      ],
+      "extractedStrings": [],
+      "candidateFloats": []
+    },
+    {
+      "name": "refdata_basenode_0x7deecd80",
+      "hash": "0x89B7B205",
+      "sizeBytes": 240,
+      "versionOrDepth": 7,
+      "instanceHash": "0xD12EE3CB",
+      "magic": "0x743BC4A1",
+      "classTypeHash": "0x7DEECD80",
+      "propCount": 6,
+      "propTableOffset": 88,
+      "valuePoolOffset": 208,
+      "properties": [
+        {
+          "index": 0,
+          "propHash": "0x1410EDDC",
+          "propType": 8,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 1,
+          "propHash": "0xFE6A38CD",
+          "propType": 9,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x00000001",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 2,
+          "propHash": "0xF6022F79",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 3,
+          "propHash": "0x37A53C97",
+          "propType": 10,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF20",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 4,
+          "propHash": "0xB883FC69",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 5,
+          "propHash": "0xA0C804BA",
+          "propType": 27,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        }
+      ],
+      "extractedStrings": [],
+      "candidateFloats": []
+    },
+    {
+      "name": "refdata_worldnodeoverlayset_0x8c56cb4d",
+      "hash": "0xD42F5523",
+      "sizeBytes": 2280,
+      "versionOrDepth": 15,
+      "instanceHash": "0x94B63885",
+      "magic": "0x743BC4A1",
+      "classTypeHash": "0x8C56CB4D",
+      "propCount": 66,
+      "propTableOffset": 88,
+      "valuePoolOffset": 1768,
+      "properties": [
+        {
+          "index": 0,
+          "propHash": "0x1410EDDC",
+          "propType": 8,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 1,
+          "propHash": "0xFE6A38CD",
+          "propType": 9,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x00000001",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 2,
+          "propHash": "0xF6022F79",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 3,
+          "propHash": "0x37A53C97",
+          "propType": 10,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF20",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 4,
+          "propHash": "0xB883FC69",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 5,
+          "propHash": "0xA0C804BA",
+          "propType": 27,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 6,
+          "propHash": "0x7E3F5D64",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 7,
+          "propHash": "0xD6BFCB92",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 8,
+          "propHash": "0xBAC031C1",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 9,
+          "propHash": "0xDF4DEED3",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 10,
+          "propHash": "0xF6B3C8F0",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 11,
+          "propHash": "0x8962F99C",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 12,
+          "propHash": "0xB7D70B03",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 13,
+          "propHash": "0xBD0F8C61",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 14,
+          "propHash": "0x175C63BC",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 15,
+          "propHash": "0x754B9A57",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 16,
+          "propHash": "0x8D50072A",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 17,
+          "propHash": "0x8C26E782",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 18,
+          "propHash": "0xC1BA0AFF",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 19,
+          "propHash": "0xFB7E52F7",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 20,
+          "propHash": "0x55CFA29D",
+          "propType": 26,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF0A",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 21,
+          "propHash": "0x9FCCFCD0",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1408
+        },
+        {
+          "index": 22,
+          "propHash": "0x716ECBFF",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1424
+        },
+        {
+          "index": 23,
+          "propHash": "0xAF8BB30F",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 24,
+          "propHash": "0x06D3CF73",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 25,
+          "propHash": "0xD5C1843E",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 26,
+          "propHash": "0xB72CB183",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1440
+        },
+        {
+          "index": 27,
+          "propHash": "0x443BC580",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1456
+        },
+        {
+          "index": 28,
+          "propHash": "0x9D57B38B",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1472
+        },
+        {
+          "index": 29,
+          "propHash": "0x498B73B2",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1488
+        },
+        {
+          "index": 30,
+          "propHash": "0x723D52FC",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 31,
+          "propHash": "0xC3B8851B",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 32,
+          "propHash": "0x599617AC",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1504
+        },
+        {
+          "index": 33,
+          "propHash": "0xB4C0BCB8",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 34,
+          "propHash": "0xE4E2B854",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 35,
+          "propHash": "0x8142D832",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 36,
+          "propHash": "0x8C01FEEB",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 37,
+          "propHash": "0x88C0E35C",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 38,
+          "propHash": "0x9687B359",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 39,
+          "propHash": "0x4DC8828A",
+          "propType": 8,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 40,
+          "propHash": "0x035CF088",
+          "propType": 9,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x00000001",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 41,
+          "propHash": "0xC7862C7D",
+          "propType": 9,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x00000101",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 42,
+          "propHash": "0xB09AD9D1",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 43,
+          "propHash": "0x5EA26F95",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 44,
+          "propHash": "0x956AD436",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1520
+        },
+        {
+          "index": 45,
+          "propHash": "0xD43D4E43",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1536
+        },
+        {
+          "index": 46,
+          "propHash": "0xD0FC53F4",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1552
+        },
+        {
+          "index": 47,
+          "propHash": "0xDDBF752D",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1568
+        },
+        {
+          "index": 48,
+          "propHash": "0xFFD271B6",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1584
+        },
+        {
+          "index": 49,
+          "propHash": "0xFB136C01",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1600
+        },
+        {
+          "index": 50,
+          "propHash": "0xF6504AD8",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1616
+        },
+        {
+          "index": 51,
+          "propHash": "0x837165EE",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1632
+        },
+        {
+          "index": 52,
+          "propHash": "0x87B07859",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1648
+        },
+        {
+          "index": 53,
+          "propHash": "0x30800EDC",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1664
+        },
+        {
+          "index": 54,
+          "propHash": "0xAED9AEF0",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1680
+        },
+        {
+          "index": 55,
+          "propHash": "0x44B77330",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 56,
+          "propHash": "0x72581CC0",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 57,
+          "propHash": "0xDF6D9D11",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 58,
+          "propHash": "0x0C1F89D1",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 59,
+          "propHash": "0x42DC24A2",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1696
+        },
+        {
+          "index": 60,
+          "propHash": "0x461D3915",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1712
+        },
+        {
+          "index": 61,
+          "propHash": "0x8F2BC49F",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 62,
+          "propHash": "0x20F97076",
+          "propType": 16,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 63,
+          "propHash": "0x1CCFE9F4",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1728
+        },
+        {
+          "index": 64,
+          "propHash": "0x5FBF1999",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 770,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1744
+        },
+        {
+          "index": 65,
+          "propHash": "0x5FD979C5",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 770,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1756
+        }
+      ],
+      "extractedStrings": [],
+      "candidateFloats": []
+    },
+    {
+      "name": "refdata_worldnode_0xb1d502b0",
+      "hash": "0xE2CC89E1",
+      "sizeBytes": 636,
+      "versionOrDepth": 7,
+      "instanceHash": "0xFA400802",
+      "magic": "0x743BC4A1",
+      "classTypeHash": "0xB1D502B0",
+      "propCount": 21,
+      "propTableOffset": 88,
+      "valuePoolOffset": 508,
+      "properties": [
+        {
+          "index": 0,
+          "propHash": "0x1410EDDC",
+          "propType": 8,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 1,
+          "propHash": "0xFE6A38CD",
+          "propType": 9,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x00000001",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 2,
+          "propHash": "0xF6022F79",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 3,
+          "propHash": "0x37A53C97",
+          "propType": 10,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF20",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 4,
+          "propHash": "0xB883FC69",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 5,
+          "propHash": "0xA0C804BA",
+          "propType": 27,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 6,
+          "propHash": "0x7E3F5D64",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 7,
+          "propHash": "0xD6BFCB92",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 8,
+          "propHash": "0xBAC031C1",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 9,
+          "propHash": "0xDF4DEED3",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 10,
+          "propHash": "0xF6B3C8F0",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 11,
+          "propHash": "0x8962F99C",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 12,
+          "propHash": "0xB7D70B03",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 13,
+          "propHash": "0xBD0F8C61",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 14,
+          "propHash": "0x175C63BC",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 15,
+          "propHash": "0x754B9A57",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 16,
+          "propHash": "0x8D50072A",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 17,
+          "propHash": "0x8C26E782",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 18,
+          "propHash": "0xC1BA0AFF",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 19,
+          "propHash": "0xFB7E52F7",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 20,
+          "propHash": "0x55CFA29D",
+          "propType": 26,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF0A",
+          "poolRelOffset": 0
+        }
+      ],
+      "extractedStrings": [],
+      "candidateFloats": []
+    },
+    {
+      "name": "refdata_worldnodeoverlay_0x63f26d58",
+      "hash": "0xE92B3A8B",
+      "sizeBytes": 1472,
+      "versionOrDepth": 15,
+      "instanceHash": "0xEDD3AB11",
+      "magic": "0x743BC4A1",
+      "classTypeHash": "0x63F26D58",
+      "propCount": 44,
+      "propTableOffset": 88,
+      "valuePoolOffset": 1216,
+      "properties": [
+        {
+          "index": 0,
+          "propHash": "0x1410EDDC",
+          "propType": 8,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 1,
+          "propHash": "0xFE6A38CD",
+          "propType": 9,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x00000001",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 2,
+          "propHash": "0xF6022F79",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 3,
+          "propHash": "0x37A53C97",
+          "propType": 10,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF20",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 4,
+          "propHash": "0xB883FC69",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 5,
+          "propHash": "0xA0C804BA",
+          "propType": 27,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 6,
+          "propHash": "0x7E3F5D64",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 7,
+          "propHash": "0xD6BFCB92",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 8,
+          "propHash": "0xBAC031C1",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 9,
+          "propHash": "0xDF4DEED3",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 10,
+          "propHash": "0xF6B3C8F0",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 11,
+          "propHash": "0x8962F99C",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 12,
+          "propHash": "0xB7D70B03",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 13,
+          "propHash": "0xBD0F8C61",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 14,
+          "propHash": "0x175C63BC",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 15,
+          "propHash": "0x754B9A57",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 16,
+          "propHash": "0x8D50072A",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 17,
+          "propHash": "0x8C26E782",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 18,
+          "propHash": "0xC1BA0AFF",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 19,
+          "propHash": "0xFB7E52F7",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 20,
+          "propHash": "0x55CFA29D",
+          "propType": 26,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF0A",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 21,
+          "propHash": "0x5EA26F95",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 22,
+          "propHash": "0x956AD436",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 968
+        },
+        {
+          "index": 23,
+          "propHash": "0xD43D4E43",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 984
+        },
+        {
+          "index": 24,
+          "propHash": "0xD0FC53F4",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1000
+        },
+        {
+          "index": 25,
+          "propHash": "0xDDBF752D",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1016
+        },
+        {
+          "index": 26,
+          "propHash": "0xFFD271B6",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1032
+        },
+        {
+          "index": 27,
+          "propHash": "0xFB136C01",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1048
+        },
+        {
+          "index": 28,
+          "propHash": "0xF6504AD8",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1064
+        },
+        {
+          "index": 29,
+          "propHash": "0x837165EE",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1080
+        },
+        {
+          "index": 30,
+          "propHash": "0x87B07859",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1096
+        },
+        {
+          "index": 31,
+          "propHash": "0x30800EDC",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1112
+        },
+        {
+          "index": 32,
+          "propHash": "0xAED9AEF0",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1128
+        },
+        {
+          "index": 33,
+          "propHash": "0x44B77330",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 34,
+          "propHash": "0x72581CC0",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 35,
+          "propHash": "0xDF6D9D11",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 36,
+          "propHash": "0x0C1F89D1",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 37,
+          "propHash": "0x42DC24A2",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1144
+        },
+        {
+          "index": 38,
+          "propHash": "0x461D3915",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1160
+        },
+        {
+          "index": 39,
+          "propHash": "0x8F2BC49F",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 40,
+          "propHash": "0x20F97076",
+          "propType": 16,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 41,
+          "propHash": "0x1CCFE9F4",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1176
+        },
+        {
+          "index": 42,
+          "propHash": "0x5FBF1999",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 770,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1192
+        },
+        {
+          "index": 43,
+          "propHash": "0x5FD979C5",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 770,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1204
+        }
+      ],
+      "extractedStrings": [],
+      "candidateFloats": []
+    },
+    {
+      "name": "refdata_worldnodeadvanced_0x0170f027",
+      "hash": "0xECCDE425",
+      "sizeBytes": 1316,
+      "versionOrDepth": 15,
+      "instanceHash": "0x4A51DF21",
+      "magic": "0x743BC4A1",
+      "classTypeHash": "0x0170F027",
+      "propCount": 43,
+      "propTableOffset": 88,
+      "valuePoolOffset": 1060,
+      "properties": [
+        {
+          "index": 0,
+          "propHash": "0x1410EDDC",
+          "propType": 8,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 1,
+          "propHash": "0xFE6A38CD",
+          "propType": 9,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x00000001",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 2,
+          "propHash": "0xF6022F79",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 3,
+          "propHash": "0x37A53C97",
+          "propType": 10,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF20",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 4,
+          "propHash": "0xB883FC69",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 5,
+          "propHash": "0xA0C804BA",
+          "propType": 27,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 6,
+          "propHash": "0x7E3F5D64",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 7,
+          "propHash": "0xD6BFCB92",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 8,
+          "propHash": "0xBAC031C1",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 9,
+          "propHash": "0xDF4DEED3",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 10,
+          "propHash": "0xF6B3C8F0",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 11,
+          "propHash": "0x8962F99C",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 12,
+          "propHash": "0xB7D70B03",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 13,
+          "propHash": "0xBD0F8C61",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 14,
+          "propHash": "0x175C63BC",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 15,
+          "propHash": "0x754B9A57",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 16,
+          "propHash": "0x8D50072A",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 17,
+          "propHash": "0x8C26E782",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 18,
+          "propHash": "0xC1BA0AFF",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 19,
+          "propHash": "0xFB7E52F7",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 20,
+          "propHash": "0x55CFA29D",
+          "propType": 26,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF0A",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 21,
+          "propHash": "0x9FCCFCD0",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 948
+        },
+        {
+          "index": 22,
+          "propHash": "0x716ECBFF",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 964
+        },
+        {
+          "index": 23,
+          "propHash": "0xAF8BB30F",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 24,
+          "propHash": "0x06D3CF73",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 25,
+          "propHash": "0xD5C1843E",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 26,
+          "propHash": "0xB72CB183",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 980
+        },
+        {
+          "index": 27,
+          "propHash": "0x443BC580",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 996
+        },
+        {
+          "index": 28,
+          "propHash": "0x9D57B38B",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1012
+        },
+        {
+          "index": 29,
+          "propHash": "0x498B73B2",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1028
+        },
+        {
+          "index": 30,
+          "propHash": "0x723D52FC",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 31,
+          "propHash": "0xC3B8851B",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 32,
+          "propHash": "0x599617AC",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1044
+        },
+        {
+          "index": 33,
+          "propHash": "0xB4C0BCB8",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 34,
+          "propHash": "0xE4E2B854",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 35,
+          "propHash": "0x8142D832",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 36,
+          "propHash": "0x8C01FEEB",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 37,
+          "propHash": "0x88C0E35C",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 38,
+          "propHash": "0x9687B359",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 39,
+          "propHash": "0x4DC8828A",
+          "propType": 8,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 40,
+          "propHash": "0x035CF088",
+          "propType": 9,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x00000001",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 41,
+          "propHash": "0xC7862C7D",
+          "propType": 9,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x00000101",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 42,
+          "propHash": "0xB09AD9D1",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        }
+      ],
+      "extractedStrings": [],
+      "candidateFloats": []
+    },
+    {
+      "name": "refdata_worldnodetextureoverlay_0x56ee0aa9",
+      "hash": "0xF5950731",
+      "sizeBytes": 2000,
+      "versionOrDepth": 15,
+      "instanceHash": "0x63109396",
+      "magic": "0x743BC4A1",
+      "classTypeHash": "0x56EE0AA9",
+      "propCount": 53,
+      "propTableOffset": 88,
+      "valuePoolOffset": 1488,
+      "properties": [
+        {
+          "index": 0,
+          "propHash": "0x1410EDDC",
+          "propType": 8,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 1,
+          "propHash": "0xFE6A38CD",
+          "propType": 9,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x00000001",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 2,
+          "propHash": "0xF6022F79",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 3,
+          "propHash": "0x37A53C97",
+          "propType": 10,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF20",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 4,
+          "propHash": "0xB883FC69",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 5,
+          "propHash": "0xA0C804BA",
+          "propType": 27,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 6,
+          "propHash": "0x7E3F5D64",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 7,
+          "propHash": "0xD6BFCB92",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 8,
+          "propHash": "0xBAC031C1",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 9,
+          "propHash": "0xDF4DEED3",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 10,
+          "propHash": "0xF6B3C8F0",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 11,
+          "propHash": "0x8962F99C",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 12,
+          "propHash": "0xB7D70B03",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 13,
+          "propHash": "0xBD0F8C61",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 14,
+          "propHash": "0x175C63BC",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 15,
+          "propHash": "0x754B9A57",
+          "propType": 18,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 16,
+          "propHash": "0x8D50072A",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 17,
+          "propHash": "0x8C26E782",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 18,
+          "propHash": "0xC1BA0AFF",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 19,
+          "propHash": "0xFB7E52F7",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 20,
+          "propHash": "0x55CFA29D",
+          "propType": 26,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF0A",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 21,
+          "propHash": "0x5EA26F95",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 22,
+          "propHash": "0x956AD436",
+          "propType": 6,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1148
+        },
+        {
+          "index": 23,
+          "propHash": "0xD43D4E43",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1164
+        },
+        {
+          "index": 24,
+          "propHash": "0xD0FC53F4",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1180
+        },
+        {
+          "index": 25,
+          "propHash": "0xDDBF752D",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1196
+        },
+        {
+          "index": 26,
+          "propHash": "0xFFD271B6",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1212
+        },
+        {
+          "index": 27,
+          "propHash": "0xFB136C01",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1228
+        },
+        {
+          "index": 28,
+          "propHash": "0xF6504AD8",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1244
+        },
+        {
+          "index": 29,
+          "propHash": "0x837165EE",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1260
+        },
+        {
+          "index": 30,
+          "propHash": "0x87B07859",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1276
+        },
+        {
+          "index": 31,
+          "propHash": "0x30800EDC",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1292
+        },
+        {
+          "index": 32,
+          "propHash": "0xAED9AEF0",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1308
+        },
+        {
+          "index": 33,
+          "propHash": "0x44B77330",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 34,
+          "propHash": "0x72581CC0",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 35,
+          "propHash": "0xDF6D9D11",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 36,
+          "propHash": "0x0C1F89D1",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 37,
+          "propHash": "0x42DC24A2",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1324
+        },
+        {
+          "index": 38,
+          "propHash": "0x461D3915",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1340
+        },
+        {
+          "index": 39,
+          "propHash": "0x8F2BC49F",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 40,
+          "propHash": "0x20F97076",
+          "propType": 16,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 41,
+          "propHash": "0x1CCFE9F4",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1356
+        },
+        {
+          "index": 42,
+          "propHash": "0x5FBF1999",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 770,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1372
+        },
+        {
+          "index": 43,
+          "propHash": "0x5FD979C5",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 770,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1384
+        },
+        {
+          "index": 44,
+          "propHash": "0xAE276118",
+          "propType": 23,
+          "parentIdx": -1,
+          "countOrMode": 770,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1396
+        },
+        {
+          "index": 45,
+          "propHash": "0x68830339",
+          "propType": 15,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 46,
+          "propHash": "0x30EDDDA8",
+          "propType": 13,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1408
+        },
+        {
+          "index": 47,
+          "propHash": "0xE4A6EA4D",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 48,
+          "propHash": "0x1447F73D",
+          "propType": 1,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 0
+        },
+        {
+          "index": 49,
+          "propHash": "0xF0BCD9E2",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1424
+        },
+        {
+          "index": 50,
+          "propHash": "0x0BFE996F",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1440
+        },
+        {
+          "index": 51,
+          "propHash": "0xFDFFFF3B",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1456
+        },
+        {
+          "index": 52,
+          "propHash": "0x06BDBFB6",
+          "propType": 0,
+          "parentIdx": -1,
+          "countOrMode": 2,
+          "flags": "0x0000FF01",
+          "poolRelOffset": 1472
+        }
+      ],
+      "extractedStrings": [],
+      "candidateFloats": []
+    }
+  ]
+}

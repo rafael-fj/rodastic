@@ -1,0 +1,10028 @@
+{
+  "fileName": "w_gamecommonrotastic_fetm.pc",
+  "fetmName": "w_gamecommonrotastic.fetm",
+  "sizeBytes": 85986,
+  "authorAndDate": "06/10/2012 at 16:18:57 by Pascal-L",
+  "entityClassSummary": {
+    "ec_stock_World_Rendering_Options": 1,
+    "ec_stock_viewport_size": 2,
+    "CRotasticJingleSoundManager": 1,
+    "CRotasticSoundEmitter": 8,
+    "CRotasticMasterSoundManagerInGame": 1,
+    "CRotastic_MenuPage_ObjectifDescription": 1,
+    "CRotasticMeshOverlay": 8,
+    "CRotastic_MenuPage_SoloScore": 1,
+    "CRotasticAnimatedScoreString": 5,
+    "CRotastic_MenuPage_MapRanking": 1,
+    "CRotastic_MenuPage_GlobalRanking": 1
+  },
+  "totalStrings": 1079,
+  "nodes": [
+    {
+      "offset": 3,
+      "text": "06/10/2012 at 16:18:57 by Pascal-L",
+      "taggedFloats": []
+    },
+    {
+      "offset": 41,
+      "text": "ec_stock_World_Rendering_Options",
+      "taggedFloats": [
+        1,
+        100,
+        50,
+        1,
+        3,
+        1
+      ]
+    },
+    {
+      "offset": 281,
+      "text": "ec_stock_viewport_size",
+      "taggedFloats": []
+    },
+    {
+      "offset": 328,
+      "text": "ec_stock_viewport_size",
+      "taggedFloats": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "offset": 487,
+      "text": "world",
+      "taggedFloats": [
+        100,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 582,
+      "text": "sector",
+      "taggedFloats": []
+    },
+    {
+      "offset": 590,
+      "text": "World",
+      "taggedFloats": []
+    },
+    {
+      "offset": 597,
+      "text": "Framework_Game_Mode",
+      "taggedFloats": [
+        10,
+        1000,
+        2,
+        -960,
+        -540,
+        -121.3433,
+        985,
+        615,
+        25
+      ]
+    },
+    {
+      "offset": 775,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 785,
+      "text": "PST_REF_Jingles",
+      "taggedFloats": []
+    },
+    {
+      "offset": 802,
+      "text": "CRotasticJingleSoundManager",
+      "taggedFloats": []
+    },
+    {
+      "offset": 835,
+      "text": "RotasticJingleSoundManager",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 1116,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1153,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1168,
+      "text": "JING_GameOver",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1183,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1210,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 1687,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1702,
+      "text": "JING_GlobalRanking",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1722,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1749,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 2226,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2241,
+      "text": "JING_LevelComplete",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2261,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2288,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 2765,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2780,
+      "text": "JING_Podium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2793,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2820,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 3297,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3312,
+      "text": "JING_StatisticMulti",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3333,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3360,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 3837,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3852,
+      "text": "JING_TimeOver",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3867,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3894,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 4371,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4386,
+      "text": "JING_TimeRunning",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4404,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4431,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 4908,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4923,
+      "text": "JING_WorldRelease",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4942,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4969,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 5446,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5456,
+      "text": "REF_SoundManager",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5474,
+      "text": "CRotasticMasterSoundManagerInGame",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5513,
+      "text": "RotasticMasterSoundManagerInGame",
+      "taggedFloats": [
+        49.4697,
+        0,
+        -96.3433,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 5701,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        454.0444
+      ]
+    },
+    {
+      "offset": 5735,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        10000
+      ]
+    },
+    {
+      "offset": 5813,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5848,
+      "text": "sector",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5856,
+      "text": "Game_MenuPages",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5872,
+      "text": "Framework_Menu_Sector",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5945,
+      "text": "w_MenuRotastic",
+      "taggedFloats": [
+        100,
+        5000,
+        2,
+        -914.7791,
+        -792.1633,
+        -286.8217,
+        1451.0659,
+        1007.6254,
+        451.2343
+      ]
+    },
+    {
+      "offset": 6081,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6093,
+      "text": "GP_000_DefaultOverlays",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6123,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 6366,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 6427,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6439,
+      "text": "GP_001_Pause_MainMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6462,
+      "text": "blitztech::framework::menu::MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6504,
+      "text": "Framework_MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7997,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 8060,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8078,
+      "text": "GP_001_00_ResumeGame",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8100,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8142,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8920,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 8968,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8983,
+      "text": "GP_001_00_ResumeGameString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9017,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 9221,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        4,
+        0.8,
+        0.8,
+        0
+      ]
+    },
+    {
+      "offset": 9308,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9326,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9347,
+      "text": "PAUSE_PAUSED_MAINMENU_RESUME",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9411,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9429,
+      "text": "GP_001_00_RetryGame",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9450,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9492,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10204,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 10252,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10267,
+      "text": "GP_001_00_RetryString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10296,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 10500,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        4,
+        0.8,
+        0.8,
+        0
+      ]
+    },
+    {
+      "offset": 10587,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10605,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10626,
+      "text": "GENERIC_STRINGS_RETRY",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10683,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10701,
+      "text": "GP_001_01_Leaderboards",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10725,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10767,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11571,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 11619,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11634,
+      "text": "GP_001_01_LeaderboardsString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11670,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 11874,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        4,
+        0.8,
+        0.8,
+        0
+      ]
+    },
+    {
+      "offset": 11961,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11979,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12000,
+      "text": "MENU_MAINMENU_LEADERBOARDS",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12062,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12080,
+      "text": "GP_001_02_Achivements",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12103,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12145,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12983,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 13031,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13046,
+      "text": "GP_001_02_AchivementsString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13081,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 13285,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        4,
+        0.8,
+        0.8,
+        0
+      ]
+    },
+    {
+      "offset": 13372,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13390,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13411,
+      "text": "MENU_MAINMENU_ACHIEVEMENTS",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13473,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13491,
+      "text": "GP_001_03_Options",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13510,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13552,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14231,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 14279,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14294,
+      "text": "GP_001_03_OptionsString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14325,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 14529,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        4,
+        0.8,
+        0.8,
+        0
+      ]
+    },
+    {
+      "offset": 14616,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14634,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14655,
+      "text": "MENU_MAINMENU_OPTIONS",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14712,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14730,
+      "text": "GP_001_05_UnlockFullGame",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14756,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14798,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15612,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 15660,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15675,
+      "text": "GP_001_04_UnlockFullGameString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15713,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 15917,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        4,
+        0.8,
+        0.8,
+        0
+      ]
+    },
+    {
+      "offset": 16004,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16022,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16043,
+      "text": "MENU_MAINMENU_UNLOCK_GAME",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16104,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16122,
+      "text": "GP_001_06_ExitGame",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16142,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16184,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16896,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 16944,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16959,
+      "text": "GP_001_05_ExitGameString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16991,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 17195,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        4,
+        0.8,
+        0.8,
+        0
+      ]
+    },
+    {
+      "offset": 17282,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17300,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17321,
+      "text": "PAUSE_PAUSED_MAINMENU_EXITGAME",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17387,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17405,
+      "text": "GP_001_07_GetContent",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17427,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17469,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18250,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 18298,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18313,
+      "text": "GP_001_06_GetContentString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18347,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 18551,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        4,
+        0.8,
+        0.8,
+        0
+      ]
+    },
+    {
+      "offset": 18638,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18656,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18677,
+      "text": "MENU_MAINMENU_BUY_CONTENT",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18738,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18754,
+      "text": "GP_001_08_BgPause",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18779,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 18947,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 18987,
+      "text": "t_pauseMenu",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 19045,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19060,
+      "text": "GP_001_ComingSoon",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19085,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -186.3392,
+        -319.7794,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -225,
+        -10,
+        0,
+        225,
+        10,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 19253,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        450,
+        20,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 19340,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19358,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19379,
+      "text": "GENERIC_STRINGS_NOT_IMPLEMENTED",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19446,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19461,
+      "text": "GP_001_Title",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19481,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        -75.4285,
+        462.7388,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -110,
+        -20,
+        0,
+        110,
+        20,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 19685,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        220,
+        40,
+        0.5,
+        0.5,
+        0,
+        0,
+        1.25,
+        1.25,
+        0
+      ]
+    },
+    {
+      "offset": 19772,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19790,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19811,
+      "text": "PAUSE_PAUSED_TITLE",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19875,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19887,
+      "text": "GP_R_001_ObjectifDescription",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19917,
+      "text": "CRotastic_MenuPage_ObjectifDescription",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19961,
+      "text": "Rotastic_MenuPage_ObjectifDescription",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20715,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 20778,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20796,
+      "text": "FE_18Dummy",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20808,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20850,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21496,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1,
+        1,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 21542,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21557,
+      "text": "GP_R_001_01_DescriptionGene",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21592,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -600,
+        -125,
+        0,
+        600,
+        125,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 21760,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1200,
+        250,
+        0.5,
+        0.5,
+        0,
+        4,
+        1.25,
+        1.25,
+        0
+      ]
+    },
+    {
+      "offset": 21848,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21908,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21924,
+      "text": "GP_R_001_05_BgObjectifDesc",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21958,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        -9.24,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -256,
+        0,
+        960,
+        256,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 22126,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        512,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 22166,
+      "text": "t_Menu_Objectif02",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 22230,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22246,
+      "text": "GP_R_001_06_ObjectiveIcon",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22279,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        702.8578,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -96,
+        -96,
+        0,
+        96,
+        96,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 22428,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22462,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0.9,
+        0.9,
+        1.1,
+        1.1,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 22592,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        192,
+        192,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 22632,
+      "text": "t_GuiSurvieLogo_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 22696,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22712,
+      "text": "GP_R_001_06_ObjectiveIcon000",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22748,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -689.142,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -96,
+        -96,
+        0,
+        96,
+        96,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 22897,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22931,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0.9,
+        0.9,
+        1.1,
+        1.1,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 23061,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        192,
+        192,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 23101,
+      "text": "t_GuiSurvieLogo_c",
+      "taggedFloats": [
+        1,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 23165,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23180,
+      "text": "GP_R_001_02_WorldName",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23209,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        310.7157,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -425,
+        -75,
+        0,
+        425,
+        75,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 23377,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        850,
+        150,
+        0.5,
+        0.5,
+        0,
+        0,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 23464,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23482,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23503,
+      "text": "LVL_NAME_MULTI_DM_LVL07",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23574,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23590,
+      "text": "GP_R_001_04_WorldName",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23619,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        -5.7747,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -64,
+        0,
+        960,
+        64,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 23787,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        128,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 23827,
+      "text": "t_Menu_Objectif01",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 23891,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23903,
+      "text": "GP_R_005_EndScreen_GameOver",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23932,
+      "text": "blitztech::framework::menu::MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23974,
+      "text": "Framework_MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25043,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 25106,
+      "text": "meshoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25119,
+      "text": "GP_R_GameOverMeshOverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25145,
+      "text": "CRotasticMeshOverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25171,
+      "text": "RotasticMeshOverlay",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 25346,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25380,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25428,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25502,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25602,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1
+      ]
+    },
+    {
+      "offset": 25682,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 25737,
+      "text": "o_gameover",
+      "taggedFloats": [
+        0,
+        45,
+        2317.6499,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 25794,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25806,
+      "text": "GP_R_006_EndScreen_TimeOver",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25835,
+      "text": "blitztech::framework::menu::MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25877,
+      "text": "Framework_MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 26990,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 27053,
+      "text": "meshoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27066,
+      "text": "GP_R_TimeOverMeshOverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27092,
+      "text": "CRotasticMeshOverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27118,
+      "text": "RotasticMeshOverlay",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 27293,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27327,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27375,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27449,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27549,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1
+      ]
+    },
+    {
+      "offset": 27629,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 27684,
+      "text": "o_timeover",
+      "taggedFloats": [
+        0,
+        45,
+        2317.6499,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 27741,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27753,
+      "text": "GP_R_007_EndScreen_LevelDone",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27783,
+      "text": "blitztech::framework::menu::MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 27825,
+      "text": "Framework_MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 28846,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 28909,
+      "text": "meshoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 28922,
+      "text": "GP_R_LevelCompleteMeshOverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 28953,
+      "text": "CRotasticMeshOverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 28979,
+      "text": "RotasticMeshOverlay",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 29154,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 29188,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 29236,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 29310,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -4430.8774
+      ]
+    },
+    {
+      "offset": 29410,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1
+      ]
+    },
+    {
+      "offset": 29490,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 29545,
+      "text": "o_levelcomplete",
+      "taggedFloats": [
+        0,
+        45,
+        2317.6499,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 29607,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 29619,
+      "text": "GP_R_008_EndScreen_SoloScore",
+      "taggedFloats": []
+    },
+    {
+      "offset": 29649,
+      "text": "CRotastic_MenuPage_SoloScore",
+      "taggedFloats": []
+    },
+    {
+      "offset": 29683,
+      "text": "Rotastic_MenuPage_SoloScore",
+      "taggedFloats": []
+    },
+    {
+      "offset": 30773,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 30836,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 30851,
+      "text": "GP_R_01__01_Title_Level",
+      "taggedFloats": []
+    },
+    {
+      "offset": 30882,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        470,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -500,
+        -25,
+        0,
+        500,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 31050,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1000,
+        50,
+        0.5,
+        0.5,
+        0,
+        0,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 31137,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 31155,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 31176,
+      "text": "LVL_NAME_SOLO_LVL01A",
+      "taggedFloats": []
+    },
+    {
+      "offset": 31242,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 31260,
+      "text": "GP_R_02_Score",
+      "taggedFloats": []
+    },
+    {
+      "offset": 31281,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -600,
+        85.6471,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -0.5,
+        -0.5,
+        0,
+        0.5,
+        0.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 31449,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1,
+        1,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 31497,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 31512,
+      "text": "GP_R_01_Score_Title",
+      "taggedFloats": []
+    },
+    {
+      "offset": 31539,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        348.8571,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -200,
+        -40,
+        0,
+        200,
+        40,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 31707,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        80,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 31794,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 31812,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 31833,
+      "text": "LVL_SOLO_END_SCORE",
+      "taggedFloats": []
+    },
+    {
+      "offset": 31887,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 31902,
+      "text": "GP_R_02_Score_Value",
+      "taggedFloats": []
+    },
+    {
+      "offset": 31929,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        683.4286,
+        -2.3102,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -29.9368,
+        -15.813,
+        0,
+        29.9368,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 32097,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 32184,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 32242,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 32257,
+      "text": "GP_R_03_Score_Mult_Value",
+      "taggedFloats": []
+    },
+    {
+      "offset": 32289,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        778.8571,
+        -2.3102,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -29.9368,
+        -15.813,
+        0,
+        29.9368,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 32457,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 32544,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 32602,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 32617,
+      "text": "GP_R_04_Score_TotalPoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 32643,
+      "text": "CRotasticAnimatedScoreString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 32677,
+      "text": "RotasticAnimatedScoreString",
+      "taggedFloats": [
+        1065.4277,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -29.9368,
+        -15.813,
+        0,
+        29.9368,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 32879,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        0.5,
+        0.5,
+        0,
+        0,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 32966,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 33034,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 33052,
+      "text": "GP_R_03_Time",
+      "taggedFloats": []
+    },
+    {
+      "offset": 33072,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -600,
+        15.6471,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -0.5,
+        -0.5,
+        0,
+        0.5,
+        0.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 33240,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1,
+        1,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 33288,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 33303,
+      "text": "GP_R_01_Time_Title",
+      "taggedFloats": []
+    },
+    {
+      "offset": 33329,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        348.8571,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -200,
+        -40,
+        0,
+        200,
+        40,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 33497,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        80,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 33584,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 33602,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 33623,
+      "text": "LVL_SOLO_END_TIME",
+      "taggedFloats": []
+    },
+    {
+      "offset": 33676,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 33691,
+      "text": "GP_R_02_Time_Value",
+      "taggedFloats": []
+    },
+    {
+      "offset": 33717,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        683.4286,
+        -2.3102,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -29.9368,
+        -15.813,
+        0,
+        29.9368,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 33885,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 33972,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 34030,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 34045,
+      "text": "GP_R_03_Time_Mult_Value",
+      "taggedFloats": []
+    },
+    {
+      "offset": 34076,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        778.8571,
+        -2.3102,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -29.9368,
+        -15.813,
+        0,
+        29.9368,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 34244,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 34331,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 34391,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 34406,
+      "text": "GP_R_05_Mult_Sign",
+      "taggedFloats": []
+    },
+    {
+      "offset": 34431,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -48.5715,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -50,
+        -50,
+        0,
+        50,
+        50,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 34599,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        100,
+        100,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 34686,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 34704,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 34725,
+      "text": "LVL_SOLO_END_MULT",
+      "taggedFloats": []
+    },
+    {
+      "offset": 34778,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 34793,
+      "text": "GP_R_04_Time_TotalPoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 34818,
+      "text": "CRotasticAnimatedScoreString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 34852,
+      "text": "RotasticAnimatedScoreString",
+      "taggedFloats": [
+        1065.4277,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -29.9368,
+        -15.813,
+        0,
+        29.9368,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 35054,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        0.5,
+        0.5,
+        0,
+        0,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 35141,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 35209,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 35227,
+      "text": "GP_R_04_Life",
+      "taggedFloats": []
+    },
+    {
+      "offset": 35247,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -600,
+        -54.3529,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -0.5,
+        -0.5,
+        0,
+        0.5,
+        0.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 35415,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1,
+        1,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 35463,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 35478,
+      "text": "GP_R_01_Life_Title",
+      "taggedFloats": []
+    },
+    {
+      "offset": 35504,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        348.8571,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -200,
+        -40,
+        0,
+        200,
+        40,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 35672,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        80,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 35759,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 35777,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 35798,
+      "text": "LVL_SOLO_END_LIVES",
+      "taggedFloats": []
+    },
+    {
+      "offset": 35852,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 35867,
+      "text": "GP_R_02_Life_Value",
+      "taggedFloats": []
+    },
+    {
+      "offset": 35893,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        683.4286,
+        -2.3102,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -29.9368,
+        -15.813,
+        0,
+        29.9368,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 36061,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 36148,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 36206,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 36221,
+      "text": "GP_R_03_Life_Mult_Value",
+      "taggedFloats": []
+    },
+    {
+      "offset": 36252,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        778.8571,
+        -2.3102,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -29.9368,
+        -15.813,
+        0,
+        29.9368,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 36420,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 36507,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 36567,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 36582,
+      "text": "GP_R_05_Mult_Sign000",
+      "taggedFloats": []
+    },
+    {
+      "offset": 36610,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -48.5715,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -50,
+        -50,
+        0,
+        50,
+        50,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 36778,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        100,
+        100,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 36865,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 36883,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 36904,
+      "text": "LVL_SOLO_END_MULT",
+      "taggedFloats": []
+    },
+    {
+      "offset": 36957,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 36972,
+      "text": "GP_R_04_Life_TotalPoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 36997,
+      "text": "CRotasticAnimatedScoreString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 37031,
+      "text": "RotasticAnimatedScoreString",
+      "taggedFloats": [
+        1065.4277,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -29.9368,
+        -15.813,
+        0,
+        29.9368,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 37233,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        0.5,
+        0.5,
+        0,
+        0,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 37320,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 37388,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 37406,
+      "text": "GP_R_05_Frags",
+      "taggedFloats": []
+    },
+    {
+      "offset": 37427,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -600,
+        -124.3529,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -0.5,
+        -0.5,
+        0,
+        0.5,
+        0.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 37595,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1,
+        1,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 37643,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 37658,
+      "text": "GP_R_01_Frags_Title",
+      "taggedFloats": []
+    },
+    {
+      "offset": 37685,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        348.8571,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -200,
+        -40,
+        0,
+        200,
+        40,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 37853,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        80,
+        0.5,
+        0.5,
+        0,
+        3,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 37940,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 37958,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 37979,
+      "text": "LVL_SOLO_END_FRAGS",
+      "taggedFloats": []
+    },
+    {
+      "offset": 38033,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 38048,
+      "text": "GP_R_02_Frags_Value",
+      "taggedFloats": []
+    },
+    {
+      "offset": 38075,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        683.4286,
+        -2.3102,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -29.9368,
+        -15.813,
+        0,
+        29.9368,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 38243,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 38330,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 38388,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 38403,
+      "text": "GP_R_03_Frags_Mult_Value",
+      "taggedFloats": []
+    },
+    {
+      "offset": 38435,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        778.8571,
+        -2.3102,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -29.9368,
+        -15.813,
+        0,
+        29.9368,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 38603,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 38690,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 38750,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 38765,
+      "text": "GP_R_05_Mult_Sign002",
+      "taggedFloats": []
+    },
+    {
+      "offset": 38793,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -48.5715,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -50,
+        -50,
+        0,
+        50,
+        50,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 38961,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        100,
+        100,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 39048,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 39066,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 39087,
+      "text": "LVL_SOLO_END_MULT",
+      "taggedFloats": []
+    },
+    {
+      "offset": 39140,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 39155,
+      "text": "GP_R_04_Frags_TotalPoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 39181,
+      "text": "CRotasticAnimatedScoreString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 39215,
+      "text": "RotasticAnimatedScoreString",
+      "taggedFloats": [
+        865.4278,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -225,
+        -30,
+        0,
+        225,
+        30,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 39417,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        450,
+        60,
+        0.5,
+        0.5,
+        0,
+        0,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 39504,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 39572,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 39590,
+      "text": "GP_R_06_Final Score",
+      "taggedFloats": []
+    },
+    {
+      "offset": 39617,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        300,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -0.5,
+        -0.5,
+        0,
+        0.5,
+        0.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 39785,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1,
+        1,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 39833,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 39848,
+      "text": "GP_R_01_FinalScore_Title",
+      "taggedFloats": []
+    },
+    {
+      "offset": 39880,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -10,
+        57.754,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -400,
+        -40,
+        0,
+        0,
+        40,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 40048,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        80,
+        1,
+        0.5,
+        0,
+        4,
+        1.2,
+        1.2,
+        0
+      ]
+    },
+    {
+      "offset": 40135,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 40153,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 40174,
+      "text": "LVL_SOLO_END_FINAL_SCORE",
+      "taggedFloats": []
+    },
+    {
+      "offset": 40234,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 40249,
+      "text": "GP_R_02_FinalScore_Value",
+      "taggedFloats": []
+    },
+    {
+      "offset": 40275,
+      "text": "CRotasticAnimatedScoreString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 40309,
+      "text": "RotasticAnimatedScoreString",
+      "taggedFloats": [
+        428.4977,
+        57.754,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -59.8736,
+        -15.813,
+        0,
+        0,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 40511,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        1,
+        0.5,
+        0,
+        0,
+        1.25,
+        1.25,
+        0
+      ]
+    },
+    {
+      "offset": 40598,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 40666,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 40682,
+      "text": "GP_R_03_BestScore",
+      "taggedFloats": []
+    },
+    {
+      "offset": 40707,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        520,
+        54.6203,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -96,
+        -96,
+        0,
+        96,
+        96,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 40875,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        192,
+        192,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 40915,
+      "text": "ImproveScore",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 40976,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 40991,
+      "text": "GP_R_03_ImprovedResult",
+      "taggedFloats": []
+    },
+    {
+      "offset": 41021,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        34.1422,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        -0.2588,
+        0.9659,
+        -110,
+        -60,
+        0,
+        110,
+        60,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 41189,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        220,
+        120,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.6,
+        0.6,
+        0
+      ]
+    },
+    {
+      "offset": 41276,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 41294,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 41315,
+      "text": "PAGE_SCORE_IMPROVEDRESULT",
+      "taggedFloats": []
+    },
+    {
+      "offset": 41376,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 41394,
+      "text": "GP_R_07_ComboMax",
+      "taggedFloats": []
+    },
+    {
+      "offset": 41418,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        4.8572,
+        356.8663,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -0.5,
+        -0.5,
+        0,
+        0.5,
+        0.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 41586,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1,
+        1,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 41634,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 41649,
+      "text": "GP_R_01_ComboMax_Title",
+      "taggedFloats": []
+    },
+    {
+      "offset": 41679,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -220.0331,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -200,
+        -40,
+        0,
+        200,
+        40,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 41847,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        80,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 41934,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 41952,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 41973,
+      "text": "LVL_SOLO_END_BEST_COMBO",
+      "taggedFloats": []
+    },
+    {
+      "offset": 42032,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 42047,
+      "text": "GP_R_02_ComboMax_Value",
+      "taggedFloats": []
+    },
+    {
+      "offset": 42077,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        106.0085,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -29.9368,
+        -15.813,
+        0,
+        29.9368,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 42245,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 42332,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 42390,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 42406,
+      "text": "GP_R_03_ComboMax_Color",
+      "taggedFloats": []
+    },
+    {
+      "offset": 42436,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        37.4286,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -32,
+        -32,
+        0,
+        32,
+        32,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 42604,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        64,
+        64,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 42644,
+      "text": "Gem1",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 42695,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 42713,
+      "text": "GP_R_08_BestTrick",
+      "taggedFloats": []
+    },
+    {
+      "offset": 42738,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        4.8572,
+        286.8663,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -0.5,
+        -0.5,
+        0,
+        0.5,
+        0.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 42906,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1,
+        1,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 42954,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 42969,
+      "text": "GP_R_01_BestTrick_Title",
+      "taggedFloats": []
+    },
+    {
+      "offset": 43000,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -220.0331,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -200,
+        -40,
+        0,
+        200,
+        40,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 43168,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        80,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 43255,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 43273,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 43294,
+      "text": "LVL_SOLO_END_BEST_TRICK",
+      "taggedFloats": []
+    },
+    {
+      "offset": 43353,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 43368,
+      "text": "GP_R_02_BestTrick_Value",
+      "taggedFloats": []
+    },
+    {
+      "offset": 43399,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        35.061,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -29.9368,
+        -15.813,
+        0,
+        29.9368,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 43567,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 43654,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 43712,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 43730,
+      "text": "GP_R_09_Ranking",
+      "taggedFloats": []
+    },
+    {
+      "offset": 43753,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        215.3482,
+        -336.3524,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -0.5,
+        -0.5,
+        0,
+        0.5,
+        0.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 43921,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1,
+        1,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 43969,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 43984,
+      "text": "GP_R_01_Ranking_Title",
+      "taggedFloats": []
+    },
+    {
+      "offset": 44013,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -25,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -400,
+        -40,
+        0,
+        0,
+        40,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 44181,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        80,
+        1,
+        0.5,
+        0,
+        4,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 44268,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 44286,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 44307,
+      "text": "PAGE_SOLO_RANK",
+      "taggedFloats": []
+    },
+    {
+      "offset": 44357,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 44372,
+      "text": "GP_R_02_Ranking_Value",
+      "taggedFloats": []
+    },
+    {
+      "offset": 44401,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        25,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -15.813,
+        0,
+        59.8736,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 44569,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        0,
+        0.5,
+        0,
+        4,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 44656,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 44714,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 44732,
+      "text": "GP_R_10_FriendRankingRef",
+      "taggedFloats": []
+    },
+    {
+      "offset": 44764,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        -43.4665,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -0.5,
+        -0.5,
+        0,
+        0.5,
+        0.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 44932,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1,
+        1,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 44980,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 44995,
+      "text": "GP_R_01_FriendName",
+      "taggedFloats": []
+    },
+    {
+      "offset": 45021,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -50,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -400,
+        -40,
+        0,
+        0,
+        40,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 45189,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        80,
+        1,
+        0.5,
+        0,
+        2,
+        0.65,
+        0.65,
+        0
+      ]
+    },
+    {
+      "offset": 45276,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 45334,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 45349,
+      "text": "GP_R_02_FriendScore",
+      "taggedFloats": []
+    },
+    {
+      "offset": 45376,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        50,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -15.813,
+        0,
+        59.8736,
+        15.813,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 45544,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        59.8736,
+        31.6259,
+        0,
+        0.5,
+        0,
+        2,
+        0.65,
+        0.65,
+        0
+      ]
+    },
+    {
+      "offset": 45631,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 45689,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 45705,
+      "text": "GP_R_03_FriendIconRank",
+      "taggedFloats": []
+    },
+    {
+      "offset": 45735,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -35,
+        -35,
+        0,
+        35,
+        35,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 45903,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        70,
+        70,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 45943,
+      "text": "t_helmet_golden_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 46007,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 46025,
+      "text": "GP_R_11_WorldUnlocked",
+      "taggedFloats": []
+    },
+    {
+      "offset": 46054,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 46222,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 46270,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 46285,
+      "text": "GP_R_01_WorldUnlockedValue",
+      "taggedFloats": []
+    },
+    {
+      "offset": 46319,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        27.6189,
+        276.6723,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -350,
+        -30,
+        0,
+        350,
+        30,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 46487,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        700,
+        60,
+        0.5,
+        0.5,
+        0,
+        3,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 46574,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 46592,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 46613,
+      "text": "WRLD_NAME_SOLO_WRLD02",
+      "taggedFloats": []
+    },
+    {
+      "offset": 46670,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 46686,
+      "text": "GP_R_02_WorldVignette",
+      "taggedFloats": []
+    },
+    {
+      "offset": 46715,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        197.87,
+        -88.0186,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -512,
+        -256,
+        0,
+        512,
+        256,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 46883,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1024,
+        512,
+        0.5,
+        0.5,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 46963,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 46979,
+      "text": "GP_R_03_Character",
+      "taggedFloats": []
+    },
+    {
+      "offset": 47004,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -347.8438,
+        -69.2155,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -256,
+        -256,
+        0,
+        256,
+        256,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 47153,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 47187,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 47235,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 47309,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        359.9,
+        3,
+        0
+      ]
+    },
+    {
+      "offset": 47423,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1
+      ]
+    },
+    {
+      "offset": 47503,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        512,
+        512,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 47543,
+      "text": "t_debloquage_Perso",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 47610,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 47626,
+      "text": "GP_R_02_CharacterGlow",
+      "taggedFloats": []
+    },
+    {
+      "offset": 47655,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -51.6381,
+        41.4929,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -256,
+        -256,
+        0,
+        256,
+        256,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 47804,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 47838,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1
+      ]
+    },
+    {
+      "offset": 47892,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        512,
+        512,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 47932,
+      "text": "t_debloquage_glow",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 47996,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 48012,
+      "text": "GP_R_02_CharacterHand",
+      "taggedFloats": []
+    },
+    {
+      "offset": 48041,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        52.8878,
+        13.3587,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -64,
+        -128,
+        0,
+        64,
+        128,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 48190,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 48224,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 48272,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 48346,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1,
+        1,
+        1.2,
+        1.2,
+        0.7,
+        0
+      ]
+    },
+    {
+      "offset": 48470,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1
+      ]
+    },
+    {
+      "offset": 48550,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        128,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 48590,
+      "text": "t_debloquage_main",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 48654,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 48669,
+      "text": "GP_R_04_WorldUnlockedString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 48704,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        26.4463,
+        380.9028,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -450,
+        -75,
+        0,
+        450,
+        75,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 48872,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        900,
+        150,
+        0.5,
+        0.5,
+        0,
+        3,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 48959,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 48977,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 48998,
+      "text": "PAGE_SOLO_WORLD_UNLOCK",
+      "taggedFloats": []
+    },
+    {
+      "offset": 49056,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 49072,
+      "text": "GP_R_05_PopUp",
+      "taggedFloats": []
+    },
+    {
+      "offset": 49093,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -512,
+        0,
+        960,
+        512,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 49261,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1024,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 49301,
+      "text": "t_debloquage",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 49360,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 49378,
+      "text": "GP_R_12_NextObjective",
+      "taggedFloats": []
+    },
+    {
+      "offset": 49407,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        -84.3799,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -0.5,
+        -0.5,
+        0,
+        0.5,
+        0.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 49575,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1,
+        1,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 49623,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 49639,
+      "text": "CP_012_00_B_RankDiamond",
+      "taggedFloats": []
+    },
+    {
+      "offset": 49670,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        368.9674,
+        240,
+        5.1161,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -48,
+        -48,
+        0,
+        48,
+        48,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 49838,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        96,
+        96,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 49878,
+      "text": "t_helmet_platine_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 49945,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 49961,
+      "text": "CP_shadowG000",
+      "taggedFloats": []
+    },
+    {
+      "offset": 49982,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -17.5717,
+        -4.6204,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -48,
+        -48,
+        0,
+        48,
+        48,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 50150,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        96,
+        96,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 50190,
+      "text": "t_HelmetShadow_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 50253,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 50269,
+      "text": "CP_012_01_B_RankGold",
+      "taggedFloats": []
+    },
+    {
+      "offset": 50297,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        132.1656,
+        240,
+        5.1161,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -48,
+        -48,
+        0,
+        48,
+        48,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 50465,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        96,
+        96,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 50505,
+      "text": "t_helmet_golden_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 50571,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 50587,
+      "text": "CP_shadowG",
+      "taggedFloats": []
+    },
+    {
+      "offset": 50605,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -17.5717,
+        -4.6204,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -48,
+        -48,
+        0,
+        48,
+        48,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 50773,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        96,
+        96,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 50813,
+      "text": "t_HelmetShadow_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 50876,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 50892,
+      "text": "CP_012_02_B_RankSilver",
+      "taggedFloats": []
+    },
+    {
+      "offset": 50922,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -118.6979,
+        240,
+        5.1161,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -48,
+        -48,
+        0,
+        48,
+        48,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 51090,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        96,
+        96,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 51130,
+      "text": "t_helmet_silver_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 51196,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 51212,
+      "text": "CP_shadow000",
+      "taggedFloats": []
+    },
+    {
+      "offset": 51232,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -19.5714,
+        -4.6204,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -48,
+        -48,
+        0,
+        48,
+        48,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 51400,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        96,
+        96,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 51440,
+      "text": "t_HelmetShadow_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 51503,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 51519,
+      "text": "CP_012_03_B_RankCopper",
+      "taggedFloats": []
+    },
+    {
+      "offset": 51549,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -305.6962,
+        240,
+        5.1161,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -48,
+        -48,
+        0,
+        48,
+        48,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 51717,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        96,
+        96,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 51757,
+      "text": "t_helmet_bronze_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 51823,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 51839,
+      "text": "CP_shadow",
+      "taggedFloats": []
+    },
+    {
+      "offset": 51856,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -18.8572,
+        -4.6204,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -48,
+        -48,
+        0,
+        48,
+        48,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 52024,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        96,
+        96,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 52064,
+      "text": "t_HelmetShadow_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 52127,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 52142,
+      "text": "CP_012_04_B_09_NextRankPoints",
+      "taggedFloats": []
+    },
+    {
+      "offset": 52179,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -119.2889,
+        128.8911,
+        5.1161,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -281.3653,
+        -32.2804,
+        0,
+        281.3653,
+        32.2804,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 52347,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        562.7306,
+        64.5607,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.65,
+        0.65,
+        0
+      ]
+    },
+    {
+      "offset": 52434,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 52452,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 52473,
+      "text": "PAGE_SOLO_LVL_OBJECTIVEPOINTS",
+      "taggedFloats": []
+    },
+    {
+      "offset": 52548,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 52563,
+      "text": "CP_012_05_B_02_NextObjective",
+      "taggedFloats": []
+    },
+    {
+      "offset": 52599,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -119.2889,
+        158.2774,
+        5.1161,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -300,
+        -30,
+        0,
+        300,
+        30,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 52767,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        600,
+        60,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.65,
+        0.65,
+        0
+      ]
+    },
+    {
+      "offset": 52854,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 52872,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 52893,
+      "text": "PAGE_SOLO_LVL_OBJECTIVE",
+      "taggedFloats": []
+    },
+    {
+      "offset": 52952,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 52967,
+      "text": "CP_012_06_B_02_Perfect",
+      "taggedFloats": []
+    },
+    {
+      "offset": 52997,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -119.2889,
+        158.2774,
+        5.1161,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -300,
+        -30,
+        0,
+        300,
+        30,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 53165,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        600,
+        60,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.65,
+        0.65,
+        0
+      ]
+    },
+    {
+      "offset": 53252,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 53270,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 53291,
+      "text": "PAGE_SOLO_LVL_OBJECTIVECOMPLETE",
+      "taggedFloats": []
+    },
+    {
+      "offset": 53358,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 53373,
+      "text": "CP_012_07_B_02_Teasediamond",
+      "taggedFloats": []
+    },
+    {
+      "offset": 53408,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -119.2889,
+        158.2774,
+        5.1161,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -300,
+        -30,
+        0,
+        300,
+        30,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 53576,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        600,
+        60,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.65,
+        0.65,
+        0
+      ]
+    },
+    {
+      "offset": 53663,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 53681,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 53702,
+      "text": "PAGE_LEVEL_SOLO_LEVELCOMPLETE",
+      "taggedFloats": []
+    },
+    {
+      "offset": 53767,
+      "text": "meshoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 53780,
+      "text": "GP_R_Helmet_bronze",
+      "taggedFloats": []
+    },
+    {
+      "offset": 53800,
+      "text": "CRotasticMeshOverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 53826,
+      "text": "RotasticMeshOverlay",
+      "taggedFloats": [
+        -305.845,
+        151.4227,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -700,
+        -393.5,
+        0,
+        700,
+        393.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 54020,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1400,
+        787,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 54075,
+      "text": "o_helmet_bronze",
+      "taggedFloats": [
+        0,
+        45,
+        2317.6499,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 54137,
+      "text": "meshoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 54150,
+      "text": "GP_R_Helmet_diamond",
+      "taggedFloats": []
+    },
+    {
+      "offset": 54171,
+      "text": "CRotasticMeshOverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 54197,
+      "text": "RotasticMeshOverlay",
+      "taggedFloats": [
+        400,
+        170.8156,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 54391,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 54446,
+      "text": "o_helmet_diamond",
+      "taggedFloats": [
+        0,
+        45,
+        2317.6499,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 54509,
+      "text": "meshoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 54522,
+      "text": "GP_R_Helmet_gold",
+      "taggedFloats": []
+    },
+    {
+      "offset": 54540,
+      "text": "CRotasticMeshOverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 54566,
+      "text": "RotasticMeshOverlay",
+      "taggedFloats": [
+        123.3672,
+        170.8156,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 54760,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 54815,
+      "text": "o_helmet_gold",
+      "taggedFloats": [
+        0,
+        45,
+        2317.6499,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 54875,
+      "text": "meshoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 54888,
+      "text": "GP_R_Helmet_silver",
+      "taggedFloats": []
+    },
+    {
+      "offset": 54908,
+      "text": "CRotasticMeshOverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 54934,
+      "text": "RotasticMeshOverlay",
+      "taggedFloats": [
+        -111.2787,
+        165.2228,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -875,
+        -492.5,
+        0,
+        875,
+        492.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 55128,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1750,
+        985,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 55183,
+      "text": "o_helmet_silver",
+      "taggedFloats": [
+        0,
+        45,
+        2317.6499,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 55245,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 55261,
+      "text": "TexBgEndScreen_SoloScore",
+      "taggedFloats": []
+    },
+    {
+      "offset": 55293,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 55461,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 55501,
+      "text": "outroLevel",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 55558,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 55570,
+      "text": "GP_R_03_EndScreen_MapRanking",
+      "taggedFloats": []
+    },
+    {
+      "offset": 55600,
+      "text": "CRotastic_MenuPage_MapRanking",
+      "taggedFloats": []
+    },
+    {
+      "offset": 55635,
+      "text": "Rotastic_MenuPage_MapRanking",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56277,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56322,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56367,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56412,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56457,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56502,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56547,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56592,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56637,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56682,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56727,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56772,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56817,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56862,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56907,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56952,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 56999,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 57044,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 57089,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 57134,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 57179,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 57224,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 57269,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 57314,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 57359,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 57404,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 57449,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 57494,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 57539,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 57584,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 57629,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 57674,
+      "text": "Texture DataTable",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 57939,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 58002,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 58017,
+      "text": "GP_R_03_MapRanking_Title",
+      "taggedFloats": []
+    },
+    {
+      "offset": 58049,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        450,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -512,
+        -25,
+        0,
+        512,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 58217,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1024,
+        50,
+        0.5,
+        0.5,
+        0,
+        0,
+        1.25,
+        1.25,
+        0
+      ]
+    },
+    {
+      "offset": 58304,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 58322,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 58343,
+      "text": "PAGE_MULTI_RESULTS_NAME",
+      "taggedFloats": []
+    },
+    {
+      "offset": 58412,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 58430,
+      "text": "GP_R_03_MapRankingAvatar",
+      "taggedFloats": []
+    },
+    {
+      "offset": 58462,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -0.5,
+        -0.5,
+        0,
+        0.5,
+        0.5,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 58630,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1,
+        1,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 58678,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 58694,
+      "text": "GP_R_031_FirstAvatar",
+      "taggedFloats": []
+    },
+    {
+      "offset": 58722,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        194.3052,
+        135,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -128,
+        -128,
+        0,
+        128,
+        128,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 58871,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 58905,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        20,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 59025,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        256,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 59065,
+      "text": "t_Pose_Skull_WinJaune_c",
+      "taggedFloats": [
+        1,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 59137,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 59153,
+      "text": "GR_R_05_MapRanking_Podium1st",
+      "taggedFloats": []
+    },
+    {
+      "offset": 59189,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        334.9246,
+        149.2262,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -256,
+        -128,
+        0,
+        256,
+        128,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 59357,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        512,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 59397,
+      "text": "Menu_MultiPodiumB2",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 59464,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 59479,
+      "text": "GP_R_03_Player1Score",
+      "taggedFloats": []
+    },
+    {
+      "offset": 59507,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        66.2375,
+        -17.3205,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -128,
+        -25,
+        0,
+        128,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 59675,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        256,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 59762,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 59820,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 59835,
+      "text": "GP_R_03_Player1Tag",
+      "taggedFloats": []
+    },
+    {
+      "offset": 59861,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -187.5604,
+        84.8459,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        375,
+        100,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 60029,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        375,
+        100,
+        0,
+        0,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 60116,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 60174,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 60190,
+      "text": "GP_R_032_SecondtAvatar",
+      "taggedFloats": []
+    },
+    {
+      "offset": 60220,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -29.7155,
+        40,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -128,
+        -128,
+        0,
+        128,
+        128,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 60369,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 60403,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        10,
+        0.87,
+        0.25,
+        1
+      ]
+    },
+    {
+      "offset": 60523,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        256,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 60563,
+      "text": "t_Pose_ELf_WinVert_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 60632,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 60648,
+      "text": "GR_R_05_MapRanking_Podium2nd",
+      "taggedFloats": []
+    },
+    {
+      "offset": 60684,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -184.6096,
+        189.6926,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -256,
+        -128,
+        0,
+        256,
+        128,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 60852,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        512,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 60892,
+      "text": "Menu_MultiPodiumB1",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 60959,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 60974,
+      "text": "GP_R_03_Player2Score",
+      "taggedFloats": []
+    },
+    {
+      "offset": 61002,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        64.1718,
+        -6.8912,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -128,
+        -25,
+        0,
+        128,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 61170,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        256,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 61257,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 61315,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 61330,
+      "text": "GP_R_03_Player2Tag",
+      "taggedFloats": []
+    },
+    {
+      "offset": 61356,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -191.4945,
+        91.7185,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        375,
+        100,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 61524,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        375,
+        100,
+        0,
+        0,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 61611,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 61669,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 61685,
+      "text": "GP_R_033_ThirdAvatar",
+      "taggedFloats": []
+    },
+    {
+      "offset": 61713,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        393.9498,
+        -15.4117,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -128,
+        -128,
+        0,
+        128,
+        128,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 61862,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 61896,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        5,
+        0.83,
+        0.6,
+        1
+      ]
+    },
+    {
+      "offset": 62016,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        256,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 62056,
+      "text": "t_Pose_Pig_WinRouge_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 62126,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 62142,
+      "text": "GR_R_05_MapRanking_Podium3rd",
+      "taggedFloats": []
+    },
+    {
+      "offset": 62178,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        314.1893,
+        -13.0193,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -256,
+        -128,
+        0,
+        256,
+        128,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 62346,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        512,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 62386,
+      "text": "Menu_MultiPodiumB4",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 62453,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 62468,
+      "text": "GP_R_03_Player3Score",
+      "taggedFloats": []
+    },
+    {
+      "offset": 62496,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        98.9173,
+        -36.3936,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -128,
+        -25,
+        0,
+        128,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 62664,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        256,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 62751,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 62809,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 62824,
+      "text": "GP_R_03_Player3Tag",
+      "taggedFloats": []
+    },
+    {
+      "offset": 62850,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -152.6647,
+        64.587,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        375,
+        100,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 63018,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        375,
+        100,
+        0,
+        0,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 63105,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 63163,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 63179,
+      "text": "GP_R_034_FourthAvatar",
+      "taggedFloats": []
+    },
+    {
+      "offset": 63208,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -232.0997,
+        -166.2498,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -128,
+        -128,
+        0,
+        128,
+        128,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 63376,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        256,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 63416,
+      "text": "t_Pose_Vik_WinBleu_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 63485,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 63501,
+      "text": "GR_R_05_MapRanking_Podium4th",
+      "taggedFloats": []
+    },
+    {
+      "offset": 63537,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -207.7412,
+        153.2306,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -256,
+        -128,
+        0,
+        256,
+        128,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 63705,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        512,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 63745,
+      "text": "Menu_MultiPodiumB3",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 63812,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 63827,
+      "text": "GP_R_03_Player4Score",
+      "taggedFloats": []
+    },
+    {
+      "offset": 63855,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        58.9596,
+        -18.1781,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -128,
+        -25,
+        0,
+        128,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 64023,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        256,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 64110,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 64168,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 64183,
+      "text": "GP_R_03_Player4Tag",
+      "taggedFloats": []
+    },
+    {
+      "offset": 64209,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -192.1613,
+        75.6895,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        375,
+        100,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 64377,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        375,
+        100,
+        0,
+        0,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 64464,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 64522,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 64538,
+      "text": "GP_R_05_MapRanking_Ciel",
+      "taggedFloats": []
+    },
+    {
+      "offset": 64569,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 64737,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 64777,
+      "text": "t_scoresMultiBG2",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 64840,
+      "text": "meshoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 64853,
+      "text": "GP_R_05_MapRanking_Foule",
+      "taggedFloats": []
+    },
+    {
+      "offset": 64879,
+      "text": "CRotasticMeshOverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 64905,
+      "text": "RotasticMeshOverlay",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 65099,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 65154,
+      "text": "o_map_ranking",
+      "taggedFloats": [
+        0,
+        45,
+        2317.6499,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 65214,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 65229,
+      "text": "GP_R_05_MapRanking_MapName",
+      "taggedFloats": []
+    },
+    {
+      "offset": 65263,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -704.3834,
+        285.4833,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -210,
+        -50,
+        0,
+        210,
+        50,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 65431,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        420,
+        100,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 65518,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 65576,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 65591,
+      "text": "GP_R_05_MapRanking_MapObjectif",
+      "taggedFloats": []
+    },
+    {
+      "offset": 65629,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -704.3851,
+        161.23,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -210,
+        -50,
+        0,
+        210,
+        50,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 65797,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        420,
+        100,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 65884,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 65902,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 65923,
+      "text": "PAGE_MULTI_RESULTS_OBJ_VAL_PTS",
+      "taggedFloats": []
+    },
+    {
+      "offset": 65989,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 66005,
+      "text": "GP_R_05_MapRanking_Nuage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 66037,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 66205,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 66245,
+      "text": "t_BGVilleMaronNuages_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 66314,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 66330,
+      "text": "GP_R_05_MapRanking_Texture",
+      "taggedFloats": []
+    },
+    {
+      "offset": 66364,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 66532,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 66572,
+      "text": "t_scoresMutliBG",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 66634,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 66646,
+      "text": "GP_R_03B_EndScreen_GlobalRankin",
+      "taggedFloats": []
+    },
+    {
+      "offset": 66679,
+      "text": "CRotastic_MenuPage_GlobalRanking",
+      "taggedFloats": []
+    },
+    {
+      "offset": 66717,
+      "text": "Rotastic_MenuPage_GlobalRanking",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67323,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67368,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67413,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67458,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67503,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67548,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67593,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67638,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67683,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67728,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67773,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67818,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67863,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67908,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67953,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 67998,
+      "text": "Texture DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 68045,
+      "text": "ObjectifLimit DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 68104,
+      "text": "ObjectifLimit DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 68163,
+      "text": "ObjectifLimit DataTable",
+      "taggedFloats": []
+    },
+    {
+      "offset": 68222,
+      "text": "ObjectifLimit DataTable",
+      "taggedFloats": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 68469,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 68532,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 68547,
+      "text": "GP_R_03B_Title",
+      "taggedFloats": []
+    },
+    {
+      "offset": 68569,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        467.7827,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -512,
+        -25,
+        0,
+        512,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 68737,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1024,
+        50,
+        0.5,
+        0.5,
+        0,
+        0,
+        1.25,
+        1.25,
+        0
+      ]
+    },
+    {
+      "offset": 68824,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 68842,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 68863,
+      "text": "PAGE_MULTI_RESULTS_GLOBAL_RANK",
+      "taggedFloats": []
+    },
+    {
+      "offset": 68939,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 68955,
+      "text": "GP_R_05_GlobalRanking_BG",
+      "taggedFloats": []
+    },
+    {
+      "offset": 68987,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 69155,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 69195,
+      "text": "Multi_Podium2",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 69255,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 69271,
+      "text": "GP_R_05_GlobalRanking_Ciel",
+      "taggedFloats": []
+    },
+    {
+      "offset": 69305,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 69473,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 69513,
+      "text": "t_scoresMultiBG2",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 69576,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 69592,
+      "text": "GP_R_05_GlobalRanking_Nuage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 69627,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 69795,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 69835,
+      "text": "t_BGVilleMaronNuages_c",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 69904,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 69920,
+      "text": "GP_R_3B_1stPlayer",
+      "taggedFloats": []
+    },
+    {
+      "offset": 69945,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        260,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -512,
+        -128,
+        0,
+        512,
+        128,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 70113,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1024,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 70153,
+      "text": "Multi_Podium2CadreJoueur",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 70226,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 70242,
+      "text": "GP_R_3B_HeadTex1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 70266,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -400,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -64,
+        -64,
+        0,
+        64,
+        64,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 70434,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        128,
+        128,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 70474,
+      "text": "t_HeadPigBlue",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 70534,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 70549,
+      "text": "GP_R_3B_PlayerName1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 70576,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -148.7566,
+        27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -175,
+        -25,
+        0,
+        175,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 70744,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        350,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 70831,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 70889,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 70904,
+      "text": "GP_R_3B_Ranking1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 70928,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -114.8078,
+        -27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -175,
+        -25,
+        0,
+        175,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 71096,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        350,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 71183,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 71241,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 71256,
+      "text": "GP_R_3B_Score1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 71278,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        156.3809,
+        -27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -175,
+        -25,
+        0,
+        175,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 71446,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        350,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 71533,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 71551,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 71572,
+      "text": "STRINGID_GAMEMODE_DEFAULT",
+      "taggedFloats": []
+    },
+    {
+      "offset": 71633,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 71648,
+      "text": "GR_R_3B_Added1",
+      "taggedFloats": []
+    },
+    {
+      "offset": 71670,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        373.6326,
+        -27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        0,
+        25,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 71838,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        50,
+        50,
+        0.5,
+        0.5,
+        0,
+        0,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 71925,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 71993,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 72009,
+      "text": "GP_R_3B_2ndPlayer",
+      "taggedFloats": []
+    },
+    {
+      "offset": 72034,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        80,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -512,
+        -128,
+        0,
+        512,
+        128,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 72202,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1024,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 72242,
+      "text": "Multi_Podium2CadreJoueur",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 72315,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 72331,
+      "text": "GP_R_3B_HeadTex2",
+      "taggedFloats": []
+    },
+    {
+      "offset": 72355,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -400,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -64,
+        -64,
+        0,
+        64,
+        64,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 72523,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        128,
+        128,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 72563,
+      "text": "t_HeadPigBlue",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 72623,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 72638,
+      "text": "GP_R_3B_PlayerName2",
+      "taggedFloats": []
+    },
+    {
+      "offset": 72665,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -148.7566,
+        27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -175,
+        -25,
+        0,
+        175,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 72833,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        350,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 72920,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 72978,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 72993,
+      "text": "GP_R_3B_Ranking2",
+      "taggedFloats": []
+    },
+    {
+      "offset": 73017,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -114.8078,
+        -27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -175,
+        -25,
+        0,
+        175,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 73185,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        350,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 73272,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 73330,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 73345,
+      "text": "GP_R_3B_Score2",
+      "taggedFloats": []
+    },
+    {
+      "offset": 73367,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        156.3809,
+        -27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -175,
+        -25,
+        0,
+        175,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 73535,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        350,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 73622,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 73680,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 73695,
+      "text": "GR_R_3B_Added2",
+      "taggedFloats": []
+    },
+    {
+      "offset": 73717,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        373.6326,
+        -27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        0,
+        25,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 73885,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        50,
+        50,
+        0.5,
+        0.5,
+        0,
+        0,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 73972,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 74040,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 74056,
+      "text": "GP_R_3B_3rdPlayer",
+      "taggedFloats": []
+    },
+    {
+      "offset": 74081,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        -100,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -512,
+        -128,
+        0,
+        512,
+        128,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 74249,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1024,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 74289,
+      "text": "Multi_Podium2CadreJoueur",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 74362,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 74378,
+      "text": "GP_R_3B_HeadTex3",
+      "taggedFloats": []
+    },
+    {
+      "offset": 74402,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -400,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -64,
+        -64,
+        0,
+        64,
+        64,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 74570,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        128,
+        128,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 74610,
+      "text": "t_HeadPigBlue",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 74670,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 74685,
+      "text": "GP_R_3B_PlayerName3",
+      "taggedFloats": []
+    },
+    {
+      "offset": 74712,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -148.7566,
+        27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -175,
+        -25,
+        0,
+        175,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 74880,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        350,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 74967,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 75025,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 75040,
+      "text": "GP_R_3B_Ranking3",
+      "taggedFloats": []
+    },
+    {
+      "offset": 75064,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -114.8078,
+        -27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -175,
+        -25,
+        0,
+        175,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 75232,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        350,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 75319,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 75377,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 75392,
+      "text": "GP_R_3B_Score3",
+      "taggedFloats": []
+    },
+    {
+      "offset": 75414,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        156.3809,
+        -27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -175,
+        -25,
+        0,
+        175,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 75582,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        350,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 75669,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 75727,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 75742,
+      "text": "GR_R_3B_Added3",
+      "taggedFloats": []
+    },
+    {
+      "offset": 75764,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        373.6326,
+        -27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        0,
+        25,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 75932,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        50,
+        50,
+        0.5,
+        0.5,
+        0,
+        0,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 76019,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 76087,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 76103,
+      "text": "GP_R_3B_4thPlayer",
+      "taggedFloats": []
+    },
+    {
+      "offset": 76128,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        -280,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -512,
+        -128,
+        0,
+        512,
+        128,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 76296,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1024,
+        256,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 76336,
+      "text": "Multi_Podium2CadreJoueur",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 76409,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 76425,
+      "text": "GP_R_3B_HeadTex4",
+      "taggedFloats": []
+    },
+    {
+      "offset": 76449,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -400,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -64,
+        -64,
+        0,
+        64,
+        64,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 76617,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        128,
+        128,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 76657,
+      "text": "t_HeadPigBlue",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 76717,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 76732,
+      "text": "GP_R_3B_PlayerName4",
+      "taggedFloats": []
+    },
+    {
+      "offset": 76759,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -148.7566,
+        27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -175,
+        -25,
+        0,
+        175,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 76927,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        350,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 77014,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 77072,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 77087,
+      "text": "GP_R_3B_Ranking4",
+      "taggedFloats": []
+    },
+    {
+      "offset": 77111,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -114.8078,
+        -27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -175,
+        -25,
+        0,
+        175,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 77279,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        350,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 77366,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 77424,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 77439,
+      "text": "GP_R_3B_Score4",
+      "taggedFloats": []
+    },
+    {
+      "offset": 77461,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        156.3809,
+        -27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -175,
+        -25,
+        0,
+        175,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 77629,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        350,
+        50,
+        0.5,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 77716,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 77774,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 77789,
+      "text": "GR_R_3B_Added4",
+      "taggedFloats": []
+    },
+    {
+      "offset": 77811,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        373.6326,
+        -27.2667,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        0,
+        25,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 77979,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        50,
+        50,
+        0.5,
+        0.5,
+        0,
+        0,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 78066,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 78134,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 78146,
+      "text": "GP_T0022_EndGameUpsell02",
+      "taggedFloats": []
+    },
+    {
+      "offset": 78172,
+      "text": "blitztech::framework::menu::MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 78214,
+      "text": "Framework_MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 78998,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 79061,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 79077,
+      "text": "GP_T022_EndGameUpsell_BG",
+      "taggedFloats": []
+    },
+    {
+      "offset": 79109,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 79277,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 79317,
+      "text": "ecran2",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 79370,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 79382,
+      "text": "GP_T0023_EndGameUpsell03",
+      "taggedFloats": []
+    },
+    {
+      "offset": 79408,
+      "text": "blitztech::framework::menu::MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 79450,
+      "text": "Framework_MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 80223,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 80286,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 80302,
+      "text": "GP_T023_EndGameUpsell_BG",
+      "taggedFloats": []
+    },
+    {
+      "offset": 80334,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 80502,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 80542,
+      "text": "ecran3",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 80595,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 80607,
+      "text": "GP_T002_EndGameUpsell01",
+      "taggedFloats": []
+    },
+    {
+      "offset": 80632,
+      "text": "blitztech::framework::menu::MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 80674,
+      "text": "Framework_MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 81458,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 81521,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 81537,
+      "text": "GP_T002_BG",
+      "taggedFloats": []
+    },
+    {
+      "offset": 81555,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 81723,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 81763,
+      "text": "ecran1",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 81816,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 81828,
+      "text": "GP_T002_EndTrial",
+      "taggedFloats": []
+    },
+    {
+      "offset": 81846,
+      "text": "blitztech::framework::menu::MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 81888,
+      "text": "Framework_MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 82344,
+      "text": "upsell",
+      "taggedFloats": []
+    },
+    {
+      "offset": 82352,
+      "text": "videoUpsell",
+      "taggedFloats": []
+    },
+    {
+      "offset": 82365,
+      "text": "videos\\RotaOutro.wmv",
+      "taggedFloats": [
+        1
+      ]
+    },
+    {
+      "offset": 82469,
+      "text": "videoUpsell",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960
+      ]
+    },
+    {
+      "offset": 82798,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 82832,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 82880,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 82954,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        10000
+      ]
+    },
+    {
+      "offset": 83074,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 83137,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 83153,
+      "text": "03_Intro_videoTextureOverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 83183,
+      "text": "blitztech::overlay::BehaviourVideoTextureOverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 83237,
+      "text": "VideoTextureOverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 83277,
+      "text": "upsell",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 83439,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 83519,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 83531,
+      "text": "GP_T002_EndTrial2",
+      "taggedFloats": []
+    },
+    {
+      "offset": 83550,
+      "text": "blitztech::framework::menu::MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 83592,
+      "text": "Framework_MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 84365,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 84428,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 84444,
+      "text": "GP_T002_BG002",
+      "taggedFloats": []
+    },
+    {
+      "offset": 84465,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 84633,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 84673,
+      "text": "upsell endgame",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 84734,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 84746,
+      "text": "GP_T003_EndGameUpsell",
+      "taggedFloats": []
+    },
+    {
+      "offset": 84769,
+      "text": "blitztech::framework::menu::MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 84811,
+      "text": "Framework_MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 85584,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 85647,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 85663,
+      "text": "GP_T003_EndGameUpsell_BG",
+      "taggedFloats": []
+    },
+    {
+      "offset": 85695,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 85863,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 85903,
+      "text": "ecran3",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 85956,
+      "text": "basicnodes",
+      "taggedFloats": []
+    },
+    {
+      "offset": 85970,
+      "text": "noderefs",
+      "taggedFloats": []
+    },
+    {
+      "offset": 85982,
+      "text": "end",
+      "taggedFloats": []
+    }
+  ]
+}

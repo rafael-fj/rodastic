@@ -1,0 +1,252 @@
+{
+  "fileName": "w_gamelevel_fetm.pc",
+  "fetmName": "w_gamelevel.fetm",
+  "sizeBytes": 1794,
+  "authorAndDate": "06/10/2012 at 16:19:02 by Pascal-L",
+  "entityClassSummary": {
+    "ec_stock_World_Rendering_Options": 1,
+    "ec_stock_viewport_size": 2
+  },
+  "totalStrings": 26,
+  "nodes": [
+    {
+      "offset": 3,
+      "text": "06/10/2012 at 16:19:02 by Pascal-L",
+      "taggedFloats": []
+    },
+    {
+      "offset": 41,
+      "text": "ec_stock_World_Rendering_Options",
+      "taggedFloats": [
+        1,
+        100,
+        50,
+        1,
+        3,
+        1
+      ]
+    },
+    {
+      "offset": 281,
+      "text": "ec_stock_viewport_size",
+      "taggedFloats": []
+    },
+    {
+      "offset": 328,
+      "text": "ec_stock_viewport_size",
+      "taggedFloats": [
+        1280,
+        720
+      ]
+    },
+    {
+      "offset": 486,
+      "text": "world",
+      "taggedFloats": [
+        100,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 581,
+      "text": "sector",
+      "taggedFloats": []
+    },
+    {
+      "offset": 589,
+      "text": "World",
+      "taggedFloats": []
+    },
+    {
+      "offset": 596,
+      "text": "Framework_GameLevel_Mode",
+      "taggedFloats": [
+        10,
+        1000,
+        2,
+        -640,
+        -360,
+        0,
+        640,
+        360,
+        0
+      ]
+    },
+    {
+      "offset": 775,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 787,
+      "text": "GameInformationDisplay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 817,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -320,
+        -240,
+        0,
+        320,
+        240,
+        0,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 1009,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        640,
+        480,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 1072,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1088,
+      "text": "Background",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1106,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -640,
+        -360,
+        0,
+        640,
+        360,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 1274,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1280,
+        720,
+        0.5,
+        0.5,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 1354,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1369,
+      "text": "GameInformationDisplay_String",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1406,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        -117.1586,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -493.3718,
+        -61.6815,
+        0,
+        493.3718,
+        61.6815,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 1574,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        986.7435,
+        123.3631,
+        0.5,
+        0.5,
+        0,
+        0,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 1661,
+      "text": "Framework_Verdana",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1682,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1703,
+      "text": "STRINGID_GAMEMODE_DEFAULT",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1764,
+      "text": "basicnodes",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1778,
+      "text": "noderefs",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1790,
+      "text": "end",
+      "taggedFloats": []
+    }
+  ]
+}

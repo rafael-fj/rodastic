@@ -1,0 +1,1944 @@
+{
+  "fileName": "w_frontendrota_fetm.pc",
+  "fetmName": "w_frontendrota.fetm",
+  "sizeBytes": 25773,
+  "authorAndDate": "06/10/2012 at 16:18:53 by Pascal-L",
+  "entityClassSummary": {
+    "ec_stock_World_Rendering_Options": 1,
+    "ec_stock_viewport_size": 2,
+    "CRotasticJingleSoundManager": 1,
+    "CRotasticSoundEmitter": 8,
+    "CRotasticMasterSoundManagerInGame": 1,
+    "CRotastic_MenuPage_TitlePage": 1
+  },
+  "totalStrings": 246,
+  "nodes": [
+    {
+      "offset": 3,
+      "text": "06/10/2012 at 16:18:53 by Pascal-L",
+      "taggedFloats": []
+    },
+    {
+      "offset": 41,
+      "text": "ec_stock_World_Rendering_Options",
+      "taggedFloats": [
+        1,
+        100,
+        50,
+        1,
+        3,
+        1
+      ]
+    },
+    {
+      "offset": 281,
+      "text": "ec_stock_viewport_size",
+      "taggedFloats": []
+    },
+    {
+      "offset": 328,
+      "text": "ec_stock_viewport_size",
+      "taggedFloats": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "offset": 486,
+      "text": "world",
+      "taggedFloats": [
+        100,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 581,
+      "text": "sector",
+      "taggedFloats": []
+    },
+    {
+      "offset": 589,
+      "text": "World",
+      "taggedFloats": []
+    },
+    {
+      "offset": 596,
+      "text": "Framework_FrontEnd_Mode",
+      "taggedFloats": [
+        10,
+        1000,
+        2,
+        -2149.0796,
+        -1212.2813,
+        -2342.6499,
+        1739.8867,
+        1082.3188,
+        25
+      ]
+    },
+    {
+      "offset": 780,
+      "text": "prop",
+      "taggedFloats": []
+    },
+    {
+      "offset": 786,
+      "text": "PST_FrontEnd_BG",
+      "taggedFloats": []
+    },
+    {
+      "offset": 809,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 1001,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0
+      ]
+    },
+    {
+      "offset": 1056,
+      "text": "<nomesh>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1077,
+      "text": "<nomesh>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1089,
+      "text": "<noanimtree>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1119,
+      "text": "<nomesh>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1131,
+      "text": "<nomesh>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1153,
+      "text": "camera",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1161,
+      "text": "Camera001",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1178,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        -2317.6499,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 1327,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1361,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        10000
+      ]
+    },
+    {
+      "offset": 1481,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0.7854,
+        15,
+        5000
+      ]
+    },
+    {
+      "offset": 1533,
+      "text": "prop",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1539,
+      "text": "o_MenuBG",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1555,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -2149.0796,
+        -1038.4926,
+        1739.8867,
+        1082.3188,
+        0,
+        10000
+      ]
+    },
+    {
+      "offset": 1747,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0.01,
+        0.0025
+      ]
+    },
+    {
+      "offset": 1800,
+      "text": "o_menubg",
+      "taggedFloats": [
+        0
+      ]
+    },
+    {
+      "offset": 1819,
+      "text": "<nomesh>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1840,
+      "text": "<nomesh>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1852,
+      "text": "<noanimtree>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1882,
+      "text": "<nomesh>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1894,
+      "text": "<nomesh>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1914,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1924,
+      "text": "PST_REF_Jingles",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1941,
+      "text": "CRotasticJingleSoundManager",
+      "taggedFloats": []
+    },
+    {
+      "offset": 1974,
+      "text": "RotasticJingleSoundManager",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 2255,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2292,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2307,
+      "text": "JING_GameOver",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2322,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2349,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 2826,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2841,
+      "text": "JING_GlobalRanking",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2861,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 2888,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 3365,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3380,
+      "text": "JING_LevelComplete",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3400,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3427,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 3904,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3919,
+      "text": "JING_Podium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3932,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 3959,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 4436,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4451,
+      "text": "JING_StatisticMulti",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4472,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4499,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 4976,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 4991,
+      "text": "JING_TimeOver",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5006,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5033,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 5510,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5525,
+      "text": "JING_TimeRunning",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5543,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 5570,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 6047,
+      "text": "sound_emitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6062,
+      "text": "JING_WorldRelease",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6081,
+      "text": "CRotasticSoundEmitter",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6108,
+      "text": "RotasticSoundEmitter",
+      "taggedFloats": [
+        960,
+        590,
+        0,
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 6585,
+      "text": "refpoint",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6595,
+      "text": "REF_SoundManager",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6613,
+      "text": "CRotasticMasterSoundManagerInGame",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6652,
+      "text": "RotasticMasterSoundManagerInGame",
+      "taggedFloats": [
+        1245.8792,
+        -1187.2813,
+        -693.0499,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -25,
+        -25,
+        -25,
+        25,
+        25,
+        25,
+        0
+      ]
+    },
+    {
+      "offset": 6840,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        454.0444
+      ]
+    },
+    {
+      "offset": 6874,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        10000
+      ]
+    },
+    {
+      "offset": 6952,
+      "text": "<noentclass>",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6987,
+      "text": "sector",
+      "taggedFloats": []
+    },
+    {
+      "offset": 6995,
+      "text": "FrontEnd_MenuPages",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7015,
+      "text": "Framework_Menu_Sector",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7088,
+      "text": "w_MenuRotastic",
+      "taggedFloats": [
+        100,
+        5000,
+        2,
+        -1045.3062,
+        -540,
+        -192.6454,
+        874.6939,
+        540,
+        0
+      ]
+    },
+    {
+      "offset": 7224,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7236,
+      "text": "FE_001_Title",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7250,
+      "text": "CRotastic_MenuPage_TitlePage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 7284,
+      "text": "Rotastic_MenuPage_TitlePage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8101,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 8164,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8182,
+      "text": "FE_001_00_PressStart",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8204,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8246,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8892,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 8940,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8955,
+      "text": "FE_001_00_PressStartString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 8989,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        -274.9955,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -175,
+        -25,
+        0,
+        175,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 9193,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        350,
+        50,
+        0.5,
+        0.5,
+        0,
+        3,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "offset": 9280,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9298,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9319,
+      "text": "FRONT_END_MAINMENU_PRESS_START",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9385,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9401,
+      "text": "FE_002_LogOrOTASTIC",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9428,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        108.4522,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -512,
+        -256,
+        0,
+        512,
+        256,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 9596,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1024,
+        512,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 9636,
+      "text": "Menu_TitreTemp",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 9697,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9709,
+      "text": "FE_002_FrontEnd_MainMenu",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9735,
+      "text": "blitztech::framework::menu::MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 9777,
+      "text": "Framework_MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 10961,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 11024,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11042,
+      "text": "FE_002_00_SinglePlayer",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11066,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11108,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11789,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 11837,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11852,
+      "text": "FE_002_00_SinglePlayerString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 11888,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 12092,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 12179,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12197,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12218,
+      "text": "PAGE_SOLO_NAME",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12268,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12286,
+      "text": "FE_002_01_MultiPlayer",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12309,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 12351,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13032,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 13080,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13095,
+      "text": "FE_002_01_MultiPlayerString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13130,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 13334,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 13421,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13439,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13460,
+      "text": "PAGE_MULTI_NAME",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13511,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13529,
+      "text": "FE_002_02_Leaderboards",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13553,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 13595,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14401,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 14449,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14464,
+      "text": "FE_002_02_LeaderboardString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14499,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 14703,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 14790,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14808,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14829,
+      "text": "MENU_MAINMENU_LEADERBOARDS",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14891,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14909,
+      "text": "FE_002_03_Achivements",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14932,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 14974,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15778,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 15826,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15841,
+      "text": "FE_002_03_AchievementsString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 15877,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 16081,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 16168,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16186,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16207,
+      "text": "MENU_MAINMENU_ACHIEVEMENTS",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16269,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16287,
+      "text": "FE_002_04_Options",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16306,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16348,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 16994,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 17042,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17057,
+      "text": "FE_002_04_OptionsString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17088,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 17292,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 17379,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17397,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17418,
+      "text": "MENU_MAINMENU_OPTIONS",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17475,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17493,
+      "text": "FE_002_05_UnlockGame",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17515,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 17557,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18338,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 18386,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18401,
+      "text": "FE_002_05_UnlockString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18431,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 18635,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 18722,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18740,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18761,
+      "text": "MENU_MAINMENU_UNLOCK_GAME",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18822,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18840,
+      "text": "FE_002_06_GetContent",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18862,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 18904,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19685,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 19733,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19748,
+      "text": "FE_002_06_GetContentString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 19782,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 19986,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 20073,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20091,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20112,
+      "text": "MENU_MAINMENU_BUY_CONTENT",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20173,
+      "text": "containeroverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20191,
+      "text": "FE_002_07_ReturnToSystem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20217,
+      "text": "blitztech::framework::menu::MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20259,
+      "text": "Framework_MenuItem",
+      "taggedFloats": []
+    },
+    {
+      "offset": 20611,
+      "text": "h*e",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21046,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5
+      ]
+    },
+    {
+      "offset": 21094,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21109,
+      "text": "FE_002_07_ReturnToSystemString",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21147,
+      "text": "Framework_MenuItem_ItemHeader",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -25,
+        0,
+        400,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 21351,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        400,
+        50,
+        0,
+        0.5,
+        0,
+        2,
+        0.75,
+        0.75,
+        0
+      ]
+    },
+    {
+      "offset": 21438,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21456,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21477,
+      "text": "FRONT_END_MAINMENU_RETURN_TO_ARCADE",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21548,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21564,
+      "text": "FE_002_Background",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21589,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 21757,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 21797,
+      "text": "t_MenuPrincipal",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 21859,
+      "text": "stringoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21874,
+      "text": "FE_002_ComingSoon",
+      "taggedFloats": []
+    },
+    {
+      "offset": 21899,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        -412.6301,
+        -399.6494,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -350,
+        -25,
+        0,
+        350,
+        25,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 22067,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        700,
+        50,
+        0.5,
+        0.5,
+        0,
+        3,
+        0.5,
+        0.5,
+        0
+      ]
+    },
+    {
+      "offset": 22154,
+      "text": "soopafreMedium",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22172,
+      "text": "Framework_Strings",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22193,
+      "text": "GENERIC_STRINGS_NOT_IMPLEMENTED",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22260,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22272,
+      "text": "FE_T0033_ExitGameUpsell_Video",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22303,
+      "text": "blitztech::framework::menu::MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 22345,
+      "text": "Framework_MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23218,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 23279,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23291,
+      "text": "FE_T003_ExitGameUpSell",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23315,
+      "text": "blitztech::framework::menu::MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 23357,
+      "text": "Framework_MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 24141,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 24204,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 24220,
+      "text": "FE_T003_BG",
+      "taggedFloats": []
+    },
+    {
+      "offset": 24238,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 24406,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 24446,
+      "text": "ecran2",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 24499,
+      "text": "overlayset",
+      "taggedFloats": []
+    },
+    {
+      "offset": 24511,
+      "text": "FE_T004_ExitGameUpSell",
+      "taggedFloats": []
+    },
+    {
+      "offset": 24535,
+      "text": "blitztech::framework::menu::MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 24577,
+      "text": "Framework_MenuPage",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25007,
+      "text": "h*e",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 25385,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 25448,
+      "text": "textureoverlay",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25464,
+      "text": "FE_T004_BG",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25482,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        -960,
+        -540,
+        0,
+        960,
+        540,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 25650,
+      "text": "<noentclass>",
+      "taggedFloats": [
+        1920,
+        1080,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "offset": 25690,
+      "text": "ecran3",
+      "taggedFloats": [
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "offset": 25743,
+      "text": "basicnodes",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25757,
+      "text": "noderefs",
+      "taggedFloats": []
+    },
+    {
+      "offset": 25769,
+      "text": "end",
+      "taggedFloats": []
+    }
+  ]
+}
