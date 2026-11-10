@@ -36,7 +36,11 @@ importers:
 
   packages/physics: {}
 
-  packages/protocol: {}
+  packages/protocol:
+    dependencies:
+      '@rotastic/physics':
+        specifier: workspace:*
+        version: link:../physics
 
   packages/server:
     dependencies:
