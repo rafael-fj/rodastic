@@ -65,7 +65,7 @@ foreach ($req in $RequiredFiles) {
 }
 Write-Host "3. Binarios e pacotes multiplayer validados com sucesso!" -ForegroundColor Green
 
-# 4. Instalar dependencias Node/pnpm e subir o projeto (quando package.json existir na Fase 4+)
+# 4. Instalar dependencias Node/pnpm e subir o projeto
 if (Test-Path (Join-Path $RepoRoot "package.json")) {
     if (-not (Get-Command pnpm -ErrorAction SilentlyContinue)) {
         Write-Host "Ativando pnpm via corepack..." -ForegroundColor Yellow
@@ -73,6 +73,13 @@ if (Test-Path (Join-Path $RepoRoot "package.json")) {
     }
     Write-Host "4. Instalando dependencias com pnpm..." -ForegroundColor Cyan
     pnpm install
+    $ManifestPath = Join-Path $RepoRoot "packages\client\public\assets\manifest.json"
+    if (-not (Test-Path $ManifestPath)) {
+        Write-Host "4b. Gerando assets Web a partir de assets-original/ (pnpm assets:build)..." -ForegroundColor Cyan
+        pnpm assets:build
+    } else {
+        Write-Host "4b. Assets Web validados em packages/client/public/assets/manifest.json!" -ForegroundColor Green
+    }
     if (-not $SkipRun) {
         Write-Host "5. Iniciando ambiente de desenvolvimento (pnpm dev)..." -ForegroundColor Green
         pnpm dev

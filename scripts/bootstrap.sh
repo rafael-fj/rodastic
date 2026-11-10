@@ -44,6 +44,12 @@ if [ -f "package.json" ]; then
   fi
   echo "3. Instalando dependencias com pnpm..."
   pnpm install
+  if [ ! -f "packages/client/public/assets/manifest.json" ]; then
+    echo "3b. Gerando assets Web a partir de assets-original/ (pnpm assets:build)..."
+    pnpm assets:build
+  else
+    echo "3b. Assets Web validados em packages/client/public/assets/manifest.json!"
+  fi
   if [ "${SKIP_RUN:-0}" != "1" ]; then
     echo "4. Iniciando ambiente de desenvolvimento (pnpm dev)..."
     pnpm dev
