@@ -1,0 +1,21 @@
+services:
+  rotastic:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rotastic-multiplayer
+    ports:
+      - "${PORT:-3001}:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - HOST=0.0.0.0
+      - SIMULATION_TICK_HZ=${SIMULATION_TICK_HZ:-60}
+      - NETWORK_SNAPSHOT_HZ=${NETWORK_SNAPSHOT_HZ:-30}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3001/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

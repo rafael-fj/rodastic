@@ -1,0 +1,24 @@
+{
+  "name": "rodastic-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Reimplementação web multiplayer (cliente browser + servidor autoritativo Node.js) do jogo Rotastic via engenharia reversa",
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter @rotastic/server --filter @rotastic/client dev",
+    "build": "pnpm --filter @rotastic/physics build && pnpm --filter @rotastic/protocol build && pnpm --filter @rotastic/client build && pnpm --filter @rotastic/server build",
+    "start": "pnpm --filter @rotastic/server start",
+    "typecheck": "pnpm -r typecheck",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "assets:build": "node tools/assets/build-web-assets.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
