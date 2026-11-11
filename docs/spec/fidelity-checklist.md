@@ -1,5 +1,8 @@
 # Checklist de Fidelidade: Original (`Rotastic.exe`) vs. Implementação Web (`@rotastic/*`)
 
+> [!IMPORTANT]
+> **Aviso de Auditoria (11/11/2026):** Este checklist inicial refletia a meta planejada nas Fases 0–6, antes da inspeção frame a frame contra capturas reais de `Rotastic.exe`. O status real e honesto de **quanto % de cada subsistema já foi efetivamente decompilado vs. inferido**, bem como as Issues abertas (`#24`–`#28`), está mantido em [**`docs/DECOMPILATION_PROGRESS.md`**](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/docs/DECOMPILATION_PROGRESS.md).
+
 Este documento valida a paridade técnica e comportamental entre o binário nativo x86 **BlitzTech (`Rotastic.exe`)** analisado nas Fases 0 a 3 e a reimplementação Web Multiplayer construída nas Fases 4 a 6.
 
 ---
