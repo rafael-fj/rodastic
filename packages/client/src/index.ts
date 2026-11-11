@@ -103,6 +103,13 @@ export class RotasticWebClient {
     { x: 1260, y: 1000, prevX: 1260, prevY: 1000, trails: [] },
   ];
   private lastPlayerStates: string[] = ['fly', 'fly', 'fly', 'fly'];
+  private facingDir: number[] = [1, -1, 1, -1];
+  private bounceAnimTimer: number[] = [0, 0, 0, 0];
+  private hurtAnimTimer: number[] = [0, 0, 0, 0];
+  private cutAnimTimer: number[] = [0, 0, 0, 0];
+  private killAnimTimer: number[] = [0, 0, 0, 0];
+  private dropAnimTimer: number[] = [0, 0, 0, 0];
+  private dizzyWasRopeCut: boolean[] = [false, false, false, false];
 
   // Input state
   private keysDown = new Set<string>();
@@ -239,7 +246,7 @@ export class RotasticWebClient {
 
     const colors: Array<'b' | 'r' | 'g' | 'y'> = ['b', 'r', 'g', 'y'];
     const chars = ['neo', 'elf', 'pig', 'skull'];
-    const states = ['fly', 'attach', 'hurt', 'ropecut'];
+    const states = ['fly', 'attach', 'bounce', 'hurt', 'ropecut', 'cut', 'hitup', 'spawn'];
 
     for (const c of colors) {
       for (const ch of chars) {
@@ -253,6 +260,9 @@ export class RotasticWebClient {
       urls.map(async (u) => {
         try {
           const tex = await Assets.load<Texture>(u);
+          tex.source.autoGenerateMipmaps = true;
+          tex.source.scaleMode = 'linear';
+          tex.source.update();
           this.texturesCache.set(u, tex);
         } catch {
           // Fallback graphics will be used if any texture fails
@@ -286,6 +296,11 @@ export class RotasticWebClient {
         }
         try {
           const tex = await Assets.load<Texture>(url);
+          if (tex?.source) {
+            tex.source.autoGenerateMipmaps = true;
+            tex.source.scaleMode = 'linear';
+            tex.source.update();
+          }
           this.texturesCache.set(url, tex);
           return { tex, alpha: layer.alpha ?? 1 };
         } catch {
@@ -743,6 +758,9 @@ export class RotasticWebClient {
     switch (ev.type) {
       case 'attach':
         this.audio.play('attach', 0.36, 0.08);
+        if (ev.slotIndex !== undefined) {
+          this.dropAnimTimer[ev.slotIndex] = 0;
+        }
         break;
       case 'release':
         this.audio.play('release', 0.34, 0.08);
@@ -770,6 +788,9 @@ export class RotasticWebClient {
         break;
       case 'shieldbreak':
         this.audio.play('shieldbreak', 0.55, 0.05);
+        if (ev.slotIndex !== undefined) {
+          this.hurtAnimTimer[ev.slotIndex] = 0.42;
+        }
         this.spawnFloatingText('ESCUDO!', sx, Math.max(80, sy - 20), 0xf8fafc);
         break;
       case 'switchtoggle':
@@ -778,10 +799,22 @@ export class RotasticWebClient {
         break;
       case 'spawndrop':
         this.audio.play('spawndrop', 0.42, 0.06);
+        if (ev.slotIndex !== undefined) {
+          this.dropAnimTimer[ev.slotIndex] = 0.45;
+          this.hurtAnimTimer[ev.slotIndex] = 0;
+          this.bounceAnimTimer[ev.slotIndex] = 0;
+          this.cutAnimTimer[ev.slotIndex] = 0;
+          this.killAnimTimer[ev.slotIndex] = 0;
+          this.dizzyWasRopeCut[ev.slotIndex] = false;
+        }
         break;
       case 'ropecut': {
         this.audio.play('ropecut', 0.58, 0.05);
+        if (ev.slotIndex !== undefined) {
+          this.cutAnimTimer[ev.slotIndex] = 0.28;
+        }
         if (ev.targetSlot !== undefined) {
+          this.dizzyWasRopeCut[ev.targetSlot] = true;
           const cutVictim = this.localSim.state.players[ev.targetSlot];
           if (cutVictim) this.audio.playCharacterVoice(cutVictim.characterId, 'hurt', 0.5);
         }
@@ -791,6 +824,9 @@ export class RotasticWebClient {
       }
       case 'slaughter':
         this.audio.play('slaughter', 0.65, 0.04);
+        if (ev.slotIndex !== undefined) {
+          this.killAnimTimer[ev.slotIndex] = 0.35;
+        }
         if (actor) this.audio.playCharacterVoice(actor.characterId, 'kill', 0.55);
         this.audio.playAnnouncer('kill_streak', 4500);
         this.spawnFloatingText('SLAUGHTER!', sx, sy, 0xef4444);
@@ -801,6 +837,12 @@ export class RotasticWebClient {
         break;
       case 'bounce':
         this.audio.play(ev.targetSlot !== undefined ? 'pvp_bump' : 'bounce', 0.34, 0.09);
+        if (ev.slotIndex !== undefined) {
+          this.bounceAnimTimer[ev.slotIndex] = 0.24;
+        }
+        if (ev.targetSlot !== undefined) {
+          this.bounceAnimTimer[ev.targetSlot] = 0.24;
+        }
         break;
       case 'death':
         this.audio.play('death', 0.52, 0.05);
@@ -1114,9 +1156,15 @@ export class RotasticWebClient {
     // 3. Ropes, Dual Shield Gauges, Spawn Cursor & Players
     const cordeTex = this.texturesCache.get('/assets/textures/global/t_corde_c.png');
     const ropeBeamTex = this.texturesCache.get('/assets/textures/global/t_cordebeam_c.png#cropped');
-    const ropeUberTex = this.texturesCache.get('/assets/textures/global/t_cordeuberbeam_c.png#cropped');
+    const ATTACH_BEAM_DURATION_SEC = 0.72;
 
     for (let i = 0; i < 4; i++) {
+      this.bounceAnimTimer[i] = Math.max(0, this.bounceAnimTimer[i] - dt);
+      this.hurtAnimTimer[i] = Math.max(0, this.hurtAnimTimer[i] - dt);
+      this.cutAnimTimer[i] = Math.max(0, this.cutAnimTimer[i] - dt);
+      this.killAnimTimer[i] = Math.max(0, this.killAnimTimer[i] - dt);
+      this.dropAnimTimer[i] = Math.max(0, this.dropAnimTimer[i] - dt);
+
       const p = state.players[i];
       const spr = this.playerSprites[i];
       const lbl = this.playerLabels[i];
@@ -1145,8 +1193,9 @@ export class RotasticWebClient {
         const cy = 62;
         const bob = Math.sin(nowSec * 8) * 4;
 
-        const texKey = `/assets/textures/global/t_character_${colorMeta.code}_${charMeta.id}_fly_c.png`;
+        const texKey = `/assets/textures/global/t_character_${colorMeta.code}_${charMeta.id}_spawn_c.png`;
         const tex = this.texturesCache.get(texKey);
+        const baseScale = tex ? 200 / tex.width : 1;
         if (tex) {
           if (spr.texture !== tex) spr.texture = tex;
           spr.tint = 0xffffff;
@@ -1155,10 +1204,9 @@ export class RotasticWebClient {
         }
         spr.x = cx;
         spr.y = cy;
-        spr.width = 196;
-        spr.height = 196;
+        spr.scale.set(p.spawnCursorDir >= 0 ? -baseScale : baseScale, baseScale);
         spr.rotation = 0;
-        spr.alpha = 0.9;
+        spr.alpha = 0.92;
 
         // Dashed drop guide & chevron arrow pointing down
         this.ropesGraphics
@@ -1204,7 +1252,7 @@ export class RotasticWebClient {
           .stroke({ color: 0xffffff, width: 2 });
       }
 
-      // Active Authentic Rope Sprite (`t_corde_c` tiled braided rope + `t_cordebeam_c` / `t_cordeuberbeam_c`)
+      // Authentic Rope (`t_corde_c`) + Initial White Sweeping Beam (`t_cordebeam_c`, player -> pivot over 0.72s)
       if (p.status === PlayerStatus.SWINGING && p.attachedPivotId >= 0) {
         const pivot = state.attachPoints.find((a) => a.id === p.attachedPivotId);
         if (pivot) {
@@ -1213,36 +1261,54 @@ export class RotasticWebClient {
           const rdx = sx - px;
           const rdy = sy - py;
           const ropeLenPx = Math.max(4, Math.hypot(rdx, rdy));
-          const midX = (px + sx) * 0.5;
-          const midY = (py + sy) * 0.5;
           const ropeRot = Math.atan2(rdy, rdx) + Math.PI * 0.5;
+          const sweepProg = Math.max(0, Math.min(1, p.attachTimer / ATTACH_BEAM_DURATION_SEC));
 
           if (cordeTex) {
-            ropeBase.visible = true;
-            if (ropeBase.texture !== cordeTex) ropeBase.texture = cordeTex;
-            ropeBase.x = midX;
-            ropeBase.y = midY;
-            ropeBase.width = 44;
-            ropeBase.height = ropeLenPx;
-            ropeBase.tileScale.set(44 / 64, 1);
-            ropeBase.rotation = ropeRot;
-            ropeBase.tint = 0xffffff;
-            ropeBase.alpha = 0.96;
-
-            const isUber = p.chargeGauge2 >= 1.0 || Math.hypot(p.vx, p.vy) >= 720;
-            const beamTex = isUber ? ropeUberTex ?? ropeBeamTex : ropeBeamTex;
-            if (beamTex) {
-              ropeBeam.visible = true;
-              if (ropeBeam.texture !== beamTex) ropeBeam.texture = beamTex;
-              ropeBeam.x = midX;
-              ropeBeam.y = midY;
-              ropeBeam.width = isUber ? 34 : 24;
-              ropeBeam.height = ropeLenPx;
-              ropeBeam.rotation = ropeRot;
-              ropeBeam.tint = isUber ? 0xfbbf24 : colorMeta.hex;
-              ropeBeam.alpha = isUber ? 0.85 : p.chargeGauge >= 1.0 ? 0.65 : 0.45;
-            } else {
+            if (sweepProg >= 0.99 || !ropeBeamTex) {
+              ropeBase.visible = true;
+              if (ropeBase.texture !== cordeTex) ropeBase.texture = cordeTex;
+              ropeBase.x = (px + sx) * 0.5;
+              ropeBase.y = (py + sy) * 0.5;
+              ropeBase.width = 44;
+              ropeBase.height = ropeLenPx;
+              ropeBase.tileScale.set(44 / 64, 1);
+              ropeBase.rotation = ropeRot;
+              ropeBase.tint = 0xffffff;
+              ropeBase.alpha = 0.98;
               ropeBeam.visible = false;
+            } else {
+              // Revealed golden rope grows from Player (sx,sy) toward wavefront M,
+              // while pure white attach beam sweeps from M -> Pivot (px,py)!
+              const waveX = sx + (px - sx) * sweepProg;
+              const waveY = sy + (py - sy) * sweepProg;
+              const ropePartLen = ropeLenPx * sweepProg;
+              const beamPartLen = ropeLenPx * (1 - sweepProg);
+
+              if (ropePartLen >= 4) {
+                ropeBase.visible = true;
+                if (ropeBase.texture !== cordeTex) ropeBase.texture = cordeTex;
+                ropeBase.x = (sx + waveX) * 0.5;
+                ropeBase.y = (sy + waveY) * 0.5;
+                ropeBase.width = 44;
+                ropeBase.height = ropePartLen;
+                ropeBase.tileScale.set(44 / 64, 1);
+                ropeBase.rotation = ropeRot;
+                ropeBase.tint = 0xffffff;
+                ropeBase.alpha = 0.98;
+              } else {
+                ropeBase.visible = false;
+              }
+
+              ropeBeam.visible = true;
+              if (ropeBeam.texture !== ropeBeamTex) ropeBeam.texture = ropeBeamTex;
+              ropeBeam.x = (waveX + px) * 0.5;
+              ropeBeam.y = (waveY + py) * 0.5;
+              ropeBeam.width = 28;
+              ropeBeam.height = Math.max(4, beamPartLen);
+              ropeBeam.rotation = ropeRot;
+              ropeBeam.tint = 0xffffff;
+              ropeBeam.alpha = 0.94 * (1 - sweepProg * 0.25);
             }
           } else {
             ropeBase.visible = false;
@@ -1257,22 +1323,39 @@ export class RotasticWebClient {
         ropeBeam.visible = false;
       }
 
-      // Select authentic Rotastic sprite texture with speed hysteresis (prevents rapid texture chatter)
-      const speed = Math.hypot(p.vx, p.vy);
-      let stateSuffix = this.lastPlayerStates[i] || 'fly';
+      // Track horizontal facing (native artwork faces LEFT, so vx > 0 flips X)
+      if (Math.abs(p.vx) > 25) {
+        this.facingDir[i] = p.vx > 0 ? 1 : -1;
+      }
+
+      // Authentic state-to-sprite mapping calibrated from captured Rotastic.exe screenshots
+      let stateSuffix = 'fly';
       if (p.status === PlayerStatus.DIZZY) {
-        stateSuffix = 'hurt';
-      } else if (p.status === PlayerStatus.SWINGING) {
-        stateSuffix = 'attach';
-      } else if (stateSuffix === 'ropecut') {
-        if (speed < 430) stateSuffix = 'fly';
+        stateSuffix = this.dizzyWasRopeCut[i] ? 'ropecut' : 'hurt';
       } else {
-        stateSuffix = speed >= 520 ? 'ropecut' : 'fly';
+        this.dizzyWasRopeCut[i] = false;
+        if (this.hurtAnimTimer[i] > 0) {
+          stateSuffix = 'hurt';
+        } else if (this.cutAnimTimer[i] > 0) {
+          stateSuffix = 'cut';
+        } else if (this.bounceAnimTimer[i] > 0) {
+          stateSuffix = 'bounce';
+        } else if (p.status === PlayerStatus.SWINGING) {
+          stateSuffix = 'attach';
+        } else if (this.killAnimTimer[i] > 0) {
+          stateSuffix = 'hitup';
+        } else if (this.dropAnimTimer[i] > 0) {
+          stateSuffix = 'spawn';
+        } else {
+          stateSuffix = 'fly';
+        }
       }
       this.lastPlayerStates[i] = stateSuffix;
 
       const texKey = `/assets/textures/global/t_character_${colorMeta.code}_${charMeta.id}_${stateSuffix}_c.png`;
       const tex = this.texturesCache.get(texKey);
+      const targetSpriteSize = 276; // Calibrated to match 1920x1080 knight size inside 161px bubble
+      const baseScale = tex ? targetSpriteSize / tex.width : 1;
       if (tex) {
         if (spr.texture !== tex) spr.texture = tex;
         spr.tint = 0xffffff;
@@ -1282,9 +1365,19 @@ export class RotasticWebClient {
 
       spr.x = sx;
       spr.y = sy;
-      spr.width = 276; // Crisp DXT3 knight sprite sized properly inside 156px shield bubble
-      spr.height = 276;
-      spr.rotation = Math.atan2(-p.vy, p.vx) * 0.25;
+      spr.scale.set(this.facingDir[i] > 0 ? -baseScale : baseScale, baseScale);
+
+      const isDirectionalPose = stateSuffix === 'fly' || stateSuffix === 'attach';
+      if (isDirectionalPose) {
+        // Screen velocity tilt aligned cleanly along left/right flight direction
+        const screenVy = -p.vy;
+        const speedHoriz = Math.max(40, Math.abs(p.vx));
+        const rawPitch = Math.atan2(screenVy, speedHoriz);
+        spr.rotation = (this.facingDir[i] > 0 ? rawPitch : -rawPitch) * 0.45;
+      } else {
+        spr.rotation = Math.max(-0.22, Math.min(0.22, p.vx / 2200));
+      }
+
       // Smooth sine shimmer instead of 13Hz harsh blink strobe during post-spawn/shield invuln
       spr.alpha = p.invulnTimer > 0 ? 0.72 + 0.25 * Math.sin(nowSec * 12) : 1.0;
 

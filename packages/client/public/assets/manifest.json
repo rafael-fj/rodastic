@@ -4,8 +4,8 @@
   "stats": {
     "sourceDdsCount": 703,
     "uniquePngCount": 432,
-    "totalPngBytes": 14909849,
-    "totalPngMB": 14.22,
+    "totalPngBytes": 23246871,
+    "totalPngMB": 22.17,
     "audioSfxCount": 172,
     "totalWavBytes": 14990528,
     "totalWavMB": 14.3,
@@ -1670,11 +1670,11 @@
     "343e8dd97f9d4a19": {
       "id": "t_character_b_elf_attach_c",
       "url": "/assets/textures/global/t_character_b_elf_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "343e8dd97f9d4a19",
-      "pngBytes": 9237,
+      "pngBytes": 37336,
       "sources": [
         "global/t_character_b_elf_attach_c.dds"
       ]
@@ -1682,11 +1682,11 @@
     "c3a3f7a39da5004a": {
       "id": "t_character_b_elf_bounce_c",
       "url": "/assets/textures/global/t_character_b_elf_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "c3a3f7a39da5004a",
-      "pngBytes": 8720,
+      "pngBytes": 34531,
       "sources": [
         "global/t_character_b_elf_bounce_c.dds"
       ]
@@ -1694,11 +1694,11 @@
     "5c9393f3f5f80304": {
       "id": "t_character_b_elf_cut_c",
       "url": "/assets/textures/global/t_character_b_elf_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "5c9393f3f5f80304",
-      "pngBytes": 22938,
+      "pngBytes": 87320,
       "sources": [
         "global/t_character_b_elf_cut_c.dds"
       ]
@@ -1706,11 +1706,11 @@
     "d668507efdfa21e7": {
       "id": "t_character_b_elf_dof_c",
       "url": "/assets/textures/global/t_character_b_elf_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "d668507efdfa21e7",
-      "pngBytes": 16554,
+      "pngBytes": 61982,
       "sources": [
         "global/t_character_b_elf_dof_c.dds"
       ]
@@ -1718,11 +1718,11 @@
     "34412f99ab58e379": {
       "id": "t_character_b_elf_fly_c",
       "url": "/assets/textures/global/t_character_b_elf_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "34412f99ab58e379",
-      "pngBytes": 9863,
+      "pngBytes": 39782,
       "sources": [
         "global/t_character_b_elf_fly_c.dds"
       ]
@@ -1730,11 +1730,11 @@
     "a9b1a47a58113cae": {
       "id": "t_character_b_elf_glue_c",
       "url": "/assets/textures/global/t_character_b_elf_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "a9b1a47a58113cae",
-      "pngBytes": 9586,
+      "pngBytes": 37186,
       "sources": [
         "global/t_character_b_elf_glue_c.dds"
       ]
@@ -1742,11 +1742,11 @@
     "e8ddded76911aa17": {
       "id": "t_character_b_elf_hitup_c",
       "url": "/assets/textures/global/t_character_b_elf_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "e8ddded76911aa17",
-      "pngBytes": 15887,
+      "pngBytes": 61367,
       "sources": [
         "global/t_character_b_elf_hitup_c.dds"
       ]
@@ -1754,11 +1754,11 @@
     "cdd7ee290648387f": {
       "id": "t_character_b_elf_hurt_c",
       "url": "/assets/textures/global/t_character_b_elf_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "cdd7ee290648387f",
-      "pngBytes": 8601,
+      "pngBytes": 33242,
       "sources": [
         "global/t_character_b_elf_hurt_c.dds"
       ]
@@ -1766,11 +1766,11 @@
     "4cfe22d8a685a94b": {
       "id": "t_character_b_elf_ropecut_c",
       "url": "/assets/textures/global/t_character_b_elf_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "4cfe22d8a685a94b",
-      "pngBytes": 11049,
+      "pngBytes": 45045,
       "sources": [
         "global/t_character_b_elf_ropecut_c.dds"
       ]
@@ -1778,11 +1778,11 @@
     "ef82a94079649b23": {
       "id": "t_character_b_elf_slide_c",
       "url": "/assets/textures/global/t_character_b_elf_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "ef82a94079649b23",
-      "pngBytes": 9976,
+      "pngBytes": 39785,
       "sources": [
         "global/t_character_b_elf_slide_c.dds"
       ]
@@ -1790,11 +1790,11 @@
     "61ec529fcedbc494": {
       "id": "t_character_b_elf_spawn_c",
       "url": "/assets/textures/global/t_character_b_elf_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "61ec529fcedbc494",
-      "pngBytes": 11145,
+      "pngBytes": 44585,
       "sources": [
         "global/t_character_b_elf_spawn_c.dds"
       ]
@@ -1802,11 +1802,11 @@
     "3b7e87960dc77d04": {
       "id": "t_character_b_elf_ubeam_c",
       "url": "/assets/textures/global/t_character_b_elf_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "3b7e87960dc77d04",
-      "pngBytes": 22938,
+      "pngBytes": 87094,
       "sources": [
         "global/t_character_b_elf_ubeam_c.dds"
       ]
@@ -1814,11 +1814,11 @@
     "dd8ac66e21871f0c": {
       "id": "t_character_b_neo_attach_c",
       "url": "/assets/textures/global/t_character_b_neo_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "dd8ac66e21871f0c",
-      "pngBytes": 8273,
+      "pngBytes": 37173,
       "sources": [
         "global/t_character_b_neo_attach_c.dds"
       ]
@@ -1826,11 +1826,11 @@
     "b85b4b51dcb5bf34": {
       "id": "t_character_b_neo_bounce_c",
       "url": "/assets/textures/global/t_character_b_neo_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "b85b4b51dcb5bf34",
-      "pngBytes": 9325,
+      "pngBytes": 41039,
       "sources": [
         "global/t_character_b_neo_bounce_c.dds"
       ]
@@ -1838,11 +1838,11 @@
     "18fbb7e70a7b2398": {
       "id": "t_character_b_neo_cut_c",
       "url": "/assets/textures/global/t_character_b_neo_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "18fbb7e70a7b2398",
-      "pngBytes": 16434,
+      "pngBytes": 65902,
       "sources": [
         "global/t_character_b_neo_cut_c.dds"
       ]
@@ -1850,11 +1850,11 @@
     "ab5194f502deefa4": {
       "id": "t_character_b_neo_dof_c",
       "url": "/assets/textures/global/t_character_b_neo_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "ab5194f502deefa4",
-      "pngBytes": 17292,
+      "pngBytes": 70816,
       "sources": [
         "global/t_character_b_neo_dof_c.dds"
       ]
@@ -1862,11 +1862,11 @@
     "3e556df458f13e5d": {
       "id": "t_character_b_neo_fly_c",
       "url": "/assets/textures/global/t_character_b_neo_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "3e556df458f13e5d",
-      "pngBytes": 8286,
+      "pngBytes": 35733,
       "sources": [
         "global/t_character_b_neo_fly_c.dds"
       ]
@@ -1874,11 +1874,11 @@
     "ccf5358efdd19d9f": {
       "id": "t_character_b_neo_glue_c",
       "url": "/assets/textures/global/t_character_b_neo_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "ccf5358efdd19d9f",
-      "pngBytes": 7254,
+      "pngBytes": 31477,
       "sources": [
         "global/t_character_b_neo_glue_c.dds"
       ]
@@ -1886,11 +1886,11 @@
     "6493f805a5eb15fb": {
       "id": "t_character_b_neo_hitup_c",
       "url": "/assets/textures/global/t_character_b_neo_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "6493f805a5eb15fb",
-      "pngBytes": 17680,
+      "pngBytes": 73367,
       "sources": [
         "global/t_character_b_neo_hitup_c.dds"
       ]
@@ -1898,11 +1898,11 @@
     "a1ff4ae597a015ca": {
       "id": "t_character_b_neo_hurt_c",
       "url": "/assets/textures/global/t_character_b_neo_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "a1ff4ae597a015ca",
-      "pngBytes": 8091,
+      "pngBytes": 35930,
       "sources": [
         "global/t_character_b_neo_hurt_c.dds"
       ]
@@ -1910,11 +1910,11 @@
     "5a1f98aa2d0b1451": {
       "id": "t_character_b_neo_ropecut_c",
       "url": "/assets/textures/global/t_character_b_neo_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "5a1f98aa2d0b1451",
-      "pngBytes": 11873,
+      "pngBytes": 50385,
       "sources": [
         "global/t_character_b_neo_ropecut_c.dds"
       ]
@@ -1922,11 +1922,11 @@
     "60019a8cc5fb9a93": {
       "id": "t_character_b_neo_slide_c",
       "url": "/assets/textures/global/t_character_b_neo_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "60019a8cc5fb9a93",
-      "pngBytes": 9578,
+      "pngBytes": 41328,
       "sources": [
         "global/t_character_b_neo_slide_c.dds"
       ]
@@ -1934,11 +1934,11 @@
     "57794dd36bb44337": {
       "id": "t_character_b_neo_spawn_c",
       "url": "/assets/textures/global/t_character_b_neo_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "57794dd36bb44337",
-      "pngBytes": 8505,
+      "pngBytes": 37446,
       "sources": [
         "global/t_character_b_neo_spawn_c.dds"
       ]
@@ -1946,11 +1946,11 @@
     "118c82bcc1b6cfb2": {
       "id": "t_character_b_neo_ubeam_c",
       "url": "/assets/textures/global/t_character_b_neo_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "118c82bcc1b6cfb2",
-      "pngBytes": 17353,
+      "pngBytes": 69534,
       "sources": [
         "global/t_character_b_neo_ubeam_c.dds"
       ]
@@ -1958,11 +1958,11 @@
     "a1c6b95590d70113": {
       "id": "t_character_b_pig_attach_c",
       "url": "/assets/textures/global/t_character_b_pig_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "a1c6b95590d70113",
-      "pngBytes": 8839,
+      "pngBytes": 37115,
       "sources": [
         "global/t_character_b_pig_attach_c.dds"
       ]
@@ -1970,11 +1970,11 @@
     "b69ddcf8d7e5ea66": {
       "id": "t_character_b_pig_bounce_c",
       "url": "/assets/textures/global/t_character_b_pig_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "b69ddcf8d7e5ea66",
-      "pngBytes": 11932,
+      "pngBytes": 48289,
       "sources": [
         "global/t_character_b_pig_bounce_c.dds"
       ]
@@ -1982,11 +1982,11 @@
     "7dc99dc0e68e208e": {
       "id": "t_character_b_pig_cut_c",
       "url": "/assets/textures/global/t_character_b_pig_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "7dc99dc0e68e208e",
-      "pngBytes": 23083,
+      "pngBytes": 88753,
       "sources": [
         "global/t_character_b_pig_cut_c.dds"
       ]
@@ -1994,11 +1994,11 @@
     "64b71c2d898bfc68": {
       "id": "t_character_b_pig_dof_c",
       "url": "/assets/textures/global/t_character_b_pig_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "64b71c2d898bfc68",
-      "pngBytes": 17954,
+      "pngBytes": 67483,
       "sources": [
         "global/t_character_b_pig_dof_c.dds"
       ]
@@ -2006,11 +2006,11 @@
     "814d1729d930974e": {
       "id": "t_character_b_pig_fly_c",
       "url": "/assets/textures/global/t_character_b_pig_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "814d1729d930974e",
-      "pngBytes": 9585,
+      "pngBytes": 38686,
       "sources": [
         "global/t_character_b_pig_fly_c.dds"
       ]
@@ -2018,11 +2018,11 @@
     "89f05ccef9dce977": {
       "id": "t_character_b_pig_glue_c",
       "url": "/assets/textures/global/t_character_b_pig_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "89f05ccef9dce977",
-      "pngBytes": 8778,
+      "pngBytes": 36141,
       "sources": [
         "global/t_character_b_pig_glue_c.dds"
       ]
@@ -2030,11 +2030,11 @@
     "211488122eb9fdc5": {
       "id": "t_character_b_pig_hitup_c",
       "url": "/assets/textures/global/t_character_b_pig_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "211488122eb9fdc5",
-      "pngBytes": 17246,
+      "pngBytes": 66865,
       "sources": [
         "global/t_character_b_pig_hitup_c.dds"
       ]
@@ -2042,11 +2042,11 @@
     "6519adf16414c3db": {
       "id": "t_character_b_pig_hurt_c",
       "url": "/assets/textures/global/t_character_b_pig_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "6519adf16414c3db",
-      "pngBytes": 9593,
+      "pngBytes": 37194,
       "sources": [
         "global/t_character_b_pig_hurt_c.dds"
       ]
@@ -2054,11 +2054,11 @@
     "754d43fa5d0555e9": {
       "id": "t_character_b_pig_ropecut_c",
       "url": "/assets/textures/global/t_character_b_pig_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "754d43fa5d0555e9",
-      "pngBytes": 9585,
+      "pngBytes": 39950,
       "sources": [
         "global/t_character_b_pig_ropecut_c.dds"
       ]
@@ -2066,11 +2066,11 @@
     "e3736a6710a15ae8": {
       "id": "t_character_b_pig_slide_c",
       "url": "/assets/textures/global/t_character_b_pig_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "e3736a6710a15ae8",
-      "pngBytes": 12708,
+      "pngBytes": 51098,
       "sources": [
         "global/t_character_b_pig_slide_c.dds"
       ]
@@ -2078,11 +2078,11 @@
     "09fc815410943b53": {
       "id": "t_character_b_pig_spawn_c",
       "url": "/assets/textures/global/t_character_b_pig_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "09fc815410943b53",
-      "pngBytes": 10311,
+      "pngBytes": 43378,
       "sources": [
         "global/t_character_b_pig_spawn_c.dds"
       ]
@@ -2090,11 +2090,11 @@
     "1cb85ef97b91c0e6": {
       "id": "t_character_b_pig_ubeam_c",
       "url": "/assets/textures/global/t_character_b_pig_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "1cb85ef97b91c0e6",
-      "pngBytes": 29481,
+      "pngBytes": 104644,
       "sources": [
         "global/t_character_b_pig_ubeam_c.dds"
       ]
@@ -2102,11 +2102,11 @@
     "942b79644c55b6cb": {
       "id": "t_character_b_skull_attach_c",
       "url": "/assets/textures/global/t_character_b_skull_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "942b79644c55b6cb",
-      "pngBytes": 11666,
+      "pngBytes": 51442,
       "sources": [
         "global/t_character_b_skull_attach_c.dds"
       ]
@@ -2114,11 +2114,11 @@
     "5784a54d6ffe24b2": {
       "id": "t_character_b_skull_bounce_c",
       "url": "/assets/textures/global/t_character_b_skull_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "5784a54d6ffe24b2",
-      "pngBytes": 9219,
+      "pngBytes": 39300,
       "sources": [
         "global/t_character_b_skull_bounce_c.dds"
       ]
@@ -2126,11 +2126,11 @@
     "db62dd306fdbd0f0": {
       "id": "t_character_b_skull_cut_c",
       "url": "/assets/textures/global/t_character_b_skull_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "db62dd306fdbd0f0",
-      "pngBytes": 28136,
+      "pngBytes": 106840,
       "sources": [
         "global/t_character_b_skull_cut_c.dds"
       ]
@@ -2138,11 +2138,11 @@
     "253bd93c4101ec8a": {
       "id": "t_character_b_skull_dof_c",
       "url": "/assets/textures/global/t_character_b_skull_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "253bd93c4101ec8a",
-      "pngBytes": 15459,
+      "pngBytes": 59907,
       "sources": [
         "global/t_character_b_skull_dof_c.dds"
       ]
@@ -2150,11 +2150,11 @@
     "f3dccc7726b93c32": {
       "id": "t_character_b_skull_fly_c",
       "url": "/assets/textures/global/t_character_b_skull_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "f3dccc7726b93c32",
-      "pngBytes": 10651,
+      "pngBytes": 47097,
       "sources": [
         "global/t_character_b_skull_fly_c.dds"
       ]
@@ -2162,11 +2162,11 @@
     "afd04aebb564e958": {
       "id": "t_character_b_skull_glue_c",
       "url": "/assets/textures/global/t_character_b_skull_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "afd04aebb564e958",
-      "pngBytes": 9060,
+      "pngBytes": 39187,
       "sources": [
         "global/t_character_b_skull_glue_c.dds"
       ]
@@ -2174,11 +2174,11 @@
     "89f71e03cd8566c9": {
       "id": "t_character_b_skull_hitup_c",
       "url": "/assets/textures/global/t_character_b_skull_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "89f71e03cd8566c9",
-      "pngBytes": 18185,
+      "pngBytes": 71604,
       "sources": [
         "global/t_character_b_skull_hitup_c.dds"
       ]
@@ -2186,11 +2186,11 @@
     "9f4b0724c5201178": {
       "id": "t_character_b_skull_hurt_c",
       "url": "/assets/textures/global/t_character_b_skull_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "9f4b0724c5201178",
-      "pngBytes": 8800,
+      "pngBytes": 37726,
       "sources": [
         "global/t_character_b_skull_hurt_c.dds"
       ]
@@ -2198,11 +2198,11 @@
     "0e9317e3b5c6f0cd": {
       "id": "t_character_b_skull_ropecut_c",
       "url": "/assets/textures/global/t_character_b_skull_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "0e9317e3b5c6f0cd",
-      "pngBytes": 14841,
+      "pngBytes": 63572,
       "sources": [
         "global/t_character_b_skull_ropecut_c.dds"
       ]
@@ -2210,11 +2210,11 @@
     "0c19e98788b6e55a": {
       "id": "t_character_b_skull_slide_c",
       "url": "/assets/textures/global/t_character_b_skull_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "0c19e98788b6e55a",
-      "pngBytes": 12480,
+      "pngBytes": 53768,
       "sources": [
         "global/t_character_b_skull_slide_c.dds"
       ]
@@ -2222,11 +2222,11 @@
     "3381bed8a5bceba9": {
       "id": "t_character_b_skull_spawn_c",
       "url": "/assets/textures/global/t_character_b_skull_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "3381bed8a5bceba9",
-      "pngBytes": 11315,
+      "pngBytes": 50242,
       "sources": [
         "global/t_character_b_skull_spawn_c.dds"
       ]
@@ -2234,11 +2234,11 @@
     "17ab982f68ec2daf": {
       "id": "t_character_b_skull_ubeam_c",
       "url": "/assets/textures/global/t_character_b_skull_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "17ab982f68ec2daf",
-      "pngBytes": 31190,
+      "pngBytes": 117180,
       "sources": [
         "global/t_character_b_skull_ubeam_c.dds"
       ]
@@ -2246,11 +2246,11 @@
     "a225639c689c3dcc": {
       "id": "t_character_elf_newdeadb_c",
       "url": "/assets/textures/global/t_character_elf_newdeadb_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "a225639c689c3dcc",
-      "pngBytes": 11626,
+      "pngBytes": 50512,
       "sources": [
         "global/t_character_elf_newdeadb_c.dds"
       ]
@@ -2258,11 +2258,11 @@
     "f93399140a4f7989": {
       "id": "t_character_elf_newdeadj_c",
       "url": "/assets/textures/global/t_character_elf_newdeadj_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "f93399140a4f7989",
-      "pngBytes": 11761,
+      "pngBytes": 51021,
       "sources": [
         "global/t_character_elf_newdeadj_c.dds"
       ]
@@ -2270,11 +2270,11 @@
     "2de8db56da54ae22": {
       "id": "t_character_elf_newdeadr_c",
       "url": "/assets/textures/global/t_character_elf_newdeadr_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "2de8db56da54ae22",
-      "pngBytes": 11478,
+      "pngBytes": 49853,
       "sources": [
         "global/t_character_elf_newdeadr_c.dds"
       ]
@@ -2282,11 +2282,11 @@
     "0bacea56f7d8acf8": {
       "id": "t_character_elf_newdeadv_c",
       "url": "/assets/textures/global/t_character_elf_newdeadv_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "0bacea56f7d8acf8",
-      "pngBytes": 11725,
+      "pngBytes": 50600,
       "sources": [
         "global/t_character_elf_newdeadv_c.dds"
       ]
@@ -2294,11 +2294,11 @@
     "b58aa0796c1335b1": {
       "id": "t_character_g_elf_attach_c",
       "url": "/assets/textures/global/t_character_g_elf_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "b58aa0796c1335b1",
-      "pngBytes": 9394,
+      "pngBytes": 37491,
       "sources": [
         "global/t_character_g_elf_attach_c.dds"
       ]
@@ -2306,11 +2306,11 @@
     "faa4d564fb393b5b": {
       "id": "t_character_g_elf_bounce_c",
       "url": "/assets/textures/global/t_character_g_elf_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "faa4d564fb393b5b",
-      "pngBytes": 8684,
+      "pngBytes": 34360,
       "sources": [
         "global/t_character_g_elf_bounce_c.dds"
       ]
@@ -2318,11 +2318,11 @@
     "3c613e95949508e4": {
       "id": "t_character_g_elf_cut_c",
       "url": "/assets/textures/global/t_character_g_elf_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "3c613e95949508e4",
-      "pngBytes": 22871,
+      "pngBytes": 86147,
       "sources": [
         "global/t_character_g_elf_cut_c.dds"
       ]
@@ -2330,11 +2330,11 @@
     "5cfd1d71c7e3d5c7": {
       "id": "t_character_g_elf_dof_c",
       "url": "/assets/textures/global/t_character_g_elf_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "5cfd1d71c7e3d5c7",
-      "pngBytes": 16690,
+      "pngBytes": 62085,
       "sources": [
         "global/t_character_g_elf_dof_c.dds"
       ]
@@ -2342,11 +2342,11 @@
     "1c1e5cdf6a011af2": {
       "id": "t_character_g_elf_fly_c",
       "url": "/assets/textures/global/t_character_g_elf_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "1c1e5cdf6a011af2",
-      "pngBytes": 10055,
+      "pngBytes": 39997,
       "sources": [
         "global/t_character_g_elf_fly_c.dds"
       ]
@@ -2354,11 +2354,11 @@
     "c82cbe2b616fdadc": {
       "id": "t_character_g_elf_glue_c",
       "url": "/assets/textures/global/t_character_g_elf_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "c82cbe2b616fdadc",
-      "pngBytes": 9499,
+      "pngBytes": 37292,
       "sources": [
         "global/t_character_g_elf_glue_c.dds"
       ]
@@ -2366,11 +2366,11 @@
     "f7d994c47294e1e9": {
       "id": "t_character_g_elf_hitup_c",
       "url": "/assets/textures/global/t_character_g_elf_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "f7d994c47294e1e9",
-      "pngBytes": 15992,
+      "pngBytes": 61240,
       "sources": [
         "global/t_character_g_elf_hitup_c.dds"
       ]
@@ -2378,11 +2378,11 @@
     "2fc0e41d2b5c27dd": {
       "id": "t_character_g_elf_hurt_c",
       "url": "/assets/textures/global/t_character_g_elf_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "2fc0e41d2b5c27dd",
-      "pngBytes": 8681,
+      "pngBytes": 33207,
       "sources": [
         "global/t_character_g_elf_hurt_c.dds"
       ]
@@ -2390,11 +2390,11 @@
     "622ea91c4a6721a4": {
       "id": "t_character_g_elf_ropecut_c",
       "url": "/assets/textures/global/t_character_g_elf_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "622ea91c4a6721a4",
-      "pngBytes": 11024,
+      "pngBytes": 44751,
       "sources": [
         "global/t_character_g_elf_ropecut_c.dds"
       ]
@@ -2402,11 +2402,11 @@
     "98cc956c9ea02de9": {
       "id": "t_character_g_elf_slide_c",
       "url": "/assets/textures/global/t_character_g_elf_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "98cc956c9ea02de9",
-      "pngBytes": 10005,
+      "pngBytes": 39292,
       "sources": [
         "global/t_character_g_elf_slide_c.dds"
       ]
@@ -2414,11 +2414,11 @@
     "d436376429398d80": {
       "id": "t_character_g_elf_spawn_c",
       "url": "/assets/textures/global/t_character_g_elf_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "d436376429398d80",
-      "pngBytes": 11324,
+      "pngBytes": 44649,
       "sources": [
         "global/t_character_g_elf_spawn_c.dds"
       ]
@@ -2426,11 +2426,11 @@
     "8ae88635611339fb": {
       "id": "t_character_g_elf_ubeam_c",
       "url": "/assets/textures/global/t_character_g_elf_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "8ae88635611339fb",
-      "pngBytes": 22656,
+      "pngBytes": 84417,
       "sources": [
         "global/t_character_g_elf_ubeam_c.dds"
       ]
@@ -2438,11 +2438,11 @@
     "a73a20b9df701c0e": {
       "id": "t_character_g_neo_attach_c",
       "url": "/assets/textures/global/t_character_g_neo_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "a73a20b9df701c0e",
-      "pngBytes": 10507,
+      "pngBytes": 41958,
       "sources": [
         "global/t_character_g_neo_attach_c.dds"
       ]
@@ -2450,11 +2450,11 @@
     "43e08e269f8aa8d3": {
       "id": "t_character_g_neo_bounce_c",
       "url": "/assets/textures/global/t_character_g_neo_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "43e08e269f8aa8d3",
-      "pngBytes": 9714,
+      "pngBytes": 41953,
       "sources": [
         "global/t_character_g_neo_bounce_c.dds"
       ]
@@ -2462,11 +2462,11 @@
     "1eb810905a523a52": {
       "id": "t_character_g_neo_cut_c",
       "url": "/assets/textures/global/t_character_g_neo_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "1eb810905a523a52",
-      "pngBytes": 16631,
+      "pngBytes": 65442,
       "sources": [
         "global/t_character_g_neo_cut_c.dds"
       ]
@@ -2474,11 +2474,11 @@
     "cddac81dad6755c7": {
       "id": "t_character_g_neo_dof_c",
       "url": "/assets/textures/global/t_character_g_neo_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "cddac81dad6755c7",
-      "pngBytes": 17165,
+      "pngBytes": 69786,
       "sources": [
         "global/t_character_g_neo_dof_c.dds"
       ]
@@ -2486,11 +2486,11 @@
     "328b4c415a0960a1": {
       "id": "t_character_g_neo_fly_c",
       "url": "/assets/textures/global/t_character_g_neo_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "328b4c415a0960a1",
-      "pngBytes": 8635,
+      "pngBytes": 36250,
       "sources": [
         "global/t_character_g_neo_fly_c.dds"
       ]
@@ -2498,11 +2498,11 @@
     "ebb0fdbd7b966a69": {
       "id": "t_character_g_neo_glue_c",
       "url": "/assets/textures/global/t_character_g_neo_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "ebb0fdbd7b966a69",
-      "pngBytes": 7581,
+      "pngBytes": 31947,
       "sources": [
         "global/t_character_g_neo_glue_c.dds"
       ]
@@ -2510,11 +2510,11 @@
     "51aaeafc7b4673ac": {
       "id": "t_character_g_neo_hitup_c",
       "url": "/assets/textures/global/t_character_g_neo_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "51aaeafc7b4673ac",
-      "pngBytes": 17517,
+      "pngBytes": 72327,
       "sources": [
         "global/t_character_g_neo_hitup_c.dds"
       ]
@@ -2522,11 +2522,11 @@
     "a0adcf692d8b4d76": {
       "id": "t_character_g_neo_hurt_c",
       "url": "/assets/textures/global/t_character_g_neo_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "a0adcf692d8b4d76",
-      "pngBytes": 8010,
+      "pngBytes": 35104,
       "sources": [
         "global/t_character_g_neo_hurt_c.dds"
       ]
@@ -2534,11 +2534,11 @@
     "c2a947ccc29aa4f8": {
       "id": "t_character_g_neo_ropecut_c",
       "url": "/assets/textures/global/t_character_g_neo_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "c2a947ccc29aa4f8",
-      "pngBytes": 11529,
+      "pngBytes": 48803,
       "sources": [
         "global/t_character_g_neo_ropecut_c.dds"
       ]
@@ -2546,11 +2546,11 @@
     "18a01af887411d2e": {
       "id": "t_character_g_neo_slide_c",
       "url": "/assets/textures/global/t_character_g_neo_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "18a01af887411d2e",
-      "pngBytes": 9954,
+      "pngBytes": 40417,
       "sources": [
         "global/t_character_g_neo_slide_c.dds"
       ]
@@ -2558,11 +2558,11 @@
     "7560d945dfd86d02": {
       "id": "t_character_g_neo_spawn_c",
       "url": "/assets/textures/global/t_character_g_neo_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "7560d945dfd86d02",
-      "pngBytes": 8393,
+      "pngBytes": 36532,
       "sources": [
         "global/t_character_g_neo_spawn_c.dds"
       ]
@@ -2570,11 +2570,11 @@
     "d4a52d51a74c4656": {
       "id": "t_character_g_neo_ubeam_c",
       "url": "/assets/textures/global/t_character_g_neo_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "d4a52d51a74c4656",
-      "pngBytes": 17226,
+      "pngBytes": 68505,
       "sources": [
         "global/t_character_g_neo_ubeam_c.dds"
       ]
@@ -2582,11 +2582,11 @@
     "017b2cb548b01672": {
       "id": "t_character_g_pig_attach_c",
       "url": "/assets/textures/global/t_character_g_pig_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "017b2cb548b01672",
-      "pngBytes": 8826,
+      "pngBytes": 36588,
       "sources": [
         "global/t_character_g_pig_attach_c.dds"
       ]
@@ -2594,11 +2594,11 @@
     "b405d7fa7b545f81": {
       "id": "t_character_g_pig_bounce_c",
       "url": "/assets/textures/global/t_character_g_pig_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "b405d7fa7b545f81",
-      "pngBytes": 11825,
+      "pngBytes": 47857,
       "sources": [
         "global/t_character_g_pig_bounce_c.dds"
       ]
@@ -2606,11 +2606,11 @@
     "66d2a0c84180dc3d": {
       "id": "t_character_g_pig_cut_c",
       "url": "/assets/textures/global/t_character_g_pig_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "66d2a0c84180dc3d",
-      "pngBytes": 23022,
+      "pngBytes": 88405,
       "sources": [
         "global/t_character_g_pig_cut_c.dds"
       ]
@@ -2618,11 +2618,11 @@
     "2fbb2f530cc66d90": {
       "id": "t_character_g_pig_dof_c",
       "url": "/assets/textures/global/t_character_g_pig_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "2fbb2f530cc66d90",
-      "pngBytes": 17925,
+      "pngBytes": 67144,
       "sources": [
         "global/t_character_g_pig_dof_c.dds"
       ]
@@ -2630,11 +2630,11 @@
     "2165915713c1f05e": {
       "id": "t_character_g_pig_fly_c",
       "url": "/assets/textures/global/t_character_g_pig_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "2165915713c1f05e",
-      "pngBytes": 9528,
+      "pngBytes": 38265,
       "sources": [
         "global/t_character_g_pig_fly_c.dds"
       ]
@@ -2642,11 +2642,11 @@
     "bb576610a0c7aa6c": {
       "id": "t_character_g_pig_glue_c",
       "url": "/assets/textures/global/t_character_g_pig_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "bb576610a0c7aa6c",
-      "pngBytes": 8698,
+      "pngBytes": 35709,
       "sources": [
         "global/t_character_g_pig_glue_c.dds"
       ]
@@ -2654,11 +2654,11 @@
     "30fa66e8db4dac37": {
       "id": "t_character_g_pig_hitup_c",
       "url": "/assets/textures/global/t_character_g_pig_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "30fa66e8db4dac37",
-      "pngBytes": 17146,
+      "pngBytes": 66383,
       "sources": [
         "global/t_character_g_pig_hitup_c.dds"
       ]
@@ -2666,11 +2666,11 @@
     "9df9dcb0f8558a89": {
       "id": "t_character_g_pig_hurt_c",
       "url": "/assets/textures/global/t_character_g_pig_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "9df9dcb0f8558a89",
-      "pngBytes": 9592,
+      "pngBytes": 37018,
       "sources": [
         "global/t_character_g_pig_hurt_c.dds"
       ]
@@ -2678,11 +2678,11 @@
     "e1e8199079dde352": {
       "id": "t_character_g_pig_ropecut_c",
       "url": "/assets/textures/global/t_character_g_pig_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "e1e8199079dde352",
-      "pngBytes": 9532,
+      "pngBytes": 39813,
       "sources": [
         "global/t_character_g_pig_ropecut_c.dds"
       ]
@@ -2690,11 +2690,11 @@
     "21a11c5066ab0502": {
       "id": "t_character_g_pig_slide_c",
       "url": "/assets/textures/global/t_character_g_pig_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "21a11c5066ab0502",
-      "pngBytes": 12616,
+      "pngBytes": 50558,
       "sources": [
         "global/t_character_g_pig_slide_c.dds"
       ]
@@ -2702,11 +2702,11 @@
     "f59a55d2c70ccbbe": {
       "id": "t_character_g_pig_spawn_c",
       "url": "/assets/textures/global/t_character_g_pig_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "f59a55d2c70ccbbe",
-      "pngBytes": 10123,
+      "pngBytes": 42775,
       "sources": [
         "global/t_character_g_pig_spawn_c.dds"
       ]
@@ -2714,11 +2714,11 @@
     "faa7c4bec1ab5a93": {
       "id": "t_character_g_pig_ubeam_c",
       "url": "/assets/textures/global/t_character_g_pig_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "faa7c4bec1ab5a93",
-      "pngBytes": 28787,
+      "pngBytes": 101408,
       "sources": [
         "global/t_character_g_pig_ubeam_c.dds"
       ]
@@ -2726,11 +2726,11 @@
     "2c3614f1e77d34ae": {
       "id": "t_character_g_skull_attach_c",
       "url": "/assets/textures/global/t_character_g_skull_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "2c3614f1e77d34ae",
-      "pngBytes": 11418,
+      "pngBytes": 50053,
       "sources": [
         "global/t_character_g_skull_attach_c.dds"
       ]
@@ -2738,11 +2738,11 @@
     "6fa3f6e0d1a10525": {
       "id": "t_character_g_skull_bounce_c",
       "url": "/assets/textures/global/t_character_g_skull_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "6fa3f6e0d1a10525",
-      "pngBytes": 8899,
+      "pngBytes": 37990,
       "sources": [
         "global/t_character_g_skull_bounce_c.dds"
       ]
@@ -2750,11 +2750,11 @@
     "5da469bba3396aa7": {
       "id": "t_character_g_skull_cut_c",
       "url": "/assets/textures/global/t_character_g_skull_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "5da469bba3396aa7",
-      "pngBytes": 25081,
+      "pngBytes": 93868,
       "sources": [
         "global/t_character_g_skull_cut_c.dds"
       ]
@@ -2762,11 +2762,11 @@
     "6cf1a1ea61eb0f62": {
       "id": "t_character_g_skull_dof_c",
       "url": "/assets/textures/global/t_character_g_skull_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "6cf1a1ea61eb0f62",
-      "pngBytes": 15452,
+      "pngBytes": 59891,
       "sources": [
         "global/t_character_g_skull_dof_c.dds"
       ]
@@ -2774,11 +2774,11 @@
     "1488ddea6b9da911": {
       "id": "t_character_g_skull_fly_c",
       "url": "/assets/textures/global/t_character_g_skull_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "1488ddea6b9da911",
-      "pngBytes": 10390,
+      "pngBytes": 45674,
       "sources": [
         "global/t_character_g_skull_fly_c.dds"
       ]
@@ -2786,11 +2786,11 @@
     "6b9f5ce875bd7df5": {
       "id": "t_character_g_skull_glue_c",
       "url": "/assets/textures/global/t_character_g_skull_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "6b9f5ce875bd7df5",
-      "pngBytes": 8905,
+      "pngBytes": 38330,
       "sources": [
         "global/t_character_g_skull_glue_c.dds"
       ]
@@ -2798,11 +2798,11 @@
     "90a729806c2ebb25": {
       "id": "t_character_g_skull_hitup_c",
       "url": "/assets/textures/global/t_character_g_skull_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "90a729806c2ebb25",
-      "pngBytes": 18191,
+      "pngBytes": 71574,
       "sources": [
         "global/t_character_g_skull_hitup_c.dds"
       ]
@@ -2810,11 +2810,11 @@
     "de2de1b15a026b59": {
       "id": "t_character_g_skull_hurt_c",
       "url": "/assets/textures/global/t_character_g_skull_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "de2de1b15a026b59",
-      "pngBytes": 8675,
+      "pngBytes": 36994,
       "sources": [
         "global/t_character_g_skull_hurt_c.dds"
       ]
@@ -2822,11 +2822,11 @@
     "28891b996daea3f9": {
       "id": "t_character_g_skull_ropecut_c",
       "url": "/assets/textures/global/t_character_g_skull_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "28891b996daea3f9",
-      "pngBytes": 14522,
+      "pngBytes": 62084,
       "sources": [
         "global/t_character_g_skull_ropecut_c.dds"
       ]
@@ -2834,11 +2834,11 @@
     "d080b2ffb2f48ba7": {
       "id": "t_character_g_skull_slide_c",
       "url": "/assets/textures/global/t_character_g_skull_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "d080b2ffb2f48ba7",
-      "pngBytes": 12289,
+      "pngBytes": 52854,
       "sources": [
         "global/t_character_g_skull_slide_c.dds"
       ]
@@ -2846,11 +2846,11 @@
     "8b7df8f6c05fb194": {
       "id": "t_character_g_skull_spawn_c",
       "url": "/assets/textures/global/t_character_g_skull_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "8b7df8f6c05fb194",
-      "pngBytes": 11160,
+      "pngBytes": 49422,
       "sources": [
         "global/t_character_g_skull_spawn_c.dds"
       ]
@@ -2858,11 +2858,11 @@
     "649ce9a70179093c": {
       "id": "t_character_g_skull_ubeam_c",
       "url": "/assets/textures/global/t_character_g_skull_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "649ce9a70179093c",
-      "pngBytes": 31074,
+      "pngBytes": 116480,
       "sources": [
         "global/t_character_g_skull_ubeam_c.dds"
       ]
@@ -2870,11 +2870,11 @@
     "ea6b91968e2f7d6d": {
       "id": "t_character_neo_newdeadb_c",
       "url": "/assets/textures/global/t_character_neo_newdeadb_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "ea6b91968e2f7d6d",
-      "pngBytes": 10263,
+      "pngBytes": 45552,
       "sources": [
         "global/t_character_neo_newdeadb_c.dds"
       ]
@@ -2882,11 +2882,11 @@
     "d9a0ac9a2d0a11a1": {
       "id": "t_character_neo_newdeadj_c",
       "url": "/assets/textures/global/t_character_neo_newdeadj_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "d9a0ac9a2d0a11a1",
-      "pngBytes": 10237,
+      "pngBytes": 45468,
       "sources": [
         "global/t_character_neo_newdeadj_c.dds"
       ]
@@ -2894,11 +2894,11 @@
     "f287ce08075911ca": {
       "id": "t_character_neo_newdeadr_c",
       "url": "/assets/textures/global/t_character_neo_newdeadr_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "f287ce08075911ca",
-      "pngBytes": 9893,
+      "pngBytes": 44068,
       "sources": [
         "global/t_character_neo_newdeadr_c.dds"
       ]
@@ -2906,11 +2906,11 @@
     "13e76394a7ada610": {
       "id": "t_character_neo_newdeadv_c",
       "url": "/assets/textures/global/t_character_neo_newdeadv_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "13e76394a7ada610",
-      "pngBytes": 10166,
+      "pngBytes": 45131,
       "sources": [
         "global/t_character_neo_newdeadv_c.dds"
       ]
@@ -2918,11 +2918,11 @@
     "576e02b3f82ad735": {
       "id": "t_character_pig_newdeadb_c",
       "url": "/assets/textures/global/t_character_pig_newdeadb_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "576e02b3f82ad735",
-      "pngBytes": 12457,
+      "pngBytes": 53418,
       "sources": [
         "global/t_character_pig_newdeadb_c.dds"
       ]
@@ -2930,11 +2930,11 @@
     "29b82491a0496d69": {
       "id": "t_character_pig_newdeadj_c",
       "url": "/assets/textures/global/t_character_pig_newdeadj_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "29b82491a0496d69",
-      "pngBytes": 12458,
+      "pngBytes": 53501,
       "sources": [
         "global/t_character_pig_newdeadj_c.dds"
       ]
@@ -2942,11 +2942,11 @@
     "936938f746442b30": {
       "id": "t_character_pig_newdeadr_c",
       "url": "/assets/textures/global/t_character_pig_newdeadr_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "936938f746442b30",
-      "pngBytes": 12297,
+      "pngBytes": 52457,
       "sources": [
         "global/t_character_pig_newdeadr_c.dds"
       ]
@@ -2954,11 +2954,11 @@
     "56132c243d3f7509": {
       "id": "t_character_pig_newdeadv_c",
       "url": "/assets/textures/global/t_character_pig_newdeadv_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "56132c243d3f7509",
-      "pngBytes": 12273,
+      "pngBytes": 52669,
       "sources": [
         "global/t_character_pig_newdeadv_c.dds"
       ]
@@ -2966,11 +2966,11 @@
     "2a5b9ffab2443248": {
       "id": "t_character_r_elf_attach_c",
       "url": "/assets/textures/global/t_character_r_elf_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "2a5b9ffab2443248",
-      "pngBytes": 9163,
+      "pngBytes": 36597,
       "sources": [
         "global/t_character_r_elf_attach_c.dds"
       ]
@@ -2978,11 +2978,11 @@
     "9d7651937d21643c": {
       "id": "t_character_r_elf_bounce_c",
       "url": "/assets/textures/global/t_character_r_elf_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "9d7651937d21643c",
-      "pngBytes": 8543,
+      "pngBytes": 33597,
       "sources": [
         "global/t_character_r_elf_bounce_c.dds"
       ]
@@ -2990,11 +2990,11 @@
     "e08e655f53ba6ad3": {
       "id": "t_character_r_elf_cut_c",
       "url": "/assets/textures/global/t_character_r_elf_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "e08e655f53ba6ad3",
-      "pngBytes": 22457,
+      "pngBytes": 85815,
       "sources": [
         "global/t_character_r_elf_cut_c.dds"
       ]
@@ -3002,11 +3002,11 @@
     "0836dcd50cba29ea": {
       "id": "t_character_r_elf_dof_c",
       "url": "/assets/textures/global/t_character_r_elf_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "0836dcd50cba29ea",
-      "pngBytes": 16444,
+      "pngBytes": 61080,
       "sources": [
         "global/t_character_r_elf_dof_c.dds"
       ]
@@ -3014,11 +3014,11 @@
     "b574a7f764752ecd": {
       "id": "t_character_r_elf_fly_c",
       "url": "/assets/textures/global/t_character_r_elf_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "b574a7f764752ecd",
-      "pngBytes": 9776,
+      "pngBytes": 39117,
       "sources": [
         "global/t_character_r_elf_fly_c.dds"
       ]
@@ -3026,11 +3026,11 @@
     "76b8a62a4f918f72": {
       "id": "t_character_r_elf_glue_c",
       "url": "/assets/textures/global/t_character_r_elf_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "76b8a62a4f918f72",
-      "pngBytes": 9289,
+      "pngBytes": 36225,
       "sources": [
         "global/t_character_r_elf_glue_c.dds"
       ]
@@ -3038,11 +3038,11 @@
     "a5b32941afec1a8c": {
       "id": "t_character_r_elf_hitup_c",
       "url": "/assets/textures/global/t_character_r_elf_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "a5b32941afec1a8c",
-      "pngBytes": 15672,
+      "pngBytes": 59731,
       "sources": [
         "global/t_character_r_elf_hitup_c.dds"
       ]
@@ -3050,11 +3050,11 @@
     "772cfca231eb1f35": {
       "id": "t_character_r_elf_hurt_c",
       "url": "/assets/textures/global/t_character_r_elf_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "772cfca231eb1f35",
-      "pngBytes": 8541,
+      "pngBytes": 32648,
       "sources": [
         "global/t_character_r_elf_hurt_c.dds"
       ]
@@ -3062,11 +3062,11 @@
     "c78aa4718a5691b6": {
       "id": "t_character_r_elf_ropecut_c",
       "url": "/assets/textures/global/t_character_r_elf_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "c78aa4718a5691b6",
-      "pngBytes": 10845,
+      "pngBytes": 43594,
       "sources": [
         "global/t_character_r_elf_ropecut_c.dds"
       ]
@@ -3074,11 +3074,11 @@
     "3e0f067c82aed2cd": {
       "id": "t_character_r_elf_slide_c",
       "url": "/assets/textures/global/t_character_r_elf_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "3e0f067c82aed2cd",
-      "pngBytes": 9756,
+      "pngBytes": 38281,
       "sources": [
         "global/t_character_r_elf_slide_c.dds"
       ]
@@ -3086,11 +3086,11 @@
     "9a959ad00b8a22bd": {
       "id": "t_character_r_elf_spawn_c",
       "url": "/assets/textures/global/t_character_r_elf_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "9a959ad00b8a22bd",
-      "pngBytes": 11087,
+      "pngBytes": 43622,
       "sources": [
         "global/t_character_r_elf_spawn_c.dds"
       ]
@@ -3098,11 +3098,11 @@
     "0d829a167fe78828": {
       "id": "t_character_r_elf_ubeam_c",
       "url": "/assets/textures/global/t_character_r_elf_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "0d829a167fe78828",
-      "pngBytes": 22445,
+      "pngBytes": 86107,
       "sources": [
         "global/t_character_r_elf_ubeam_c.dds"
       ]
@@ -3110,11 +3110,11 @@
     "2cbc39221cfaf482": {
       "id": "t_character_r_neo_attach_c",
       "url": "/assets/textures/global/t_character_r_neo_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "2cbc39221cfaf482",
-      "pngBytes": 9257,
+      "pngBytes": 39081,
       "sources": [
         "global/t_character_r_neo_attach_c.dds"
       ]
@@ -3122,11 +3122,11 @@
     "c7c5bc5e01e2bc99": {
       "id": "t_character_r_neo_bounce_c",
       "url": "/assets/textures/global/t_character_r_neo_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "c7c5bc5e01e2bc99",
-      "pngBytes": 9571,
+      "pngBytes": 41116,
       "sources": [
         "global/t_character_r_neo_bounce_c.dds"
       ]
@@ -3134,11 +3134,11 @@
     "cacb2497e4ec5cb5": {
       "id": "t_character_r_neo_cut_c",
       "url": "/assets/textures/global/t_character_r_neo_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "cacb2497e4ec5cb5",
-      "pngBytes": 16788,
+      "pngBytes": 66190,
       "sources": [
         "global/t_character_r_neo_cut_c.dds"
       ]
@@ -3146,11 +3146,11 @@
     "fd28dc2f7462182e": {
       "id": "t_character_r_neo_dof_c",
       "url": "/assets/textures/global/t_character_r_neo_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "fd28dc2f7462182e",
-      "pngBytes": 16927,
+      "pngBytes": 69208,
       "sources": [
         "global/t_character_r_neo_dof_c.dds"
       ]
@@ -3158,11 +3158,11 @@
     "8139f9fd4be159d5": {
       "id": "t_character_r_neo_fly_c",
       "url": "/assets/textures/global/t_character_r_neo_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "8139f9fd4be159d5",
-      "pngBytes": 8438,
+      "pngBytes": 35239,
       "sources": [
         "global/t_character_r_neo_fly_c.dds"
       ]
@@ -3170,11 +3170,11 @@
     "c8744f375211c957": {
       "id": "t_character_r_neo_glue_c",
       "url": "/assets/textures/global/t_character_r_neo_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "c8744f375211c957",
-      "pngBytes": 7367,
+      "pngBytes": 31043,
       "sources": [
         "global/t_character_r_neo_glue_c.dds"
       ]
@@ -3182,11 +3182,11 @@
     "db60aac335bb0e25": {
       "id": "t_character_r_neo_hitup_c",
       "url": "/assets/textures/global/t_character_r_neo_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "db60aac335bb0e25",
-      "pngBytes": 17073,
+      "pngBytes": 70421,
       "sources": [
         "global/t_character_r_neo_hitup_c.dds"
       ]
@@ -3194,11 +3194,11 @@
     "4b7cf73042e28f3f": {
       "id": "t_character_r_neo_hurt_c",
       "url": "/assets/textures/global/t_character_r_neo_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "4b7cf73042e28f3f",
-      "pngBytes": 7747,
+      "pngBytes": 34087,
       "sources": [
         "global/t_character_r_neo_hurt_c.dds"
       ]
@@ -3206,11 +3206,11 @@
     "93b906981af2af75": {
       "id": "t_character_r_neo_ropecut_c",
       "url": "/assets/textures/global/t_character_r_neo_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "93b906981af2af75",
-      "pngBytes": 11235,
+      "pngBytes": 47830,
       "sources": [
         "global/t_character_r_neo_ropecut_c.dds"
       ]
@@ -3218,11 +3218,11 @@
     "8a5057b9c6b67731": {
       "id": "t_character_r_neo_slide_c",
       "url": "/assets/textures/global/t_character_r_neo_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "8a5057b9c6b67731",
-      "pngBytes": 9795,
+      "pngBytes": 39798,
       "sources": [
         "global/t_character_r_neo_slide_c.dds"
       ]
@@ -3230,11 +3230,11 @@
     "e881701ad7df7ec7": {
       "id": "t_character_r_neo_spawn_c",
       "url": "/assets/textures/global/t_character_r_neo_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "e881701ad7df7ec7",
-      "pngBytes": 8171,
+      "pngBytes": 35595,
       "sources": [
         "global/t_character_r_neo_spawn_c.dds"
       ]
@@ -3242,11 +3242,11 @@
     "9c69b420ff96b577": {
       "id": "t_character_r_neo_ubeam_c",
       "url": "/assets/textures/global/t_character_r_neo_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "9c69b420ff96b577",
-      "pngBytes": 16900,
+      "pngBytes": 67229,
       "sources": [
         "global/t_character_r_neo_ubeam_c.dds"
       ]
@@ -3254,11 +3254,11 @@
     "6b2b21dd7ffb4009": {
       "id": "t_character_r_pig_attach_c",
       "url": "/assets/textures/global/t_character_r_pig_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "6b2b21dd7ffb4009",
-      "pngBytes": 8592,
+      "pngBytes": 36104,
       "sources": [
         "global/t_character_r_pig_attach_c.dds"
       ]
@@ -3266,11 +3266,11 @@
     "af7e39f32d2eca19": {
       "id": "t_character_r_pig_bounce_c",
       "url": "/assets/textures/global/t_character_r_pig_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "af7e39f32d2eca19",
-      "pngBytes": 11651,
+      "pngBytes": 47153,
       "sources": [
         "global/t_character_r_pig_bounce_c.dds"
       ]
@@ -3278,11 +3278,11 @@
     "d06131c4dae554df": {
       "id": "t_character_r_pig_cut_c",
       "url": "/assets/textures/global/t_character_r_pig_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "d06131c4dae554df",
-      "pngBytes": 22903,
+      "pngBytes": 87955,
       "sources": [
         "global/t_character_r_pig_cut_c.dds"
       ]
@@ -3290,11 +3290,11 @@
     "8ff471cd2b4db402": {
       "id": "t_character_r_pig_dof_c",
       "url": "/assets/textures/global/t_character_r_pig_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "8ff471cd2b4db402",
-      "pngBytes": 17722,
+      "pngBytes": 66558,
       "sources": [
         "global/t_character_r_pig_dof_c.dds"
       ]
@@ -3302,11 +3302,11 @@
     "b2e28f5c8b5b8822": {
       "id": "t_character_r_pig_fly_c",
       "url": "/assets/textures/global/t_character_r_pig_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "b2e28f5c8b5b8822",
-      "pngBytes": 9341,
+      "pngBytes": 37752,
       "sources": [
         "global/t_character_r_pig_fly_c.dds"
       ]
@@ -3314,11 +3314,11 @@
     "439fd764a67bee4d": {
       "id": "t_character_r_pig_glue_c",
       "url": "/assets/textures/global/t_character_r_pig_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "439fd764a67bee4d",
-      "pngBytes": 8542,
+      "pngBytes": 35392,
       "sources": [
         "global/t_character_r_pig_glue_c.dds"
       ]
@@ -3326,11 +3326,11 @@
     "880c4ea1f8c6982c": {
       "id": "t_character_r_pig_hitup_c",
       "url": "/assets/textures/global/t_character_r_pig_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "880c4ea1f8c6982c",
-      "pngBytes": 17159,
+      "pngBytes": 66530,
       "sources": [
         "global/t_character_r_pig_hitup_c.dds"
       ]
@@ -3338,11 +3338,11 @@
     "c5d265a087344bc4": {
       "id": "t_character_r_pig_hurt_c",
       "url": "/assets/textures/global/t_character_r_pig_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "c5d265a087344bc4",
-      "pngBytes": 9452,
+      "pngBytes": 36500,
       "sources": [
         "global/t_character_r_pig_hurt_c.dds"
       ]
@@ -3350,11 +3350,11 @@
     "46e4c43645a51024": {
       "id": "t_character_r_pig_ropecut_c",
       "url": "/assets/textures/global/t_character_r_pig_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "46e4c43645a51024",
-      "pngBytes": 9442,
+      "pngBytes": 39837,
       "sources": [
         "global/t_character_r_pig_ropecut_c.dds"
       ]
@@ -3362,11 +3362,11 @@
     "41a94b05102b3525": {
       "id": "t_character_r_pig_slide_c",
       "url": "/assets/textures/global/t_character_r_pig_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "41a94b05102b3525",
-      "pngBytes": 12484,
+      "pngBytes": 50153,
       "sources": [
         "global/t_character_r_pig_slide_c.dds"
       ]
@@ -3374,11 +3374,11 @@
     "e8d2a945af4bf67a": {
       "id": "t_character_r_pig_spawn_c",
       "url": "/assets/textures/global/t_character_r_pig_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "e8d2a945af4bf67a",
-      "pngBytes": 10133,
+      "pngBytes": 42506,
       "sources": [
         "global/t_character_r_pig_spawn_c.dds"
       ]
@@ -3386,11 +3386,11 @@
     "f65d4c0d765e81f5": {
       "id": "t_character_r_pig_ubeam_c",
       "url": "/assets/textures/global/t_character_r_pig_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "f65d4c0d765e81f5",
-      "pngBytes": 27574,
+      "pngBytes": 96468,
       "sources": [
         "global/t_character_r_pig_ubeam_c.dds"
       ]
@@ -3398,11 +3398,11 @@
     "961ea3490dabb40f": {
       "id": "t_character_r_skull_attach_c",
       "url": "/assets/textures/global/t_character_r_skull_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "961ea3490dabb40f",
-      "pngBytes": 11397,
+      "pngBytes": 49857,
       "sources": [
         "global/t_character_r_skull_attach_c.dds"
       ]
@@ -3410,11 +3410,11 @@
     "db1c2756a6217f83": {
       "id": "t_character_r_skull_bounce_c",
       "url": "/assets/textures/global/t_character_r_skull_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "db1c2756a6217f83",
-      "pngBytes": 8867,
+      "pngBytes": 37850,
       "sources": [
         "global/t_character_r_skull_bounce_c.dds"
       ]
@@ -3422,11 +3422,11 @@
     "38891541920d05ae": {
       "id": "t_character_r_skull_cut_c",
       "url": "/assets/textures/global/t_character_r_skull_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "38891541920d05ae",
-      "pngBytes": 24794,
+      "pngBytes": 94237,
       "sources": [
         "global/t_character_r_skull_cut_c.dds"
       ]
@@ -3434,11 +3434,11 @@
     "3c251d4ab012ddf8": {
       "id": "t_character_r_skull_dof_c",
       "url": "/assets/textures/global/t_character_r_skull_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "3c251d4ab012ddf8",
-      "pngBytes": 15451,
+      "pngBytes": 59909,
       "sources": [
         "global/t_character_r_skull_dof_c.dds"
       ]
@@ -3446,11 +3446,11 @@
     "cd175fff33b9f658": {
       "id": "t_character_r_skull_fly_c",
       "url": "/assets/textures/global/t_character_r_skull_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "cd175fff33b9f658",
-      "pngBytes": 10345,
+      "pngBytes": 45567,
       "sources": [
         "global/t_character_r_skull_fly_c.dds"
       ]
@@ -3458,11 +3458,11 @@
     "8a51d47bc9b1ae59": {
       "id": "t_character_r_skull_glue_c",
       "url": "/assets/textures/global/t_character_r_skull_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "8a51d47bc9b1ae59",
-      "pngBytes": 8829,
+      "pngBytes": 38130,
       "sources": [
         "global/t_character_r_skull_glue_c.dds"
       ]
@@ -3470,11 +3470,11 @@
     "c08705cdda533347": {
       "id": "t_character_r_skull_hitup_c",
       "url": "/assets/textures/global/t_character_r_skull_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "c08705cdda533347",
-      "pngBytes": 18228,
+      "pngBytes": 71719,
       "sources": [
         "global/t_character_r_skull_hitup_c.dds"
       ]
@@ -3482,11 +3482,11 @@
     "9df8f767e37fe4c3": {
       "id": "t_character_r_skull_hurt_c",
       "url": "/assets/textures/global/t_character_r_skull_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "9df8f767e37fe4c3",
-      "pngBytes": 8651,
+      "pngBytes": 36824,
       "sources": [
         "global/t_character_r_skull_hurt_c.dds"
       ]
@@ -3494,11 +3494,11 @@
     "9090126188c1ae66": {
       "id": "t_character_r_skull_ropecut_c",
       "url": "/assets/textures/global/t_character_r_skull_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "9090126188c1ae66",
-      "pngBytes": 14585,
+      "pngBytes": 62319,
       "sources": [
         "global/t_character_r_skull_ropecut_c.dds"
       ]
@@ -3506,11 +3506,11 @@
     "4b5e28c6f842720f": {
       "id": "t_character_r_skull_slide_c",
       "url": "/assets/textures/global/t_character_r_skull_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "4b5e28c6f842720f",
-      "pngBytes": 12351,
+      "pngBytes": 52908,
       "sources": [
         "global/t_character_r_skull_slide_c.dds"
       ]
@@ -3518,11 +3518,11 @@
     "b85470691672e335": {
       "id": "t_character_r_skull_spawn_c",
       "url": "/assets/textures/global/t_character_r_skull_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "b85470691672e335",
-      "pngBytes": 11168,
+      "pngBytes": 49332,
       "sources": [
         "global/t_character_r_skull_spawn_c.dds"
       ]
@@ -3530,11 +3530,11 @@
     "9a06a97b2204ecb5": {
       "id": "t_character_r_skull_ubeam_c",
       "url": "/assets/textures/global/t_character_r_skull_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "9a06a97b2204ecb5",
-      "pngBytes": 30995,
+      "pngBytes": 116098,
       "sources": [
         "global/t_character_r_skull_ubeam_c.dds"
       ]
@@ -3542,11 +3542,11 @@
     "7b03e8172d342b54": {
       "id": "t_character_skull_newdeadb_c",
       "url": "/assets/textures/global/t_character_skull_newdeadb_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "7b03e8172d342b54",
-      "pngBytes": 11679,
+      "pngBytes": 52025,
       "sources": [
         "global/t_character_skull_newdeadb_c.dds"
       ]
@@ -3554,11 +3554,11 @@
     "7546b969797e3eca": {
       "id": "t_character_skull_newdeadj_c",
       "url": "/assets/textures/global/t_character_skull_newdeadj_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "7546b969797e3eca",
-      "pngBytes": 11776,
+      "pngBytes": 52365,
       "sources": [
         "global/t_character_skull_newdeadj_c.dds"
       ]
@@ -3566,11 +3566,11 @@
     "242c0f7af4f241fd": {
       "id": "t_character_skull_newdeadr_c",
       "url": "/assets/textures/global/t_character_skull_newdeadr_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "242c0f7af4f241fd",
-      "pngBytes": 11319,
+      "pngBytes": 50480,
       "sources": [
         "global/t_character_skull_newdeadr_c.dds"
       ]
@@ -3578,11 +3578,11 @@
     "de2c365f03c37cc5": {
       "id": "t_character_skull_newdeadv_c",
       "url": "/assets/textures/global/t_character_skull_newdeadv_c.png",
-      "width": 128,
-      "height": 128,
+      "width": 256,
+      "height": 256,
       "originalFormat": "DXT3",
       "sha256": "de2c365f03c37cc5",
-      "pngBytes": 11417,
+      "pngBytes": 50897,
       "sources": [
         "global/t_character_skull_newdeadv_c.dds"
       ]
@@ -3590,11 +3590,11 @@
     "1a854c3a1b6f2d1a": {
       "id": "t_character_y_elf_attach_c",
       "url": "/assets/textures/global/t_character_y_elf_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "1a854c3a1b6f2d1a",
-      "pngBytes": 9161,
+      "pngBytes": 37047,
       "sources": [
         "global/t_character_y_elf_attach_c.dds"
       ]
@@ -3602,11 +3602,11 @@
     "d7d6bc0ebd2de9aa": {
       "id": "t_character_y_elf_bounce_c",
       "url": "/assets/textures/global/t_character_y_elf_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "d7d6bc0ebd2de9aa",
-      "pngBytes": 8623,
+      "pngBytes": 34337,
       "sources": [
         "global/t_character_y_elf_bounce_c.dds"
       ]
@@ -3614,11 +3614,11 @@
     "41b290d5a31dd539": {
       "id": "t_character_y_elf_cut_c",
       "url": "/assets/textures/global/t_character_y_elf_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "41b290d5a31dd539",
-      "pngBytes": 23129,
+      "pngBytes": 90140,
       "sources": [
         "global/t_character_y_elf_cut_c.dds"
       ]
@@ -3626,11 +3626,11 @@
     "995bf2e49daf6efb": {
       "id": "t_character_y_elf_dof_c",
       "url": "/assets/textures/global/t_character_y_elf_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "995bf2e49daf6efb",
-      "pngBytes": 16512,
+      "pngBytes": 61937,
       "sources": [
         "global/t_character_y_elf_dof_c.dds"
       ]
@@ -3638,11 +3638,11 @@
     "c2d5ab25f8271416": {
       "id": "t_character_y_elf_fly_c",
       "url": "/assets/textures/global/t_character_y_elf_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "c2d5ab25f8271416",
-      "pngBytes": 9816,
+      "pngBytes": 39541,
       "sources": [
         "global/t_character_y_elf_fly_c.dds"
       ]
@@ -3650,11 +3650,11 @@
     "ee5de21377a3e630": {
       "id": "t_character_y_elf_glue_c",
       "url": "/assets/textures/global/t_character_y_elf_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "ee5de21377a3e630",
-      "pngBytes": 9420,
+      "pngBytes": 37391,
       "sources": [
         "global/t_character_y_elf_glue_c.dds"
       ]
@@ -3662,11 +3662,11 @@
     "42e53cba439247fd": {
       "id": "t_character_y_elf_hitup_c",
       "url": "/assets/textures/global/t_character_y_elf_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "42e53cba439247fd",
-      "pngBytes": 16019,
+      "pngBytes": 61792,
       "sources": [
         "global/t_character_y_elf_hitup_c.dds"
       ]
@@ -3674,11 +3674,11 @@
     "4cf3e8a9a4ecbcf4": {
       "id": "t_character_y_elf_hurt_c",
       "url": "/assets/textures/global/t_character_y_elf_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "4cf3e8a9a4ecbcf4",
-      "pngBytes": 8615,
+      "pngBytes": 33335,
       "sources": [
         "global/t_character_y_elf_hurt_c.dds"
       ]
@@ -3686,11 +3686,11 @@
     "b6a4e7bf05917510": {
       "id": "t_character_y_elf_ropecut_c",
       "url": "/assets/textures/global/t_character_y_elf_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "b6a4e7bf05917510",
-      "pngBytes": 10897,
+      "pngBytes": 44563,
       "sources": [
         "global/t_character_y_elf_ropecut_c.dds"
       ]
@@ -3698,11 +3698,11 @@
     "0465f1de89121f24": {
       "id": "t_character_y_elf_slide_c",
       "url": "/assets/textures/global/t_character_y_elf_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "0465f1de89121f24",
-      "pngBytes": 9818,
+      "pngBytes": 39174,
       "sources": [
         "global/t_character_y_elf_slide_c.dds"
       ]
@@ -3710,11 +3710,11 @@
     "6eaf4e8e8edbc60c": {
       "id": "t_character_y_elf_spawn_c",
       "url": "/assets/textures/global/t_character_y_elf_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "6eaf4e8e8edbc60c",
-      "pngBytes": 11166,
+      "pngBytes": 44392,
       "sources": [
         "global/t_character_y_elf_spawn_c.dds"
       ]
@@ -3722,11 +3722,11 @@
     "7c274d12d9ece85b": {
       "id": "t_character_y_elf_ubeam_c",
       "url": "/assets/textures/global/t_character_y_elf_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "7c274d12d9ece85b",
-      "pngBytes": 22714,
+      "pngBytes": 88099,
       "sources": [
         "global/t_character_y_elf_ubeam_c.dds"
       ]
@@ -3734,11 +3734,11 @@
     "e1a436264e7d8ae0": {
       "id": "t_character_y_neo_attach_c",
       "url": "/assets/textures/global/t_character_y_neo_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "e1a436264e7d8ae0",
-      "pngBytes": 10561,
+      "pngBytes": 42711,
       "sources": [
         "global/t_character_y_neo_attach_c.dds"
       ]
@@ -3746,11 +3746,11 @@
     "4c86861e7504ef02": {
       "id": "t_character_y_neo_bounce_c",
       "url": "/assets/textures/global/t_character_y_neo_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "4c86861e7504ef02",
-      "pngBytes": 9849,
+      "pngBytes": 42951,
       "sources": [
         "global/t_character_y_neo_bounce_c.dds"
       ]
@@ -3758,11 +3758,11 @@
     "ab1c7d5e76d4fa13": {
       "id": "t_character_y_neo_cut_c",
       "url": "/assets/textures/global/t_character_y_neo_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "ab1c7d5e76d4fa13",
-      "pngBytes": 17301,
+      "pngBytes": 69488,
       "sources": [
         "global/t_character_y_neo_cut_c.dds"
       ]
@@ -3770,11 +3770,11 @@
     "e3ba4e7811e6e398": {
       "id": "t_character_y_neo_dof_c",
       "url": "/assets/textures/global/t_character_y_neo_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "e3ba4e7811e6e398",
-      "pngBytes": 17363,
+      "pngBytes": 70866,
       "sources": [
         "global/t_character_y_neo_dof_c.dds"
       ]
@@ -3782,11 +3782,11 @@
     "974181af83f17e63": {
       "id": "t_character_y_neo_fly_c",
       "url": "/assets/textures/global/t_character_y_neo_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "974181af83f17e63",
-      "pngBytes": 8660,
+      "pngBytes": 36585,
       "sources": [
         "global/t_character_y_neo_fly_c.dds"
       ]
@@ -3794,11 +3794,11 @@
     "d89431ddf1283bab": {
       "id": "t_character_y_neo_glue_c",
       "url": "/assets/textures/global/t_character_y_neo_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "d89431ddf1283bab",
-      "pngBytes": 7718,
+      "pngBytes": 32972,
       "sources": [
         "global/t_character_y_neo_glue_c.dds"
       ]
@@ -3806,11 +3806,11 @@
     "1715a922b53244b7": {
       "id": "t_character_y_neo_hitup_c",
       "url": "/assets/textures/global/t_character_y_neo_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "1715a922b53244b7",
-      "pngBytes": 17727,
+      "pngBytes": 73926,
       "sources": [
         "global/t_character_y_neo_hitup_c.dds"
       ]
@@ -3818,11 +3818,11 @@
     "f3e18bfc17715bf7": {
       "id": "t_character_y_neo_hurt_c",
       "url": "/assets/textures/global/t_character_y_neo_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "f3e18bfc17715bf7",
-      "pngBytes": 8218,
+      "pngBytes": 36341,
       "sources": [
         "global/t_character_y_neo_hurt_c.dds"
       ]
@@ -3830,11 +3830,11 @@
     "e1dc3f0dac7068d4": {
       "id": "t_character_y_neo_ropecut_c",
       "url": "/assets/textures/global/t_character_y_neo_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "e1dc3f0dac7068d4",
-      "pngBytes": 11605,
+      "pngBytes": 49842,
       "sources": [
         "global/t_character_y_neo_ropecut_c.dds"
       ]
@@ -3842,11 +3842,11 @@
     "b7ef5f42e565e6b4": {
       "id": "t_character_y_neo_slide_c",
       "url": "/assets/textures/global/t_character_y_neo_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "b7ef5f42e565e6b4",
-      "pngBytes": 10102,
+      "pngBytes": 41606,
       "sources": [
         "global/t_character_y_neo_slide_c.dds"
       ]
@@ -3854,11 +3854,11 @@
     "b7daf456657d6e95": {
       "id": "t_character_y_neo_spawn_c",
       "url": "/assets/textures/global/t_character_y_neo_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "b7daf456657d6e95",
-      "pngBytes": 8527,
+      "pngBytes": 37621,
       "sources": [
         "global/t_character_y_neo_spawn_c.dds"
       ]
@@ -3866,11 +3866,11 @@
     "902ea2cfbbcb8699": {
       "id": "t_character_y_neo_ubeam_c",
       "url": "/assets/textures/global/t_character_y_neo_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "902ea2cfbbcb8699",
-      "pngBytes": 17327,
+      "pngBytes": 69165,
       "sources": [
         "global/t_character_y_neo_ubeam_c.dds"
       ]
@@ -3878,11 +3878,11 @@
     "9a17412b08c30e7f": {
       "id": "t_character_y_pig_attach_c",
       "url": "/assets/textures/global/t_character_y_pig_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "9a17412b08c30e7f",
-      "pngBytes": 8879,
+      "pngBytes": 36886,
       "sources": [
         "global/t_character_y_pig_attach_c.dds"
       ]
@@ -3890,11 +3890,11 @@
     "1a9b573f73ace459": {
       "id": "t_character_y_pig_bounce_c",
       "url": "/assets/textures/global/t_character_y_pig_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "1a9b573f73ace459",
-      "pngBytes": 11826,
+      "pngBytes": 47774,
       "sources": [
         "global/t_character_y_pig_bounce_c.dds"
       ]
@@ -3902,11 +3902,11 @@
     "f81854eca55e3590": {
       "id": "t_character_y_pig_cut_c",
       "url": "/assets/textures/global/t_character_y_pig_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "f81854eca55e3590",
-      "pngBytes": 23199,
+      "pngBytes": 88778,
       "sources": [
         "global/t_character_y_pig_cut_c.dds"
       ]
@@ -3914,11 +3914,11 @@
     "cb5b258bbe04bd3f": {
       "id": "t_character_y_pig_dof_c",
       "url": "/assets/textures/global/t_character_y_pig_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "cb5b258bbe04bd3f",
-      "pngBytes": 17846,
+      "pngBytes": 67047,
       "sources": [
         "global/t_character_y_pig_dof_c.dds"
       ]
@@ -3926,11 +3926,11 @@
     "3462ff4e9d9b0548": {
       "id": "t_character_y_pig_fly_c",
       "url": "/assets/textures/global/t_character_y_pig_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "3462ff4e9d9b0548",
-      "pngBytes": 9476,
+      "pngBytes": 38157,
       "sources": [
         "global/t_character_y_pig_fly_c.dds"
       ]
@@ -3938,11 +3938,11 @@
     "cf56dcec089766e2": {
       "id": "t_character_y_pig_glue_c",
       "url": "/assets/textures/global/t_character_y_pig_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "cf56dcec089766e2",
-      "pngBytes": 8714,
+      "pngBytes": 35852,
       "sources": [
         "global/t_character_y_pig_glue_c.dds"
       ]
@@ -3950,11 +3950,11 @@
     "df433bc567bb01ef": {
       "id": "t_character_y_pig_hitup_c",
       "url": "/assets/textures/global/t_character_y_pig_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "df433bc567bb01ef",
-      "pngBytes": 17302,
+      "pngBytes": 66878,
       "sources": [
         "global/t_character_y_pig_hitup_c.dds"
       ]
@@ -3962,11 +3962,11 @@
     "6e75bd7bc306a4fe": {
       "id": "t_character_y_pig_hurt_c",
       "url": "/assets/textures/global/t_character_y_pig_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "6e75bd7bc306a4fe",
-      "pngBytes": 9627,
+      "pngBytes": 37196,
       "sources": [
         "global/t_character_y_pig_hurt_c.dds"
       ]
@@ -3974,11 +3974,11 @@
     "c789c47f0eaac158": {
       "id": "t_character_y_pig_ropecut_c",
       "url": "/assets/textures/global/t_character_y_pig_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "c789c47f0eaac158",
-      "pngBytes": 9592,
+      "pngBytes": 40171,
       "sources": [
         "global/t_character_y_pig_ropecut_c.dds"
       ]
@@ -3986,11 +3986,11 @@
     "84f578c68db7aa06": {
       "id": "t_character_y_pig_slide_c",
       "url": "/assets/textures/global/t_character_y_pig_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "84f578c68db7aa06",
-      "pngBytes": 12578,
+      "pngBytes": 50716,
       "sources": [
         "global/t_character_y_pig_slide_c.dds"
       ]
@@ -3998,11 +3998,11 @@
     "a08b739ed7c78023": {
       "id": "t_character_y_pig_spawn_c",
       "url": "/assets/textures/global/t_character_y_pig_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "a08b739ed7c78023",
-      "pngBytes": 10355,
+      "pngBytes": 43307,
       "sources": [
         "global/t_character_y_pig_spawn_c.dds"
       ]
@@ -4010,11 +4010,11 @@
     "801d62d18c25b3da": {
       "id": "t_character_y_pig_ubeam_c",
       "url": "/assets/textures/global/t_character_y_pig_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "801d62d18c25b3da",
-      "pngBytes": 27599,
+      "pngBytes": 99306,
       "sources": [
         "global/t_character_y_pig_ubeam_c.dds"
       ]
@@ -4022,11 +4022,11 @@
     "eb0a6f0d24ab35f4": {
       "id": "t_character_y_skull_attach_c",
       "url": "/assets/textures/global/t_character_y_skull_attach_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "eb0a6f0d24ab35f4",
-      "pngBytes": 11633,
+      "pngBytes": 51329,
       "sources": [
         "global/t_character_y_skull_attach_c.dds"
       ]
@@ -4034,11 +4034,11 @@
     "967cacf91da0cdf2": {
       "id": "t_character_y_skull_bounce_c",
       "url": "/assets/textures/global/t_character_y_skull_bounce_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "967cacf91da0cdf2",
-      "pngBytes": 9199,
+      "pngBytes": 39432,
       "sources": [
         "global/t_character_y_skull_bounce_c.dds"
       ]
@@ -4046,11 +4046,11 @@
     "fcb88e076aa4a388": {
       "id": "t_character_y_skull_cut_c",
       "url": "/assets/textures/global/t_character_y_skull_cut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "fcb88e076aa4a388",
-      "pngBytes": 28022,
+      "pngBytes": 104268,
       "sources": [
         "global/t_character_y_skull_cut_c.dds"
       ]
@@ -4058,11 +4058,11 @@
     "6d01640aa4a1e134": {
       "id": "t_character_y_skull_dof_c",
       "url": "/assets/textures/global/t_character_y_skull_dof_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "6d01640aa4a1e134",
-      "pngBytes": 15456,
+      "pngBytes": 59896,
       "sources": [
         "global/t_character_y_skull_dof_c.dds"
       ]
@@ -4070,11 +4070,11 @@
     "162a9637d1c4f126": {
       "id": "t_character_y_skull_fly_c",
       "url": "/assets/textures/global/t_character_y_skull_fly_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "162a9637d1c4f126",
-      "pngBytes": 10662,
+      "pngBytes": 47185,
       "sources": [
         "global/t_character_y_skull_fly_c.dds"
       ]
@@ -4082,11 +4082,11 @@
     "a6e0d20cab0568c0": {
       "id": "t_character_y_skull_glue_c",
       "url": "/assets/textures/global/t_character_y_skull_glue_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "a6e0d20cab0568c0",
-      "pngBytes": 9086,
+      "pngBytes": 39377,
       "sources": [
         "global/t_character_y_skull_glue_c.dds"
       ]
@@ -4094,11 +4094,11 @@
     "fce0aa64067fd62a": {
       "id": "t_character_y_skull_hitup_c",
       "url": "/assets/textures/global/t_character_y_skull_hitup_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "fce0aa64067fd62a",
-      "pngBytes": 18204,
+      "pngBytes": 71654,
       "sources": [
         "global/t_character_y_skull_hitup_c.dds"
       ]
@@ -4106,11 +4106,11 @@
     "8b6c689e37db6337": {
       "id": "t_character_y_skull_hurt_c",
       "url": "/assets/textures/global/t_character_y_skull_hurt_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "8b6c689e37db6337",
-      "pngBytes": 8799,
+      "pngBytes": 37758,
       "sources": [
         "global/t_character_y_skull_hurt_c.dds"
       ]
@@ -4118,11 +4118,11 @@
     "7380334ff9d56f71": {
       "id": "t_character_y_skull_ropecut_c",
       "url": "/assets/textures/global/t_character_y_skull_ropecut_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "7380334ff9d56f71",
-      "pngBytes": 14862,
+      "pngBytes": 63668,
       "sources": [
         "global/t_character_y_skull_ropecut_c.dds"
       ]
@@ -4130,11 +4130,11 @@
     "483c3126080baa8d": {
       "id": "t_character_y_skull_slide_c",
       "url": "/assets/textures/global/t_character_y_skull_slide_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "483c3126080baa8d",
-      "pngBytes": 12497,
+      "pngBytes": 53899,
       "sources": [
         "global/t_character_y_skull_slide_c.dds"
       ]
@@ -4142,11 +4142,11 @@
     "16417821b6f71d69": {
       "id": "t_character_y_skull_spawn_c",
       "url": "/assets/textures/global/t_character_y_skull_spawn_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "16417821b6f71d69",
-      "pngBytes": 11243,
+      "pngBytes": 50049,
       "sources": [
         "global/t_character_y_skull_spawn_c.dds"
       ]
@@ -4154,11 +4154,11 @@
     "9d4f2af82c60bd4f": {
       "id": "t_character_y_skull_ubeam_c",
       "url": "/assets/textures/global/t_character_y_skull_ubeam_c.png",
-      "width": 256,
-      "height": 256,
+      "width": 512,
+      "height": 512,
       "originalFormat": "DXT3",
       "sha256": "9d4f2af82c60bd4f",
-      "pngBytes": 31275,
+      "pngBytes": 117251,
       "sources": [
         "global/t_character_y_skull_ubeam_c.dds"
       ]

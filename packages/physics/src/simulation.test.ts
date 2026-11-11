@@ -334,4 +334,23 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     expect(light.vx).toBeGreaterThan(750);
     expect(Math.abs(heavy.vx)).toBeGreaterThan(250);
   });
+
+  it('connects to pivots beyond 450px (e.g. 670px matching 668.2px in original telemetry)', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl09');
+    sim.configurePlayerSlot(0, { active: true, name: 'LongGrapple' });
+    const p = sim.state.players[0];
+
+    // Nearest pivot from (1620, 970) on lvl09 is pivot #2 at (1570, 300) -> ~672px (> old 450 limit!)
+    p.status = PlayerStatus.FREE_FALL;
+    p.x = 1620;
+    p.y = 970;
+    p.vx = -250;
+    p.vy = -100;
+    p.regrappleTimer = 0;
+
+    sim.step({ 0: { seq: 1, actionHeld: true, axisX: 0, axisY: 0 } });
+    expect(p.status).toBe(PlayerStatus.SWINGING);
+    expect(p.attachedPivotId).toBe(2);
+    expect(p.ropeLength).toBeGreaterThan(650);
+  });
 });

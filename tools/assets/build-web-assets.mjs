@@ -420,6 +420,115 @@ function cleanDxtAlphaAndColorBleed(width, height, rgba, format) {
   return rgba;
 }
 
+/**
+ * 2x Edge-Directed Contour Upscaler (Scale2x / EPX blended with Bicubic RGB/Alpha)
+ * for character sprites (256x256 -> 512x512). Removes coarse DXT3 diagonal staircase
+ * jaggies while keeping comic ink outlines sharp and smooth.
+ */
+function upscaleCharacterSprite2x(width, height, rgba) {
+  const outW = width * 2;
+  const outH = height * 2;
+  const out = new Uint8Array(outW * outH * 4);
+
+  const sample = (x, y, c) => {
+    const cx = x < 0 ? 0 : x >= width ? width - 1 : x;
+    const cy = y < 0 ? 0 : y >= height ? height - 1 : y;
+    return rgba[(cy * width + cx) * 4 + c];
+  };
+
+  const colorDistSq = (x1, y1, x2, y2) => {
+    const dr = sample(x1, y1, 0) - sample(x2, y2, 0);
+    const dg = sample(x1, y1, 1) - sample(x2, y2, 1);
+    const db = sample(x1, y1, 2) - sample(x2, y2, 2);
+    const da = (sample(x1, y1, 3) - sample(x2, y2, 3)) * 1.4;
+    return dr * dr + dg * dg + db * db + da * da;
+  };
+
+  const sameEdge = (x1, y1, x2, y2) => colorDistSq(x1, y1, x2, y2) < 900;
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      // Catmull-Rom-weighted smooth neighbor blend per quadrant + EPX diagonal corner preservation
+      const diffTB = sameEdge(x, y - 1, x, y + 1);
+      const diffLR = sameEdge(x - 1, y, x + 1, y);
+
+      for (let sy = 0; sy < 2; sy++) {
+        for (let sx = 0; sx < 2; sx++) {
+          const ox = x * 2 + sx;
+          const oy = y * 2 + sy;
+          const dst = (oy * outW + ox) * 4;
+
+          const hx = sx === 0 ? x - 1 : x + 1;
+          const vx = sx === 0 ? -0.25 : 0.25;
+          const hy = sy === 0 ? y - 1 : y + 1;
+          const vy = sy === 0 ? -0.25 : 0.25;
+
+          // If orthogonal neighbors H and V match and cross-neighbors differ -> smooth diagonal EPX bridge
+          const epxMatch = !diffTB && !diffLR && sameEdge(hx, y, x, hy) && !sameEdge(x, y, hx, hy);
+
+          const c0 = rgba[(y * width + x) * 4 + 3];
+          let aSum = 0;
+          let rSum = 0;
+          let gSum = 0;
+          let bSum = 0;
+          let rgbWeight = 0;
+
+          // Subpixel bilinear tap at (x + vx, y + vy)
+          const tx = Math.abs(vx);
+          const ty = Math.abs(vy);
+          const taps = [
+            [x, y, (1 - tx) * (1 - ty)],
+            [hx, y, tx * (1 - ty)],
+            [x, hy, (1 - tx) * ty],
+            [hx, hy, tx * ty],
+          ];
+          for (const [px, py, w] of taps) {
+            const pa = sample(px, py, 3);
+            aSum += pa * w;
+            const cw = w * (pa > 0 ? pa / 255 : 0.05);
+            rSum += sample(px, py, 0) * cw;
+            gSum += sample(px, py, 1) * cw;
+            bSum += sample(px, py, 2) * cw;
+            rgbWeight += cw;
+          }
+
+          let outA = aSum;
+          let outR = rgbWeight > 1e-4 ? rSum / rgbWeight : sample(x, y, 0);
+          let outG = rgbWeight > 1e-4 ? gSum / rgbWeight : sample(x, y, 1);
+          let outB = rgbWeight > 1e-4 ? bSum / rgbWeight : sample(x, y, 2);
+
+          if (epxMatch) {
+            // Pull 65% toward matching H+V edge color/alpha so diagonal ink outlines form smooth 45-deg curves
+            const ha = sample(hx, y, 3);
+            const va = sample(x, hy, 3);
+            const ea = (ha + va) * 0.5;
+            const er = (sample(hx, y, 0) + sample(x, hy, 0)) * 0.5;
+            const eg = (sample(hx, y, 1) + sample(x, hy, 1)) * 0.5;
+            const eb = (sample(hx, y, 2) + sample(x, hy, 2)) * 0.5;
+            outA = outA * 0.35 + ea * 0.65;
+            outR = outR * 0.35 + er * 0.65;
+            outG = outG * 0.35 + eg * 0.65;
+            outB = outB * 0.35 + eb * 0.65;
+          } else if (c0 > 180) {
+            // Keep interior crispness by blending 55% original pixel over bilinear
+            outA = outA * 0.45 + c0 * 0.55;
+            outR = outR * 0.45 + sample(x, y, 0) * 0.55;
+            outG = outG * 0.45 + sample(x, y, 1) * 0.55;
+            outB = outB * 0.45 + sample(x, y, 2) * 0.55;
+          }
+
+          out[dst] = Math.max(0, Math.min(255, Math.round(outR)));
+          out[dst + 1] = Math.max(0, Math.min(255, Math.round(outG)));
+          out[dst + 2] = Math.max(0, Math.min(255, Math.round(outB)));
+          out[dst + 3] = Math.max(0, Math.min(255, Math.round(outA)));
+        }
+      }
+    }
+  }
+
+  return { width: outW, height: outH, rgba: out };
+}
+
 // ============================================================================
 // Helpers for Asset Naming & Classification
 // ============================================================================
@@ -520,8 +629,14 @@ function main() {
 
     let texEntry = hashToTextureEntry.get(sha256);
     if (!texEntry) {
-      const { width, height, format, rgba } = decodeDdsToRgba(ddsBuf);
+      let { width, height, format, rgba } = decodeDdsToRgba(ddsBuf);
       cleanDxtAlphaAndColorBleed(width, height, rgba, format);
+      if (isGlobal && cleanName.startsWith('t_character_') && width <= 256 && height <= 256) {
+        const up = upscaleCharacterSprite2x(width, height, rgba);
+        width = up.width;
+        height = up.height;
+        rgba = up.rgba;
+      }
       const pngBuf = encodeRgbaToPng(width, height, rgba);
 
       const subFolder = isGlobal ? 'global' : isBackground ? 'backgrounds' : 'arenas';
