@@ -119,6 +119,12 @@ export class RotasticWebClient {
   private texturesCache = new Map<string, Texture>();
   private loadedBgMapId = '';
 
+  // Match audio/announcer tracking
+  private currentLeaderSlot = -1;
+  private halfTimeAnnounced = false;
+  private nearEndAnnounced = false;
+  private lastGapAnnouncedScore = -1;
+
   // DOM References
   private hudPlayersEl = document.getElementById('hud-players')!;
   private hudModeLabelEl = document.getElementById('hud-mode-label')!;
@@ -169,6 +175,7 @@ export class RotasticWebClient {
     await this.preloadCoreSprites();
     await this.ensureMapBackgrounds(this.localSim.state.mapId);
     this.initPlayerNodes();
+    this.audio.setBgm('bgm_syl_menu');
 
     this.connectWebSocket();
 
@@ -356,7 +363,7 @@ export class RotasticWebClient {
 
     const muteBtn = document.getElementById('btn-toggle-mute');
     muteBtn?.addEventListener('click', () => {
-      this.audio.muted = !this.audio.muted;
+      this.audio.setMuted(!this.audio.muted);
       if (muteBtn) {
         muteBtn.textContent = this.audio.muted ? '🔇 Mudo' : '🔊 Áudio';
       }
@@ -529,7 +536,13 @@ export class RotasticWebClient {
       ) {
         this.standings = [];
         this.showLobbyOverlay = false;
+        this.currentLeaderSlot = -1;
+        this.halfTimeAnnounced = false;
+        this.nearEndAnnounced = false;
+        this.lastGapAnnouncedScore = -1;
         this.audio.play('gong', 0.55, 0.02);
+        this.audio.playAnnouncer('match_start', 0);
+        this.audio.setBgm(getMultiplayerMapById(this.lobbyState.config.mapId).bgmTrack);
       } else if (
         this.lobbyState.sessionState === OnlineSessionState.LOBBY_OPEN &&
         (prevState === OnlineSessionState.POST_MATCH_STANDINGS ||
@@ -537,6 +550,11 @@ export class RotasticWebClient {
       ) {
         this.standings = [];
         this.showLobbyOverlay = true;
+        this.audio.setBgm('bgm_syl_menu');
+      }
+
+      if (this.lobbyState.sessionState === OnlineSessionState.POST_MATCH_STANDINGS) {
+        this.audio.setBgm('bgm_syl_menu');
       }
 
       this.renderModalOverlay();
@@ -626,22 +644,66 @@ export class RotasticWebClient {
       }
     }
 
+    this.updateMatchAnnouncerChecks();
     this.updateHudDom();
+  }
+
+  private updateMatchAnnouncerChecks(): void {
+    const state = this.localSim.state;
+    const active = state.players.filter((p) => p.active);
+    if (active.length >= 2) {
+      const sorted = [...active].sort((a, b) => b.score - a.score || b.kills - a.kills);
+      const top = sorted[0];
+      const second = sorted[1];
+      const soleLeader = top.score > 0 && top.score > second.score;
+
+      if (soleLeader && top.slotIndex !== this.currentLeaderSlot) {
+        this.currentLeaderSlot = top.slotIndex;
+        const leaderKey = (`leader_${top.characterId}`) as `leader_${CharacterId}`;
+        this.audio.playAnnouncer(leaderKey, 2500);
+        this.spawnFloatingText(
+          `👑 ${top.name} NA LIDERANÇA!`,
+          VIEW_WIDTH * 0.5,
+          VIEW_HEIGHT * 0.16,
+          0xfacc15
+        );
+      } else if (
+        soleLeader &&
+        top.score - second.score >= 3 &&
+        top.score > this.lastGapAnnouncedScore
+      ) {
+        this.lastGapAnnouncedScore = top.score;
+        const wideKey = (`widening_${top.characterId}`) as `widening_${CharacterId}`;
+        this.audio.playAnnouncer(wideKey, 6000);
+      }
+    }
+
+    const totalSec = this.lobbyState?.config.timeLimitSec || 90;
+    if (!this.halfTimeAnnounced && state.timeRemainingSec <= totalSec * 0.5 && state.timeRemainingSec > 20) {
+      this.halfTimeAnnounced = true;
+      this.audio.playAnnouncer('time_middle', 3000);
+    }
+    if (!this.nearEndAnnounced && state.timeRemainingSec <= 15 && state.timeRemainingSec > 0) {
+      this.nearEndAnnounced = true;
+      this.audio.play('timenearend', 0.45, 0.01);
+      this.audio.playAnnouncer('time_nearend', 2500);
+    }
   }
 
   private triggerSimEventFeedback(ev: SimEvent): void {
     const sx = worldToScreenX(ev.x);
     const sy = worldToScreenY(ev.y);
+    const actor = ev.slotIndex !== undefined ? this.localSim.state.players[ev.slotIndex] : undefined;
 
     switch (ev.type) {
       case 'attach':
-        this.audio.play('attach', 0.3, 0.08);
+        this.audio.play('attach', 0.36, 0.08);
         break;
       case 'release':
-        this.audio.play('release', 0.28, 0.08);
+        this.audio.play('release', 0.34, 0.08);
         break;
       case 'invert':
-        this.audio.play('select', 0.28, 0.12);
+        this.audio.play('invert', 0.38, 0.08);
         break;
       case 'pickup': {
         const pts = ev.gemType ? GEM_POINTS[ev.gemType] : 100;
@@ -655,26 +717,37 @@ export class RotasticWebClient {
         break;
       }
       case 'trick':
-        this.audio.play('gem', 0.35, 0.08);
+        this.audio.play('trick', 0.44, 0.07);
+        if (ev.label === 'Get It!') {
+          this.audio.playAnnouncer('getit', 4500);
+        }
         this.spawnFloatingText(ev.label ?? '+150', sx, Math.max(80, sy - 24), 0xf97316);
         break;
       case 'shieldbreak':
-        this.audio.play('wallbreak', 0.55, 0.05);
+        this.audio.play('shieldbreak', 0.55, 0.05);
         this.spawnFloatingText('ESCUDO!', sx, Math.max(80, sy - 20), 0xf8fafc);
         break;
       case 'switchtoggle':
-        this.audio.play('confirm', 0.45, 0.05);
+        this.audio.play('switchtoggle', 0.55, 0.03);
         this.spawnFloatingText(ev.label ?? 'SWITCH!', sx, Math.max(80, sy - 20), 0x22c55e);
         break;
       case 'spawndrop':
-        this.audio.play('respawn', 0.35, 0.05);
+        this.audio.play('spawndrop', 0.42, 0.06);
         break;
-      case 'ropecut':
-        this.audio.play('ropecut', 0.55, 0.05);
+      case 'ropecut': {
+        this.audio.play('ropecut', 0.58, 0.05);
+        if (ev.targetSlot !== undefined) {
+          const cutVictim = this.localSim.state.players[ev.targetSlot];
+          if (cutVictim) this.audio.playCharacterVoice(cutVictim.characterId, 'hurt', 0.5);
+        }
+        this.audio.playAnnouncer('cut', 4000);
         this.spawnFloatingText('CUT!', sx, sy, 0xf97316);
         break;
+      }
       case 'slaughter':
         this.audio.play('slaughter', 0.65, 0.04);
+        if (actor) this.audio.playCharacterVoice(actor.characterId, 'kill', 0.55);
+        this.audio.playAnnouncer('kill_streak', 4500);
         this.spawnFloatingText('SLAUGHTER!', sx, sy, 0xef4444);
         break;
       case 'wallbreak':
@@ -682,10 +755,14 @@ export class RotasticWebClient {
         this.spawnFloatingText('CRASH!', sx, sy, 0xe2e8f0);
         break;
       case 'bounce':
-        this.audio.play('bounce', 0.22, 0.1);
+        this.audio.play(ev.targetSlot !== undefined ? 'pvp_bump' : 'bounce', 0.34, 0.09);
         break;
       case 'death':
-        this.audio.play('death', 0.5, 0.04);
+        this.audio.play('death', 0.52, 0.05);
+        if (actor) this.audio.playCharacterVoice(actor.characterId, 'death', 0.55);
+        if (ev.targetSlot === undefined || ev.targetSlot === ev.slotIndex) {
+          this.audio.playAnnouncer('suicide', 4500);
+        }
         this.spawnFloatingText('KO!', sx, Math.min(VIEW_HEIGHT - 90, sy), 0xef4444);
         break;
       case 'respawn':
@@ -693,7 +770,12 @@ export class RotasticWebClient {
         break;
       case 'suddendeath':
         this.audio.play('gong', 0.65, 0.01);
+        this.audio.playAnnouncer('sudden_death', 1000);
         this.spawnFloatingText('MORTE SÚBITA!', VIEW_WIDTH * 0.5, VIEW_HEIGHT * 0.35, 0xef4444);
+        break;
+      case 'matchfinish':
+        this.audio.play('multi_end', 0.6, 0.01);
+        this.audio.playAnnouncer('time_end', 1000);
         break;
       default:
         break;
@@ -997,6 +1079,8 @@ export class RotasticWebClient {
         }
         spr.x = cx;
         spr.y = cy;
+        spr.width = 160;
+        spr.height = 160;
         spr.rotation = 0;
         spr.alpha = 0.85;
 
@@ -1085,6 +1169,8 @@ export class RotasticWebClient {
 
       spr.x = sx;
       spr.y = sy;
+      spr.width = 236; // Native 1:1 sprite scale (~80-110px opaque knight inside 156px bubble)
+      spr.height = 236;
       spr.rotation = Math.atan2(-p.vy, p.vx) * 0.25;
       spr.alpha = p.invulnTimer > 0 ? (Math.floor(performance.now() / 75) % 2 === 0 ? 0.45 : 1.0) : 1.0;
 
@@ -1141,7 +1227,7 @@ export class RotasticWebClient {
       const dizzyPrefix = p.status === PlayerStatus.DIZZY ? '💫 ' : '';
       lbl.text = `${crownPrefix}${dizzyPrefix}${p.name}`;
       lbl.x = sx;
-      lbl.y = sy - 74;
+      lbl.y = sy - 88;
     }
 
     // 4. Update Floating Score / Event Popups

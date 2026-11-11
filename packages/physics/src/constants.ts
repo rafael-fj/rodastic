@@ -32,8 +32,9 @@ export const ROTASTIC_PHYSICS_CONSTANTS = {
   SWING_PUMP_FACTOR: 0.05, // simRef[0x38] = 0.05
   SWING_INPUT_TORQUE: 260.0,
   ROPE_ATTACH_MIN_DIST: 1.0, // Minimum instant attach distance (can grapple right at the pivot!)
-  ROPE_MIN_RADIUS: 150.0, // Nominal target radius minRopeRadius = 150 (unwinds toward 150 at 50 u/s)
-  ROPE_ADJUST_SPEED: 50.0, // Verified 50 u/s unwind (f=716..795) and OOB reel-in (simRef[0x74])
+  ROPE_MIN_RADIUS: 150.0, // Nominal target radius minRopeRadius = 150 (unwinds toward 150 after delay)
+  ROPE_UNWIND_DELAY_SEC: 0.22, // Small delay after close attach before expanding toward 150
+  ROPE_ADJUST_SPEED: 50.0, // Verified 50 u/s unwind speed on short ropes (f=716..795)
   ROPE_MAX_RADIUS: 420.0,
   ROPE_ATTACH_RANGE: 450.0,
   REGRAPPLE_COOLDOWN_SEC: 0.08,

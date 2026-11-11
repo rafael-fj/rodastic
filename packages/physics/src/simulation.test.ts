@@ -163,30 +163,54 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     expect(simA.cloneState()).toEqual(simB.cloneState());
   });
 
-  it('attaches right next to pivot (down to 1 unit) without teleporting and unwinds toward 150 at 50 u/s', () => {
+  it('attaches right next to pivot (1 unit), delays unwind slightly then grows to 150 without speed spike, and never shrinks long ropes', () => {
     const sim = new RotasticSimulation('w_multi_dm_lvl09');
     sim.configurePlayerSlot(0, { active: true, name: 'CloseGrapple' });
     const p = sim.state.players[0];
 
-    // Pivot #0 is at (350, 300); place player only 5 px away!
+    // Pivot #0 is at (350, 300); place player only 5 px away moving gently!
     p.status = PlayerStatus.FREE_FALL;
     p.x = 355;
     p.y = 300;
     p.vx = 0;
-    p.vy = 200;
+    p.vy = 80;
     p.regrappleTimer = 0;
 
     sim.step({ 0: { seq: 1, actionHeld: true, axisX: 0, axisY: 0 } });
     expect(p.status).toBe(PlayerStatus.SWINGING);
-    // Should attach at ~5..6 px initially (NOT snapped out to 150!)
-    expect(p.ropeLength).toBeLessThan(20);
+    const attachLen = p.ropeLength;
+    expect(attachLen).toBeLessThan(20);
 
-    // Step 1 second (60 ticks): rope should unwind outward at ~50 u/s toward 150
-    for (let t = 2; t <= 61; t++) {
+    // During initial delay (< 0.22s = ~10 ticks), rope remains at initial short length
+    for (let t = 2; t <= 10; t++) {
       sim.step({ 0: { seq: t, actionHeld: true, axisX: 0, axisY: 0 } });
     }
-    expect(p.ropeLength).toBeGreaterThan(45);
+    expect(p.ropeLength).toBeCloseTo(attachLen, 4);
+
+    // Advance 1s more (60 ticks): rope unwinds outward at 50 u/s without disproportionate velocity spike on release
+    for (let t = 11; t <= 70; t++) {
+      sim.step({ 0: { seq: t, actionHeld: true, axisX: 0, axisY: 0 } });
+    }
+    expect(p.ropeLength).toBeGreaterThan(40);
     expect(p.ropeLength).toBeLessThanOrEqual(C.ROPE_MIN_RADIUS);
+
+    sim.step({ 0: { seq: 71, actionHeld: false, axisX: 0, axisY: 0 } });
+    expect(Math.hypot(p.vx, p.vy)).toBeLessThan(350);
+
+    // Long rope (> 150) swinging below screen bottom (y < -32) stays constant until released
+    p.status = PlayerStatus.FREE_FALL;
+    p.regrappleTimer = 0;
+    p.x = 350;
+    p.y = -40; // 340 px below pivot (350, 300) and off-screen bottom
+    p.vx = 400;
+    p.vy = 0;
+    sim.step({ 0: { seq: 72, actionHeld: true, axisX: 0, axisY: 0 } });
+    const longLen = p.ropeLength;
+    expect(longLen).toBeGreaterThan(250);
+    for (let t = 73; t <= 100; t++) {
+      sim.step({ 0: { seq: t, actionHeld: true, axisX: 0, axisY: 0 } });
+    }
+    expect(p.ropeLength).toBeCloseTo(longLen, 4);
   });
 
   it('inverts swing rotation direction and adds turnBoost stack on reverseHeld press', () => {

@@ -730,13 +730,15 @@ export class RotasticSimulation {
     const tx = -Math.sin(angle);
     const ty = Math.cos(angle);
     const vTangential = p.vx * tx + p.vy * ty;
-    let omega = vTangential / r;
+    // Scale omega from actual tangential speed; guard denominator >= 40 so ultra-close attaches don't spin explosively
+    const effectiveR = Math.max(r, 40);
+    let omega = vTangential / effectiveR;
 
-    if (Math.abs(omega) < C.MIN_OMEGA_RAD_S) {
+    if (Math.abs(omega) < 0.35) {
       const sign = omega !== 0 ? Math.sign(omega) : p.vx >= 0 ? 1 : -1;
-      omega = sign * (r < 40 ? C.MAX_OMEGA_RAD_S : C.MIN_OMEGA_RAD_S * 1.4);
+      omega = sign * 0.35;
     }
-    const maxOmegaBySpeed = C.SWING_MAX_SPEED / Math.max(r, C.ROPE_ATTACH_MIN_DIST);
+    const maxOmegaBySpeed = C.SWING_MAX_SPEED / effectiveR;
     const maxOmega = Math.min(C.MAX_OMEGA_RAD_S, maxOmegaBySpeed);
     omega = clamp(omega, -maxOmega, maxOmega);
 
@@ -810,37 +812,28 @@ export class RotasticSimulation {
     const maxOmegaBySpeed = effectiveSwingMaxSpeed / Math.max(r, C.ROPE_ATTACH_MIN_DIST);
     const maxOmega = Math.min(effectiveMaxOmega, maxOmegaBySpeed);
 
-    // Gradually unwind short rope outward to ROPE_MIN_RADIUS (150) at 50 u/s (verified in f=716..795 & 0x0056BD3D)
-    if (r < C.ROPE_MIN_RADIUS) {
+    // Only expand short rope (< 150) after small delay; long ropes (> 150) keep their length until release!
+    // Preserve tangential velocity (omega *= rOld / r) so expanding does not manufacture fake launch speed.
+    if (r < C.ROPE_MIN_RADIUS && p.attachTimer >= C.ROPE_UNWIND_DELAY_SEC) {
+      const rOld = r;
       r = Math.min(C.ROPE_MIN_RADIUS, r + C.ROPE_ADJUST_SPEED * dt);
-      p.ropeLength = r;
-    } else if (
-      r > C.ROPE_MIN_RADIUS &&
-      (p.x < -C.SCREEN_MARGIN ||
-        p.x > C.ARENA_WIDTH + C.SCREEN_MARGIN ||
-        p.y < -C.SCREEN_MARGIN ||
-        p.y > C.ARENA_HEIGHT + C.SCREEN_MARGIN)
-    ) {
-      // OOB automatic reel-in (`simRef[+0x74] = 50.0 u/s`, `0x0056BC60`)
-      r = Math.max(C.ROPE_MIN_RADIUS, r - C.ROPE_ADJUST_SPEED * dt);
+      if (r > rOld && rOld >= 1) {
+        p.omega *= rOld / r;
+      }
       p.ropeLength = r;
     }
 
-    // Tangential gravity acceleration in Y-up coordinates
-    const gravityAlpha = -(C.GRAVITY / Math.max(r, C.ROPE_ATTACH_MIN_DIST)) * Math.cos(p.ropeAngle);
+    // Tangential gravity acceleration in Y-up coordinates (guard denom >= 55 against close-range singularities)
+    const denomR = Math.max(r, 55);
+    const gravityAlpha = -(C.GRAVITY / denomR) * Math.cos(p.ropeAngle);
 
     const tx = -Math.sin(p.ropeAngle);
     const ty = Math.cos(p.ropeAngle);
     const inputTangential = cmd.axisX * tx + cmd.axisY * ty;
-    const inputAlpha = (inputTangential * C.SWING_INPUT_TORQUE) / Math.max(r, C.ROPE_ATTACH_MIN_DIST);
+    const inputAlpha = (inputTangential * C.SWING_INPUT_TORQUE) / denomR;
 
     p.omega += (gravityAlpha + inputAlpha) * dt;
     p.omega *= 1 + C.SWING_PUMP_FACTOR * dt * 2.5;
-
-    if (Math.abs(p.omega) < C.MIN_OMEGA_RAD_S) {
-      const sign = p.omega >= 0 ? 1 : -1;
-      p.omega = sign * C.MIN_OMEGA_RAD_S;
-    }
 
     p.omega = clamp(p.omega, -maxOmega, maxOmega);
 
