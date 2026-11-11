@@ -116,6 +116,7 @@ export interface SimEvent {
   targetSlot?: number;
   points?: number;
   label?: string;
+  shieldType?: 'white' | 'orange';
   x: number;
   y: number;
   gemType?: GemType;
@@ -727,17 +728,26 @@ export class RotasticSimulation {
     nx: number,
     ny: number,
     hitX: number,
-    hitY: number
+    hitY: number,
+    applyDizzy = true
   ): boolean {
+    let shieldType: 'white' | 'orange';
     if (victim.chargeGauge >= 1.0) {
-      victim.chargeGauge = 0;
+      victim.chargeGauge = 0; // 0x005793C0 / 0x00577BD7
+      shieldType = 'white';
     } else if (victim.chargeGauge2 >= 1.0) {
-      victim.chargeGauge2 = 0;
+      victim.chargeGauge2 = 0; // 0x005793E4 / 0x00577CFF
+      shieldType = 'orange';
     } else {
       return false;
     }
 
-    if (victim.status === PlayerStatus.SWINGING) {
+    if (applyDizzy) {
+      // 0x00579427 .. 0x00579458: DetachRope, invulnTimer = 0.5*1.0s, dizzyTimer = simRef[0x58] (1.0s)
+      victim.status = PlayerStatus.DIZZY;
+      victim.statusTimer = C.DIZZY_DURATION_SEC;
+      victim.attachedPivotId = -1;
+    } else if (victim.status === PlayerStatus.SWINGING) {
       victim.status = PlayerStatus.FREE_FALL;
       victim.attachedPivotId = -1;
     }
@@ -754,6 +764,7 @@ export class RotasticSimulation {
     this.events.push({
       type: 'shieldbreak',
       slotIndex: victim.slotIndex,
+      shieldType,
       x: hitX,
       y: hitY,
     });
@@ -776,11 +787,14 @@ export class RotasticSimulation {
     if (!nearest) return false;
 
     // 0x0056A5A0 -> 0x0056C6E2: consume +0xD48 (c1) or +0xD4C (c2), unless invulnerable
+    let consumedShield: 'white' | 'orange' | undefined;
     if (!(p.invulnTimer > 0 && p.status !== PlayerStatus.DIZZY)) {
       if (p.chargeGauge >= 1.0) {
         p.chargeGauge = 0; // 0x0056C6FA
+        consumedShield = 'white';
       } else if (p.chargeGauge2 >= 1.0) {
         p.chargeGauge2 = 0; // 0x0056C729
+        consumedShield = 'orange';
       } else {
         this.events.push({ type: 'attachdenied', slotIndex: p.slotIndex, x: p.x, y: p.y });
         return false; // 0x0056C7DE: block infinite rapid grapple spam
@@ -824,7 +838,13 @@ export class RotasticSimulation {
     p.vx = -omega * r * Math.sin(angle);
     p.vy = omega * r * Math.cos(angle);
 
-    this.events.push({ type: 'attach', slotIndex: p.slotIndex, x: nearest.x, y: nearest.y });
+    this.events.push({
+      type: 'attach',
+      slotIndex: p.slotIndex,
+      shieldType: consumedShield,
+      x: nearest.x,
+      y: nearest.y,
+    });
     return true;
   }
 
@@ -1207,12 +1227,12 @@ export class RotasticSimulation {
         const midY = (a.y + b.y) * 0.5;
 
         if (speedA >= C.SLAUGHTER_MIN_SPEED && keRatioAB >= C.SLAUGHTER_KE_RATIO_SQ && b.invulnTimer <= 0) {
-          if (!this.tryConsumeShield(b, nx, ny, midX, midY)) {
+          if (!this.tryConsumeShield(b, nx, ny, midX, midY, false)) {
             this.handleSlaughter(a, b, midX, midY);
             continue;
           }
         } else if (speedB >= C.SLAUGHTER_MIN_SPEED && keRatioBA >= C.SLAUGHTER_KE_RATIO_SQ && a.invulnTimer <= 0) {
-          if (!this.tryConsumeShield(a, -nx, -ny, midX, midY)) {
+          if (!this.tryConsumeShield(a, -nx, -ny, midX, midY, false)) {
             this.handleSlaughter(b, a, midX, midY);
             continue;
           }

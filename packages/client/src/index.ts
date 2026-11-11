@@ -168,6 +168,7 @@ export class RotasticWebClient {
   private killAnimTimer: number[] = [0, 0, 0, 0];
   private dropAnimTimer: number[] = [0, 0, 0, 0];
   private attachDenyFlashTimer: number[] = [0, 0, 0, 0];
+  private orangeBurstTimer: number[] = [0, 0, 0, 0];
   private dizzyWasRopeCut: boolean[] = [false, false, false, false];
 
   // Input state
@@ -889,6 +890,12 @@ export class RotasticWebClient {
         if (ev.slotIndex !== undefined) {
           this.dropAnimTimer[ev.slotIndex] = 0;
           this.attachDenyFlashTimer[ev.slotIndex] = 0;
+          if (ev.shieldType === 'orange') {
+            // 0x0056C729 -> 0x99219C (c2_attach): distinct burst & feedback when emergency attach burns c2
+            this.orangeBurstTimer[ev.slotIndex] = 0.28;
+            this.audio.play('shieldbreak', 0.28, 0.08);
+            this.spawnFloatingText('LARANJA!', sx, Math.max(80, sy - 20), 0xf97316);
+          }
         }
         break;
       case 'attachdenied':
@@ -925,8 +932,16 @@ export class RotasticWebClient {
         this.audio.play('shieldbreak', 0.55, 0.05);
         if (ev.slotIndex !== undefined) {
           this.hurtAnimTimer[ev.slotIndex] = 0.42;
+          if (ev.shieldType === 'orange') {
+            this.orangeBurstTimer[ev.slotIndex] = 0.34;
+          }
         }
-        this.spawnFloatingText('ESCUDO!', sx, Math.max(80, sy - 20), 0xf8fafc);
+        this.spawnFloatingText(
+          ev.shieldType === 'orange' ? 'ESCUDO LARANJA!' : 'ESCUDO!',
+          sx,
+          Math.max(80, sy - 20),
+          ev.shieldType === 'orange' ? 0xf97316 : 0xf8fafc
+        );
         break;
       case 'switchtoggle':
         this.audio.play('switchtoggle', 0.55, 0.03);
@@ -941,6 +956,7 @@ export class RotasticWebClient {
           this.cutAnimTimer[ev.slotIndex] = 0;
           this.killAnimTimer[ev.slotIndex] = 0;
           this.attachDenyFlashTimer[ev.slotIndex] = 0;
+          this.orangeBurstTimer[ev.slotIndex] = 0;
           this.dizzyWasRopeCut[ev.slotIndex] = false;
         }
         break;
@@ -1327,6 +1343,7 @@ export class RotasticWebClient {
       this.killAnimTimer[i] = Math.max(0, this.killAnimTimer[i] - dt);
       this.dropAnimTimer[i] = Math.max(0, this.dropAnimTimer[i] - dt);
       this.attachDenyFlashTimer[i] = Math.max(0, this.attachDenyFlashTimer[i] - dt);
+      this.orangeBurstTimer[i] = Math.max(0, this.orangeBurstTimer[i] - dt);
 
       const p = state.players[i];
       const spr = this.playerSprites[i];
@@ -1601,6 +1618,14 @@ export class RotasticWebClient {
             width: 3.5,
             alpha: 0.35 + 0.4 * pulseGlow,
           });
+      }
+
+      if (this.orangeBurstTimer[i] > 0) {
+        const prog = 1 - Math.min(1, this.orangeBurstTimer[i] / 0.34);
+        const burstR = 64 + prog * 34;
+        this.ropesGraphics
+          .circle(sx, sy, burstR)
+          .stroke({ color: 0xf97316, width: 6 * (1 - prog * 0.6), alpha: (1 - prog) * 0.9 });
       }
 
       // Inner Orange Trick/Mass Aura (c2): sits inside outer bubble (frame_000041_f000473.png)

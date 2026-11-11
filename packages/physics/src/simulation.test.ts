@@ -109,7 +109,7 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     expect(cutter.chargeGauge2).toBeCloseTo(C.ORANGE_CHARGE_STEP, 5);
   });
 
-  it('consumes white bubble (c1) or full orange bar (c2) to absorb deadly hazard hit with 0.5s invuln', () => {
+  it('consumes white bubble (c1) or full orange bar (c2) to absorb deadly hazard hit with 0.5s invuln and 1.0s dizzy (0x00579458)', () => {
     const sim = new RotasticSimulation('w_multi_dm_lvl09');
     sim.configurePlayerSlot(0, { active: true, name: 'Shielded' });
     const p = sim.state.players[0];
@@ -125,21 +125,25 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     p.vy = 0;
 
     const ev1 = sim.step({ 0: { seq: 1, actionHeld: false, axisX: 0, axisY: 0 } });
-    expect(ev1.some((e) => e.type === 'shieldbreak')).toBe(true);
-    expect(p.status).toBe(PlayerStatus.FREE_FALL);
+    expect(ev1.some((e) => e.type === 'shieldbreak' && e.shieldType === 'white')).toBe(true);
+    expect(p.status).toBe(PlayerStatus.DIZZY);
+    expect(p.statusTimer).toBeCloseTo(C.DIZZY_DURATION_SEC, 2);
     expect(p.chargeGauge).toBeLessThan(0.1); // First hit consumed c1!
     expect(p.chargeGauge2).toBe(1.0); // c2 still intact!
     expect(p.invulnTimer).toBeCloseTo(C.SHIELD_BREAK_INVULN_SEC, 2);
 
     // Hit deadly wall a second time with c1 < 1.0 and c2 == 1.0 -> c2 protects player!
+    p.status = PlayerStatus.FREE_FALL;
+    p.statusTimer = 0;
     p.invulnTimer = 0;
     p.chargeGauge = 0.2;
     p.x = 55;
     p.y = 955;
     p.vx = -600;
     const ev2 = sim.step({ 0: { seq: 2, actionHeld: false, axisX: 0, axisY: 0 } });
-    expect(ev2.some((e) => e.type === 'shieldbreak')).toBe(true);
-    expect(p.status).toBe(PlayerStatus.FREE_FALL);
+    expect(ev2.some((e) => e.type === 'shieldbreak' && e.shieldType === 'orange')).toBe(true);
+    expect(p.status).toBe(PlayerStatus.DIZZY);
+    expect(p.statusTimer).toBeCloseTo(C.DIZZY_DURATION_SEC, 2);
     expect(p.chargeGauge2).toBe(0);
   });
 
@@ -586,5 +590,86 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     });
     expect(invulnCutEvs.some((e) => e.type === 'ropecut' && e.slotIndex === 0)).toBe(true);
     expect(victim.chargeGauge2).toBe(0); // +0xD4C untouched while invulnTimer > 0!
+  });
+
+  it('enforces all native +0xD4C orange power-up retention and termination criteria (#29)', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl09');
+    sim.configurePlayerSlot(0, { active: true, name: 'OrangeHolder' });
+    sim.configurePlayerSlot(1, { active: true, name: 'Target' });
+    const p = sim.state.players[0];
+    const rival = sim.state.players[1];
+
+    // 1. No time-based decay: full c2 persists indefinitely in flight when unused
+    p.status = PlayerStatus.FREE_FALL;
+    p.invulnTimer = 0;
+    p.chargeGauge = 1.0;
+    p.chargeGauge2 = 1.0;
+    p.x = 960;
+    p.y = 700;
+    p.vx = 0;
+    p.vy = 0;
+    for (let t = 1; t <= 120; t++) {
+      // keep suspended above void for 2 seconds
+      p.y = 700;
+      p.vy = 0;
+      sim.step({ 0: { seq: t, actionHeld: false, axisX: 0, axisY: 0 } });
+    }
+    expect(p.chargeGauge2).toBe(1.0);
+
+    // 2. Preserved on normal pivot attach when c1 >= 1.0 (0x0056C6FA spends c1, keeps c2)
+    p.x = 350;
+    p.y = 140;
+    p.vx = 300;
+    p.vy = 0;
+    p.chargeGauge = 1.0;
+    p.chargeGauge2 = 1.0;
+    const normAttach = sim.step({ 0: { seq: 121, actionHeld: true, axisX: 0, axisY: 0 } });
+    expect(normAttach.some((e) => e.type === 'attach' && e.shieldType === 'white')).toBe(true);
+    expect(p.chargeGauge2).toBe(1.0);
+
+    // 3. Preserved on PvP knock / bounce against rival (0x00578426 read-only)
+    p.status = PlayerStatus.FREE_FALL;
+    p.invulnTimer = 0;
+    p.chargeGauge = 1.0;
+    p.chargeGauge2 = 1.0;
+    p.x = 600;
+    p.y = 500;
+    p.vx = 700;
+    p.vy = 0;
+    rival.status = PlayerStatus.FREE_FALL;
+    rival.invulnTimer = 0;
+    rival.chargeGauge = 1.0;
+    rival.chargeGauge2 = 0.0;
+    rival.x = 640;
+    rival.y = 500;
+    rival.vx = 0;
+    rival.vy = 0;
+    const pvpEvs = sim.step({
+      0: { seq: 122, actionHeld: false, axisX: 0, axisY: 0 },
+      1: { seq: 1, actionHeld: false, axisX: 0, axisY: 0 },
+    });
+    expect(pvpEvs.some((e) => e.type === 'bounce')).toBe(true);
+    expect(p.chargeGauge2).toBe(1.0); // Attacker keeps full orange ring!
+
+    // 4. Consumed when emergency attaching while white shield c1 < 1.0 (0x0056C729 -> shieldType 'orange')
+    p.x = 350;
+    p.y = 140;
+    p.vx = 300;
+    p.vy = 0;
+    p.chargeGauge = 0.35;
+    p.chargeGauge2 = 1.0;
+    p.regrappleTimer = 0;
+    const orangeAttach = sim.step({ 0: { seq: 123, actionHeld: true, axisX: 0, axisY: 0 } });
+    expect(p.status).toBe(PlayerStatus.SWINGING);
+    expect(orangeAttach.some((e) => e.type === 'attach' && e.shieldType === 'orange')).toBe(true);
+    expect(p.chargeGauge2).toBe(0.0);
+
+    // 5. Cleared on SPAWN_DROP respawn (0x00541F5E)
+    p.status = PlayerStatus.SPAWN_CURSOR;
+    p.spawnAllowDelay = 0;
+    p.chargeGauge2 = 1.0;
+    const dropEvs = sim.step({ 0: { seq: 124, actionHeld: true, axisX: 0, axisY: 0 } });
+    expect(dropEvs.some((e) => e.type === 'spawndrop')).toBe(true);
+    expect(p.chargeGauge2).toBe(0.0);
   });
 });
