@@ -144,6 +144,11 @@ const BGM_BASE_VOLUME = 0.28;
 const BGM_DUCK_FACTOR = 0.48;
 const BGM_FADE_IN_SEC = 0.45;
 const BGM_CROSSFADE_OUT_SEC = 0.35;
+const BGM_ASSET_REV = '2';
+
+function bgmUrl(trackName: string): string {
+  return `/assets/audio/bgm/${trackName}.mp3?v=${BGM_ASSET_REV}`;
+}
 
 export class RotasticAudioManager {
   private ctx: AudioContext | null = null;
@@ -348,7 +353,7 @@ export class RotasticAudioManager {
   }
 
   private async startBgmPlayback(trackName: string, seq: number): Promise<void> {
-    const url = `/assets/audio/bgm/${trackName}.mp3`;
+    const url = bgmUrl(trackName);
     const buf = await this.loadUrl(url);
 
     // Abort if track switched while fetching/decoding
@@ -403,7 +408,7 @@ export class RotasticAudioManager {
   public preloadAll(): void {
     this.unlockAndResume();
     if (this.currentBgmTrack) {
-      void this.loadUrl(`/assets/audio/bgm/${this.currentBgmTrack}.mp3`);
+      void this.loadUrl(bgmUrl(this.currentBgmTrack));
     }
     for (const urls of Object.values(SFX_POOLS)) {
       void this.loadUrl(urls[0]);

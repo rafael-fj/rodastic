@@ -175,15 +175,21 @@ describe('@rotastic/server — 2-Client End-to-End Authoritative Match Lifecycle
     const expectedSize = fs.statSync(mp3Path).size;
     expect(expectedSize).toBeGreaterThan(1_500_000);
 
-    const url = `http://127.0.0.1:${port}/assets/audio/bgm/bgm_syl_menu.mp3`;
+    const url = `http://127.0.0.1:${port}/assets/audio/bgm/bgm_syl_menu.mp3?v=2`;
 
     const fullRes = await fetch(url);
     expect(fullRes.status).toBe(200);
     expect(fullRes.headers.get('content-type')).toBe('audio/mpeg');
     expect(fullRes.headers.get('accept-ranges')).toBe('bytes');
+    expect(fullRes.headers.get('cache-control')).toBe('no-cache');
+    const etag = fullRes.headers.get('etag');
+    expect(etag).toBeTruthy();
     const fullBytes = new Uint8Array(await fullRes.arrayBuffer());
     expect(fullBytes.length).toBe(expectedSize);
     expect(Number(fullRes.headers.get('content-length'))).toBe(expectedSize);
+
+    const notModifiedRes = await fetch(url, { headers: { 'If-None-Match': etag! } });
+    expect(notModifiedRes.status).toBe(304);
 
     const headRes = await fetch(url, { method: 'HEAD' });
     expect(headRes.status).toBe(200);

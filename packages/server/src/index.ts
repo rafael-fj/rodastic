@@ -693,16 +693,24 @@ function serveStaticFile(
   req: http.IncomingMessage,
   res: http.ServerResponse,
   filePath: string,
-  totalSize: number
+  stat: fs.Stats
 ): void {
+  const totalSize = stat.size;
   const ext = path.extname(filePath).toLowerCase();
   const contentType = MIME_TYPES[ext] ?? 'application/octet-stream';
-  const isCacheableMedia = ext === '.png' || ext === '.wav' || ext === '.mp3' || ext === '.ogg';
+  const etag = `"${totalSize}-${Math.floor(stat.mtimeMs)}"`;
   const baseHeaders: http.OutgoingHttpHeaders = {
     'Content-Type': contentType,
     'Accept-Ranges': 'bytes',
-    'Cache-Control': isCacheableMedia ? 'public, max-age=86400' : 'no-cache',
+    'Cache-Control': 'no-cache',
+    ETag: etag,
   };
+
+  if (!req.headers.range && req.headers['if-none-match'] === etag) {
+    res.writeHead(304, baseHeaders);
+    res.end();
+    return;
+  }
 
   const range = parseByteRange(req.headers.range, totalSize);
   if (range === 'unsatisfiable') {
@@ -809,7 +817,7 @@ export function createRotasticServer(port = Number(process.env.PORT) || 3001) {
       if (fs.existsSync(filePath)) {
         const stat = fs.statSync(filePath);
         if (stat.isFile()) {
-          serveStaticFile(req, res, filePath, stat.size);
+          serveStaticFile(req, res, filePath, stat);
           return;
         }
       }
