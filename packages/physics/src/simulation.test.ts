@@ -200,6 +200,7 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     // Long rope (> 150) swinging below screen bottom (y < -32) stays constant until released
     p.status = PlayerStatus.FREE_FALL;
     p.regrappleTimer = 0;
+    p.chargeGauge = 1.0;
     p.x = 350;
     p.y = -40; // 340 px below pivot (350, 300) and off-screen bottom
     p.vx = 400;
@@ -416,5 +417,101 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     expect(peakBoost).toBeGreaterThan(0.16);
     expect(peakBoost).toBeLessThan(0.24);
     expect(p.omega * p.ropeLength).toBeLessThan(-240);
+  });
+
+  it('consumes c1 (+0xD48) on normal attach, blocks rapid re-attach spam until recharged to 1.0 (0x0056A5A0)', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl09');
+    sim.configurePlayerSlot(0, { active: true, name: 'CooldownTester' });
+    const p = sim.state.players[0];
+
+    p.status = PlayerStatus.FREE_FALL;
+    p.invulnTimer = 0;
+    p.chargeGauge = 1.0;
+    p.chargeGauge2 = 0.0;
+    p.x = 350;
+    p.y = 140;
+    p.vx = 300;
+    p.vy = 0;
+
+    // 1. First attach consumes c1 -> ~0 (1 tick of recharge adds dt * 0.58)
+    sim.step({ 0: { seq: 1, actionHeld: true, axisX: 0, axisY: 0 } });
+    expect(p.status).toBe(PlayerStatus.SWINGING);
+    expect(p.chargeGauge).toBeLessThan(0.05);
+
+    // 2. Release and wait past anti-bounce guard; spamming attach while c1 < 1.0 must be denied
+    sim.step({ 0: { seq: 2, actionHeld: false, axisX: 0, axisY: 0 } });
+    expect(p.status).toBe(PlayerStatus.FREE_FALL);
+    for (let t = 3; t <= 10; t++) {
+      sim.step({ 0: { seq: t, actionHeld: false, axisX: 0, axisY: 0 } });
+    }
+    expect(p.regrappleTimer).toBe(0);
+    expect(p.chargeGauge).toBeLessThan(1.0);
+
+    const denyEvents = sim.step({ 0: { seq: 11, actionHeld: true, axisX: 0, axisY: 0 } });
+    expect(p.status).toBe(PlayerStatus.FREE_FALL);
+    expect(denyEvents.some((e) => e.type === 'attachdenied' && e.slotIndex === 0)).toBe(true);
+
+    // 3. Recharge at ~0.58/s until full (~1.8s = 110 ticks), keeping player in bounds so he doesn't fall out of arena
+    for (let t = 12; t <= 125; t++) {
+      if (p.y < 300) {
+        p.y = 900;
+        p.vy = 0;
+      }
+      sim.step({ 0: { seq: t, actionHeld: false, axisX: 0, axisY: 0 } });
+    }
+    expect(p.status).toBe(PlayerStatus.FREE_FALL);
+    expect(p.chargeGauge).toBe(1.0);
+    p.x = 350;
+    p.y = 140;
+    p.vx = 300;
+    p.vy = 0;
+    const attachEvents = sim.step({ 0: { seq: 126, actionHeld: true, axisX: 0, axisY: 0 } });
+    expect(p.status).toBe(PlayerStatus.SWINGING);
+    expect(attachEvents.some((e) => e.type === 'attach' && e.slotIndex === 0)).toBe(true);
+    expect(p.chargeGauge).toBeLessThan(0.05);
+  });
+
+  it('allows fallback attach using full orange shield (c2=1.0), free attach during invuln, and honors +0xC50 lock', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl09');
+    sim.configurePlayerSlot(0, { active: true, name: 'FallbackTester' });
+    const p = sim.state.players[0];
+
+    // Case A: c1 < 1.0, c2 == 1.0 -> consumes c2 instead of blocking
+    p.status = PlayerStatus.FREE_FALL;
+    p.invulnTimer = 0;
+    p.chargeGauge = 0.25;
+    p.chargeGauge2 = 1.0;
+    p.x = 350;
+    p.y = 140;
+    p.vx = 300;
+    p.vy = 0;
+    sim.step({ 0: { seq: 1, actionHeld: true, axisX: 0, axisY: 0 } });
+    expect(p.status).toBe(PlayerStatus.SWINGING);
+    expect(p.chargeGauge2).toBe(0.0);
+
+    // Case B: While invulnerable and not dizzy, attach does not consume c1
+    p.status = PlayerStatus.FREE_FALL;
+    p.invulnTimer = 0.5;
+    p.chargeGauge = 1.0;
+    p.regrappleTimer = 0;
+    sim.step({ 0: { seq: 2, actionHeld: false, axisX: 0, axisY: 0 } });
+    sim.step({ 0: { seq: 3, actionHeld: true, axisX: 0, axisY: 0 } });
+    expect(p.status).toBe(PlayerStatus.SWINGING);
+    expect(p.chargeGauge).toBe(1.0);
+
+    // Case C: +0xC50 attachLockTimer blocks attach while > 0 and clears at dt rate
+    p.status = PlayerStatus.FREE_FALL;
+    p.attachLockTimer = 0.1;
+    sim.step({ 0: { seq: 4, actionHeld: false, axisX: 0, axisY: 0 } });
+    sim.step({ 0: { seq: 5, actionHeld: true, axisX: 0, axisY: 0 } });
+    expect(p.status).toBe(PlayerStatus.FREE_FALL);
+    for (let t = 6; t <= 12; t++) {
+      sim.step({ 0: { seq: t, actionHeld: false, axisX: 0, axisY: 0 } });
+    }
+    expect(p.attachLockTimer).toBe(0);
+    p.x = 350;
+    p.y = 140;
+    sim.step({ 0: { seq: 13, actionHeld: true, axisX: 0, axisY: 0 } });
+    expect(p.status).toBe(PlayerStatus.SWINGING);
   });
 });

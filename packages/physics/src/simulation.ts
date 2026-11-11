@@ -40,8 +40,9 @@ export interface PlayerSimState {
   attachTimer: number; // seconds since attached
   statusTimer: number; // remaining dizzy or respawn delay seconds
   invulnTimer: number; // invulnerability seconds (1.0s on drop, 0.5s on shield break)
-  regrappleTimer: number; // cooldown before re-attaching after cut/release
-  chargeGauge: number; // 0..1 white outer bubble shield (+0xD48)
+  regrappleTimer: number; // anti-bounce guard before re-attaching after cut/release
+  attachLockTimer: number; // +0xC50 lock timer (blocks grapple/swing input while > 0)
+  chargeGauge: number; // 0..1 white outer bubble shield (+0xD48) & primary grapple cooldown
   chargeGauge2: number; // 0..1 orange inner combo/heavy-mass shield (+0xD4C)
   chargeMultiplier: number; // handicap multiplier (+0xD5C, +1 after 5 deaths)
   spawnCursorX: number; // oscillating X along top edge while SPAWN_CURSOR
@@ -95,6 +96,7 @@ export interface WallSimState {
 export interface SimEvent {
   type:
     | 'attach'
+    | 'attachdenied'
     | 'release'
     | 'invert'
     | 'ropecut'
@@ -297,6 +299,7 @@ export class RotasticSimulation {
         statusTimer: 0,
         invulnTimer: C.SPAWN_INVULN_SEC,
         regrappleTimer: 0,
+        attachLockTimer: 0,
         chargeGauge: 1.0, // Spawn starts with full white bubble (observed c1=1.0)
         chargeGauge2: 0.0,
         chargeMultiplier: 0,
@@ -397,6 +400,7 @@ export class RotasticSimulation {
       p.vy = 0;
       p.attachedPivotId = -1;
       p.invulnTimer = C.SPAWN_INVULN_SEC;
+      p.attachLockTimer = 0;
       p.chargeGauge = 1.0;
       p.chargeGauge2 = 0.0;
       p.chargeMultiplier = 0;
@@ -505,6 +509,7 @@ export class RotasticSimulation {
 
       if (p.invulnTimer > 0) p.invulnTimer = Math.max(0, p.invulnTimer - dt);
       if (p.regrappleTimer > 0) p.regrappleTimer = Math.max(0, p.regrappleTimer - dt);
+      if (p.attachLockTimer > 0) p.attachLockTimer = Math.max(0, p.attachLockTimer - dt);
       if (p.wallTrickCooldown > 0) p.wallTrickCooldown = Math.max(0, p.wallTrickCooldown - dt);
       if (p.lastAttackTimer > 0) {
         p.lastAttackTimer = Math.max(0, p.lastAttackTimer - dt);
@@ -543,9 +548,18 @@ export class RotasticSimulation {
         continue;
       }
 
-      if (p.status === PlayerStatus.FREE_FALL && justPressed && p.regrappleTimer <= 0) {
+      if (
+        p.status === PlayerStatus.FREE_FALL &&
+        justPressed &&
+        p.regrappleTimer <= 0 &&
+        p.attachLockTimer <= 0
+      ) {
         this.tryAttachToNearestPivot(p);
-      } else if (p.status === PlayerStatus.SWINGING && (justReleased || !cmd.actionHeld)) {
+      } else if (
+        p.status === PlayerStatus.SWINGING &&
+        p.attachLockTimer <= 0 &&
+        (justReleased || !cmd.actionHeld)
+      ) {
         this.releaseFromPivot(p);
       }
 
@@ -672,6 +686,7 @@ export class RotasticSimulation {
       p.chargeGauge = 1.0; // Verified c1 = 1.0 on spawn drop
       p.chargeGauge2 = 0.0; // Verified c2 = 0.0 on respawn drop
       p.regrappleTimer = 0.12;
+      p.attachLockTimer = 0;
       p.wallTrickCooldown = 0;
       p.swingLoopAccumRad = 0;
       p.swingBoostTimer = 0;
@@ -742,9 +757,32 @@ export class RotasticSimulation {
     return true;
   }
 
+  /**
+   * Native `CRotasticPlayer::CanConsumeAttachCharge` (`0x0056A5A0`):
+   * Returns true if the player can grapple right now (invulnerable while not dizzy,
+   * OR `chargeGauge >= 1.0` (+0xD48), OR `chargeGauge2 >= 1.0` (+0xD4C)).
+   */
+  public canPlayerAttach(p: PlayerSimState): boolean {
+    if (p.attachLockTimer > 0) return false;
+    if (p.invulnTimer > 0 && p.status !== PlayerStatus.DIZZY) return true;
+    return p.chargeGauge >= 1.0 || p.chargeGauge2 >= 1.0;
+  }
+
   private tryAttachToNearestPivot(p: PlayerSimState): boolean {
     const nearest = this.findNearestAttachPoint(p.x, p.y, C.ROPE_ATTACH_RANGE);
     if (!nearest) return false;
+
+    // 0x0056A5A0 -> 0x0056C6E2: consume +0xD48 (c1) or +0xD4C (c2), unless invulnerable
+    if (!(p.invulnTimer > 0 && p.status !== PlayerStatus.DIZZY)) {
+      if (p.chargeGauge >= 1.0) {
+        p.chargeGauge = 0; // 0x0056C6FA
+      } else if (p.chargeGauge2 >= 1.0) {
+        p.chargeGauge2 = 0; // 0x0056C729
+      } else {
+        this.events.push({ type: 'attachdenied', slotIndex: p.slotIndex, x: p.x, y: p.y });
+        return false; // 0x0056C7DE: block infinite rapid grapple spam
+      }
+    }
 
     const dx = p.x - nearest.x;
     const dy = p.y - nearest.y;
@@ -1374,6 +1412,7 @@ export class RotasticSimulation {
       const shouldAttach =
         nearPivot !== null &&
         p.regrappleTimer <= 0 &&
+        this.canPlayerAttach(p) &&
         (p.y < 420 || p.vy < -150 || (this.state.tick + slotIndex * 11) % 24 < 14);
       return { seq, actionHeld: shouldAttach, axisX, axisY };
     }

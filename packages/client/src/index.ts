@@ -64,6 +64,56 @@ function drawArc(
   g.stroke({ color, width, alpha, cap: 'round' });
 }
 
+/**
+ * Renders the tapered crescent cooldown indicator (`CPlayerBeamFeedback` @ `0x00535D30`, `t_beam2_c`)
+ * growing from the 9-o'clock left side toward 3-o'clock as `progress` (c1) charges 0 -> 1.
+ */
+function drawTaperedCooldownCrescent(
+  g: Graphics,
+  cx: number,
+  cy: number,
+  outerR: number,
+  progress: number,
+  color: number,
+  flashWhite: boolean
+): void {
+  const clamped = Math.max(0.02, Math.min(0.999, progress));
+  const span = clamped * Math.PI * 2;
+  const startAng = Math.PI - span * 0.5;
+  const endAng = Math.PI + span * 0.5;
+  const steps = Math.max(12, Math.ceil((span / (Math.PI * 2)) * 44));
+  const activeColor = flashWhite ? 0xffffff : color;
+
+  const buildWedge = (maxThickness: number, minThickness: number): number[] => {
+    const outerPts: number[] = [];
+    const innerPts: number[] = [];
+    for (let s = 0; s <= steps; s++) {
+      const t = s / steps;
+      const ang = startAng + span * t;
+      const cosA = Math.cos(ang);
+      const sinA = Math.sin(ang);
+      // Taper from pointed trailing horn (t=0) up to blunt thick leading edge (t=1)
+      const thick = minThickness + (maxThickness - minThickness) * Math.pow(t, 0.55);
+      const rIn = outerR - thick;
+      outerPts.push(cx + cosA * outerR, cy + sinA * outerR);
+      innerPts.push(cx + cosA * rIn, cy + sinA * rIn);
+    }
+    for (let s = steps; s >= 0; s--) {
+      outerPts.push(innerPts[s * 2], innerPts[s * 2 + 1]);
+    }
+    return outerPts;
+  };
+
+  // Soft inner radial corona band (matching t_beam2_c U-gradient)
+  g.poly(buildWedge(19, 3.5)).fill({ color: activeColor, alpha: flashWhite ? 0.55 : 0.36 });
+  // Crisp main tapered crescent body
+  g.poly(buildWedge(11.5, 2.0)).fill({ color: activeColor, alpha: flashWhite ? 0.96 : 0.88 });
+  // Bright outer rim highlight
+  g.moveTo(cx + Math.cos(startAng) * outerR, cy + Math.sin(startAng) * outerR);
+  g.arc(cx, cy, outerR, startAng, endAng);
+  g.stroke({ color: flashWhite ? 0xffffff : activeColor, width: 2.5, alpha: 0.96, cap: 'butt' });
+}
+
 interface FloatingEffect {
   text: Text;
   vx: number;
@@ -117,6 +167,7 @@ export class RotasticWebClient {
   private cutAnimTimer: number[] = [0, 0, 0, 0];
   private killAnimTimer: number[] = [0, 0, 0, 0];
   private dropAnimTimer: number[] = [0, 0, 0, 0];
+  private attachDenyFlashTimer: number[] = [0, 0, 0, 0];
   private dizzyWasRopeCut: boolean[] = [false, false, false, false];
 
   // Input state
@@ -837,6 +888,13 @@ export class RotasticWebClient {
         this.audio.play('attach', 0.36, 0.08);
         if (ev.slotIndex !== undefined) {
           this.dropAnimTimer[ev.slotIndex] = 0;
+          this.attachDenyFlashTimer[ev.slotIndex] = 0;
+        }
+        break;
+      case 'attachdenied':
+        this.audio.play('select', 0.28, 0.08);
+        if (ev.slotIndex !== undefined) {
+          this.attachDenyFlashTimer[ev.slotIndex] = 0.22;
         }
         break;
       case 'release':
@@ -882,6 +940,7 @@ export class RotasticWebClient {
           this.bounceAnimTimer[ev.slotIndex] = 0;
           this.cutAnimTimer[ev.slotIndex] = 0;
           this.killAnimTimer[ev.slotIndex] = 0;
+          this.attachDenyFlashTimer[ev.slotIndex] = 0;
           this.dizzyWasRopeCut[ev.slotIndex] = false;
         }
         break;
@@ -1174,13 +1233,24 @@ export class RotasticWebClient {
       this.pivotCoreSprites[k].visible = vis;
     }
 
-    const nearestByPlayer = new Map<number, number>();
+    const pivotTargetByPlayer = new Map<number, number>();
     for (const p of state.players) {
-      if (p.active && p.status === PlayerStatus.FREE_FALL) {
+      if (!p.active) continue;
+      if (p.status === PlayerStatus.FREE_FALL) {
         const np = this.localSim.findNearestAttachPoint(p.x, p.y);
-        if (np) nearestByPlayer.set(p.slotIndex, np.id);
+        if (np) pivotTargetByPlayer.set(p.slotIndex, np.id);
+      } else if (p.status === PlayerStatus.SWINGING && p.attachedPivotId >= 0) {
+        pivotTargetByPlayer.set(p.slotIndex, p.attachedPivotId);
       }
     }
+
+    // Native CAttachPointFeedback fixed 90-degree slot quadrants around pivot
+    const SLOT_QUADRANT_ANGLES: Array<[number, number]> = [
+      [-Math.PI, -Math.PI * 0.5], // Slot 0 (Top-Left)
+      [-Math.PI * 0.5, 0], // Slot 1 (Top-Right)
+      [Math.PI * 0.5, Math.PI], // Slot 2 (Bottom-Left)
+      [0, Math.PI * 0.5], // Slot 3 (Bottom-Right)
+    ];
 
     for (let k = 0; k < state.attachPoints.length; k++) {
       const ap = state.attachPoints[k];
@@ -1204,19 +1274,34 @@ export class RotasticWebClient {
           .stroke({ color: 0xf8fafc, width: 3 });
       }
 
-      // Solid 90-degree colored wedge sector on target pivot facing each airborne player
-      for (const [slotIdx, pid] of nearestByPlayer.entries()) {
+      // Per-slot 90-deg quadrant wedge on pivot (`CAttachPointFeedback` @ 0x0052FD43 / 0x0056C61D):
+      // colored when player has grapple charge ready (c1>=1, c2>=1 or invuln), dimmed grey while on cooldown
+      for (const [slotIdx, pid] of pivotTargetByPlayer.entries()) {
         if (pid !== ap.id) continue;
         const tp = state.players[slotIdx];
+        const canAttach = this.localSim.canPlayerAttach(tp);
         const colHex = (PLAYER_COLORS[tp.colorId] ?? PLAYER_COLORS[0]).hex;
-        const angToPlayer = Math.atan2(worldToScreenY(tp.y) - py, worldToScreenX(tp.x) - px);
-        const startA = angToPlayer - Math.PI * 0.25;
-        const endA = angToPlayer + Math.PI * 0.25;
-        this.arenaGraphics
-          .moveTo(px, py)
-          .arc(px, py, 44, startA, endA)
-          .lineTo(px, py)
-          .fill({ color: colHex, alpha: 0.85 });
+        const [startA, endA] = SLOT_QUADRANT_ANGLES[slotIdx % 4];
+        const innerR = 16;
+        const outerR = canAttach ? 38 : 28;
+        const wedgeColor = canAttach ? colHex : 0x94a3b8;
+        const wedgeAlpha = canAttach ? 0.92 : 0.62;
+        this.ropesGraphics
+          .moveTo(px + Math.cos(startA) * outerR, py + Math.sin(startA) * outerR)
+          .arc(px, py, outerR, startA, endA, false)
+          .lineTo(px + Math.cos(endA) * innerR, py + Math.sin(endA) * innerR)
+          .arc(px, py, innerR, endA, startA, true)
+          .closePath()
+          .fill({ color: wedgeColor, alpha: wedgeAlpha });
+        if (!canAttach) {
+          this.ropesGraphics
+            .moveTo(px + Math.cos(startA) * (outerR - 3), py + Math.sin(startA) * (outerR - 3))
+            .arc(px, py, outerR - 3, startA, endA, false)
+            .lineTo(px + Math.cos(endA) * innerR, py + Math.sin(endA) * innerR)
+            .arc(px, py, innerR, endA, startA, true)
+            .closePath()
+            .fill({ color: colHex, alpha: 0.25 });
+        }
       }
     }
 
@@ -1241,6 +1326,7 @@ export class RotasticWebClient {
       this.cutAnimTimer[i] = Math.max(0, this.cutAnimTimer[i] - dt);
       this.killAnimTimer[i] = Math.max(0, this.killAnimTimer[i] - dt);
       this.dropAnimTimer[i] = Math.max(0, this.dropAnimTimer[i] - dt);
+      this.attachDenyFlashTimer[i] = Math.max(0, this.attachDenyFlashTimer[i] - dt);
 
       const p = state.players[i];
       const spr = this.playerSprites[i];
@@ -1504,42 +1590,49 @@ export class RotasticWebClient {
           });
       }
 
-      // Outer Protection Shield Ring (c1): arc fill -> white shield bubble at 1.0
-      if (p.chargeGauge >= 1.0) {
+      // Inner Orange Trick/Mass Aura (c2): sits inside outer bubble (frame_000041_f000473.png)
+      if (p.chargeGauge2 >= 1.0) {
         this.ropesGraphics
-          .circle(sx, sy, visualBubbleRadius)
-          .fill({ color: 0xffffff, alpha: 0.16 })
-          .stroke({ color: 0xf8fafc, width: 4.5, alpha: 0.96 });
-      } else if (p.chargeGauge > 0.02) {
+          .circle(sx, sy, 64)
+          .fill({ color: 0xf97316, alpha: 0.22 })
+          .stroke({ color: 0xf97316, width: 7, alpha: 0.92 });
+      } else if (p.chargeGauge2 > 0.02) {
         drawArc(
           this.ropesGraphics,
           sx,
           sy,
           64,
           -Math.PI * 0.5,
-          -Math.PI * 0.5 + p.chargeGauge * Math.PI * 2,
-          colorMeta.hex,
-          4.5,
-          0.95
+          -Math.PI * 0.5 + p.chargeGauge2 * Math.PI * 2,
+          0xf97316,
+          6,
+          0.92
         );
       }
 
-      // Thick Orange Trick/Mass Ring (c2): boosts collision weight & acts as secondary shield at 1.0
-      if (p.chargeGauge2 >= 1.0) {
+      // Outer Protection Shield / Cooldown Crescent (c1 @ +0xD48, CPlayerBeamFeedback @ 0x00535D30):
+      // white shield bubble at 1.0, colored tapered crescent while recharging (flashes white on denied input)
+      if (p.chargeGauge >= 1.0) {
         this.ropesGraphics
-          .circle(sx, sy, visualBubbleRadius + 7)
-          .stroke({ color: 0xf97316, width: 7, alpha: 0.95 });
-      } else if (p.chargeGauge2 > 0.02) {
-        drawArc(
+          .circle(sx, sy, visualBubbleRadius)
+          .fill({ color: 0xffffff, alpha: 0.14 })
+          .stroke({ color: 0xf8fafc, width: 5.5, alpha: 0.96 });
+        this.ropesGraphics
+          .circle(sx, sy, visualBubbleRadius - 5)
+          .stroke({ color: 0xffffff, width: 8, alpha: 0.14 });
+      } else if (p.chargeGauge > 0.015 || this.attachDenyFlashTimer[i] > 0) {
+        const arcProgress =
+          this.attachDenyFlashTimer[i] > 0
+            ? Math.max(0.12, p.chargeGauge)
+            : p.chargeGauge;
+        drawTaperedCooldownCrescent(
           this.ropesGraphics,
           sx,
           sy,
-          visualBubbleRadius + 7,
-          -Math.PI * 0.5,
-          -Math.PI * 0.5 + p.chargeGauge2 * Math.PI * 2,
-          0xf97316,
-          7,
-          0.95
+          visualBubbleRadius,
+          arcProgress,
+          colorMeta.hex,
+          this.attachDenyFlashTimer[i] > 0
         );
       }
 
