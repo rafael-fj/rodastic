@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { WebSocket } from 'ws';
 import {
@@ -169,6 +171,10 @@ describe('@rotastic/server — 2-Client End-to-End Authoritative Match Lifecycle
   });
 
   it('serves .mp3 BGM files with audio/mpeg MIME, Accept-Ranges, HEAD, 206 Partial Content and 416 handling', async () => {
+    const mp3Path = path.resolve(__dirname, '..', '..', 'client', 'public', 'assets', 'audio', 'bgm', 'bgm_syl_menu.mp3');
+    const expectedSize = fs.statSync(mp3Path).size;
+    expect(expectedSize).toBeGreaterThan(1_500_000);
+
     const url = `http://127.0.0.1:${port}/assets/audio/bgm/bgm_syl_menu.mp3`;
 
     const fullRes = await fetch(url);
@@ -176,28 +182,28 @@ describe('@rotastic/server — 2-Client End-to-End Authoritative Match Lifecycle
     expect(fullRes.headers.get('content-type')).toBe('audio/mpeg');
     expect(fullRes.headers.get('accept-ranges')).toBe('bytes');
     const fullBytes = new Uint8Array(await fullRes.arrayBuffer());
-    expect(fullBytes.length).toBe(1034449);
-    expect(Number(fullRes.headers.get('content-length'))).toBe(1034449);
+    expect(fullBytes.length).toBe(expectedSize);
+    expect(Number(fullRes.headers.get('content-length'))).toBe(expectedSize);
 
     const headRes = await fetch(url, { method: 'HEAD' });
     expect(headRes.status).toBe(200);
     expect(headRes.headers.get('content-type')).toBe('audio/mpeg');
     expect(headRes.headers.get('accept-ranges')).toBe('bytes');
-    expect(Number(headRes.headers.get('content-length'))).toBe(1034449);
+    expect(Number(headRes.headers.get('content-length'))).toBe(expectedSize);
     expect((await headRes.arrayBuffer()).byteLength).toBe(0);
 
     const rangeRes = await fetch(url, { headers: { Range: 'bytes=0-1023' } });
     expect(rangeRes.status).toBe(206);
     expect(rangeRes.headers.get('content-type')).toBe('audio/mpeg');
-    expect(rangeRes.headers.get('content-range')).toBe('bytes 0-1023/1034449');
+    expect(rangeRes.headers.get('content-range')).toBe(`bytes 0-1023/${expectedSize}`);
     expect(Number(rangeRes.headers.get('content-length'))).toBe(1024);
     const slice = new Uint8Array(await rangeRes.arrayBuffer());
     expect(slice.length).toBe(1024);
     expect(slice[0]).toBe(fullBytes[0]);
     expect(slice[1023]).toBe(fullBytes[1023]);
 
-    const badRangeRes = await fetch(url, { headers: { Range: 'bytes=9999999-' } });
+    const badRangeRes = await fetch(url, { headers: { Range: 'bytes=99999999-' } });
     expect(badRangeRes.status).toBe(416);
-    expect(badRangeRes.headers.get('content-range')).toBe('bytes */1034449');
+    expect(badRangeRes.headers.get('content-range')).toBe(`bytes */${expectedSize}`);
   });
 });
