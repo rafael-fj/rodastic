@@ -18,9 +18,15 @@ build/
 *.tmp
 *.temp
 .cache/
+__pycache__/
+*.pyc
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Capturas locais de runtime e screenshots frame-a-frame
+reference/captures/*
+!reference/captures/.gitkeep
 
 # Pacote global >300MB (hidratado via Steam local ou GitHub Release privada pelo bootstrap)
 reference/game-files/packages/w_global.pc
