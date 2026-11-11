@@ -26,8 +26,8 @@ REQUIRED_FILES=(
   "reference/game-files/packages/w_online.pc"
   "reference/game-files/packages/w_online_fetm.pc"
   "reference/game-files/packages/w_online_refm.pc"
-  "reference/game-files/packages/w_multi_coll_lvl01.pc"
   "reference/game-files/packages/w_multi_dm_lvl01.pc"
+  "reference/game-files/packages/w_multi_dm_lvl04.pc"
 )
 
 for req in "${REQUIRED_FILES[@]}"; do
