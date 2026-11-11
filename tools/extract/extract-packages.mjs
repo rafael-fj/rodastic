@@ -319,14 +319,14 @@ function createDdsBuffer(texrChunkBuf) {
   ddsHdr.writeUInt32LE(width, 16);
 
   if (fmtCode === 0x0014 || fmtCode === 0x0012) {
-    // Compressed DXT5 (0x0014) or DXT1 (0x0012)
+    // Compressed DXT3 (0x0014) or DXT1 (0x0012)
     const blockBytes = fmtCode === 0x0014 ? 16 : 8;
     const linearSize = Math.max(1, Math.floor((width + 3) / 4)) * Math.max(1, Math.floor((height + 3) / 4)) * blockBytes;
     ddsHdr.writeUInt32LE(linearSize, 20);
     ddsHdr.writeUInt32LE(mipCount, 28);
     ddsHdr.writeUInt32LE(32, 76); // ddspf.dwSize
     ddsHdr.writeUInt32LE(0x4, 80); // DDPF_FOURCC
-    ddsHdr.write(fmtCode === 0x0014 ? "DXT5" : "DXT1", 84, 4, "ascii");
+    ddsHdr.write(fmtCode === 0x0014 ? "DXT3" : "DXT1", 84, 4, "ascii");
   } else {
     // Uncompressed 32-bit A8R8G8B8 (0x0001)
     ddsHdr.writeUInt32LE(width * 4, 20);
@@ -344,7 +344,7 @@ function createDdsBuffer(texrChunkBuf) {
   return {
     ddsBuffer: Buffer.concat([ddsHdr, pixelData]),
     meta: {
-      format: fmtCode === 0x0014 ? "DXT5" : fmtCode === 0x0012 ? "DXT1" : "A8R8G8B8",
+      format: fmtCode === 0x0014 ? "DXT3" : fmtCode === 0x0012 ? "DXT1" : "A8R8G8B8",
       width,
       height,
       mipCount,

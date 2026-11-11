@@ -167,6 +167,28 @@ export function closestPointOnSegment2D(
 }
 
 /**
+ * Returns true if segment AB intersects segment CD in 2D (used for swept rope cuts).
+ */
+function segmentsIntersect2D(
+  ax: number,
+  ay: number,
+  bx: number,
+  by: number,
+  cx: number,
+  cy: number,
+  dx: number,
+  dy: number
+): boolean {
+  const ccw = (p1x: number, p1y: number, p2x: number, p2y: number, p3x: number, p3y: number) =>
+    (p3y - p1y) * (p2x - p1x) - (p2y - p1y) * (p3x - p1x);
+  const d1 = ccw(cx, cy, dx, dy, ax, ay);
+  const d2 = ccw(cx, cy, dx, dy, bx, by);
+  const d3 = ccw(ax, ay, bx, by, cx, cy);
+  const d4 = ccw(ax, ay, bx, by, dx, dy);
+  return ((d1 > 0 && d2 < 0) || (d1 < 0 && d2 > 0)) && ((d3 > 0 && d4 < 0) || (d3 < 0 && d4 > 0));
+}
+
+/**
  * Closest point on a 2D oriented bounding box (OBB) to circle center (px, py).
  * Returns world contact point, outward surface normal, and squared distance.
  */
@@ -544,7 +566,7 @@ export class RotasticSimulation {
     }
 
     // 4. Check Rope Cuts (CRotasticRope)
-    this.checkRopeCuts();
+    this.checkRopeCuts(dt);
 
     // 5. Check Player-vs-Player Weighted Collisions & Shield Protection
     this.checkPlayerCollisions();
@@ -963,11 +985,15 @@ export class RotasticSimulation {
   }
 
   /**
-   * 2D Cross-Product Rope Cutting (`CRotasticRope`):
-   * Any non-dizzy player moving at speed >= ROPE_CUT_MIN_SPEED intersecting another
-   * player's rope slices it ("Cut!"), awarding +0.2 orange charge + dizzying victim.
+   * 2D Segment + Swept Motion Rope Cutting (`CRotasticRope` @ `0x00543331` / `0x00578A90`):
+   * Any non-dizzy opponent intersecting another player's rope slices it ("Cut!"),
+   * awarding +0.2 orange charge + dizzying victim. Uses both capsule distance and
+   * swept tick motion so short-radius inner spins and fast dashes never miss.
    */
-  private checkRopeCuts(): void {
+  private checkRopeCuts(dt: number): void {
+    const cutRadius = C.PLAYER_RADIUS + 4;
+    const cutRadiusSq = cutRadius * cutRadius;
+
     for (const victim of this.state.players) {
       if (
         !victim.active ||
@@ -991,7 +1017,10 @@ export class RotasticSimulation {
           continue;
         }
 
-        if (Math.hypot(cutter.vx, cutter.vy) < C.ROPE_CUT_MIN_SPEED) continue;
+        const cutterSpeed = Math.hypot(cutter.vx, cutter.vy);
+        const isSpinningCut =
+          cutter.status === PlayerStatus.SWINGING && Math.abs(cutter.omega) >= 1.8;
+        if (cutterSpeed < C.ROPE_CUT_MIN_SPEED && !isSpinningCut) continue;
 
         const seg = closestPointOnSegment2D(
           cutter.x,
@@ -1002,7 +1031,21 @@ export class RotasticSimulation {
           victim.y
         );
 
-        if (seg.t >= 0.12 && seg.t <= 0.88 && seg.distSq <= C.PLAYER_RADIUS * C.PLAYER_RADIUS) {
+        const prevCutterX = cutter.x - cutter.vx * dt;
+        const prevCutterY = cutter.y - cutter.vy * dt;
+        const hitCurrent = seg.t >= 0.02 && seg.t <= 0.98 && seg.distSq <= cutRadiusSq;
+        const sweptCross = segmentsIntersect2D(
+          prevCutterX,
+          prevCutterY,
+          cutter.x,
+          cutter.y,
+          pivot.x,
+          pivot.y,
+          victim.x,
+          victim.y
+        );
+
+        if (hitCurrent || sweptCross) {
           victim.status = PlayerStatus.DIZZY;
           victim.statusTimer = C.DIZZY_DURATION_SEC;
           victim.attachedPivotId = -1;
@@ -1082,17 +1125,25 @@ export class RotasticSimulation {
           }
         }
 
-        // Weighted 2D elastic impulse exchange (verified exact in 4/4 PVP_BOUNCE_SOLVER logs)
-        const relVx = a.vx - b.vx;
-        const relVy = a.vy - b.vy;
+        // Weighted 2D elastic impulse exchange (`0x00578426` + `0x00576E30`):
+        // Binary enforces minimum 450.0 speed floor (`0x005782C6`, `0x005783B8`) prior to impulse
+        // so heavy orange-ring holders (mass up to 11.0) launch opponents cleanly even at medium speed.
+        const effScaleA = speedA > 1e-3 && speedA < C.PVP_MIN_COLLISION_SPEED ? C.PVP_MIN_COLLISION_SPEED / speedA : 1.0;
+        const effScaleB = speedB > 1e-3 && speedB < C.PVP_MIN_COLLISION_SPEED ? C.PVP_MIN_COLLISION_SPEED / speedB : 1.0;
+        const effVxA = a.vx * effScaleA;
+        const effVyA = a.vy * effScaleA;
+        const effVxB = b.vx * effScaleB;
+        const effVyB = b.vy * effScaleB;
+        const relVx = effVxA - effVxB;
+        const relVy = effVyA - effVyB;
         const velAlongNormal = relVx * nx + relVy * ny;
         if (velAlongNormal > 0) {
           const factorA = (2 * mB) / (mA + mB);
           const factorB = (2 * mA) / (mA + mB);
-          a.vx -= factorA * velAlongNormal * nx;
-          a.vy -= factorA * velAlongNormal * ny;
-          b.vx += factorB * velAlongNormal * nx;
-          b.vy += factorB * velAlongNormal * ny;
+          a.vx = effVxA - factorA * velAlongNormal * nx;
+          a.vy = effVyA - factorA * velAlongNormal * ny;
+          b.vx = effVxB + factorB * velAlongNormal * nx;
+          b.vy = effVyB + factorB * velAlongNormal * ny;
         }
 
         // Update swung angular velocity or detach if hit hard by heavier rival

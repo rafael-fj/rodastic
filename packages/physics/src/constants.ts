@@ -42,11 +42,12 @@ export const ROTASTIC_PHYSICS_CONSTANTS = {
   RELEASE_BOOST_FACTOR: 1.2, // simRef[0x40] = 1.2 (observed 900 -> 1079 u/s)
 
   // Rope Cutting & Collisions
-  ROPE_CUT_GRACE_SEC: 0.25,
-  ROPE_CUT_MIN_SPEED: 320.0,
+  ROPE_CUT_GRACE_SEC: 0.08, // Responsive close-quarters rope cutting while avoiding frame-0 self-attach snags
+  ROPE_CUT_MIN_SPEED: 160.0, // Minimum speed when not swinging fast on a tight radius
   PLAYER_RADIUS: 44.0, // Matches 82.8px PvP contact distance & 161px visual shield scale in 1920x1080
   WALL_BOUNCE_RESTITUTION: 1.0, // simRef[0x44] = 1.0
   PLAYER_RESTITUTION: 1.0, // Verified exact in 4/4 PVP_BOUNCE_SOLVER events
+  PVP_MIN_COLLISION_SPEED: 450.0, // Verified speed floor @ 0x005782C6, 0x005783B8, 0x0057717F
   SLAUGHTER_MIN_SPEED: 620.0,
   SLAUGHTER_KE_RATIO_SQ: 1.8,
 

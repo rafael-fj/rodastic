@@ -253,4 +253,85 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     sim.step({ 0: { seq: 2, actionHeld: false, axisX: 0, axisY: 0 } });
     expect(p.status).toBe(PlayerStatus.DEAD);
   });
+
+  it('cuts an opponent rope when swinging inside at a shorter radius around the same pivot', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl02');
+    sim.configurePlayerSlot(0, { active: true, name: 'OuterVictim' });
+    sim.configurePlayerSlot(1, { active: true, name: 'InnerCutter' });
+
+    const victim = sim.state.players[0];
+    const cutter = sim.state.players[1];
+
+    // Pivot #0 on lvl02 is (340, 880). Outer victim swings at r = 180; inner cutter swings at r = 70
+    victim.status = PlayerStatus.SWINGING;
+    victim.attachedPivotId = 0;
+    victim.ropeLength = 180;
+    victim.ropeAngle = 0;
+    victim.omega = 2.0;
+    victim.attachTimer = 0.4;
+    victim.x = 340 + 180;
+    victim.y = 880;
+    victim.vx = 0;
+    victim.vy = 360;
+
+    // Inner cutter swinging faster at short radius (linear speed ~182 < old 320 threshold!)
+    cutter.status = PlayerStatus.SWINGING;
+    cutter.attachedPivotId = 0;
+    cutter.ropeLength = 70;
+    cutter.ropeAngle = -0.15;
+    cutter.omega = 4.5; // |omega| >= 1.8 and swept across victim's rope angle 0!
+    cutter.attachTimer = 0.4;
+    cutter.x = 340 + Math.cos(-0.15) * 70;
+    cutter.y = 880 + Math.sin(-0.15) * 70;
+    cutter.vx = -cutter.omega * 70 * Math.sin(-0.15);
+    cutter.vy = cutter.omega * 70 * Math.cos(-0.15);
+
+    let cutSeen = false;
+    for (let t = 1; t <= 8; t++) {
+      const evs = sim.step({
+        0: { seq: t, actionHeld: true, axisX: 0, axisY: 0 },
+        1: { seq: t, actionHeld: true, axisX: 0, axisY: 0 },
+      });
+      if (evs.some((e) => e.type === 'ropecut' && e.slotIndex === 1 && e.targetSlot === 0)) {
+        cutSeen = true;
+        break;
+      }
+    }
+    expect(cutSeen).toBe(true);
+    expect(victim.status).toBe(PlayerStatus.DIZZY);
+  });
+
+  it('applies full orange circle (c2=1.0 -> mass 11) + 450 u/s collision floor to launch lighter rivals hard', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl09');
+    sim.configurePlayerSlot(0, { active: true, name: 'OrangeHolder' });
+    sim.configurePlayerSlot(1, { active: true, name: 'LightRival' });
+
+    const heavy = sim.state.players[0];
+    const light = sim.state.players[1];
+
+    heavy.status = PlayerStatus.FREE_FALL;
+    heavy.chargeGauge = 0.5;
+    heavy.chargeGauge2 = 1.0; // mass = 11.0
+    heavy.x = 900;
+    heavy.y = 500;
+    heavy.vx = 250; // Below 450 u/s, binary clamps pre-impact speed to >= 450!
+    heavy.vy = 0;
+
+    light.status = PlayerStatus.FREE_FALL;
+    light.chargeGauge = 1.0; // full white shield so it absorbs lethal threshold if any
+    light.chargeGauge2 = 0.0; // mass = 1.0
+    light.x = 960; // within PLAYER_RADIUS * 2 (88 px)
+    light.y = 500;
+    light.vx = -250;
+    light.vy = 0;
+
+    sim.step({
+      0: { seq: 1, actionHeld: false, axisX: 0, axisY: 0 },
+      1: { seq: 1, actionHeld: false, axisX: 0, axisY: 0 },
+    });
+
+    // Light rival blasted rightward way harder than heavy player was knocked leftward
+    expect(light.vx).toBeGreaterThan(750);
+    expect(Math.abs(heavy.vx)).toBeGreaterThan(250);
+  });
 });

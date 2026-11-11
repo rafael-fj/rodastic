@@ -33,22 +33,22 @@ describe('@rotastic/physics — Golden File Regression & Fidelity Validation', (
 
     heavy.x = 400;
     heavy.y = 500;
-    heavy.vx = 400;
+    heavy.vx = 500;
     heavy.vy = 0;
 
     light.x = 448;
     light.y = 500;
-    light.vx = -400;
+    light.vx = -500;
     light.vy = 0;
 
     const events = sim.step({});
     expect(events.some((e) => e.type === 'bounce')).toBe(true);
 
-    // Exact 2D impulse check:
-    // relVx = 800; m1 = 2.6, m2 = 1.0 -> factorA = 2/3.6 = 0.5556, factorB = 5.2/3.6 = 1.4444
-    // heavy.vx = 400 - 0.5556 * 800 = -44.444; light.vx = -400 + 1.4444 * 800 = +755.556
-    expect(heavy.vx).toBeCloseTo(-44.444, 1);
-    expect(light.vx).toBeCloseTo(755.556, 1);
+    // Exact 2D impulse check (above the 450.0 binary pre-impact floor):
+    // relVx = 1000; m1 = 2.6, m2 = 1.0 -> factorA = 2/3.6 = 0.5556, factorB = 5.2/3.6 = 1.4444
+    // heavy.vx = 500 - 0.5556 * 1000 = -55.556; light.vx = -500 + 1.4444 * 1000 = +944.444
+    expect(heavy.vx).toBeCloseTo(-55.556, 1);
+    expect(light.vx).toBeCloseTo(944.444, 1);
   });
 
   it('triggers Slaughter instant kill in Deathmatch when unshielded victim is hit at high energy ratio', () => {

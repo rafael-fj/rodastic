@@ -332,6 +332,94 @@ function decodeDdsToRgba(ddsBuf) {
   throw new Error(`Unsupported DDS format: fourCC="${fourCC}", bitCount=${bitCount}`);
 }
 
+/**
+ * Cleans DXT block edge dust specks (isolated 1px/low-alpha artifacts near outlines)
+ * and extrudes neighboring RGB colors into transparent pixels (alpha stays 0) so
+ * GPU bilinear scaling/rotation never produces black or white edge halos.
+ */
+function cleanDxtAlphaAndColorBleed(width, height, rgba, format) {
+  const total = width * height;
+  if (format === 'DXT5' || format === 'DXT3' || format === 'DXT1') {
+    const srcA = new Uint8Array(total);
+    for (let i = 0; i < total; i++) srcA[i] = rgba[i * 4 + 3];
+
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const idx = y * width + x;
+        const a = srcA[idx];
+        if (a === 0) continue;
+
+        let cardSolid = 0;
+        let diagSolid = 0;
+        for (let dy = -1; dy <= 1; dy++) {
+          const ny = y + dy;
+          if (ny < 0 || ny >= height) continue;
+          for (let dx = -1; dx <= 1; dx++) {
+            if (dx === 0 && dy === 0) continue;
+            const nx = x + dx;
+            if (nx < 0 || nx >= width) continue;
+            const na = srcA[ny * width + nx];
+            if (dx === 0 || dy === 0) {
+              if (na >= 32) cardSolid++;
+            } else if (na >= 48) {
+              diagSolid++;
+            }
+          }
+        }
+
+        if (a < 18 && cardSolid === 0 && diagSolid === 0) {
+          const p = idx * 4;
+          rgba[p] = 0;
+          rgba[p + 1] = 0;
+          rgba[p + 2] = 0;
+          rgba[p + 3] = 0;
+        }
+      }
+    }
+  }
+
+  // Two passes of color bleeding into a === 0 pixels (preserves alpha === 0)
+  for (let pass = 0; pass < 2; pass++) {
+    const copy = new Uint8Array(rgba);
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const dst = (y * width + x) * 4;
+        if (copy[dst + 3] > 0) continue;
+
+        let sumR = 0;
+        let sumG = 0;
+        let sumB = 0;
+        let weightSum = 0;
+        for (let dy = -1; dy <= 1; dy++) {
+          const ny = y + dy;
+          if (ny < 0 || ny >= height) continue;
+          for (let dx = -1; dx <= 1; dx++) {
+            if (dx === 0 && dy === 0) continue;
+            const nx = x + dx;
+            if (nx < 0 || nx >= width) continue;
+            const src = (ny * width + nx) * 4;
+            const w = copy[src + 3];
+            if (w >= 24 || (pass === 1 && (copy[src] | copy[src + 1] | copy[src + 2]) !== 0)) {
+              const effW = w > 0 ? w : 16;
+              sumR += copy[src] * effW;
+              sumG += copy[src + 1] * effW;
+              sumB += copy[src + 2] * effW;
+              weightSum += effW;
+            }
+          }
+        }
+        if (weightSum > 0) {
+          rgba[dst] = Math.round(sumR / weightSum);
+          rgba[dst + 1] = Math.round(sumG / weightSum);
+          rgba[dst + 2] = Math.round(sumB / weightSum);
+        }
+      }
+    }
+  }
+
+  return rgba;
+}
+
 // ============================================================================
 // Helpers for Asset Naming & Classification
 // ============================================================================
@@ -433,6 +521,7 @@ function main() {
     let texEntry = hashToTextureEntry.get(sha256);
     if (!texEntry) {
       const { width, height, format, rgba } = decodeDdsToRgba(ddsBuf);
+      cleanDxtAlphaAndColorBleed(width, height, rgba, format);
       const pngBuf = encodeRgbaToPng(width, height, rgba);
 
       const subFolder = isGlobal ? 'global' : isBackground ? 'backgrounds' : 'arenas';

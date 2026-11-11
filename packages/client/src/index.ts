@@ -1,4 +1,4 @@
-import { Application, Assets, Container, Graphics, Sprite, Text, Texture } from 'pixi.js';
+import { Application, Assets, Container, Graphics, Rectangle, Sprite, Text, Texture, TilingSprite } from 'pixi.js';
 import {
   CHARACTER_NAMES,
   CharacterId,
@@ -89,12 +89,20 @@ export class RotasticWebClient {
 
   // Local predictive simulation + interpolated display positions
   public localSim = new RotasticSimulation('w_multi_dm_lvl09');
-  private displayPos: Array<{ x: number; y: number; trails: Array<{ x: number; y: number }> }> = [
-    { x: 240, y: 1000, trails: [] },
-    { x: 1680, y: 1000, trails: [] },
-    { x: 660, y: 1000, trails: [] },
-    { x: 1260, y: 1000, trails: [] },
+  private simAccumulator = 0;
+  private displayPos: Array<{
+    x: number;
+    y: number;
+    prevX: number;
+    prevY: number;
+    trails: Array<{ x: number; y: number }>;
+  }> = [
+    { x: 240, y: 1000, prevX: 240, prevY: 1000, trails: [] },
+    { x: 1680, y: 1000, prevX: 1680, prevY: 1000, trails: [] },
+    { x: 660, y: 1000, prevX: 660, prevY: 1000, trails: [] },
+    { x: 1260, y: 1000, prevX: 1260, prevY: 1000, trails: [] },
   ];
+  private lastPlayerStates: string[] = ['fly', 'fly', 'fly', 'fly'];
 
   // Input state
   private keysDown = new Set<string>();
@@ -105,6 +113,7 @@ export class RotasticWebClient {
   private rootContainer = new Container();
   private bgContainer = new Container();
   private arenaGraphics = new Graphics();
+  private ropesContainer = new Container();
   private ropesGraphics = new Graphics();
   private pickupsContainer = new Container();
   private pivotsContainer = new Container();
@@ -113,6 +122,8 @@ export class RotasticWebClient {
 
   private pivotAuraSprites: Sprite[] = [];
   private pivotCoreSprites: Sprite[] = [];
+  private ropeBaseSprites: TilingSprite[] = [];
+  private ropeBeamSprites: Sprite[] = [];
   private playerSprites: Sprite[] = [];
   private playerLabels: Text[] = [];
   private floatingEffects: FloatingEffect[] = [];
@@ -163,6 +174,7 @@ export class RotasticWebClient {
       this.arenaGraphics,
       this.pickupsContainer,
       this.pivotsContainer,
+      this.ropesContainer,
       this.ropesGraphics,
       this.playersContainer,
       this.fxContainer
@@ -179,21 +191,21 @@ export class RotasticWebClient {
 
     this.connectWebSocket();
 
-    // 60 Hz Fixed Client Prediction + Render Loop
-    let accumulator = 0;
+    // 60 Hz Fixed Client Prediction + Sub-Frame Interpolated Render Loop
     let lastTime = performance.now();
     this.app.ticker.add(() => {
       const now = performance.now();
       const dt = Math.min(0.1, (now - lastTime) / 1000);
       lastTime = now;
-      accumulator += dt;
+      this.simAccumulator += dt;
 
-      while (accumulator >= C.FIXED_DT) {
+      while (this.simAccumulator >= C.FIXED_DT) {
         this.stepClientTick();
-        accumulator -= C.FIXED_DT;
+        this.simAccumulator -= C.FIXED_DT;
       }
 
-      this.renderScene(dt);
+      const renderAlpha = Math.max(0, Math.min(1, this.simAccumulator / C.FIXED_DT));
+      this.renderScene(dt, renderAlpha);
     });
   }
 
@@ -209,6 +221,9 @@ export class RotasticWebClient {
 
   private async preloadCoreSprites(): Promise<void> {
     const urls: string[] = [
+      '/assets/textures/global/t_corde_c.png',
+      '/assets/textures/global/t_cordebeam_c.png',
+      '/assets/textures/global/t_cordeuberbeam_c.png',
       '/assets/textures/global/t_accroche01_c.png',
       '/assets/textures/global/t_accrocheaura_c.png',
       '/assets/textures/global/t_pickupetoile_c.png',
@@ -244,6 +259,18 @@ export class RotasticWebClient {
         }
       })
     );
+
+    // Crop t_cordebeam_c / t_cordeuberbeam_c top opaque half (32x30 inside 32x64) for clean full-span overlays
+    for (const beamUrl of ['/assets/textures/global/t_cordebeam_c.png', '/assets/textures/global/t_cordeuberbeam_c.png']) {
+      const fullTex = this.texturesCache.get(beamUrl);
+      if (fullTex && fullTex.width >= 32 && fullTex.height >= 32) {
+        const cropped = new Texture({
+          source: fullTex.source,
+          frame: new Rectangle(0, 2, 32, 28),
+        });
+        this.texturesCache.set(`${beamUrl}#cropped`, cropped);
+      }
+    }
   }
 
   private async ensureMapBackgrounds(mapId: string): Promise<void> {
@@ -285,11 +312,28 @@ export class RotasticWebClient {
   }
 
   private initPlayerNodes(): void {
+    const cordeTex = this.texturesCache.get('/assets/textures/global/t_corde_c.png') ?? Texture.WHITE;
+    const beamTex =
+      this.texturesCache.get('/assets/textures/global/t_cordebeam_c.png#cropped') ?? Texture.WHITE;
+
     for (let i = 0; i < 4; i++) {
+      const ropeBase = new TilingSprite({ texture: cordeTex, width: 42, height: 64 });
+      ropeBase.anchor.set(0.5);
+      ropeBase.visible = false;
+      this.ropesContainer.addChild(ropeBase);
+      this.ropeBaseSprites.push(ropeBase);
+
+      const ropeBeam = new Sprite(beamTex);
+      ropeBeam.anchor.set(0.5);
+      ropeBeam.blendMode = 'add';
+      ropeBeam.visible = false;
+      this.ropesContainer.addChild(ropeBeam);
+      this.ropeBeamSprites.push(ropeBeam);
+
       const spr = new Sprite(Texture.WHITE);
       spr.anchor.set(0.5);
-      spr.width = 112;
-      spr.height = 112;
+      spr.width = 276;
+      spr.height = 276;
       this.playersContainer.addChild(spr);
       this.playerSprites.push(spr);
 
@@ -637,10 +681,11 @@ export class RotasticWebClient {
       authLocal.status !== PlayerStatus.SPAWN_CURSOR
     ) {
       const errDist = Math.hypot(authLocal.x - localPlayerBefore.x, authLocal.y - localPlayerBefore.y);
-      if (errDist < 90) {
-        // Smoothly blend local predicted position toward server authority (1920x1080 pixel space)
-        authLocal.x = localPlayerBefore.x + (authLocal.x - localPlayerBefore.x) * 0.35;
-        authLocal.y = localPlayerBefore.y + (authLocal.y - localPlayerBefore.y) * 0.35;
+      if (errDist < 120) {
+        // Gentle error decay toward server authority (avoids 20Hz rubberband flicker!)
+        const correctionAlpha = errDist > 14 ? 0.16 : 0.06;
+        authLocal.x = localPlayerBefore.x + (authLocal.x - localPlayerBefore.x) * correctionAlpha;
+        authLocal.y = localPlayerBefore.y + (authLocal.y - localPlayerBefore.y) * correctionAlpha;
       }
     }
 
@@ -817,8 +862,20 @@ export class RotasticWebClient {
       this.ws.send(pkt);
     }
 
+    // Preserve continuity for swinging remote players/bots between 20Hz snapshots so they don't snap-drop
+    const stepInputs: Record<number, PlayerInputCommand> = {
+      [this.mySlotIndex]: cmd,
+    };
+    for (let i = 0; i < 4; i++) {
+      if (i === this.mySlotIndex) continue;
+      const rp = this.localSim.state.players[i];
+      if (rp && rp.active && rp.status === PlayerStatus.SWINGING) {
+        stepInputs[i] = { seq: 0, actionHeld: true, reverseHeld: false, axisX: 0, axisY: 0 };
+      }
+    }
+
     // Step local prediction
-    this.localSim.step({ [this.mySlotIndex]: cmd }, C.FIXED_DT);
+    this.localSim.step(stepInputs, C.FIXED_DT);
 
     // Smoothly interpolate display positions & trails (1920x1080 space)
     for (let i = 0; i < 4; i++) {
@@ -829,25 +886,34 @@ export class RotasticWebClient {
         continue;
       }
       if (p.status === PlayerStatus.SPAWN_CURSOR) {
+        disp.prevX = p.spawnCursorX;
+        disp.prevY = C.SPAWN_DROP_Y;
         disp.x = p.spawnCursorX;
         disp.y = C.SPAWN_DROP_Y;
         disp.trails = [];
         continue;
       }
+      disp.prevX = disp.x;
+      disp.prevY = disp.y;
       const dist = Math.hypot(p.x - disp.x, p.y - disp.y);
-      if (dist > 140 || i === this.mySlotIndex) {
+      if (dist > 180 || (i === this.mySlotIndex && dist > 120)) {
+        disp.x = p.x;
+        disp.y = p.y;
+        disp.prevX = p.x;
+        disp.prevY = p.y;
+      } else if (i === this.mySlotIndex) {
         disp.x = p.x;
         disp.y = p.y;
       } else {
-        disp.x += (p.x - disp.x) * 0.45;
-        disp.y += (p.y - disp.y) * 0.45;
+        disp.x += (p.x - disp.x) * 0.42;
+        disp.y += (p.y - disp.y) * 0.42;
       }
       disp.trails.unshift({ x: disp.x, y: disp.y });
       if (disp.trails.length > 14) disp.trails.pop();
     }
   }
 
-  private renderScene(dt: number): void {
+  private renderScene(dt: number, renderAlpha = 1): void {
     const map = this.localSim.map;
     const state = this.localSim.state;
     const nowSec = performance.now() / 1000;
@@ -1046,15 +1112,23 @@ export class RotasticWebClient {
     }
 
     // 3. Ropes, Dual Shield Gauges, Spawn Cursor & Players
+    const cordeTex = this.texturesCache.get('/assets/textures/global/t_corde_c.png');
+    const ropeBeamTex = this.texturesCache.get('/assets/textures/global/t_cordebeam_c.png#cropped');
+    const ropeUberTex = this.texturesCache.get('/assets/textures/global/t_cordeuberbeam_c.png#cropped');
+
     for (let i = 0; i < 4; i++) {
       const p = state.players[i];
       const spr = this.playerSprites[i];
       const lbl = this.playerLabels[i];
+      const ropeBase = this.ropeBaseSprites[i];
+      const ropeBeam = this.ropeBeamSprites[i];
       const disp = this.displayPos[i];
 
       if (!p || !p.active || p.status === PlayerStatus.DEAD) {
         spr.visible = false;
         lbl.visible = false;
+        ropeBase.visible = false;
+        ropeBeam.visible = false;
         continue;
       }
 
@@ -1065,6 +1139,8 @@ export class RotasticWebClient {
       if (p.status === PlayerStatus.SPAWN_CURSOR) {
         spr.visible = true;
         lbl.visible = true;
+        ropeBase.visible = false;
+        ropeBeam.visible = false;
         const cx = worldToScreenX(p.spawnCursorX);
         const cy = 62;
         const bob = Math.sin(nowSec * 8) * 4;
@@ -1072,17 +1148,17 @@ export class RotasticWebClient {
         const texKey = `/assets/textures/global/t_character_${colorMeta.code}_${charMeta.id}_fly_c.png`;
         const tex = this.texturesCache.get(texKey);
         if (tex) {
-          spr.texture = tex;
+          if (spr.texture !== tex) spr.texture = tex;
           spr.tint = 0xffffff;
         } else {
           spr.tint = colorMeta.hex;
         }
         spr.x = cx;
         spr.y = cy;
-        spr.width = 160;
-        spr.height = 160;
+        spr.width = 196;
+        spr.height = 196;
         spr.rotation = 0;
-        spr.alpha = 0.85;
+        spr.alpha = 0.9;
 
         // Dashed drop guide & chevron arrow pointing down
         this.ropesGraphics
@@ -1105,63 +1181,100 @@ export class RotasticWebClient {
       spr.visible = true;
       lbl.visible = true;
 
-      const sx = worldToScreenX(disp.x);
-      const sy = worldToScreenY(disp.y);
+      const interpX = disp.prevX + (disp.x - disp.prevX) * renderAlpha;
+      const interpY = disp.prevY + (disp.y - disp.prevY) * renderAlpha;
+      const sx = worldToScreenX(interpX);
+      const sy = worldToScreenY(interpY);
 
       // Motion Trail
       for (let t = 0; t < disp.trails.length - 1; t++) {
         const pt = disp.trails[t];
-        const alpha = (1 - t / disp.trails.length) * 0.35;
-        const r = (1 - t / disp.trails.length) * 24;
+        const alpha = (1 - t / disp.trails.length) * 0.32;
+        const r = (1 - t / disp.trails.length) * 22;
         this.ropesGraphics
           .circle(worldToScreenX(pt.x), worldToScreenY(pt.y), r)
           .fill({ color: colorMeta.hex, alpha });
       }
 
       // Off-screen bottom dip indicator (player allowed down to y=-300 before TriggerPlanePlayerDeath)
-      if (disp.y < 0 && disp.y > C.DEATH_BOTTOM_Y) {
+      if (interpY < 0 && interpY > C.DEATH_BOTTOM_Y) {
         this.ropesGraphics
           .poly([sx - 18, VIEW_HEIGHT - 28, sx + 18, VIEW_HEIGHT - 28, sx, VIEW_HEIGHT - 6])
           .fill({ color: colorMeta.hex, alpha: 0.9 })
           .stroke({ color: 0xffffff, width: 2 });
       }
 
-      // Active Two-Tone Rope Line
+      // Active Authentic Rope Sprite (`t_corde_c` tiled braided rope + `t_cordebeam_c` / `t_cordeuberbeam_c`)
       if (p.status === PlayerStatus.SWINGING && p.attachedPivotId >= 0) {
         const pivot = state.attachPoints.find((a) => a.id === p.attachedPivotId);
         if (pivot) {
           const px = worldToScreenX(pivot.x);
           const py = worldToScreenY(pivot.y);
-          const mx = (px + sx) * 0.5;
-          const my = (py + sy) * 0.5;
-          this.ropesGraphics
-            .moveTo(px, py)
-            .lineTo(mx, my)
-            .stroke({ color: 0xf97316, width: 7, cap: 'round' });
-          this.ropesGraphics
-            .moveTo(mx, my)
-            .lineTo(sx, sy)
-            .stroke({ color: 0xf8fafc, width: 5, cap: 'round' });
-          this.ropesGraphics
-            .moveTo(px, py)
-            .lineTo(sx, sy)
-            .stroke({ color: colorMeta.hex, width: 2.5, alpha: 0.85 });
+          const rdx = sx - px;
+          const rdy = sy - py;
+          const ropeLenPx = Math.max(4, Math.hypot(rdx, rdy));
+          const midX = (px + sx) * 0.5;
+          const midY = (py + sy) * 0.5;
+          const ropeRot = Math.atan2(rdy, rdx) + Math.PI * 0.5;
+
+          if (cordeTex) {
+            ropeBase.visible = true;
+            if (ropeBase.texture !== cordeTex) ropeBase.texture = cordeTex;
+            ropeBase.x = midX;
+            ropeBase.y = midY;
+            ropeBase.width = 44;
+            ropeBase.height = ropeLenPx;
+            ropeBase.tileScale.set(44 / 64, 1);
+            ropeBase.rotation = ropeRot;
+            ropeBase.tint = 0xffffff;
+            ropeBase.alpha = 0.96;
+
+            const isUber = p.chargeGauge2 >= 1.0 || Math.hypot(p.vx, p.vy) >= 720;
+            const beamTex = isUber ? ropeUberTex ?? ropeBeamTex : ropeBeamTex;
+            if (beamTex) {
+              ropeBeam.visible = true;
+              if (ropeBeam.texture !== beamTex) ropeBeam.texture = beamTex;
+              ropeBeam.x = midX;
+              ropeBeam.y = midY;
+              ropeBeam.width = isUber ? 34 : 24;
+              ropeBeam.height = ropeLenPx;
+              ropeBeam.rotation = ropeRot;
+              ropeBeam.tint = isUber ? 0xfbbf24 : colorMeta.hex;
+              ropeBeam.alpha = isUber ? 0.85 : p.chargeGauge >= 1.0 ? 0.65 : 0.45;
+            } else {
+              ropeBeam.visible = false;
+            }
+          } else {
+            ropeBase.visible = false;
+            ropeBeam.visible = false;
+          }
+        } else {
+          ropeBase.visible = false;
+          ropeBeam.visible = false;
         }
+      } else {
+        ropeBase.visible = false;
+        ropeBeam.visible = false;
       }
 
-      // Select authentic Rotastic sprite texture based on player state
-      const stateSuffix =
-        p.status === PlayerStatus.DIZZY
-          ? 'hurt'
-          : p.status === PlayerStatus.SWINGING
-            ? 'attach'
-            : Math.hypot(p.vx, p.vy) >= C.SLAUGHTER_MIN_SPEED
-              ? 'ropecut'
-              : 'fly';
+      // Select authentic Rotastic sprite texture with speed hysteresis (prevents rapid texture chatter)
+      const speed = Math.hypot(p.vx, p.vy);
+      let stateSuffix = this.lastPlayerStates[i] || 'fly';
+      if (p.status === PlayerStatus.DIZZY) {
+        stateSuffix = 'hurt';
+      } else if (p.status === PlayerStatus.SWINGING) {
+        stateSuffix = 'attach';
+      } else if (stateSuffix === 'ropecut') {
+        if (speed < 430) stateSuffix = 'fly';
+      } else {
+        stateSuffix = speed >= 520 ? 'ropecut' : 'fly';
+      }
+      this.lastPlayerStates[i] = stateSuffix;
+
       const texKey = `/assets/textures/global/t_character_${colorMeta.code}_${charMeta.id}_${stateSuffix}_c.png`;
       const tex = this.texturesCache.get(texKey);
       if (tex) {
-        spr.texture = tex;
+        if (spr.texture !== tex) spr.texture = tex;
         spr.tint = 0xffffff;
       } else {
         spr.tint = colorMeta.hex;
@@ -1169,12 +1282,13 @@ export class RotasticWebClient {
 
       spr.x = sx;
       spr.y = sy;
-      spr.width = 236; // Native 1:1 sprite scale (~80-110px opaque knight inside 156px bubble)
-      spr.height = 236;
+      spr.width = 276; // Crisp DXT3 knight sprite sized properly inside 156px shield bubble
+      spr.height = 276;
       spr.rotation = Math.atan2(-p.vy, p.vx) * 0.25;
-      spr.alpha = p.invulnTimer > 0 ? (Math.floor(performance.now() / 75) % 2 === 0 ? 0.45 : 1.0) : 1.0;
+      // Smooth sine shimmer instead of 13Hz harsh blink strobe during post-spawn/shield invuln
+      spr.alpha = p.invulnTimer > 0 ? 0.72 + 0.25 * Math.sin(nowSec * 12) : 1.0;
 
-      // Subtle inner hitbox ring + original 156px visual white shield bubble
+      // Subtle inner hitbox ring + gentle cyan pulse halo during invulnerability
       const visualBubbleRadius = 78; // Measured 161px diameter in Rotastic.exe screenshots
       this.ropesGraphics
         .circle(sx, sy, C.PLAYER_RADIUS)
@@ -1183,6 +1297,16 @@ export class RotasticWebClient {
           width: i === this.mySlotIndex ? 2.5 : 1.5,
           alpha: 0.45,
         });
+
+      if (p.invulnTimer > 0) {
+        this.ropesGraphics
+          .circle(sx, sy, visualBubbleRadius + 12)
+          .stroke({
+            color: 0xe0f2fe,
+            width: 2.5,
+            alpha: 0.35 + 0.25 * Math.sin(nowSec * 12),
+          });
+      }
 
       // Outer Protection Shield Ring (c1): arc fill -> white shield bubble at 1.0
       if (p.chargeGauge >= 1.0) {
