@@ -548,10 +548,10 @@ function installHooks() {
       this.outV2Ptr = args[2];
       this.input = isValidPtr(this.pairPtr)
         ? {
-            p1Pos: { x: round3(readF32(this.pairPtr)), y: round3(readF32(this.pairPtr.add(4))) },
-            p2Pos: { x: round3(readF32(this.pairPtr.add(0x10))), y: round3(readF32(this.pairPtr.add(0x14))) },
-            p1Vel: { x: round3(readF32(this.pairPtr.add(0x20))), y: round3(readF32(this.pairPtr.add(0x24))) },
-            p2Vel: { x: round3(readF32(this.pairPtr.add(0x30))), y: round3(readF32(this.pairPtr.add(0x34))) },
+            p1Vel: { x: round3(readF32(this.pairPtr)), y: round3(readF32(this.pairPtr.add(4))) },
+            p2Vel: { x: round3(readF32(this.pairPtr.add(0x10))), y: round3(readF32(this.pairPtr.add(0x14))) },
+            p1Pos: { x: round3(readF32(this.pairPtr.add(0x20))), y: round3(readF32(this.pairPtr.add(0x24))) },
+            p2Pos: { x: round3(readF32(this.pairPtr.add(0x30))), y: round3(readF32(this.pairPtr.add(0x34))) },
             m1: round3(readF32(this.pairPtr.add(0x40))),
             m2: round3(readF32(this.pairPtr.add(0x44))),
           }
