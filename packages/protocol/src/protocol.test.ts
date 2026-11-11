@@ -65,6 +65,7 @@ describe('@rotastic/protocol — BlitzTech 8-Byte Framing & Message Codec', () =
     const pkt = encodeClientInputCmd(42, 1, 0, {
       seq: 99,
       actionHeld: true,
+      reverseHeld: true,
       axisX: -0.5,
       axisY: 1.0,
     });
@@ -73,6 +74,7 @@ describe('@rotastic/protocol — BlitzTech 8-Byte Framing & Message Codec', () =
     expect(decoded.slotIndex).toBe(0);
     expect(decoded.cmd.seq).toBe(99);
     expect(decoded.cmd.actionHeld).toBe(true);
+    expect(decoded.cmd.reverseHeld).toBe(true);
     expect(decoded.cmd.axisX).toBeCloseTo(-0.5, 1);
     expect(decoded.cmd.axisY).toBeCloseTo(1.0, 2);
   });

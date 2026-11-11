@@ -16,6 +16,7 @@ import {
 export interface PlayerInputCommand {
   seq: number;
   actionHeld: boolean; // Space / Click / Button A to drop or attach & swing
+  reverseHeld?: boolean; // Shift / S / ArrowDown / Right-Click to invert rotation direction while swinging
   axisX: number; // -1..+1
   axisY: number; // -1..+1
 }
@@ -48,7 +49,9 @@ export interface PlayerSimState {
   spawnAllowDelay: number; // small delay before drop signal is accepted
   wallTrickCooldown: number;
   swingLoopAccumRad: number;
+  turnBoostCount: number; // 0..5 reverse spin boost stacks
   lastActionHeld: boolean;
+  lastReverseHeld: boolean;
   lastAttackerSlot: number; // -1 or 0..3
   lastAttackTimer: number;
   score: number;
@@ -92,6 +95,7 @@ export interface SimEvent {
   type:
     | 'attach'
     | 'release'
+    | 'invert'
     | 'ropecut'
     | 'slaughter'
     | 'shieldbreak'
@@ -278,7 +282,9 @@ export class RotasticSimulation {
         spawnAllowDelay: C.SPAWN_ALLOW_DELAY_SEC,
         wallTrickCooldown: 0,
         swingLoopAccumRad: 0,
+        turnBoostCount: 0,
         lastActionHeld: false,
+        lastReverseHeld: false,
         lastAttackerSlot: -1,
         lastAttackTimer: 0,
         score: 0,
@@ -370,6 +376,8 @@ export class RotasticSimulation {
       p.chargeGauge = 1.0;
       p.chargeGauge2 = 0.0;
       p.chargeMultiplier = 0;
+      p.turnBoostCount = 0;
+      p.lastReverseHeld = false;
     }
   }
 
@@ -524,6 +532,7 @@ export class RotasticSimulation {
 
       this.updateChargeGauge(p, dt);
       p.lastActionHeld = cmd.actionHeld;
+      p.lastReverseHeld = Boolean(cmd.reverseHeld);
     }
 
     // 3. Check Wall Collisions (OBB), Switch Trigger & Out-of-bounds
@@ -713,8 +722,10 @@ export class RotasticSimulation {
 
     const dx = p.x - nearest.x;
     const dy = p.y - nearest.y;
-    const r = clamp(Math.hypot(dx, dy), C.ROPE_MIN_RADIUS, C.ROPE_MAX_RADIUS);
-    const angle = Math.atan2(dy, dx);
+    const rawDist = Math.hypot(dx, dy);
+    // Attach immediately at current distance down to 1 unit (unwinds gradually to ROPE_MIN_RADIUS=150 during swing)
+    const r = clamp(rawDist, C.ROPE_ATTACH_MIN_DIST, C.ROPE_MAX_RADIUS);
+    const angle = rawDist >= 0.5 ? Math.atan2(dy, dx) : -Math.PI * 0.5;
 
     const tx = -Math.sin(angle);
     const ty = Math.cos(angle);
@@ -723,9 +734,9 @@ export class RotasticSimulation {
 
     if (Math.abs(omega) < C.MIN_OMEGA_RAD_S) {
       const sign = omega !== 0 ? Math.sign(omega) : p.vx >= 0 ? 1 : -1;
-      omega = sign * C.MIN_OMEGA_RAD_S * 1.4;
+      omega = sign * (r < 40 ? C.MAX_OMEGA_RAD_S : C.MIN_OMEGA_RAD_S * 1.4);
     }
-    const maxOmegaBySpeed = C.SWING_MAX_SPEED / r;
+    const maxOmegaBySpeed = C.SWING_MAX_SPEED / Math.max(r, C.ROPE_ATTACH_MIN_DIST);
     const maxOmega = Math.min(C.MAX_OMEGA_RAD_S, maxOmegaBySpeed);
     omega = clamp(omega, -maxOmega, maxOmega);
 
@@ -736,6 +747,7 @@ export class RotasticSimulation {
     p.omega = omega;
     p.attachTimer = 0;
     p.swingLoopAccumRad = 0;
+    p.turnBoostCount = 0;
 
     p.x = nearest.x + Math.cos(angle) * r;
     p.y = nearest.y + Math.sin(angle) * r;
@@ -764,6 +776,7 @@ export class RotasticSimulation {
     p.status = PlayerStatus.FREE_FALL;
     p.attachedPivotId = -1;
     p.attachTimer = 0;
+    p.turnBoostCount = 0;
     p.regrappleTimer = C.REGRAPPLE_COOLDOWN_SEC;
 
     this.events.push({ type: 'release', slotIndex: p.slotIndex, x: p.x, y: p.y });
@@ -778,15 +791,48 @@ export class RotasticSimulation {
     }
 
     p.attachTimer += dt;
-    const r = p.ropeLength;
+    let r = p.ropeLength;
+
+    // Invert rotation direction button (`Shift` / `S` / `ArrowDown` / `Right Click`)
+    const justReverse = Boolean(cmd.reverseHeld) && !p.lastReverseHeld;
+    if (justReverse) {
+      const flipSign = p.omega >= 0 ? -1 : 1;
+      const minFlipOmega = Math.max(Math.abs(p.omega), C.MIN_OMEGA_RAD_S * 1.8);
+      p.omega = flipSign * minFlipOmega;
+      p.turnBoostCount = Math.min(5, p.turnBoostCount + 1);
+      p.swingLoopAccumRad = 0;
+      this.events.push({ type: 'invert', slotIndex: p.slotIndex, x: p.x, y: p.y });
+    }
+
+    // Effective limits include turnBoost stacks (900 + 60*k up to 1200 u/s)
+    const effectiveSwingMaxSpeed = C.SWING_MAX_SPEED + p.turnBoostCount * C.TURN_BOOST_SPEED_STEP;
+    const effectiveMaxOmega = C.MAX_OMEGA_RAD_S + p.turnBoostCount * C.TURN_BOOST_OMEGA_STEP;
+    const maxOmegaBySpeed = effectiveSwingMaxSpeed / Math.max(r, C.ROPE_ATTACH_MIN_DIST);
+    const maxOmega = Math.min(effectiveMaxOmega, maxOmegaBySpeed);
+
+    // Gradually unwind short rope outward to ROPE_MIN_RADIUS (150) at 50 u/s (verified in f=716..795 & 0x0056BD3D)
+    if (r < C.ROPE_MIN_RADIUS) {
+      r = Math.min(C.ROPE_MIN_RADIUS, r + C.ROPE_ADJUST_SPEED * dt);
+      p.ropeLength = r;
+    } else if (
+      r > C.ROPE_MIN_RADIUS &&
+      (p.x < -C.SCREEN_MARGIN ||
+        p.x > C.ARENA_WIDTH + C.SCREEN_MARGIN ||
+        p.y < -C.SCREEN_MARGIN ||
+        p.y > C.ARENA_HEIGHT + C.SCREEN_MARGIN)
+    ) {
+      // OOB automatic reel-in (`simRef[+0x74] = 50.0 u/s`, `0x0056BC60`)
+      r = Math.max(C.ROPE_MIN_RADIUS, r - C.ROPE_ADJUST_SPEED * dt);
+      p.ropeLength = r;
+    }
 
     // Tangential gravity acceleration in Y-up coordinates
-    const gravityAlpha = -(C.GRAVITY / r) * Math.cos(p.ropeAngle);
+    const gravityAlpha = -(C.GRAVITY / Math.max(r, C.ROPE_ATTACH_MIN_DIST)) * Math.cos(p.ropeAngle);
 
     const tx = -Math.sin(p.ropeAngle);
     const ty = Math.cos(p.ropeAngle);
     const inputTangential = cmd.axisX * tx + cmd.axisY * ty;
-    const inputAlpha = (inputTangential * C.SWING_INPUT_TORQUE) / r;
+    const inputAlpha = (inputTangential * C.SWING_INPUT_TORQUE) / Math.max(r, C.ROPE_ATTACH_MIN_DIST);
 
     p.omega += (gravityAlpha + inputAlpha) * dt;
     p.omega *= 1 + C.SWING_PUMP_FACTOR * dt * 2.5;
@@ -796,8 +842,6 @@ export class RotasticSimulation {
       p.omega = sign * C.MIN_OMEGA_RAD_S;
     }
 
-    const maxOmegaBySpeed = C.SWING_MAX_SPEED / r;
-    const maxOmega = Math.min(C.MAX_OMEGA_RAD_S, maxOmegaBySpeed);
     p.omega = clamp(p.omega, -maxOmega, maxOmega);
 
     const dAngle = p.omega * dt;
@@ -905,8 +949,8 @@ export class RotasticSimulation {
       this.events.push({ type: 'bounce', slotIndex: p.slotIndex, x: hit.contactX, y: hit.contactY });
     }
 
-    // 3. Bottom fall death threshold (`y <= 75`, lethal even with full bubble per session-2 f=7979)
-    if (p.y <= C.DEATH_BOTTOM_Y && p.vy <= 0) {
+    // 3. Bottom fall death threshold (`TriggerPlanePlayerDeath @ y <= -300.0`, lethal even with full bubble)
+    if (p.y <= C.DEATH_BOTTOM_Y) {
       this.killPlayer(p, p.lastAttackerSlot);
       return;
     }
@@ -1114,8 +1158,10 @@ export class RotasticSimulation {
     victim.status = PlayerStatus.DEAD;
     victim.statusTimer = C.RESPAWN_DELAY_SEC;
     victim.attachedPivotId = -1;
+    victim.turnBoostCount = 0;
     victim.vx = 0;
     victim.vy = 0;
+    victim.y = C.GRAVESTONE_Y; // Resting tombstone height at bottom of arena
     victim.deaths++;
     if (victim.deaths >= 5) {
       victim.chargeMultiplier = 1; // Verified handicap +1 after 5 deaths @ 0x00540D7C

@@ -330,7 +330,8 @@ export function encodeClientInputCmd(
   );
   view.setUint32(8, cmd.seq >>> 0, true);
   view.setUint8(12, slotIndex & 0x03);
-  view.setUint8(13, cmd.actionHeld ? 1 : 0);
+  const flags = (cmd.actionHeld ? 1 : 0) | (cmd.reverseHeld ? 2 : 0);
+  view.setUint8(13, flags);
   view.setInt8(14, Math.round(Math.max(-1, Math.min(1, cmd.axisX)) * 127));
   view.setInt8(15, Math.round(Math.max(-1, Math.min(1, cmd.axisY)) * 127));
   return new Uint8Array(buf);
@@ -343,12 +344,14 @@ export function decodeClientInputCmd(u8: Uint8Array): {
   const view = new DataView(u8.buffer, u8.byteOffset, u8.byteLength);
   const seq = view.getUint32(8, true);
   const slotIndex = view.getUint8(12);
-  const actionHeld = view.getUint8(13) !== 0;
+  const flags = view.getUint8(13);
+  const actionHeld = (flags & 1) !== 0;
+  const reverseHeld = (flags & 2) !== 0;
   const axisX = Number((view.getInt8(14) / 127).toFixed(3));
   const axisY = Number((view.getInt8(15) / 127).toFixed(3));
   return {
     slotIndex,
-    cmd: { seq, actionHeld, axisX, axisY },
+    cmd: { seq, actionHeld, reverseHeld, axisX, axisY },
   };
 }
 

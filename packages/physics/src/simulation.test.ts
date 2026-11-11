@@ -162,4 +162,71 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
 
     expect(simA.cloneState()).toEqual(simB.cloneState());
   });
+
+  it('attaches right next to pivot (down to 1 unit) without teleporting and unwinds toward 150 at 50 u/s', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl09');
+    sim.configurePlayerSlot(0, { active: true, name: 'CloseGrapple' });
+    const p = sim.state.players[0];
+
+    // Pivot #0 is at (350, 300); place player only 5 px away!
+    p.status = PlayerStatus.FREE_FALL;
+    p.x = 355;
+    p.y = 300;
+    p.vx = 0;
+    p.vy = 200;
+    p.regrappleTimer = 0;
+
+    sim.step({ 0: { seq: 1, actionHeld: true, axisX: 0, axisY: 0 } });
+    expect(p.status).toBe(PlayerStatus.SWINGING);
+    // Should attach at ~5..6 px initially (NOT snapped out to 150!)
+    expect(p.ropeLength).toBeLessThan(20);
+
+    // Step 1 second (60 ticks): rope should unwind outward at ~50 u/s toward 150
+    for (let t = 2; t <= 61; t++) {
+      sim.step({ 0: { seq: t, actionHeld: true, axisX: 0, axisY: 0 } });
+    }
+    expect(p.ropeLength).toBeGreaterThan(45);
+    expect(p.ropeLength).toBeLessThanOrEqual(C.ROPE_MIN_RADIUS);
+  });
+
+  it('inverts swing rotation direction and adds turnBoost stack on reverseHeld press', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl09');
+    sim.configurePlayerSlot(0, { active: true, name: 'Spinner' });
+    const p = sim.state.players[0];
+
+    p.status = PlayerStatus.FREE_FALL;
+    p.x = 350;
+    p.y = 140;
+    p.vx = 500;
+    p.vy = 0;
+    p.regrappleTimer = 0;
+
+    sim.step({ 0: { seq: 1, actionHeld: true, reverseHeld: false, axisX: 0, axisY: 0 } });
+    expect(p.status).toBe(PlayerStatus.SWINGING);
+    const omegaBefore = p.omega;
+    expect(Math.abs(omegaBefore)).toBeGreaterThan(1);
+
+    const evs = sim.step({ 0: { seq: 2, actionHeld: true, reverseHeld: true, axisX: 0, axisY: 0 } });
+    expect(evs.some((e) => e.type === 'invert')).toBe(true);
+    expect(Math.sign(p.omega)).toBe(-Math.sign(omegaBefore));
+    expect(p.turnBoostCount).toBe(1);
+  });
+
+  it('tolerates flying below bottom edge (y = -150) and kills at TriggerPlanePlayerDeath (y <= -300)', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl09');
+    sim.configurePlayerSlot(0, { active: true, name: 'LowSwing' });
+    const p = sim.state.players[0];
+
+    p.status = PlayerStatus.FREE_FALL;
+    p.x = 960;
+    p.y = -150;
+    p.vx = 0;
+    p.vy = -100;
+    sim.step({ 0: { seq: 1, actionHeld: false, axisX: 0, axisY: 0 } });
+    expect(p.status).toBe(PlayerStatus.FREE_FALL);
+
+    p.y = -305;
+    sim.step({ 0: { seq: 2, actionHeld: false, axisX: 0, axisY: 0 } });
+    expect(p.status).toBe(PlayerStatus.DEAD);
+  });
 });

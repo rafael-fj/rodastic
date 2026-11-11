@@ -14,7 +14,8 @@ export const ROTASTIC_PHYSICS_CONSTANTS = {
   ARENA_WIDTH: 1920,
   ARENA_HEIGHT: 1080,
   SCREEN_MARGIN: 32, // simRef[0x78] = 32
-  DEATH_BOTTOM_Y: 75, // Observed in all PLAYER_DEATH events
+  DEATH_BOTTOM_Y: -300, // TriggerPlanePlayerDeath @ y <= -300.0 (verified in 18/18 bottom falls)
+  GRAVESTONE_Y: 75, // Tombstone resting Y after death
   TOP_CEILING_Y: 1455, // WallTop @ (960, 1480) minus halfH 25
 
   // Gravity & Air Physics (simRef[0x04] = -686.7, simRef[0x14] = 2000)
@@ -26,9 +27,13 @@ export const ROTASTIC_PHYSICS_CONSTANTS = {
   SWING_MAX_SPEED: 900.0,
   MIN_OMEGA_RAD_S: 1.0471976, // 60 deg/s
   MAX_OMEGA_RAD_S: 6.0,
+  TURN_BOOST_SPEED_STEP: 60.0, // simRef[0x20] = 60 u/s per reverse stack (max 5 -> 1200)
+  TURN_BOOST_OMEGA_STEP: 0.4, // 60 / 150 = 0.4 rad/s per stack
   SWING_PUMP_FACTOR: 0.05, // simRef[0x38] = 0.05
   SWING_INPUT_TORQUE: 260.0,
-  ROPE_MIN_RADIUS: 150.0, // Observed minRopeRadius = 150
+  ROPE_ATTACH_MIN_DIST: 1.0, // Minimum instant attach distance (can grapple right at the pivot!)
+  ROPE_MIN_RADIUS: 150.0, // Nominal target radius minRopeRadius = 150 (unwinds toward 150 at 50 u/s)
+  ROPE_ADJUST_SPEED: 50.0, // Verified 50 u/s unwind (f=716..795) and OOB reel-in (simRef[0x74])
   ROPE_MAX_RADIUS: 420.0,
   ROPE_ATTACH_RANGE: 450.0,
   REGRAPPLE_COOLDOWN_SEC: 0.08,
@@ -38,7 +43,7 @@ export const ROTASTIC_PHYSICS_CONSTANTS = {
   // Rope Cutting & Collisions
   ROPE_CUT_GRACE_SEC: 0.25,
   ROPE_CUT_MIN_SPEED: 320.0,
-  PLAYER_RADIUS: 34.0,
+  PLAYER_RADIUS: 44.0, // Matches 82.8px PvP contact distance & 161px visual shield scale in 1920x1080
   WALL_BOUNCE_RESTITUTION: 1.0, // simRef[0x44] = 1.0
   PLAYER_RESTITUTION: 1.0, // Verified exact in 4/4 PVP_BOUNCE_SOLVER events
   SLAUGHTER_MIN_SPEED: 620.0,

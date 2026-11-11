@@ -99,6 +99,7 @@ export class RotasticWebClient {
   // Input state
   private keysDown = new Set<string>();
   private pointerDown = false;
+  private rightPointerDown = false;
 
   // PixiJS Scene Graph Layers
   private rootContainer = new Container();
@@ -110,6 +111,8 @@ export class RotasticWebClient {
   private playersContainer = new Container();
   private fxContainer = new Container();
 
+  private pivotAuraSprites: Sprite[] = [];
+  private pivotCoreSprites: Sprite[] = [];
   private playerSprites: Sprite[] = [];
   private playerLabels: Text[] = [];
   private floatingEffects: FloatingEffect[] = [];
@@ -199,6 +202,8 @@ export class RotasticWebClient {
 
   private async preloadCoreSprites(): Promise<void> {
     const urls: string[] = [
+      '/assets/textures/global/t_accroche01_c.png',
+      '/assets/textures/global/t_accrocheaura_c.png',
       '/assets/textures/global/t_pickupetoile_c.png',
       '/assets/textures/global/t_pickupglowblue_c.png',
       '/assets/textures/global/t_pickupglowgreen_c.png',
@@ -262,10 +267,11 @@ export class RotasticWebClient {
     for (const entry of textures) {
       if (!entry) continue;
       const spr = new Sprite(entry.tex);
-      spr.x = 0;
-      spr.y = 0;
-      spr.width = VIEW_WIDTH;
-      spr.height = VIEW_HEIGHT;
+      const scale = Math.max(VIEW_WIDTH / entry.tex.width, VIEW_HEIGHT / entry.tex.height);
+      spr.width = entry.tex.width * scale;
+      spr.height = entry.tex.height * scale;
+      spr.x = (VIEW_WIDTH - spr.width) * 0.5;
+      spr.y = (VIEW_HEIGHT - spr.height) * 0.5;
       spr.alpha = entry.alpha;
       this.bgContainer.addChild(spr);
     }
@@ -275,8 +281,8 @@ export class RotasticWebClient {
     for (let i = 0; i < 4; i++) {
       const spr = new Sprite(Texture.WHITE);
       spr.anchor.set(0.5);
-      spr.width = 68;
-      spr.height = 68;
+      spr.width = 112;
+      spr.height = 112;
       this.playersContainer.addChild(spr);
       this.playerSprites.push(spr);
 
@@ -284,13 +290,13 @@ export class RotasticWebClient {
         text: `P${i + 1}`,
         style: {
           fontFamily: 'system-ui, sans-serif',
-          fontSize: 16,
+          fontSize: 18,
           fontWeight: 'bold',
           fill: 0xffffff,
           stroke: { color: 0x0f172a, width: 4 },
         },
       });
-      lbl.anchor.set(0.5, 2.0);
+      lbl.anchor.set(0.5, 1.0);
       this.playersContainer.addChild(lbl);
       this.playerLabels.push(lbl);
     }
@@ -316,12 +322,26 @@ export class RotasticWebClient {
       if ((e.target as HTMLElement)?.closest('#modal-overlay, button, input, select')) {
         return;
       }
-      this.pointerDown = true;
+      if (e.button === 2) {
+        this.rightPointerDown = true;
+      } else {
+        this.pointerDown = true;
+      }
       this.audio.preloadAll();
     });
 
-    window.addEventListener('pointerup', () => {
-      this.pointerDown = false;
+    window.addEventListener('pointerup', (e) => {
+      if (e.button === 2) {
+        this.rightPointerDown = false;
+      } else {
+        this.pointerDown = false;
+      }
+    });
+
+    window.addEventListener('contextmenu', (e) => {
+      if (!(e.target as HTMLElement)?.closest('#modal-overlay, input, select')) {
+        e.preventDefault();
+      }
     });
 
     document.getElementById('btn-toggle-lobby')?.addEventListener('click', () => {
@@ -352,6 +372,16 @@ export class RotasticWebClient {
       this.keysDown.has('KeyJ') ||
       this.keysDown.has('Enter');
 
+    const reverseHeld =
+      this.rightPointerDown ||
+      this.keysDown.has('ShiftLeft') ||
+      this.keysDown.has('ShiftRight') ||
+      this.keysDown.has('KeyS') ||
+      this.keysDown.has('ArrowDown') ||
+      this.keysDown.has('KeyE') ||
+      this.keysDown.has('KeyK') ||
+      this.keysDown.has('KeyX');
+
     let axisX = 0;
     let axisY = 0;
     if (this.keysDown.has('KeyA') || this.keysDown.has('ArrowLeft')) axisX -= 1;
@@ -363,6 +393,7 @@ export class RotasticWebClient {
     return {
       seq: this.inputSeq,
       actionHeld,
+      reverseHeld,
       axisX,
       axisY,
     };
@@ -609,6 +640,9 @@ export class RotasticWebClient {
       case 'release':
         this.audio.play('release', 0.28, 0.08);
         break;
+      case 'invert':
+        this.audio.play('select', 0.28, 0.12);
+        break;
       case 'pickup': {
         const pts = ev.gemType ? GEM_POINTS[ev.gemType] : 100;
         this.audio.play(ev.gemType === 'diamond' ? 'diamond' : 'gem', 0.45, 0.06);
@@ -740,23 +774,17 @@ export class RotasticWebClient {
       void this.ensureMapBackgrounds(state.mapId);
     }
 
-    // 1. Arena Bounds, Abyss Line, Switch & OBB Obstacles
+    // 1. Arena Bounds, Switch & OBB Obstacles
     this.arenaGraphics.clear();
 
-    // Subtle arena border & bottom abyss hazard line (DEATH_BOTTOM_Y = 75)
+    // Subtle arena border (bottom has generous -300px off-screen swing tolerance)
     const left = worldToScreenX(0);
     const right = worldToScreenX(C.ARENA_WIDTH);
     const top = worldToScreenY(C.ARENA_HEIGHT);
     const bottom = worldToScreenY(0);
     this.arenaGraphics
       .rect(left, top, right - left, bottom - top)
-      .stroke({ color: 0x334155, width: 2, alpha: 0.5 });
-
-    const deathLineY = worldToScreenY(C.DEATH_BOTTOM_Y);
-    this.arenaGraphics
-      .moveTo(0, deathLineY)
-      .lineTo(VIEW_WIDTH, deathLineY)
-      .stroke({ color: 0xef4444, width: 2, alpha: 0.32 });
+      .stroke({ color: 0x334155, width: 2, alpha: 0.4 });
 
     // Interactive Switch (e.g. w_multi_dm_lvl04 Frog Lever)
     if (map.switchDef) {
@@ -855,44 +883,74 @@ export class RotasticWebClient {
         .stroke({ color: strokeColor, width: 3 });
     }
 
-    // 2. Dynamic Attach Points (Pivots) & Nearest Target Sector
+    // 2. Dynamic Attach Points (Pivots) with authentic textures & 90-deg target sector
     this.ropesGraphics.clear();
 
-    const localPlayer = state.players[this.mySlotIndex];
-    const nearestPivot =
-      localPlayer && localPlayer.active && localPlayer.status === PlayerStatus.FREE_FALL
-        ? this.localSim.findNearestAttachPoint(localPlayer.x, localPlayer.y)
-        : null;
-    const localColor = (PLAYER_COLORS[localPlayer?.colorId ?? 0] ?? PLAYER_COLORS[0]).hex;
+    const auraTex = this.texturesCache.get('/assets/textures/global/t_accrocheaura_c.png');
+    const coreTex = this.texturesCache.get('/assets/textures/global/t_accroche01_c.png');
+    while (this.pivotAuraSprites.length < state.attachPoints.length) {
+      const aSpr = new Sprite(auraTex ?? Texture.EMPTY);
+      aSpr.anchor.set(0.5);
+      aSpr.width = 92;
+      aSpr.height = 92;
+      const cSpr = new Sprite(coreTex ?? Texture.EMPTY);
+      cSpr.anchor.set(0.5);
+      cSpr.width = 46;
+      cSpr.height = 46;
+      this.pivotsContainer.addChild(aSpr, cSpr);
+      this.pivotAuraSprites.push(aSpr);
+      this.pivotCoreSprites.push(cSpr);
+    }
+    for (let k = 0; k < this.pivotAuraSprites.length; k++) {
+      const vis = k < state.attachPoints.length && Boolean(coreTex);
+      this.pivotAuraSprites[k].visible = vis;
+      this.pivotCoreSprites[k].visible = vis;
+    }
 
-    for (const ap of state.attachPoints) {
+    const nearestByPlayer = new Map<number, number>();
+    for (const p of state.players) {
+      if (p.active && p.status === PlayerStatus.FREE_FALL) {
+        const np = this.localSim.findNearestAttachPoint(p.x, p.y);
+        if (np) nearestByPlayer.set(p.slotIndex, np.id);
+      }
+    }
+
+    for (let k = 0; k < state.attachPoints.length; k++) {
+      const ap = state.attachPoints[k];
       const px = worldToScreenX(ap.x);
       const py = worldToScreenY(ap.y);
-      const isTarget = nearestPivot?.id === ap.id;
 
-      if (isTarget) {
-        const spin = nowSec * 4.5;
-        drawArc(this.arenaGraphics, px, py, 28, spin, spin + Math.PI * 0.55, localColor, 4.5, 0.95);
-        drawArc(
-          this.arenaGraphics,
-          px,
-          py,
-          28,
-          spin + Math.PI,
-          spin + Math.PI * 1.55,
-          localColor,
-          4.5,
-          0.95
-        );
+      if (auraTex && coreTex) {
+        const aSpr = this.pivotAuraSprites[k];
+        const cSpr = this.pivotCoreSprites[k];
+        aSpr.texture = auraTex;
+        cSpr.texture = coreTex;
+        aSpr.x = px;
+        aSpr.y = py;
+        aSpr.alpha = 0.72 + Math.sin(nowSec * 4 + k) * 0.14;
+        cSpr.x = px;
+        cSpr.y = py;
+      } else {
+        this.arenaGraphics
+          .circle(px, py, 20)
+          .fill({ color: 0x475569, alpha: 0.92 })
+          .stroke({ color: 0xf8fafc, width: 3 });
       }
 
-      this.arenaGraphics
-        .circle(px, py, 16)
-        .fill({ color: isTarget ? localColor : 0x334155, alpha: 0.92 })
-        .stroke({ color: 0xf8fafc, width: 3 });
-      this.arenaGraphics
-        .circle(px, py, 6)
-        .fill({ color: isTarget ? 0xf8fafc : 0x94a3b8 });
+      // Solid 90-degree colored wedge sector on target pivot facing each airborne player
+      for (const [slotIdx, pid] of nearestByPlayer.entries()) {
+        if (pid !== ap.id) continue;
+        const tp = state.players[slotIdx];
+        const colHex = (PLAYER_COLORS[tp.colorId] ?? PLAYER_COLORS[0]).hex;
+        const angToPlayer = Math.atan2(worldToScreenY(tp.y) - py, worldToScreenX(tp.x) - px);
+        const startA = angToPlayer - Math.PI * 0.25;
+        const endA = angToPlayer + Math.PI * 0.25;
+        this.arenaGraphics
+          .moveTo(px, py)
+          .arc(px, py, 44, startA, endA)
+          .lineTo(px, py)
+          .fill({ color: colHex, alpha: 0.85 });
+      }
     }
 
     // Identify leader (highest score > 0) for Golden Crown
@@ -956,7 +1014,7 @@ export class RotasticWebClient {
 
         lbl.text = i === this.mySlotIndex ? `${p.name} (APERTE ESPAÇO)` : p.name;
         lbl.x = cx;
-        lbl.y = cy + 68;
+        lbl.y = cy + 92;
         continue;
       }
 
@@ -970,10 +1028,18 @@ export class RotasticWebClient {
       for (let t = 0; t < disp.trails.length - 1; t++) {
         const pt = disp.trails[t];
         const alpha = (1 - t / disp.trails.length) * 0.35;
-        const r = (1 - t / disp.trails.length) * 18;
+        const r = (1 - t / disp.trails.length) * 24;
         this.ropesGraphics
           .circle(worldToScreenX(pt.x), worldToScreenY(pt.y), r)
           .fill({ color: colorMeta.hex, alpha });
+      }
+
+      // Off-screen bottom dip indicator (player allowed down to y=-300 before TriggerPlanePlayerDeath)
+      if (disp.y < 0 && disp.y > C.DEATH_BOTTOM_Y) {
+        this.ropesGraphics
+          .poly([sx - 18, VIEW_HEIGHT - 28, sx + 18, VIEW_HEIGHT - 28, sx, VIEW_HEIGHT - 6])
+          .fill({ color: colorMeta.hex, alpha: 0.9 })
+          .stroke({ color: 0xffffff, width: 2 });
       }
 
       // Active Two-Tone Rope Line
@@ -987,15 +1053,15 @@ export class RotasticWebClient {
           this.ropesGraphics
             .moveTo(px, py)
             .lineTo(mx, my)
-            .stroke({ color: 0xf97316, width: 6, cap: 'round' });
+            .stroke({ color: 0xf97316, width: 7, cap: 'round' });
           this.ropesGraphics
             .moveTo(mx, my)
             .lineTo(sx, sy)
-            .stroke({ color: 0xf8fafc, width: 4, cap: 'round' });
+            .stroke({ color: 0xf8fafc, width: 5, cap: 'round' });
           this.ropesGraphics
             .moveTo(px, py)
             .lineTo(sx, sy)
-            .stroke({ color: colorMeta.hex, width: 2, alpha: 0.85 });
+            .stroke({ color: colorMeta.hex, width: 2.5, alpha: 0.85 });
         }
       }
 
@@ -1022,31 +1088,32 @@ export class RotasticWebClient {
       spr.rotation = Math.atan2(-p.vy, p.vx) * 0.25;
       spr.alpha = p.invulnTimer > 0 ? (Math.floor(performance.now() / 75) % 2 === 0 ? 0.45 : 1.0) : 1.0;
 
-      // Base player identification ring
+      // Subtle inner hitbox ring + original 156px visual white shield bubble
+      const visualBubbleRadius = 78; // Measured 161px diameter in Rotastic.exe screenshots
       this.ropesGraphics
         .circle(sx, sy, C.PLAYER_RADIUS)
         .stroke({
           color: p.status === PlayerStatus.DIZZY ? 0xf97316 : colorMeta.hex,
-          width: i === this.mySlotIndex ? 3 : 2,
-          alpha: 0.9,
+          width: i === this.mySlotIndex ? 2.5 : 1.5,
+          alpha: 0.45,
         });
 
       // Outer Protection Shield Ring (c1): arc fill -> white shield bubble at 1.0
       if (p.chargeGauge >= 1.0) {
         this.ropesGraphics
-          .circle(sx, sy, C.PLAYER_RADIUS + 4)
-          .fill({ color: 0xffffff, alpha: 0.14 })
-          .stroke({ color: 0xf8fafc, width: 3.5, alpha: 0.95 });
+          .circle(sx, sy, visualBubbleRadius)
+          .fill({ color: 0xffffff, alpha: 0.16 })
+          .stroke({ color: 0xf8fafc, width: 4.5, alpha: 0.96 });
       } else if (p.chargeGauge > 0.02) {
         drawArc(
           this.ropesGraphics,
           sx,
           sy,
-          C.PLAYER_RADIUS + 4,
+          64,
           -Math.PI * 0.5,
           -Math.PI * 0.5 + p.chargeGauge * Math.PI * 2,
           colorMeta.hex,
-          3.5,
+          4.5,
           0.95
         );
       }
@@ -1054,18 +1121,18 @@ export class RotasticWebClient {
       // Thick Orange Trick/Mass Ring (c2): boosts collision weight & acts as secondary shield at 1.0
       if (p.chargeGauge2 >= 1.0) {
         this.ropesGraphics
-          .circle(sx, sy, C.PLAYER_RADIUS + 11)
-          .stroke({ color: 0xf97316, width: 6, alpha: 0.95 });
+          .circle(sx, sy, visualBubbleRadius + 7)
+          .stroke({ color: 0xf97316, width: 7, alpha: 0.95 });
       } else if (p.chargeGauge2 > 0.02) {
         drawArc(
           this.ropesGraphics,
           sx,
           sy,
-          C.PLAYER_RADIUS + 11,
+          visualBubbleRadius + 7,
           -Math.PI * 0.5,
           -Math.PI * 0.5 + p.chargeGauge2 * Math.PI * 2,
           0xf97316,
-          6,
+          7,
           0.95
         );
       }
@@ -1074,7 +1141,7 @@ export class RotasticWebClient {
       const dizzyPrefix = p.status === PlayerStatus.DIZZY ? '💫 ' : '';
       lbl.text = `${crownPrefix}${dizzyPrefix}${p.name}`;
       lbl.x = sx;
-      lbl.y = sy - 8;
+      lbl.y = sy - 74;
     }
 
     // 4. Update Floating Score / Event Popups
