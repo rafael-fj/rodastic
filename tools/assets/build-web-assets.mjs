@@ -167,19 +167,40 @@ function decodeDxtColorBlock(buf, offset, isDxt1) {
   return { palette, indices };
 }
 
-function decodeDdsToRgba(ddsBuf) {
-  if (ddsBuf.length < 128 || ddsBuf.toString('ascii', 0, 4) !== 'DDS ') {
-    throw new Error('Invalid DDS header');
+function computeDdsFrameBytes(width, height, mipCount, fourCC, bitCount) {
+  let total = 0;
+  let w = width;
+  let h = height;
+  const mips = Math.max(1, mipCount || 1);
+  for (let m = 0; m < mips; m++) {
+    if (fourCC === 'DXT1') {
+      total += Math.max(1, Math.ceil(w / 4)) * Math.max(1, Math.ceil(h / 4)) * 8;
+    } else if (fourCC === 'DXT2' || fourCC === 'DXT3' || fourCC === 'DXT4' || fourCC === 'DXT5') {
+      total += Math.max(1, Math.ceil(w / 4)) * Math.max(1, Math.ceil(h / 4)) * 16;
+    } else if (!fourCC && bitCount === 32) {
+      total += w * h * 4;
+    } else {
+      throw new Error(`Unsupported DDS format: fourCC="${fourCC}", bitCount=${bitCount}`);
+    }
+    w = Math.max(1, w >> 1);
+    h = Math.max(1, h >> 1);
   }
+  return total;
+}
 
-  const height = ddsBuf.readUInt32LE(12);
-  const width = ddsBuf.readUInt32LE(16);
-  const fourCC = ddsBuf.subarray(84, 88).toString('ascii').replace(/\0/g, '');
-  const bitCount = ddsBuf.readUInt32LE(88);
-  const rMask = ddsBuf.readUInt32LE(92);
+function unpremultiplyRgba(rgba) {
+  for (let i = 0; i < rgba.length; i += 4) {
+    const a = rgba[i + 3];
+    if (a > 0 && a < 255) {
+      rgba[i] = Math.min(255, Math.round((rgba[i] * 255) / a));
+      rgba[i + 1] = Math.min(255, Math.round((rgba[i + 1] * 255) / a));
+      rgba[i + 2] = Math.min(255, Math.round((rgba[i + 2] * 255) / a));
+    }
+  }
+}
 
+function decodeDdsFramePayload(ddsBuf, dataOffset, width, height, fourCC, bitCount, rMask) {
   const rgba = new Uint8Array(width * height * 4);
-  const dataOffset = 128;
 
   if (fourCC === 'DXT1') {
     const blocksX = Math.max(1, Math.ceil(width / 4));
@@ -208,10 +229,10 @@ function decodeDdsToRgba(ddsBuf) {
         }
       }
     }
-    return { width, height, format: 'DXT1', rgba };
+    return { format: 'DXT1', rgba };
   }
 
-  if (fourCC === 'DXT3') {
+  if (fourCC === 'DXT2' || fourCC === 'DXT3') {
     const blocksX = Math.max(1, Math.ceil(width / 4));
     const blocksY = Math.max(1, Math.ceil(height / 4));
     let ptr = dataOffset;
@@ -244,10 +265,11 @@ function decodeDdsToRgba(ddsBuf) {
         }
       }
     }
-    return { width, height, format: 'DXT3', rgba };
+    if (fourCC === 'DXT2') unpremultiplyRgba(rgba);
+    return { format: fourCC, rgba };
   }
 
-  if (fourCC === 'DXT5') {
+  if (fourCC === 'DXT4' || fourCC === 'DXT5') {
     const blocksX = Math.max(1, Math.ceil(width / 4));
     const blocksY = Math.max(1, Math.ceil(height / 4));
     let ptr = dataOffset;
@@ -305,7 +327,8 @@ function decodeDdsToRgba(ddsBuf) {
         }
       }
     }
-    return { width, height, format: 'DXT5', rgba };
+    if (fourCC === 'DXT4') unpremultiplyRgba(rgba);
+    return { format: fourCC, rgba };
   }
 
   if (!fourCC && bitCount === 32) {
@@ -326,10 +349,60 @@ function decodeDdsToRgba(ddsBuf) {
         rgba[dst + 3] = ddsBuf[src + 3];
       }
     }
-    return { width, height, format: isBgra ? 'BGRA8' : 'RGBA8', rgba };
+    return { format: isBgra ? 'BGRA8' : 'RGBA8', rgba };
   }
 
   throw new Error(`Unsupported DDS format: fourCC="${fourCC}", bitCount=${bitCount}`);
+}
+
+function decodeDdsAllFramesToRgba(ddsBuf, texrMeta) {
+  if (ddsBuf.length < 128 || ddsBuf.toString('ascii', 0, 4) !== 'DDS ') {
+    throw new Error('Invalid DDS header');
+  }
+
+  const height = ddsBuf.readUInt32LE(12);
+  const width = ddsBuf.readUInt32LE(16);
+  const mipCount = Math.max(1, ddsBuf.readUInt32LE(28) || texrMeta?.mipCount || 1);
+  const fourCC = ddsBuf.subarray(84, 88).toString('ascii').replace(/\0/g, '');
+  const bitCount = ddsBuf.readUInt32LE(88);
+  const rMask = ddsBuf.readUInt32LE(92);
+
+  const frameBytes =
+    texrMeta?.frameBytes || computeDdsFrameBytes(width, height, mipCount, fourCC, bitCount);
+  const payloadBytes = Math.max(0, ddsBuf.length - 128);
+  const detectedFrames = frameBytes > 0 ? Math.max(1, Math.floor(payloadBytes / frameBytes)) : 1;
+  const frameCount = texrMeta?.frameCount
+    ? Math.min(texrMeta.frameCount, detectedFrames)
+    : detectedFrames;
+
+  const frames = [];
+  let format = fourCC || (rMask === 0x00ff0000 ? 'BGRA8' : 'RGBA8');
+  for (let fi = 0; fi < frameCount; fi++) {
+    const offset = 128 + fi * frameBytes;
+    const res = decodeDdsFramePayload(ddsBuf, offset, width, height, fourCC, bitCount, rMask);
+    format = res.format;
+    frames.push(res.rgba);
+  }
+
+  const frameDurationsMs =
+    Array.isArray(texrMeta?.frameDurationsMs) && texrMeta.frameDurationsMs.length === frameCount
+      ? texrMeta.frameDurationsMs
+      : new Array(frameCount).fill(frameCount > 1 ? 100 : 0);
+  const totalDurationMs =
+    typeof texrMeta?.totalDurationMs === 'number'
+      ? texrMeta.totalDurationMs
+      : frameDurationsMs.reduce((a, b) => a + b, 0);
+
+  return {
+    width,
+    height,
+    format,
+    mipCount,
+    frameCount,
+    totalDurationMs,
+    frameDurationsMs,
+    frames,
+  };
 }
 
 /**
@@ -420,114 +493,6 @@ function cleanDxtAlphaAndColorBleed(width, height, rgba, format) {
   return rgba;
 }
 
-/**
- * 2x Edge-Directed Contour Upscaler (Scale2x / EPX blended with Bicubic RGB/Alpha)
- * for character sprites (256x256 -> 512x512). Removes coarse DXT3 diagonal staircase
- * jaggies while keeping comic ink outlines sharp and smooth.
- */
-function upscaleCharacterSprite2x(width, height, rgba) {
-  const outW = width * 2;
-  const outH = height * 2;
-  const out = new Uint8Array(outW * outH * 4);
-
-  const sample = (x, y, c) => {
-    const cx = x < 0 ? 0 : x >= width ? width - 1 : x;
-    const cy = y < 0 ? 0 : y >= height ? height - 1 : y;
-    return rgba[(cy * width + cx) * 4 + c];
-  };
-
-  const colorDistSq = (x1, y1, x2, y2) => {
-    const dr = sample(x1, y1, 0) - sample(x2, y2, 0);
-    const dg = sample(x1, y1, 1) - sample(x2, y2, 1);
-    const db = sample(x1, y1, 2) - sample(x2, y2, 2);
-    const da = (sample(x1, y1, 3) - sample(x2, y2, 3)) * 1.4;
-    return dr * dr + dg * dg + db * db + da * da;
-  };
-
-  const sameEdge = (x1, y1, x2, y2) => colorDistSq(x1, y1, x2, y2) < 900;
-
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      // Catmull-Rom-weighted smooth neighbor blend per quadrant + EPX diagonal corner preservation
-      const diffTB = sameEdge(x, y - 1, x, y + 1);
-      const diffLR = sameEdge(x - 1, y, x + 1, y);
-
-      for (let sy = 0; sy < 2; sy++) {
-        for (let sx = 0; sx < 2; sx++) {
-          const ox = x * 2 + sx;
-          const oy = y * 2 + sy;
-          const dst = (oy * outW + ox) * 4;
-
-          const hx = sx === 0 ? x - 1 : x + 1;
-          const vx = sx === 0 ? -0.25 : 0.25;
-          const hy = sy === 0 ? y - 1 : y + 1;
-          const vy = sy === 0 ? -0.25 : 0.25;
-
-          // If orthogonal neighbors H and V match and cross-neighbors differ -> smooth diagonal EPX bridge
-          const epxMatch = !diffTB && !diffLR && sameEdge(hx, y, x, hy) && !sameEdge(x, y, hx, hy);
-
-          const c0 = rgba[(y * width + x) * 4 + 3];
-          let aSum = 0;
-          let rSum = 0;
-          let gSum = 0;
-          let bSum = 0;
-          let rgbWeight = 0;
-
-          // Subpixel bilinear tap at (x + vx, y + vy)
-          const tx = Math.abs(vx);
-          const ty = Math.abs(vy);
-          const taps = [
-            [x, y, (1 - tx) * (1 - ty)],
-            [hx, y, tx * (1 - ty)],
-            [x, hy, (1 - tx) * ty],
-            [hx, hy, tx * ty],
-          ];
-          for (const [px, py, w] of taps) {
-            const pa = sample(px, py, 3);
-            aSum += pa * w;
-            const cw = w * (pa > 0 ? pa / 255 : 0.05);
-            rSum += sample(px, py, 0) * cw;
-            gSum += sample(px, py, 1) * cw;
-            bSum += sample(px, py, 2) * cw;
-            rgbWeight += cw;
-          }
-
-          let outA = aSum;
-          let outR = rgbWeight > 1e-4 ? rSum / rgbWeight : sample(x, y, 0);
-          let outG = rgbWeight > 1e-4 ? gSum / rgbWeight : sample(x, y, 1);
-          let outB = rgbWeight > 1e-4 ? bSum / rgbWeight : sample(x, y, 2);
-
-          if (epxMatch) {
-            // Pull 65% toward matching H+V edge color/alpha so diagonal ink outlines form smooth 45-deg curves
-            const ha = sample(hx, y, 3);
-            const va = sample(x, hy, 3);
-            const ea = (ha + va) * 0.5;
-            const er = (sample(hx, y, 0) + sample(x, hy, 0)) * 0.5;
-            const eg = (sample(hx, y, 1) + sample(x, hy, 1)) * 0.5;
-            const eb = (sample(hx, y, 2) + sample(x, hy, 2)) * 0.5;
-            outA = outA * 0.35 + ea * 0.65;
-            outR = outR * 0.35 + er * 0.65;
-            outG = outG * 0.35 + eg * 0.65;
-            outB = outB * 0.35 + eb * 0.65;
-          } else if (c0 > 180) {
-            // Keep interior crispness by blending 55% original pixel over bilinear
-            outA = outA * 0.45 + c0 * 0.55;
-            outR = outR * 0.45 + sample(x, y, 0) * 0.55;
-            outG = outG * 0.45 + sample(x, y, 1) * 0.55;
-            outB = outB * 0.45 + sample(x, y, 2) * 0.55;
-          }
-
-          out[dst] = Math.max(0, Math.min(255, Math.round(outR)));
-          out[dst + 1] = Math.max(0, Math.min(255, Math.round(outG)));
-          out[dst + 2] = Math.max(0, Math.min(255, Math.round(outB)));
-          out[dst + 3] = Math.max(0, Math.min(255, Math.round(outA)));
-        }
-      }
-    }
-  }
-
-  return { width: outW, height: outH, rgba: out };
-}
 
 // ============================================================================
 // Helpers for Asset Naming & Classification
@@ -614,7 +579,9 @@ function main() {
   const globalTextures = {};
   const backgroundTextures = {};
   const mapTextures = {};
+  const textureAnimations = {};
   let totalPngBytes = 0;
+  let totalFramePngCount = 0;
 
   for (const ddsPath of ddsFiles) {
     const relFromSrc = path.relative(SRC_TEXTURES_DIR, ddsPath).replace(/\\/g, '/');
@@ -625,46 +592,74 @@ function main() {
     const cleanName = cleanAssetStem(ddsPath);
 
     const ddsBuf = fs.readFileSync(ddsPath);
-    const sha256 = crypto.createHash('sha256').update(ddsBuf).digest('hex').slice(0, 16);
+    const texrMetaPath = `${ddsPath.slice(0, -4)}.texr.json`;
+    const texrMeta = fs.existsSync(texrMetaPath)
+      ? JSON.parse(fs.readFileSync(texrMetaPath, 'utf8'))
+      : null;
+    const sha256 = crypto
+      .createHash('sha256')
+      .update(ddsBuf)
+      .update(texrMeta ? JSON.stringify(texrMeta) : '')
+      .digest('hex')
+      .slice(0, 16);
 
     let texEntry = hashToTextureEntry.get(sha256);
     if (!texEntry) {
-      let { width, height, format, rgba } = decodeDdsToRgba(ddsBuf);
-      cleanDxtAlphaAndColorBleed(width, height, rgba, format);
-      if (isGlobal && cleanName.startsWith('t_character_') && width <= 256 && height <= 256) {
-        const up = upscaleCharacterSprite2x(width, height, rgba);
-        width = up.width;
-        height = up.height;
-        rgba = up.rgba;
-      }
-      const pngBuf = encodeRgbaToPng(width, height, rgba);
+      const decoded = decodeDdsAllFramesToRgba(ddsBuf, texrMeta);
+      const { width, height, format, frameCount, totalDurationMs, frameDurationsMs, frames } =
+        decoded;
 
       const subFolder = isGlobal ? 'global' : isBackground ? 'backgrounds' : 'arenas';
-      let outRel = `textures/${subFolder}/${cleanName}.png`;
-      if (usedOutPaths.has(outRel) && usedOutPaths.get(outRel) !== sha256) {
-        outRel = `textures/${subFolder}/${cleanName}_${sha256.slice(0, 8)}.png`;
+      let baseRelNoExt = `textures/${subFolder}/${cleanName}`;
+      const baseRelFrame0 = `${baseRelNoExt}.png`;
+      if (usedOutPaths.has(baseRelFrame0) && usedOutPaths.get(baseRelFrame0) !== sha256) {
+        baseRelNoExt = `textures/${subFolder}/${cleanName}_${sha256.slice(0, 8)}`;
       }
-      usedOutPaths.set(outRel, sha256);
+      usedOutPaths.set(`${baseRelNoExt}.png`, sha256);
 
-      const outAbs = path.join(OUT_ASSETS_DIR, outRel);
-      fs.mkdirSync(path.dirname(outAbs), { recursive: true });
-      fs.writeFileSync(outAbs, pngBuf);
-      totalPngBytes += pngBuf.length;
+      const frameUrls = [];
+      let entryPngBytes = 0;
+      for (let fi = 0; fi < frames.length; fi++) {
+        const frameRgba = frames[fi];
+        cleanDxtAlphaAndColorBleed(width, height, frameRgba, format);
+        const pngBuf = encodeRgbaToPng(width, height, frameRgba);
+        const frameRel = fi === 0 ? `${baseRelNoExt}.png` : `${baseRelNoExt}_f${fi}.png`;
+        const frameAbs = path.join(OUT_ASSETS_DIR, frameRel);
+        fs.mkdirSync(path.dirname(frameAbs), { recursive: true });
+        fs.writeFileSync(frameAbs, pngBuf);
+        totalPngBytes += pngBuf.length;
+        entryPngBytes += pngBuf.length;
+        totalFramePngCount++;
+        frameUrls.push(`/assets/${frameRel}`);
+      }
 
       texEntry = {
         id: cleanName,
-        url: `/assets/${outRel}`,
+        url: frameUrls[0],
         width,
         height,
         originalFormat: format,
+        frameCount,
+        totalDurationMs,
+        frameDurationsMs,
+        frameUrls,
         sha256,
-        pngBytes: pngBuf.length,
+        pngBytes: entryPngBytes,
         sources: [],
       };
       hashToTextureEntry.set(sha256, texEntry);
     }
 
     texEntry.sources.push(relFromSrc);
+
+    if (texEntry.frameCount > 1) {
+      textureAnimations[cleanName] = {
+        frameCount: texEntry.frameCount,
+        totalDurationMs: texEntry.totalDurationMs,
+        frameDurationsMs: texEntry.frameDurationsMs,
+        frameUrls: texEntry.frameUrls,
+      };
+    }
 
     if (isGlobal) {
       globalTextures[cleanName] = texEntry.url;
@@ -726,11 +721,13 @@ function main() {
 
   // 4. Write Master Web Asset Manifest
   const manifest = {
-    schemaVersion: '1.1.0',
+    schemaVersion: '1.2.0',
     generatedBy: 'tools/assets/build-web-assets.mjs',
     stats: {
       sourceDdsCount: ddsFiles.length,
-      uniquePngCount: hashToTextureEntry.size,
+      uniqueTextureCount: hashToTextureEntry.size,
+      totalFramePngCount,
+      multiFrameTextureCount: Object.keys(textureAnimations).length,
       totalPngBytes,
       totalPngMB: Number((totalPngBytes / (1024 * 1024)).toFixed(2)),
       audioSfxCount: wavFiles.length,
@@ -741,6 +738,7 @@ function main() {
     globalTextures,
     backgroundTextures,
     mapTextures,
+    textureAnimations,
     texturesByHash: Object.fromEntries(hashToTextureEntry.entries()),
     audioSfx: audioCatalog,
     mapsUrl: '/assets/deathmatch-maps.json',
@@ -751,7 +749,7 @@ function main() {
   const elapsedSec = ((Date.now() - startTime) / 1000).toFixed(2);
   console.log(
     `[assets:build] Completed in ${elapsedSec}s:\n` +
-      `  - DDS -> PNG: ${ddsFiles.length} source files deduplicated to ${hashToTextureEntry.size} PNGs (${manifest.stats.totalPngMB} MB)\n` +
+      `  - DDS -> PNG: ${ddsFiles.length} source files -> ${totalFramePngCount} frame PNGs (${manifest.stats.multiFrameTextureCount} multi-frame animations, ${manifest.stats.totalPngMB} MB)\n` +
       `  - WAV SFX:    ${wavFiles.length} audio files (${manifest.stats.totalWavMB} MB)\n` +
       `  - Maps Spec:  ${manifest.stats.deathmatchMapCount} deathmatch maps -> packages/client/public/assets/deathmatch-maps.json\n` +
       `  - Manifest:   packages/client/public/assets/manifest.json`

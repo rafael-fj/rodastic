@@ -298,37 +298,92 @@ function createWavBuffer(sampChunkBuf) {
   return Buffer.concat([wavHeader, pcmData]);
 }
 
+function getTexrFormatInfo(fmtCode) {
+  // Validated against native lookup switch 0x006725C0 in Rotastic.exe
+  switch (fmtCode) {
+    case 0x0012:
+      return { name: "DXT1", fourCC: "DXT1", compressed: true, blockBytes: 8 };
+    case 0x0013:
+      return { name: "DXT2", fourCC: "DXT2", compressed: true, blockBytes: 16 };
+    case 0x0014:
+      return { name: "DXT3", fourCC: "DXT3", compressed: true, blockBytes: 16 };
+    case 0x0015:
+      return { name: "DXT4", fourCC: "DXT4", compressed: true, blockBytes: 16 };
+    case 0x0016:
+      return { name: "DXT5", fourCC: "DXT5", compressed: true, blockBytes: 16 };
+    case 0x0001:
+    case 0x0007:
+    case 0x000a:
+    default:
+      return { name: "A8R8G8B8", fourCC: null, compressed: false, blockBytes: 4 };
+  }
+}
+
+function computeTexrFrameBytes(width, height, mipCount, fmtInfo) {
+  let total = 0;
+  let w = width;
+  let h = height;
+  for (let m = 0; m < mipCount; m++) {
+    if (fmtInfo.compressed) {
+      total += Math.max(1, Math.floor((w + 3) / 4)) * Math.max(1, Math.floor((h + 3) / 4)) * fmtInfo.blockBytes;
+    } else {
+      total += w * h * fmtInfo.blockBytes;
+    }
+    w = Math.max(1, w >> 1);
+    h = Math.max(1, h >> 1);
+  }
+  return total;
+}
+
 function createDdsBuffer(texrChunkBuf) {
+  // Layout decoded from Rotastic.exe 0x00672B30 + 0x00672760 + 0x00548D65
   if (texrChunkBuf.length <= 0x84) return null;
   const fmtCode = texrChunkBuf.readUInt16LE(0x3c);
   const width = texrChunkBuf.readUInt16LE(0x3e);
   const height = texrChunkBuf.readUInt16LE(0x40);
+  const flagsByte = texrChunkBuf.readUInt16LE(0x42);
   const mipCount = texrChunkBuf[0x4d] || 1;
   const frameCount = texrChunkBuf[0x4e] || 1;
-  const headerSize = 0x84 + Math.max(0, frameCount - 1) * 8;
+  const totalDurationMs = texrChunkBuf.readUInt32LE(0x54);
+  const ptrArrayOffset = 0x7c;
+  const durArrayOffset = ptrArrayOffset + frameCount * 4;
+  const headerSize = ptrArrayOffset + frameCount * 8;
   if (width === 0 || height === 0 || headerSize >= texrChunkBuf.length) return null;
 
+  const frameDurationsMs = [];
+  for (let i = 0; i < frameCount; i++) {
+    const off = durArrayOffset + i * 4;
+    frameDurationsMs.push(off + 4 <= texrChunkBuf.length ? texrChunkBuf.readUInt32LE(off) : 0);
+  }
+
+  const fmtInfo = getTexrFormatInfo(fmtCode);
+  const frameBytes = computeTexrFrameBytes(width, height, mipCount, fmtInfo);
   const pixelData = texrChunkBuf.subarray(headerSize);
   const ddsHdr = Buffer.alloc(128, 0);
   ddsHdr.write("DDS ", 0, 4, "ascii");
   ddsHdr.writeUInt32LE(124, 4); // dwSize
   // DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH | DDSD_PIXELFORMAT | (mipCount > 1 ? DDSD_MIPMAPCOUNT : 0)
-  const flags = 0x1 | 0x2 | 0x4 | 0x1000 | (mipCount > 1 ? 0x20000 : 0) | (fmtCode === 0x0001 ? 0x8 : 0x80000);
+  const flags =
+    0x1 |
+    0x2 |
+    0x4 |
+    0x1000 |
+    (mipCount > 1 ? 0x20000 : 0) |
+    (fmtInfo.compressed ? 0x80000 : 0x8);
   ddsHdr.writeUInt32LE(flags, 8);
   ddsHdr.writeUInt32LE(height, 12);
   ddsHdr.writeUInt32LE(width, 16);
 
-  if (fmtCode === 0x0014 || fmtCode === 0x0012) {
-    // Compressed DXT3 (0x0014) or DXT1 (0x0012)
-    const blockBytes = fmtCode === 0x0014 ? 16 : 8;
-    const linearSize = Math.max(1, Math.floor((width + 3) / 4)) * Math.max(1, Math.floor((height + 3) / 4)) * blockBytes;
+  if (fmtInfo.compressed) {
+    const linearSize =
+      Math.max(1, Math.floor((width + 3) / 4)) * Math.max(1, Math.floor((height + 3) / 4)) * fmtInfo.blockBytes;
     ddsHdr.writeUInt32LE(linearSize, 20);
     ddsHdr.writeUInt32LE(mipCount, 28);
     ddsHdr.writeUInt32LE(32, 76); // ddspf.dwSize
     ddsHdr.writeUInt32LE(0x4, 80); // DDPF_FOURCC
-    ddsHdr.write(fmtCode === 0x0014 ? "DXT3" : "DXT1", 84, 4, "ascii");
+    ddsHdr.write(fmtInfo.fourCC, 84, 4, "ascii");
   } else {
-    // Uncompressed 32-bit A8R8G8B8 (0x0001)
+    // Uncompressed 32-bit A8R8G8B8
     ddsHdr.writeUInt32LE(width * 4, 20);
     ddsHdr.writeUInt32LE(mipCount, 28);
     ddsHdr.writeUInt32LE(32, 76); // ddspf.dwSize
@@ -344,13 +399,25 @@ function createDdsBuffer(texrChunkBuf) {
   return {
     ddsBuffer: Buffer.concat([ddsHdr, pixelData]),
     meta: {
-      format: fmtCode === 0x0014 ? "DXT3" : fmtCode === 0x0012 ? "DXT1" : "A8R8G8B8",
+      format: fmtInfo.name,
+      fmtCode,
+      flags: flagsByte,
       width,
       height,
       mipCount,
       frameCount,
+      frameBytes,
+      totalDurationMs,
+      frameDurationsMs,
     },
   };
+}
+
+function writeTexrAsset(outDir, baseName, texrRes) {
+  fs.writeFileSync(path.join(outDir, `${baseName}.dds`), texrRes.ddsBuffer);
+  if (texrRes.meta.frameCount > 1 || texrRes.meta.mipCount > 1) {
+    fs.writeFileSync(path.join(outDir, `${baseName}.texr.json`), JSON.stringify(texrRes.meta, null, 2), "utf8");
+  }
 }
 
 // Walk all .pc packages in reference/game-files/packages (including uk/w_loca.pc)
@@ -416,7 +483,7 @@ for (const pcPath of pcFiles) {
       if (e.fourCC === "TEXR") {
         const res = createDdsBuffer(buf.subarray(e.fileOffset, e.fileOffset + e.sizeBytes));
         if (res) {
-          fs.writeFileSync(path.join(mapTexDir, `${e.name}.dds`), res.ddsBuffer);
+          writeTexrAsset(mapTexDir, e.name, res);
           e.textureMeta = res.meta;
           extractedMultiTextures++;
         }
@@ -472,7 +539,7 @@ if (fs.existsSync(globalPcSource)) {
       fs.readSync(fd, chunkBuf, 0, e.sizeBytes, e.fileOffset);
       const res = createDdsBuffer(chunkBuf);
       if (res) {
-        fs.writeFileSync(path.join(OUT_TEX_GLOBAL_DIR, `${e.name}.dds`), res.ddsBuffer);
+        writeTexrAsset(OUT_TEX_GLOBAL_DIR, e.name, res);
         e.textureMeta = res.meta;
         extractedGlobalTexCount++;
       }

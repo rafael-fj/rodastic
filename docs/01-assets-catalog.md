@@ -32,11 +32,11 @@ A engenharia reversa dos cabeçalhos confirmou a especificação exata dos cont�
 
 ## 2. Resumo das Extrações Realizadas
 
-- **Arquivos `_refm.pc` decodificados para JSON (`reference/decompiled/refm/`):** `29`
-- **Arquivos `_fetm.pc` decodificados para JSON (`reference/decompiled/fetm/`):** `29`
+- **Arquivos `_refm.pc` decodificados para JSON (`reference/decompiled/refm/`):** `21`
+- **Arquivos `_fetm.pc` decodificados para JSON (`reference/decompiled/fetm/`):** `21`
 - **Efeitos Sonoros Multiplayer/Core extraídos em WAV (`assets-original/audio/sfx/`):** `172` arquivos
 - **Texturas Globais de Personagens/Cordas/Joias/HUD em DDS (`assets-original/textures/global/`):** `264` arquivos
-- **Texturas dos 19 Mapas Multiplayer em DDS (`assets-original/textures/multiplayer/`):** `670` arquivos
+- **Texturas dos 19 Mapas Multiplayer em DDS (`assets-original/textures/multiplayer/`):** `360` arquivos
 
 ---
 
@@ -44,11 +44,6 @@ A engenharia reversa dos cabeçalhos confirmou a especificação exata dos cont�
 
 | Pacote Base | Modo | Tamanho (`.pc`) | Recursos (`.pc`) | Entidades (`_fetm.pc`) | Reflexão (`_refm.pc`) |
 | :--- | :--- | :---: | :--- | :---: | :---: |
-| `w_multi_coll_lvl01` | Collect (Joias) | 1988.1 KB | TEXR:55, MTRL:4, VSHR:5, VTXD:2, ACTR:9, PSHR:4 | 334.6 KB | 92 REFD |
-| `w_multi_coll_lvl03` | Collect (Joias) | 577.9 KB | TEXR:35, MTRL:4, VSHR:5, VTXD:2, PSHR:4, ACTR:5 | 501.7 KB | 95 REFD |
-| `w_multi_coll_lvl04` | Collect (Joias) | 868.1 KB | TEXR:32, MTRL:4, VSHR:5, VTXD:2, ACTR:14, PSHR:4 | 292.5 KB | 92 REFD |
-| `w_multi_coll_lvl05` | Collect (Joias) | 702.7 KB | TEXR:30, MTRL:4, VSHR:5, VTXD:2, ACTR:8, PSHR:4 | 354.9 KB | 93 REFD |
-| `w_multi_coll_lvl07` | Collect (Joias) | 370.2 KB | TEXR:26, MTRL:4, VSHR:5, VTXD:2, PSHR:4, ACTR:3 | 298.4 KB | 92 REFD |
 | `w_multi_dm_lvl01` | Deathmatch (Batalha) | 857.8 KB | MTRL:5, VSHR:7, TEXR:30, VTXD:2, ACTR:7, PSHR:5 | 228.7 KB | 87 REFD |
 | `w_multi_dm_lvl02` | Deathmatch (Batalha) | 881.8 KB | TEXR:42, MTRL:4, VSHR:5, VTXD:2, PSHR:4, ACTR:9 | 218.6 KB | 87 REFD |
 | `w_multi_dm_lvl04` | Deathmatch (Batalha) | 990.6 KB | TEXR:54, MTRL:4, VSHR:5, ACTR:10, VTXD:2, PSHR:4 | 240.6 KB | 93 REFD |
@@ -57,9 +52,6 @@ A engenharia reversa dos cabeçalhos confirmou a especificação exata dos cont�
 | `w_multi_dm_lvl10` | Deathmatch (Batalha) | 370.2 KB | TEXR:26, MTRL:4, VSHR:5, VTXD:2, PSHR:4, ACTR:3 | 215.2 KB | 86 REFD |
 | `w_multi_dm_lvl11` | Deathmatch (Batalha) | 358.3 KB | ACTR:5, TEXR:28, MTRL:4, VSHR:5, VTXD:2, PSHR:4 | 223.5 KB | 87 REFD |
 | `w_multi_dm_lvl13` | Deathmatch (Batalha) | 370.2 KB | TEXR:26, MTRL:4, VSHR:5, VTXD:2, PSHR:4, ACTR:3 | 229.3 KB | 87 REFD |
-| `w_ps3_collect_2` | Collect (Joias) | 2850.0 KB | MTRL:4, VSHR:5, TEXR:32, VTXD:2, PSHR:4, ACTR:4 | 314.1 KB | 97 REFD |
-| `w_ps3_collect_3` | Collect (Joias) | 5493.8 KB | TEXR:62, MTRL:4, VSHR:5, VTXD:2, ACTR:10, PSHR:4 | 351.4 KB | 97 REFD |
-| `w_ps3_collect_4` | Collect (Joias) | 3348.3 KB | TEXR:38, MTRL:4, VSHR:5, VTXD:2, ACTR:15, PSHR:4 | 310.5 KB | 97 REFD |
 | `w_ps3_deathmatch_2` | Deathmatch (Batalha) | 2850.4 KB | TEXR:32, MTRL:4, VSHR:5, VTXD:2, PSHR:4, ACTR:4 | 232.4 KB | 94 REFD |
 | `w_ps3_deathmatch_3` | Deathmatch (Batalha) | 1824.4 KB | MTRL:4, VSHR:5, TEXR:31, VTXD:2, PSHR:4, ACTR:4 | 245.2 KB | 94 REFD |
 | `w_ps3_deathmatch_4` | Deathmatch (Batalha) | 3915.2 KB | ACTR:5, TEXR:35, MTRL:4, VSHR:5, VTXD:2, PSHR:4 | 240.7 KB | 94 REFD |

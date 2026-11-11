@@ -72,6 +72,13 @@ interface FloatingEffect {
   maxLife: number;
 }
 
+interface TextureAnimMeta {
+  frameCount: number;
+  totalDurationMs: number;
+  frameDurationsMs: number[];
+  frameUrls: string[];
+}
+
 export class RotasticWebClient {
   private app!: Application;
   private audio = new RotasticAudioManager();
@@ -103,6 +110,7 @@ export class RotasticWebClient {
     { x: 1260, y: 1000, prevX: 1260, prevY: 1000, trails: [] },
   ];
   private lastPlayerStates: string[] = ['fly', 'fly', 'fly', 'fly'];
+  private stateAnimElapsedMs: number[] = [0, 0, 0, 0];
   private facingDir: number[] = [1, -1, 1, -1];
   private bounceAnimTimer: number[] = [0, 0, 0, 0];
   private hurtAnimTimer: number[] = [0, 0, 0, 0];
@@ -135,6 +143,7 @@ export class RotasticWebClient {
   private playerLabels: Text[] = [];
   private floatingEffects: FloatingEffect[] = [];
   private texturesCache = new Map<string, Texture>();
+  private textureAnims = new Map<string, TextureAnimMeta>();
   private loadedBgMapId = '';
 
   // Match audio/announcer tracking
@@ -227,7 +236,7 @@ export class RotasticWebClient {
   }
 
   private async preloadCoreSprites(): Promise<void> {
-    const urls: string[] = [
+    const urlSet = new Set<string>([
       '/assets/textures/global/t_corde_c.png',
       '/assets/textures/global/t_cordebeam_c.png',
       '/assets/textures/global/t_cordeuberbeam_c.png',
@@ -242,22 +251,41 @@ export class RotasticWebClient {
       '/assets/textures/global/t_guiaccrouge_c.png',
       '/assets/textures/global/t_guiaccvert_c.png',
       '/assets/textures/global/t_guiaccjaune_c.png',
-    ];
+    ]);
+
+    try {
+      const resp = await fetch('/assets/manifest.json');
+      if (resp.ok) {
+        const manifest = (await resp.json()) as {
+          textureAnimations?: Record<string, TextureAnimMeta>;
+        };
+        if (manifest.textureAnimations) {
+          for (const [texId, meta] of Object.entries(manifest.textureAnimations)) {
+            this.textureAnims.set(texId, meta);
+            if (texId.startsWith('t_character_')) {
+              for (const u of meta.frameUrls) urlSet.add(u);
+            }
+          }
+        }
+      }
+    } catch {
+      // Fallback to single-frame base URLs if manifest fetch is unavailable
+    }
 
     const colors: Array<'b' | 'r' | 'g' | 'y'> = ['b', 'r', 'g', 'y'];
     const chars = ['neo', 'elf', 'pig', 'skull'];
-    const states = ['fly', 'attach', 'bounce', 'hurt', 'ropecut', 'cut', 'hitup', 'spawn'];
+    const states = ['fly', 'attach', 'bounce', 'hurt', 'ropecut', 'cut', 'hitup', 'spawn', 'glue', 'slide'];
 
     for (const c of colors) {
       for (const ch of chars) {
         for (const st of states) {
-          urls.push(`/assets/textures/global/t_character_${c}_${ch}_${st}_c.png`);
+          urlSet.add(`/assets/textures/global/t_character_${c}_${ch}_${st}_c.png`);
         }
       }
     }
 
     await Promise.all(
-      urls.map(async (u) => {
+      [...urlSet].map(async (u) => {
         try {
           const tex = await Assets.load<Texture>(u);
           tex.source.autoGenerateMipmaps = true;
@@ -281,6 +309,48 @@ export class RotasticWebClient {
         this.texturesCache.set(`${beamUrl}#cropped`, cropped);
       }
     }
+  }
+
+  /**
+   * Selects the active multi-frame TEXR sub-texture using native per-frame
+   * durations (`0x00672B30` / `CPlayerAnimManager::Update` at `0x00548880`).
+   */
+  private resolvePlayerFrameTexture(
+    colorCode: string,
+    charId: string,
+    stateSuffix: string,
+    elapsedMs: number,
+    loop = true
+  ): Texture | undefined {
+    const texId = `t_character_${colorCode}_${charId}_${stateSuffix}_c`;
+    const baseUrl = `/assets/textures/global/${texId}.png`;
+    const anim = this.textureAnims.get(texId);
+    if (!anim || anim.frameCount <= 1 || anim.frameUrls.length <= 1) {
+      return this.texturesCache.get(baseUrl);
+    }
+
+    const durs = anim.frameDurationsMs;
+    const totalMs =
+      anim.totalDurationMs > 0
+        ? anim.totalDurationMs
+        : durs.reduce((acc, v) => acc + (v > 0 ? v : 100), 0);
+
+    let frameIdx = anim.frameUrls.length - 1;
+    if (totalMs > 0) {
+      const t = loop
+        ? ((elapsedMs % totalMs) + totalMs) % totalMs
+        : Math.max(0, Math.min(totalMs - 0.001, elapsedMs));
+      let acc = 0;
+      for (let f = 0; f < anim.frameUrls.length; f++) {
+        acc += durs[f] > 0 ? durs[f] : totalMs / anim.frameUrls.length;
+        if (t < acc) {
+          frameIdx = f;
+          break;
+        }
+      }
+    }
+
+    return this.texturesCache.get(anim.frameUrls[frameIdx]) ?? this.texturesCache.get(baseUrl);
   }
 
   private async ensureMapBackgrounds(mapId: string): Promise<void> {
@@ -1200,8 +1270,19 @@ export class RotasticWebClient {
         const cy = 62;
         const bob = Math.sin(nowSec * 8) * 4;
 
-        const texKey = `/assets/textures/global/t_character_${colorMeta.code}_${charMeta.id}_spawn_c.png`;
-        const tex = this.texturesCache.get(texKey);
+        if (this.lastPlayerStates[i] !== 'spawn') {
+          this.lastPlayerStates[i] = 'spawn';
+          this.stateAnimElapsedMs[i] = 0;
+        } else {
+          this.stateAnimElapsedMs[i] += dt * 1000;
+        }
+        const tex = this.resolvePlayerFrameTexture(
+          colorMeta.code,
+          charMeta.id,
+          'spawn',
+          this.stateAnimElapsedMs[i],
+          true
+        );
         const baseScale = tex ? 200 / tex.width : 1;
         if (tex) {
           if (spr.texture !== tex) spr.texture = tex;
@@ -1335,7 +1416,7 @@ export class RotasticWebClient {
         this.facingDir[i] = p.vx > 0 ? 1 : -1;
       }
 
-      // Authentic state-to-sprite mapping calibrated from captured Rotastic.exe screenshots
+      // Authentic state-to-sprite mapping from CPlayerAnimManager (0x00548720..0x0054950C)
       let stateSuffix = 'fly';
       if (p.status === PlayerStatus.DIZZY) {
         stateSuffix = this.dizzyWasRopeCut[i] ? 'ropecut' : 'hurt';
@@ -1357,10 +1438,25 @@ export class RotasticWebClient {
           stateSuffix = 'fly';
         }
       }
-      this.lastPlayerStates[i] = stateSuffix;
+      if (this.lastPlayerStates[i] !== stateSuffix) {
+        this.lastPlayerStates[i] = stateSuffix;
+        this.stateAnimElapsedMs[i] = 0;
+      } else {
+        this.stateAnimElapsedMs[i] += dt * 1000;
+      }
 
-      const texKey = `/assets/textures/global/t_character_${colorMeta.code}_${charMeta.id}_${stateSuffix}_c.png`;
-      const tex = this.texturesCache.get(texKey);
+      const loops =
+        stateSuffix === 'fly' ||
+        stateSuffix === 'attach' ||
+        stateSuffix === 'spawn' ||
+        p.status === PlayerStatus.DIZZY;
+      const tex = this.resolvePlayerFrameTexture(
+        colorMeta.code,
+        charMeta.id,
+        stateSuffix,
+        this.stateAnimElapsedMs[i],
+        loops
+      );
       const targetSpriteSize = 276; // Calibrated to match 1920x1080 knight size inside 161px bubble
       const baseScale = tex ? targetSpriteSize / tex.width : 1;
       if (tex) {
