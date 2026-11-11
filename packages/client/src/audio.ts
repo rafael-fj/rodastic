@@ -140,105 +140,305 @@ const ANNOUNCER_POOLS = {
 export type SfxKey = keyof typeof SFX_POOLS;
 export type AnnouncerKey = keyof typeof ANNOUNCER_POOLS;
 
+const BGM_BASE_VOLUME = 0.28;
+const BGM_DUCK_FACTOR = 0.48;
+const BGM_FADE_IN_SEC = 0.45;
+const BGM_CROSSFADE_OUT_SEC = 0.35;
+
 export class RotasticAudioManager {
   private ctx: AudioContext | null = null;
+  private masterGain: GainNode | null = null;
+  private bgmBusGain: GainNode | null = null;
+  private sfxGain: GainNode | null = null;
+  private voiceGain: GainNode | null = null;
+
   private buffers = new Map<string, AudioBuffer>();
-  private loading = new Set<string>();
+  private inFlightLoads = new Map<string, Promise<AudioBuffer | null>>();
   private activeVoiceSource: AudioBufferSourceNode | null = null;
   private lastAnnouncerAt = 0;
 
-  private bgmElement: HTMLAudioElement | null = null;
+  private activeBgmSource: AudioBufferSourceNode | null = null;
+  private activeBgmGain: GainNode | null = null;
+  private activeBgmTrack = '';
+  private fallbackBgmElement: HTMLAudioElement | null = null;
+  private bgmRequestSeq = 0;
+  private bgmPaused = false;
+  private bgmDucked = false;
   private currentBgmTrack = '';
   public muted = false;
 
-  private ensureContext(): AudioContext | null {
-    if (this.muted || typeof window === 'undefined') return null;
-    if (!this.ctx) {
+  private ensureContext(createIfMissing = true): AudioContext | null {
+    if (typeof window === 'undefined') return null;
+    if (!this.ctx && createIfMissing) {
       const AudioCtx =
         window.AudioContext ||
         (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       if (AudioCtx) {
-        this.ctx = new AudioCtx();
+        const ctx = new AudioCtx();
+        const master = ctx.createGain();
+        master.gain.value = this.muted ? 0 : 1;
+        master.connect(ctx.destination);
+
+        const bgmBus = ctx.createGain();
+        bgmBus.gain.value = this.computeBgmBusTarget();
+        bgmBus.connect(master);
+
+        const sfxBus = ctx.createGain();
+        sfxBus.gain.value = 1;
+        sfxBus.connect(master);
+
+        const voiceBus = ctx.createGain();
+        voiceBus.gain.value = 1;
+        voiceBus.connect(master);
+
+        ctx.addEventListener('statechange', () => {
+          if (ctx.state === 'running') {
+            this.ensureCurrentBgmPlaying();
+          }
+        });
+
+        this.ctx = ctx;
+        this.masterGain = master;
+        this.bgmBusGain = bgmBus;
+        this.sfxGain = sfxBus;
+        this.voiceGain = voiceBus;
       }
-    }
-    if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume().catch(() => {});
     }
     return this.ctx;
   }
 
+  private computeBgmBusTarget(): number {
+    if (this.bgmPaused) return 0;
+    return this.bgmDucked ? BGM_BASE_VOLUME * BGM_DUCK_FACTOR : BGM_BASE_VOLUME;
+  }
+
+  private updateBgmBusGain(rampSec = 0.16): void {
+    const ctx = this.ctx;
+    const bgmBus = this.bgmBusGain;
+    if (!ctx || !bgmBus) return;
+    const now = ctx.currentTime;
+    const target = this.computeBgmBusTarget();
+    bgmBus.gain.cancelScheduledValues(now);
+    bgmBus.gain.setValueAtTime(bgmBus.gain.value, now);
+    bgmBus.gain.linearRampToValueAtTime(target, now + rampSec);
+  }
+
   public unlockAndResume(): void {
-    this.ensureContext();
-    if (this.bgmElement && !this.muted && this.bgmElement.paused) {
-      this.bgmElement.play().catch(() => {});
+    const ctx = this.ensureContext(true);
+    if (!ctx) return;
+    if (ctx.state === 'suspended') {
+      ctx
+        .resume()
+        .then(() => {
+          this.ensureCurrentBgmPlaying();
+        })
+        .catch(() => {});
+    } else if (ctx.state === 'running') {
+      this.ensureCurrentBgmPlaying();
+    }
+    if (
+      this.fallbackBgmElement &&
+      !this.muted &&
+      !this.bgmPaused &&
+      this.fallbackBgmElement.paused
+    ) {
+      this.fallbackBgmElement.play().catch(() => {});
     }
   }
 
   public setMuted(muted: boolean): void {
     this.muted = muted;
-    if (this.bgmElement) {
+    if (this.ctx && this.masterGain) {
+      const now = this.ctx.currentTime;
+      this.masterGain.gain.cancelScheduledValues(now);
+      this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, now);
+      this.masterGain.gain.linearRampToValueAtTime(muted ? 0 : 1, now + 0.06);
+    }
+    if (this.fallbackBgmElement) {
       if (muted) {
-        this.bgmElement.pause();
+        this.fallbackBgmElement.pause();
       } else {
-        this.bgmElement.volume = 0.28;
-        this.bgmElement.play().catch(() => {});
+        this.fallbackBgmElement.volume = BGM_BASE_VOLUME;
+        this.fallbackBgmElement.play().catch(() => {});
       }
+    }
+    if (!muted) {
+      this.unlockAndResume();
+    }
+  }
+
+  /**
+   * Mirrors `OnBGMPause` (`0x00566D10`): ducks/mutes the active `"bgm"` stream without resetting track choice.
+   */
+  public setBgmPaused(paused: boolean): void {
+    if (this.bgmPaused === paused) return;
+    this.bgmPaused = paused;
+    this.updateBgmBusGain(0.18);
+    if (this.fallbackBgmElement) {
+      if (paused) {
+        this.fallbackBgmElement.pause();
+      } else if (!this.muted) {
+        this.fallbackBgmElement.play().catch(() => {});
+      }
+    }
+    if (!paused && !this.muted) {
+      this.ensureCurrentBgmPlaying();
     }
   }
 
   public setBgm(trackName: string): void {
     if (typeof window === 'undefined' || !trackName) return;
-    if (this.currentBgmTrack === trackName && this.bgmElement) {
-      if (!this.muted && this.bgmElement.paused) {
-        this.bgmElement.play().catch(() => {});
-      }
+    const prevDesired = this.currentBgmTrack;
+    this.currentBgmTrack = trackName;
+
+    if (prevDesired === trackName && (this.activeBgmTrack === trackName || this.fallbackBgmElement)) {
+      this.ensureCurrentBgmPlaying();
       return;
     }
 
-    this.currentBgmTrack = trackName;
-    if (this.bgmElement) {
-      this.bgmElement.pause();
-      this.bgmElement.src = '';
+    const seq = ++this.bgmRequestSeq;
+    const ctx = this.ensureContext(true);
+    if (!ctx) return;
+
+    void this.startBgmPlayback(trackName, seq);
+  }
+
+  private ensureCurrentBgmPlaying(): void {
+    if (this.muted || this.bgmPaused || !this.currentBgmTrack) return;
+    if (this.activeBgmTrack === this.currentBgmTrack && this.activeBgmSource) return;
+    if (this.fallbackBgmElement) {
+      if (this.fallbackBgmElement.paused) {
+        this.fallbackBgmElement.play().catch(() => {});
+      }
+      return;
+    }
+    if (this.ctx && this.ctx.state === 'running') {
+      const seq = ++this.bgmRequestSeq;
+      void this.startBgmPlayback(this.currentBgmTrack, seq);
+    }
+  }
+
+  private fadeOutActiveBgm(fadeSec = BGM_CROSSFADE_OUT_SEC): void {
+    if (this.fallbackBgmElement) {
+      this.fallbackBgmElement.pause();
+      this.fallbackBgmElement.src = '';
+      this.fallbackBgmElement = null;
+    }
+    const oldSource = this.activeBgmSource;
+    const oldGain = this.activeBgmGain;
+    this.activeBgmSource = null;
+    this.activeBgmGain = null;
+    this.activeBgmTrack = '';
+
+    if (!oldSource || !oldGain || !this.ctx) return;
+    const ctx = this.ctx;
+    const now = ctx.currentTime;
+    try {
+      oldGain.gain.cancelScheduledValues(now);
+      oldGain.gain.setValueAtTime(oldGain.gain.value, now);
+      oldGain.gain.linearRampToValueAtTime(0, now + fadeSec);
+      oldSource.stop(now + fadeSec + 0.03);
+    } catch {
+      try {
+        oldSource.stop();
+      } catch {
+        // Already stopped
+      }
+    }
+  }
+
+  private async startBgmPlayback(trackName: string, seq: number): Promise<void> {
+    const url = `/assets/audio/bgm/${trackName}.mp3`;
+    const buf = await this.loadUrl(url);
+
+    // Abort if track switched while fetching/decoding
+    if (seq !== this.bgmRequestSeq || this.currentBgmTrack !== trackName) {
+      return;
     }
 
-    const audio = new Audio(`/assets/audio/bgm/${trackName}.mp3`);
-    audio.loop = true;
-    audio.volume = 0.28;
-    audio.preload = 'auto';
-    this.bgmElement = audio;
-    if (!this.muted) {
-      audio.play().catch(() => {});
+    const ctx = this.ctx;
+    const bgmBus = this.bgmBusGain;
+    if (buf && ctx && bgmBus) {
+      if (ctx.state !== 'running') {
+        // Wait for next user gesture / statechange to start gapless AudioBuffer playback
+        return;
+      }
+
+      this.fadeOutActiveBgm(BGM_CROSSFADE_OUT_SEC);
+
+      const source = ctx.createBufferSource();
+      source.buffer = buf;
+      source.loop = true;
+
+      const trackGain = ctx.createGain();
+      const now = ctx.currentTime;
+      trackGain.gain.setValueAtTime(0, now);
+      trackGain.gain.linearRampToValueAtTime(1, now + BGM_FADE_IN_SEC);
+
+      source.connect(trackGain);
+      trackGain.connect(bgmBus);
+      source.start(now);
+
+      this.activeBgmSource = source;
+      this.activeBgmGain = trackGain;
+      this.activeBgmTrack = trackName;
+      return;
+    }
+
+    // Fallback to streaming HTMLAudioElement if Web Audio decode failed in this browser
+    if (!buf && this.currentBgmTrack === trackName) {
+      this.fadeOutActiveBgm(0.1);
+      const audio = new Audio(url);
+      audio.loop = true;
+      audio.volume = BGM_BASE_VOLUME;
+      audio.preload = 'auto';
+      this.fallbackBgmElement = audio;
+      this.activeBgmTrack = trackName;
+      if (!this.muted && !this.bgmPaused) {
+        audio.play().catch(() => {});
+      }
     }
   }
 
   public preloadAll(): void {
     this.unlockAndResume();
-    for (const urls of Object.values(SFX_POOLS)) {
-      this.loadUrl(urls[0]).catch(() => {});
+    if (this.currentBgmTrack) {
+      void this.loadUrl(`/assets/audio/bgm/${this.currentBgmTrack}.mp3`);
     }
-    this.loadUrl(ANNOUNCER_POOLS.match_start[0]).catch(() => {});
-    this.loadUrl(ANNOUNCER_POOLS.leader_0[0]).catch(() => {});
+    for (const urls of Object.values(SFX_POOLS)) {
+      void this.loadUrl(urls[0]);
+    }
+    void this.loadUrl(ANNOUNCER_POOLS.match_start[0]);
+    void this.loadUrl(ANNOUNCER_POOLS.leader_0[0]);
   }
 
-  private async loadUrl(url: string): Promise<AudioBuffer | null> {
-    if (this.buffers.has(url)) return this.buffers.get(url)!;
-    if (this.loading.has(url)) return null;
-    const ctx = this.ensureContext();
-    if (!ctx) return null;
+  private loadUrl(url: string): Promise<AudioBuffer | null> {
+    const cached = this.buffers.get(url);
+    if (cached) return Promise.resolve(cached);
 
-    this.loading.add(url);
-    try {
-      const res = await fetch(url);
-      if (!res.ok) return null;
-      const arr = await res.arrayBuffer();
-      const audioBuf = await ctx.decodeAudioData(arr);
-      this.buffers.set(url, audioBuf);
-      return audioBuf;
-    } catch {
-      return null;
-    } finally {
-      this.loading.delete(url);
-    }
+    const existing = this.inFlightLoads.get(url);
+    if (existing) return existing;
+
+    const ctx = this.ensureContext(true);
+    if (!ctx) return Promise.resolve(null);
+
+    const promise = (async (): Promise<AudioBuffer | null> => {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) return null;
+        const arr = await res.arrayBuffer();
+        const audioBuf = await ctx.decodeAudioData(arr);
+        this.buffers.set(url, audioBuf);
+        return audioBuf;
+      } catch {
+        return null;
+      } finally {
+        this.inFlightLoads.delete(url);
+      }
+    })();
+
+    this.inFlightLoads.set(url, promise);
+    return promise;
   }
 
   public play(key: SfxKey, volume = 0.48, pitchJitter = 0.06): void {
@@ -267,11 +467,11 @@ export class RotasticAudioManager {
     const url = pool[Math.floor(Math.random() * pool.length)];
     this.lastAnnouncerAt = now;
 
-    const ctx = this.ensureContext();
+    const ctx = this.ensureContext(true);
     if (!ctx) return;
 
-    const cached = this.buffers.get(url);
     const playVoiceBuf = (buf: AudioBuffer) => {
+      if (this.muted) return;
       try {
         if (this.activeVoiceSource) {
           try {
@@ -285,10 +485,16 @@ export class RotasticAudioManager {
         const gain = ctx.createGain();
         gain.gain.value = Math.max(0, Math.min(1, volume));
         source.connect(gain);
-        gain.connect(ctx.destination);
+        gain.connect(this.voiceGain ?? ctx.destination);
+
+        this.bgmDucked = true;
+        this.updateBgmBusGain(0.12);
+
         source.onended = () => {
           if (this.activeVoiceSource === source) {
             this.activeVoiceSource = null;
+            this.bgmDucked = false;
+            this.updateBgmBusGain(0.35);
           }
         };
         this.activeVoiceSource = source;
@@ -298,21 +504,22 @@ export class RotasticAudioManager {
       }
     };
 
+    const cached = this.buffers.get(url);
     if (cached) {
       playVoiceBuf(cached);
     } else {
-      this.loadUrl(url).then((buf) => {
+      void this.loadUrl(url).then((buf) => {
         if (buf) playVoiceBuf(buf);
       });
     }
   }
 
   private playUrl(url: string, volume: number, pitchJitter: number): void {
-    const ctx = this.ensureContext();
+    const ctx = this.ensureContext(true);
     if (!ctx) return;
     const cached = this.buffers.get(url);
     if (!cached) {
-      this.loadUrl(url).then((buf) => {
+      void this.loadUrl(url).then((buf) => {
         if (buf) this.playBuffer(ctx, buf, volume, pitchJitter);
       });
       return;
@@ -326,6 +533,7 @@ export class RotasticAudioManager {
     volume: number,
     pitchJitter: number
   ): void {
+    if (this.muted) return;
     try {
       const source = ctx.createBufferSource();
       source.buffer = buf;
@@ -335,7 +543,7 @@ export class RotasticAudioManager {
       gain.gain.value = Math.max(0, Math.min(1, volume));
 
       source.connect(gain);
-      gain.connect(ctx.destination);
+      gain.connect(this.sfxGain ?? ctx.destination);
       source.start(0);
     } catch {
       // Ignore autoplay errors before user gesture

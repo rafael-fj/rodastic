@@ -634,10 +634,112 @@ const MIME_TYPES: Record<string, string> = {
   '.css': 'text/css; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
   '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
   '.wav': 'audio/wav',
+  '.mp3': 'audio/mpeg',
+  '.ogg': 'audio/ogg',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
 };
+
+interface ParsedByteRange {
+  start: number;
+  end: number;
+}
+
+/**
+ * Parses an HTTP `Range: bytes=...` header against a known file length.
+ * Returns `'unsatisfiable'` for malformed/out-of-bounds ranges, or `null` when absent.
+ */
+function parseByteRange(
+  rangeHeader: string | undefined,
+  totalSize: number
+): ParsedByteRange | 'unsatisfiable' | null {
+  if (!rangeHeader) return null;
+  const match = /^bytes=(\d*)-(\d*)$/i.exec(rangeHeader.trim());
+  if (!match || totalSize <= 0) return 'unsatisfiable';
+
+  const [, startStr, endStr] = match;
+  if (!startStr && !endStr) return 'unsatisfiable';
+
+  let start: number;
+  let end: number;
+  if (!startStr) {
+    const suffixLen = Number(endStr);
+    if (!Number.isInteger(suffixLen) || suffixLen <= 0) return 'unsatisfiable';
+    start = Math.max(0, totalSize - suffixLen);
+    end = totalSize - 1;
+  } else {
+    start = Number(startStr);
+    end = endStr ? Number(endStr) : totalSize - 1;
+  }
+
+  if (
+    !Number.isInteger(start) ||
+    !Number.isInteger(end) ||
+    start < 0 ||
+    end < start ||
+    start >= totalSize
+  ) {
+    return 'unsatisfiable';
+  }
+
+  return { start, end: Math.min(end, totalSize - 1) };
+}
+
+function serveStaticFile(
+  req: http.IncomingMessage,
+  res: http.ServerResponse,
+  filePath: string,
+  totalSize: number
+): void {
+  const ext = path.extname(filePath).toLowerCase();
+  const contentType = MIME_TYPES[ext] ?? 'application/octet-stream';
+  const isCacheableMedia = ext === '.png' || ext === '.wav' || ext === '.mp3' || ext === '.ogg';
+  const baseHeaders: http.OutgoingHttpHeaders = {
+    'Content-Type': contentType,
+    'Accept-Ranges': 'bytes',
+    'Cache-Control': isCacheableMedia ? 'public, max-age=86400' : 'no-cache',
+  };
+
+  const range = parseByteRange(req.headers.range, totalSize);
+  if (range === 'unsatisfiable') {
+    res.writeHead(416, {
+      ...baseHeaders,
+      'Content-Range': `bytes */${totalSize}`,
+      'Content-Length': '0',
+    });
+    res.end();
+    return;
+  }
+
+  if (range) {
+    const chunkLen = range.end - range.start + 1;
+    res.writeHead(206, {
+      ...baseHeaders,
+      'Content-Range': `bytes ${range.start}-${range.end}/${totalSize}`,
+      'Content-Length': String(chunkLen),
+    });
+    if (req.method === 'HEAD') {
+      res.end();
+      return;
+    }
+    fs.createReadStream(filePath, { start: range.start, end: range.end }).pipe(res);
+    return;
+  }
+
+  res.writeHead(200, {
+    ...baseHeaders,
+    'Content-Length': String(totalSize),
+  });
+  if (req.method === 'HEAD') {
+    res.end();
+    return;
+  }
+  fs.createReadStream(filePath).pipe(res);
+}
 
 export function createRotasticServer(port = Number(process.env.PORT) || 3001) {
   const rooms = new Map<string, RoomSession>();
@@ -690,21 +792,26 @@ export function createRotasticServer(port = Number(process.env.PORT) || 3001) {
     }
 
     // Serve static files from packages/client/dist or packages/client/public
-    const safePath = path.normalize(reqUrl.pathname).replace(/^(\.\.(\/|\\|$))+/, '');
-    const candidates = [
-      path.join(clientDistDir, safePath === '/' || safePath === '\\' ? 'index.html' : safePath),
-      path.join(clientPublicDir, safePath),
+    const relPath = decodeURIComponent(reqUrl.pathname).replace(/^[/\\]+/, '');
+    const candidates: Array<{ root: string; file: string }> = [
+      {
+        root: clientDistDir,
+        file: path.resolve(clientDistDir, relPath === '' ? 'index.html' : relPath),
+      },
+      {
+        root: clientPublicDir,
+        file: path.resolve(clientPublicDir, relPath),
+      },
     ];
 
-    for (const filePath of candidates) {
-      if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
-        const ext = path.extname(filePath).toLowerCase();
-        res.writeHead(200, {
-          'Content-Type': MIME_TYPES[ext] ?? 'application/octet-stream',
-          'Cache-Control': ext === '.png' || ext === '.wav' ? 'public, max-age=86400' : 'no-cache',
-        });
-        fs.createReadStream(filePath).pipe(res);
-        return;
+    for (const { root, file: filePath } of candidates) {
+      if (filePath !== root && !filePath.startsWith(root + path.sep)) continue;
+      if (fs.existsSync(filePath)) {
+        const stat = fs.statSync(filePath);
+        if (stat.isFile()) {
+          serveStaticFile(req, res, filePath, stat.size);
+          return;
+        }
       }
     }
 

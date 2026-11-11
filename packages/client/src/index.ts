@@ -369,6 +369,13 @@ export class RotasticWebClient {
   }
 
   private setupInputListeners(): void {
+    const resumeAudioOnGesture = () => {
+      this.audio.unlockAndResume();
+    };
+    window.addEventListener('pointerdown', resumeAudioOnGesture, { capture: true, passive: true });
+    window.addEventListener('keydown', resumeAudioOnGesture, { capture: true, passive: true });
+    window.addEventListener('touchstart', resumeAudioOnGesture, { capture: true, passive: true });
+
     window.addEventListener('keydown', (e) => {
       if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'SELECT') {
         return;
