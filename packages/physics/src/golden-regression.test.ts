@@ -8,119 +8,115 @@ import {
 } from './index.js';
 
 /**
- * Phase 7 — Golden Trajectory & Gameplay Fidelity Regression Suite
- * Verifies exact deterministic trajectories, Slaughter mechanics, Sudden Death tie-breakers,
- * and all 19 multiplayer maps against recorded golden invariants.
+ * Calibrated Regression & Fidelity Suite against live `Rotastic.exe` telemetry captures
+ * (`session-20261111-113107` & `session-20261111-115315`).
  */
 describe('@rotastic/physics — Golden File Regression & Fidelity Validation', () => {
-  it('matches golden trajectory checkpoints for a 60-tick pendulum attach -> swing -> apex release sequence', () => {
-    const sim = new RotasticSimulation('w_multi_coll_lvl01');
-    sim.configurePlayerSlot(0, { active: true, name: 'GoldenKnight' });
+  it('reproduces exact weighted PvP velocity transfer (m = 1 + 10 * c2^2) measured in PVP_BOUNCE_SOLVER', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl02');
+    sim.configurePlayerSlot(0, { active: true, name: 'Heavy' });
+    sim.configurePlayerSlot(1, { active: true, name: 'Light' });
 
-    const p = sim.state.players[0];
-    p.x = -9.5;
-    p.y = 1.2;
-    p.vx = 2.0;
-    p.vy = 0.0;
+    const heavy = sim.state.players[0];
+    const light = sim.state.players[1];
 
-    const checkpoints: Array<{ tick: number; x: number; y: number; status: PlayerStatus }> = [];
+    heavy.status = PlayerStatus.FREE_FALL;
+    light.status = PlayerStatus.FREE_FALL;
+    heavy.invulnTimer = 0;
+    light.invulnTimer = 0;
 
-    for (let tick = 1; tick <= 60; tick++) {
-      // Hold rope for ticks 1..40, release on tick 41..60
-      const cmd: PlayerInputCommand = {
-        seq: tick,
-        actionHeld: tick <= 40,
-        axisX: 1,
-        axisY: 0,
-      };
-      sim.step({ 0: cmd }, C.FIXED_DT);
+    // c2 = 0.4 -> mass 2.6 vs c2 = 0.0 -> mass 1.0 (matches session-2 f=7201)
+    heavy.chargeGauge = 0.2;
+    heavy.chargeGauge2 = 0.4;
+    light.chargeGauge = 0.2;
+    light.chargeGauge2 = 0.0;
 
-      if (tick === 1 || tick === 20 || tick === 40 || tick === 60) {
-        checkpoints.push({
-          tick,
-          x: Number(p.x.toFixed(4)),
-          y: Number(p.y.toFixed(4)),
-          status: p.status,
-        });
-      }
-    }
+    heavy.x = 400;
+    heavy.y = 500;
+    heavy.vx = 400;
+    heavy.vy = 0;
 
-    // Verify status transitions: SWINGING at tick 1, 20, 40 -> FREE_FALL at tick 60
-    expect(checkpoints[0].status).toBe(PlayerStatus.SWINGING);
-    expect(checkpoints[1].status).toBe(PlayerStatus.SWINGING);
-    expect(checkpoints[2].status).toBe(PlayerStatus.SWINGING);
-    expect(checkpoints[3].status).toBe(PlayerStatus.FREE_FALL);
+    light.x = 448;
+    light.y = 500;
+    light.vx = -400;
+    light.vy = 0;
 
-    // Re-run an identical simulation and verify 100% bit-exact golden checkpoint match
-    const sim2 = new RotasticSimulation('w_multi_coll_lvl01');
-    sim2.configurePlayerSlot(0, { active: true, name: 'GoldenKnight' });
-    const p2 = sim2.state.players[0];
-    p2.x = -9.5;
-    p2.y = 1.2;
-    p2.vx = 2.0;
-    p2.vy = 0.0;
+    const events = sim.step({});
+    expect(events.some((e) => e.type === 'bounce')).toBe(true);
 
-    for (let tick = 1; tick <= 60; tick++) {
-      sim2.step({ 0: { seq: tick, actionHeld: tick <= 40, axisX: 1, axisY: 0 } }, C.FIXED_DT);
-    }
-
-    expect(Number(p2.x.toFixed(4))).toBe(checkpoints[3].x);
-    expect(Number(p2.y.toFixed(4))).toBe(checkpoints[3].y);
+    // Exact 2D impulse check:
+    // relVx = 800; m1 = 2.6, m2 = 1.0 -> factorA = 2/3.6 = 0.5556, factorB = 5.2/3.6 = 1.4444
+    // heavy.vx = 400 - 0.5556 * 800 = -44.444; light.vx = -400 + 1.4444 * 800 = +755.556
+    expect(heavy.vx).toBeCloseTo(-44.444, 1);
+    expect(light.vx).toBeCloseTo(755.556, 1);
   });
 
-  it('triggers Slaughter instant kill in Deathmatch when kinetic energy ratio squared >= 1.8 and speed >= 8.2', () => {
+  it('triggers Slaughter instant kill in Deathmatch when unshielded victim is hit at high energy ratio', () => {
     const sim = new RotasticSimulation('w_multi_dm_lvl01');
     sim.configurePlayerSlot(0, { active: true, name: 'Attacker' });
     sim.configurePlayerSlot(1, { active: true, name: 'Victim' });
 
     const attacker = sim.state.players[0];
     const victim = sim.state.players[1];
+    attacker.status = PlayerStatus.FREE_FALL;
+    victim.status = PlayerStatus.FREE_FALL;
     attacker.invulnTimer = 0;
     victim.invulnTimer = 0;
+    victim.chargeGauge = 0.2;
+    victim.chargeGauge2 = 0.0;
 
-    attacker.x = -1.0;
-    attacker.y = 0.0;
-    attacker.vx = 12.0; // >= SLAUGHTER_MIN_SPEED (8.2)
-    attacker.vy = 0.0;
+    attacker.x = 600;
+    attacker.y = 500;
+    attacker.vx = 950;
+    attacker.vy = 0;
 
-    victim.x = -0.2;
-    victim.y = 0.0;
-    victim.vx = 0.0;
-    victim.vy = 0.0;
+    victim.x = 650;
+    victim.y = 500;
+    victim.vx = 0;
+    victim.vy = 0;
 
     const events = sim.step({});
     expect(events.some((e) => e.type === 'slaughter')).toBe(true);
     expect(victim.status).toBe(PlayerStatus.DEAD);
     expect(attacker.kills).toBe(1);
     expect(attacker.score).toBe(1);
+    expect(attacker.chargeGauge2).toBe(1.0);
   });
 
-  it('activates Sudden Death on tied timer expiration and ends the match on the next point scored', () => {
-    const sim = new RotasticSimulation('w_multi_coll_lvl01', 5000, 1.0);
+  it('activates Sudden Death on tied timer expiration and ends the match on the next frag', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl01', 10, C.FIXED_DT * 0.5);
     sim.configurePlayerSlot(0, { active: true, name: 'P1' });
     sim.configurePlayerSlot(1, { active: true, name: 'P2' });
 
-    sim.state.players[0].score = 500;
-    sim.state.players[1].score = 500;
-    sim.state.timeRemainingSec = C.FIXED_DT * 0.5;
+    sim.state.players[0].score = 2;
+    sim.state.players[1].score = 2;
 
-    // Step 1: Timer hits 0 while P1 and P2 are tied at 500 -> triggers Sudden Death!
     const ev1 = sim.step({});
     expect(sim.state.suddenDeath).toBe(true);
     expect(sim.state.matchFinished).toBe(false);
     expect(ev1.some((e) => e.type === 'suddendeath')).toBe(true);
 
-    // Step 2: P2 collects a diamond at (0, 0) -> immediately wins Sudden Death!
-    sim.state.players[1].x = 0;
-    sim.state.players[1].y = 0;
+    // P2 gets a kill via high-speed unshielded slaughter
+    sim.state.players[0].status = PlayerStatus.FREE_FALL;
+    sim.state.players[1].status = PlayerStatus.FREE_FALL;
+    sim.state.players[0].invulnTimer = 0;
+    sim.state.players[0].chargeGauge = 0;
+    sim.state.players[0].x = 500;
+    sim.state.players[0].y = 500;
+    sim.state.players[0].vx = 0;
+    sim.state.players[1].x = 460;
+    sim.state.players[1].y = 500;
+    sim.state.players[1].vx = 950;
+
     const ev2 = sim.step({});
     expect(sim.state.matchFinished).toBe(true);
     expect(sim.state.winnerSlot).toBe(1);
     expect(ev2.some((e) => e.type === 'matchfinish')).toBe(true);
   });
 
-  it('validates all 19 multiplayer maps over 120 ticks with 4 AI bots without NaN or invariant errors', () => {
-    expect(MULTIPLAYER_MAPS.length).toBe(19);
+  it('includes exclusively the 8 official Deathmatch arenas and steps all 8 stably with moving obstacles', () => {
+    expect(MULTIPLAYER_MAPS.length).toBe(8);
+    expect(MULTIPLAYER_MAPS.every((m) => m.mode === 'deathmatch')).toBe(true);
 
     for (const mapDef of MULTIPLAYER_MAPS) {
       const sim = new RotasticSimulation(mapDef.id);
@@ -128,7 +124,7 @@ describe('@rotastic/physics — Golden File Regression & Fidelity Validation', (
         sim.configurePlayerSlot(s, { active: true, isBot: true, name: `Bot_${s}` });
       }
 
-      for (let tick = 1; tick <= 120; tick++) {
+      for (let tick = 1; tick <= 180; tick++) {
         const inputs: Record<number, PlayerInputCommand> = {};
         for (let s = 0; s < 4; s++) {
           inputs[s] = sim.computeBotInput(s, tick);

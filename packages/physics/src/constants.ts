@@ -1,39 +1,72 @@
 /**
- * Exact Physics & Gameplay Constants extracted from Rotastic.exe
- * (.rdata 0x0095AD24..0x0095ADAC & .text 0x00688000..0x00699600)
+ * Physics & Gameplay Constants calibrated directly from live runtime telemetry
+ * (`session-20261111-113107` & `session-20261111-115315` from `Rotastic.exe` simRef table)
+ * and disassembly (`CRotasticPlayerSubcomponents.asm`, `CRotasticPlayer.asm`).
+ *
+ * World Space: `1920 x 1080` pixels, Y-up (`y = 0` at bottom, `y = 1080` at top).
  */
 
 export const ROTASTIC_PHYSICS_CONSTANTS = {
   TICK_RATE_HZ: 60,
   FIXED_DT: 1 / 60,
-  GRAVITY: 9.81,
-  AIR_DRAG_BASE: 0.985,
-  AIR_STEER_ACCEL: 5.5,
-  RELEASE_BOOST_WINDOW_SEC: 0.2,
-  RELEASE_BOOST_FACTOR: 1.1,
-  SWING_PUMP_FACTOR: 0.05,
-  SWING_INPUT_TORQUE: 2.8,
-  MIN_OMEGA_RAD_S: 1.0471976, // 60 deg/s (0x0095AD80)
-  MAX_OMEGA_RAD_S: 11.5,
-  ROPE_MIN_RADIUS: 1.35,
-  ROPE_MAX_RADIUS: 5.2,
-  ROPE_ATTACH_RANGE: 5.8,
-  ROPE_CUT_GRACE_SEC: 0.25, // 0x0095AD38
-  ROPE_CUT_MIN_SPEED: 4.2,
-  PLAYER_RADIUS: 0.68,
-  PLAYER_MAX_SPEED: 22.0,
-  PLAYER_RESTITUTION: 0.92,
-  SLAUGHTER_MIN_SPEED: 8.2,
+
+  // Arena viewport (Rotastic.exe world coordinates, Y-up)
+  ARENA_WIDTH: 1920,
+  ARENA_HEIGHT: 1080,
+  SCREEN_MARGIN: 32, // simRef[0x78] = 32
+  DEATH_BOTTOM_Y: 75, // Observed in all PLAYER_DEATH events
+  TOP_CEILING_Y: 1455, // WallTop @ (960, 1480) minus halfH 25
+
+  // Gravity & Air Physics (simRef[0x04] = -686.7, simRef[0x14] = 2000)
+  GRAVITY: 686.7,
+  AIR_STEER_ACCEL: 240.0,
+  PLAYER_MAX_SPEED: 2000.0,
+
+  // Rope & Swinging (simRef[0x18] = 900, simRef[0x1C] = 6, simRef[0x40] = 1.2)
+  SWING_MAX_SPEED: 900.0,
+  MIN_OMEGA_RAD_S: 1.0471976, // 60 deg/s
+  MAX_OMEGA_RAD_S: 6.0,
+  SWING_PUMP_FACTOR: 0.05, // simRef[0x38] = 0.05
+  SWING_INPUT_TORQUE: 260.0,
+  ROPE_MIN_RADIUS: 150.0, // Observed minRopeRadius = 150
+  ROPE_MAX_RADIUS: 420.0,
+  ROPE_ATTACH_RANGE: 450.0,
+  REGRAPPLE_COOLDOWN_SEC: 0.08,
+  RELEASE_BOOST_WINDOW_SEC: 0.4, // simRef[0x30] = 0.4
+  RELEASE_BOOST_FACTOR: 1.2, // simRef[0x40] = 1.2 (observed 900 -> 1079 u/s)
+
+  // Rope Cutting & Collisions
+  ROPE_CUT_GRACE_SEC: 0.25,
+  ROPE_CUT_MIN_SPEED: 320.0,
+  PLAYER_RADIUS: 34.0,
+  WALL_BOUNCE_RESTITUTION: 1.0, // simRef[0x44] = 1.0
+  PLAYER_RESTITUTION: 1.0, // Verified exact in 4/4 PVP_BOUNCE_SOLVER events
+  SLAUGHTER_MIN_SPEED: 620.0,
   SLAUGHTER_KE_RATIO_SQ: 1.8,
-  DIZZY_DURATION_SEC: 1.5, // 0x0095AD70
-  RESPAWN_DELAY_SEC: 2.0,
-  SPAWN_INVULN_SEC: 1.25,
-  ARENA_HALF_WIDTH: 18.0,
-  ARENA_HALF_HEIGHT: 10.5,
-  KILL_ATTRIBUTION_WINDOW_SEC: 4.0,
+
+  // Dual Shield & Charge Rings (c1 @ +0xD48, c2 @ +0xD4C)
+  CHARGE_RATE_BASE: 0.58, // simRef[0x4C] = 0.58
+  CHARGE_SPEED_NORM: 450.0, // simRef[0x54] = 450
+  CHARGE_STUN_FACTOR: 0.55, // simRef[0x5C] = 0.55
+  ORANGE_CHARGE_STEP: 0.2, // 5 tricks (+150) fill 0.0 -> 1.0
+  ORANGE_TRICK_POINTS: 150,
+  PVP_MASS_ORANGE_COEF: 10.0, // mass = 1.0 + 10.0 * c2^2 (1.0 / 1.4 / 2.6 / ... / 11.0)
+
+  // Timers & Respawn (CRotasticPlayer.asm + live captures)
+  DIZZY_DURATION_SEC: 1.0, // simRef[0x58] = 1.0
+  RESPAWN_DELAY_SEC: 1.0, // Observed 144 ticks (~1.0s) from PLAYER_DEATH -> SPAWN_CURSOR_ENTER
+  SPAWN_INVULN_SEC: 1.0, // Observed inv = 1.000 at SPAWN_DROP
+  SHIELD_BREAK_INVULN_SEC: 0.5, // Observed inv = 0.500 when c1 absorbed deadly hit
+  SPAWN_DROP_Y: 1080.0, // Observed pos.y = 1080 at SPAWN_DROP
+  SPAWN_DROP_INITIAL_VY: 100.0, // Observed vy = +100 at SPAWN_DROP
+  SPAWN_CURSOR_MIN_X: 160.0,
+  SPAWN_CURSOR_MAX_X: 1760.0,
+  SPAWN_CURSOR_SPEED: 440.0,
+  SPAWN_ALLOW_DELAY_SEC: 0.25,
+  KILL_ATTRIBUTION_WINDOW_SEC: 5.0, // 0x0056C152: 5.0s
 } as const;
 
-export type GameModeId = 'collect' | 'deathmatch' | 'koth';
+export type GameModeId = 'deathmatch' | 'collect' | 'koth';
 
 export type CharacterId = 0 | 1 | 2 | 3; // 0: Neo (Viking), 1: Elf, 2: Pig, 3: Skull
 export type PlayerColorId = 0 | 1 | 2 | 3; // 0: Blue, 1: Red, 2: Green, 3: Yellow
@@ -69,6 +102,7 @@ export enum PlayerStatus {
   SWINGING = 1,
   DIZZY = 2,
   DEAD = 3,
+  SPAWN_CURSOR = 4,
 }
 
 export type WallType = 'normal' | 'bouncy' | 'deadly' | 'breakable' | 'slow';

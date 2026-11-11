@@ -76,4 +76,14 @@ describe('@rotastic/protocol — BlitzTech 8-Byte Framing & Message Codec', () =
     expect(decoded.cmd.axisX).toBeCloseTo(-0.5, 1);
     expect(decoded.cmd.axisY).toBeCloseTo(1.0, 2);
   });
+
+  it('encodes and decodes HOST_RETURN_TO_LOBBY control message (subType 0x15)', () => {
+    const pkt = encodeAppControlMessage(7, 1, 0, AppMessageSubType.HOST_RETURN_TO_LOBBY, {
+      reason: 'host_ended_match',
+    });
+    const decoded = decodeAppControlMessage<{ reason: string }>(pkt);
+    expect(decoded.header.packetType).toBe(PacketType.APP_CONTROL_MESSAGE);
+    expect(decoded.subType).toBe(AppMessageSubType.HOST_RETURN_TO_LOBBY);
+    expect(decoded.payload.reason).toBe('host_ended_match');
+  });
 });

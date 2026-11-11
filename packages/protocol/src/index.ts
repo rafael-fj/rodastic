@@ -58,6 +58,7 @@ export enum AppMessageSubType {
   HOST_PHASE_ADVANCE_CMD = 0x0e,
   CLIENT_RESULTS_REPORT = 0x13,
   HOST_FINAL_STANDINGS = 0x14,
+  HOST_RETURN_TO_LOBBY = 0x15,
 }
 
 export enum OnlineSessionState {

@@ -143,6 +143,26 @@ describe('@rotastic/server — 2-Client End-to-End Authoritative Match Lifecycle
 
     expect(snapshotsReceived1).toBeGreaterThanOrEqual(2);
     expect(snapshotsReceived2).toBeGreaterThanOrEqual(2);
+    expect((lobbyState1 as LobbyFullStatePayload | null)?.config.mode).toBe('deathmatch');
+
+    // Non-host cannot end match early via HOST_RETURN_TO_LOBBY
+    ws2.send(
+      encodeAppControlMessage(11, peerId2, 0, AppMessageSubType.HOST_RETURN_TO_LOBBY, {
+        reason: 'unauthorized_client',
+      })
+    );
+    await new Promise((r) => setTimeout(r, 80));
+    expect(room.sessionState).toBe(OnlineSessionState.IN_GAME);
+
+    // Host (leaderPeerId === peerId1) can end match early and return all peers to Lobby
+    ws1.send(
+      encodeAppControlMessage(11, peerId1, 0, AppMessageSubType.HOST_RETURN_TO_LOBBY, {
+        reason: 'host_ended_match',
+      })
+    );
+    await new Promise((r) => setTimeout(r, 100));
+    expect(room.sessionState).toBe(OnlineSessionState.LOBBY_OPEN);
+    expect((lobbyState1 as LobbyFullStatePayload | null)?.sessionState).toBe(OnlineSessionState.LOBBY_OPEN);
 
     ws1.close();
     ws2.close();

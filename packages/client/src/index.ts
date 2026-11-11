@@ -34,18 +34,34 @@ import {
 import { RotasticAudioManager } from './audio.js';
 
 // ============================================================================
-// Coordinate Conversion: World ([-18..+18] x [-10.5..+10.5], Y-up) <-> Screen
+// Coordinate Conversion: World (1920x1080, Y-up) <-> Screen (1920x1080, Y-down)
 // ============================================================================
-const VIEW_WIDTH = 1280;
-const VIEW_HEIGHT = 720;
-const PIXELS_PER_METER = 34;
+const VIEW_WIDTH = 1920;
+const VIEW_HEIGHT = 1080;
 
 function worldToScreenX(wx: number): number {
-  return VIEW_WIDTH * 0.5 + wx * PIXELS_PER_METER;
+  return wx;
 }
 
 function worldToScreenY(wy: number): number {
-  return VIEW_HEIGHT * 0.5 - wy * PIXELS_PER_METER;
+  return VIEW_HEIGHT - wy;
+}
+
+function drawArc(
+  g: Graphics,
+  cx: number,
+  cy: number,
+  radius: number,
+  startRad: number,
+  endRad: number,
+  color: number,
+  width: number,
+  alpha = 1
+): void {
+  if (Math.abs(endRad - startRad) < 0.01) return;
+  g.moveTo(cx + Math.cos(startRad) * radius, cy + Math.sin(startRad) * radius);
+  g.arc(cx, cy, radius, startRad, endRad);
+  g.stroke({ color, width, alpha, cap: 'round' });
 }
 
 interface FloatingEffect {
@@ -72,12 +88,12 @@ export class RotasticWebClient {
   public showLobbyOverlay = true;
 
   // Local predictive simulation + interpolated display positions
-  public localSim = new RotasticSimulation('w_multi_coll_lvl01');
+  public localSim = new RotasticSimulation('w_multi_dm_lvl09');
   private displayPos: Array<{ x: number; y: number; trails: Array<{ x: number; y: number }> }> = [
-    { x: -10, y: 4, trails: [] },
-    { x: 10, y: 4, trails: [] },
-    { x: -10, y: -4, trails: [] },
-    { x: 10, y: -4, trails: [] },
+    { x: 240, y: 1000, trails: [] },
+    { x: 1680, y: 1000, trails: [] },
+    { x: 660, y: 1000, trails: [] },
+    { x: 1260, y: 1000, trails: [] },
   ];
 
   // Input state
@@ -86,6 +102,7 @@ export class RotasticWebClient {
 
   // PixiJS Scene Graph Layers
   private rootContainer = new Container();
+  private bgContainer = new Container();
   private arenaGraphics = new Graphics();
   private ropesGraphics = new Graphics();
   private pickupsContainer = new Container();
@@ -97,12 +114,14 @@ export class RotasticWebClient {
   private playerLabels: Text[] = [];
   private floatingEffects: FloatingEffect[] = [];
   private texturesCache = new Map<string, Texture>();
+  private loadedBgMapId = '';
 
   // DOM References
   private hudPlayersEl = document.getElementById('hud-players')!;
   private hudModeLabelEl = document.getElementById('hud-mode-label')!;
   private hudTimerValEl = document.getElementById('hud-timer-val')!;
   private hudNetInfoEl = document.getElementById('hud-net-info')!;
+  private hostReturnMenuBtn = document.getElementById('btn-host-return-menu') as HTMLButtonElement | null;
   private modalOverlayEl = document.getElementById('modal-overlay')!;
 
   private roomCode: string;
@@ -131,6 +150,7 @@ export class RotasticWebClient {
 
     this.app.stage.addChild(this.rootContainer);
     this.rootContainer.addChild(
+      this.bgContainer,
       this.arenaGraphics,
       this.pickupsContainer,
       this.pivotsContainer,
@@ -144,6 +164,7 @@ export class RotasticWebClient {
 
     this.setupInputListeners();
     await this.preloadCoreSprites();
+    await this.ensureMapBackgrounds(this.localSim.state.mapId);
     this.initPlayerNodes();
 
     this.connectWebSocket();
@@ -213,12 +234,49 @@ export class RotasticWebClient {
     );
   }
 
+  private async ensureMapBackgrounds(mapId: string): Promise<void> {
+    if (this.loadedBgMapId === mapId) return;
+    this.loadedBgMapId = mapId;
+    const map = getMultiplayerMapById(mapId);
+
+    const textures = await Promise.all(
+      map.bgLayers.map(async (layer) => {
+        const url = `/assets/textures/backgrounds/${layer.texture}.png`;
+        if (this.texturesCache.has(url)) {
+          return { tex: this.texturesCache.get(url)!, alpha: layer.alpha ?? 1 };
+        }
+        try {
+          const tex = await Assets.load<Texture>(url);
+          this.texturesCache.set(url, tex);
+          return { tex, alpha: layer.alpha ?? 1 };
+        } catch {
+          return null;
+        }
+      })
+    );
+
+    // Bail out if user switched map again while awaiting load
+    if (this.loadedBgMapId !== mapId) return;
+
+    this.bgContainer.removeChildren();
+    for (const entry of textures) {
+      if (!entry) continue;
+      const spr = new Sprite(entry.tex);
+      spr.x = 0;
+      spr.y = 0;
+      spr.width = VIEW_WIDTH;
+      spr.height = VIEW_HEIGHT;
+      spr.alpha = entry.alpha;
+      this.bgContainer.addChild(spr);
+    }
+  }
+
   private initPlayerNodes(): void {
     for (let i = 0; i < 4; i++) {
       const spr = new Sprite(Texture.WHITE);
       spr.anchor.set(0.5);
-      spr.width = 54;
-      spr.height = 54;
+      spr.width = 68;
+      spr.height = 68;
       this.playersContainer.addChild(spr);
       this.playerSprites.push(spr);
 
@@ -226,13 +284,13 @@ export class RotasticWebClient {
         text: `P${i + 1}`,
         style: {
           fontFamily: 'system-ui, sans-serif',
-          fontSize: 13,
+          fontSize: 16,
           fontWeight: 'bold',
           fill: 0xffffff,
-          stroke: { color: 0x0f172a, width: 3 },
+          stroke: { color: 0x0f172a, width: 4 },
         },
       });
-      lbl.anchor.set(0.5, 1.8);
+      lbl.anchor.set(0.5, 2.0);
       this.playersContainer.addChild(lbl);
       this.playerLabels.push(lbl);
     }
@@ -270,6 +328,10 @@ export class RotasticWebClient {
       this.audio.play('select');
       this.showLobbyOverlay = !this.showLobbyOverlay;
       this.renderModalOverlay();
+    });
+
+    this.hostReturnMenuBtn?.addEventListener('click', () => {
+      this.sendHostReturnToLobby();
     });
 
     const muteBtn = document.getElementById('btn-toggle-mute');
@@ -416,6 +478,7 @@ export class RotasticWebClient {
           this.lobbyState.config.timeLimitSec
         );
       }
+      void this.ensureMapBackgrounds(this.lobbyState.config.mapId);
 
       if (this.lobbyState.sessionState === OnlineSessionState.LOADING_MAP) {
         // Confirm Barrier 1 (Map Loaded)
@@ -433,12 +496,15 @@ export class RotasticWebClient {
         this.lobbyState.sessionState === OnlineSessionState.IN_GAME &&
         prevState !== OnlineSessionState.IN_GAME
       ) {
+        this.standings = [];
         this.showLobbyOverlay = false;
         this.audio.play('gong', 0.55, 0.02);
       } else if (
         this.lobbyState.sessionState === OnlineSessionState.LOBBY_OPEN &&
-        prevState === OnlineSessionState.POST_MATCH_STANDINGS
+        (prevState === OnlineSessionState.POST_MATCH_STANDINGS ||
+          prevState === OnlineSessionState.IN_GAME)
       ) {
+        this.standings = [];
         this.showLobbyOverlay = true;
       }
 
@@ -462,6 +528,13 @@ export class RotasticWebClient {
       } else if (targetPhase === BarrierPhaseCode.MAP_LOADED) {
         this.showLobbyOverlay = false;
         this.renderModalOverlay();
+      } else if (
+        targetPhase === BarrierPhaseCode.POST_MATCH_ACK &&
+        Number(payload.sessionState ?? 0) === OnlineSessionState.LOBBY_OPEN
+      ) {
+        this.standings = [];
+        this.showLobbyOverlay = true;
+        this.renderModalOverlay();
       }
       return;
     }
@@ -474,6 +547,19 @@ export class RotasticWebClient {
     }
   }
 
+  private sendHostReturnToLobby(): void {
+    if (!this.lobbyState || this.peerId !== this.lobbyState.leaderPeerId) return;
+    this.audio.play('confirm');
+    const pkt = encodeAppControlMessage(
+      this.nextSeq(),
+      this.peerId,
+      0,
+      AppMessageSubType.HOST_RETURN_TO_LOBBY,
+      { reason: 'host_ended_match' }
+    );
+    this.ws?.send(pkt);
+  }
+
   private reconcileWorldSnapshot(serverWorld: WorldSimState, events: SimEvent[]): void {
     if (serverWorld.mapId !== this.localSim.state.mapId) {
       this.localSim.resetMatch(
@@ -481,6 +567,7 @@ export class RotasticWebClient {
         serverWorld.scoreLimit,
         serverWorld.timeRemainingSec
       );
+      void this.ensureMapBackgrounds(serverWorld.mapId);
     }
 
     // Play audio & spawn floating text for simulation events
@@ -497,11 +584,12 @@ export class RotasticWebClient {
       authLocal &&
       authLocal.active &&
       authLocal.status === localPlayerBefore.status &&
-      authLocal.status !== PlayerStatus.DEAD
+      authLocal.status !== PlayerStatus.DEAD &&
+      authLocal.status !== PlayerStatus.SPAWN_CURSOR
     ) {
       const errDist = Math.hypot(authLocal.x - localPlayerBefore.x, authLocal.y - localPlayerBefore.y);
-      if (errDist < 2.2) {
-        // Smoothly blend local predicted position toward server authority
+      if (errDist < 90) {
+        // Smoothly blend local predicted position toward server authority (1920x1080 pixel space)
         authLocal.x = localPlayerBefore.x + (authLocal.x - localPlayerBefore.x) * 0.35;
         authLocal.y = localPlayerBefore.y + (authLocal.y - localPlayerBefore.y) * 0.35;
       }
@@ -532,9 +620,24 @@ export class RotasticWebClient {
         );
         break;
       }
+      case 'trick':
+        this.audio.play('gem', 0.35, 0.08);
+        this.spawnFloatingText(ev.label ?? '+150', sx, Math.max(80, sy - 24), 0xf97316);
+        break;
+      case 'shieldbreak':
+        this.audio.play('wallbreak', 0.55, 0.05);
+        this.spawnFloatingText('ESCUDO!', sx, Math.max(80, sy - 20), 0xf8fafc);
+        break;
+      case 'switchtoggle':
+        this.audio.play('confirm', 0.45, 0.05);
+        this.spawnFloatingText(ev.label ?? 'SWITCH!', sx, Math.max(80, sy - 20), 0x22c55e);
+        break;
+      case 'spawndrop':
+        this.audio.play('respawn', 0.35, 0.05);
+        break;
       case 'ropecut':
         this.audio.play('ropecut', 0.55, 0.05);
-        this.spawnFloatingText('CORDA CORTADA!', sx, sy, 0xf97316);
+        this.spawnFloatingText('CUT!', sx, sy, 0xf97316);
         break;
       case 'slaughter':
         this.audio.play('slaughter', 0.65, 0.04);
@@ -545,11 +648,11 @@ export class RotasticWebClient {
         this.spawnFloatingText('CRASH!', sx, sy, 0xe2e8f0);
         break;
       case 'bounce':
-        this.audio.play('bounce', 0.25, 0.1);
+        this.audio.play('bounce', 0.22, 0.1);
         break;
       case 'death':
         this.audio.play('death', 0.5, 0.04);
-        this.spawnFloatingText('KO!', sx, sy, 0xef4444);
+        this.spawnFloatingText('KO!', sx, Math.min(VIEW_HEIGHT - 90, sy), 0xef4444);
         break;
       case 'respawn':
         this.audio.play('respawn', 0.35, 0.05);
@@ -601,7 +704,7 @@ export class RotasticWebClient {
     // Step local prediction
     this.localSim.step({ [this.mySlotIndex]: cmd }, C.FIXED_DT);
 
-    // Smoothly interpolate display positions & trails
+    // Smoothly interpolate display positions & trails (1920x1080 space)
     for (let i = 0; i < 4; i++) {
       const p = this.localSim.state.players[i];
       const disp = this.displayPos[i];
@@ -609,8 +712,14 @@ export class RotasticWebClient {
         disp.trails = [];
         continue;
       }
+      if (p.status === PlayerStatus.SPAWN_CURSOR) {
+        disp.x = p.spawnCursorX;
+        disp.y = C.SPAWN_DROP_Y;
+        disp.trails = [];
+        continue;
+      }
       const dist = Math.hypot(p.x - disp.x, p.y - disp.y);
-      if (dist > 4.0 || i === this.mySlotIndex) {
+      if (dist > 140 || i === this.mySlotIndex) {
         disp.x = p.x;
         disp.y = p.y;
       } else {
@@ -625,109 +734,178 @@ export class RotasticWebClient {
   private renderScene(dt: number): void {
     const map = this.localSim.map;
     const state = this.localSim.state;
+    const nowSec = performance.now() / 1000;
 
-    // 1. Arena Bounds, Grid, Vortices, Hill Zone & Walls
+    if (this.loadedBgMapId !== state.mapId) {
+      void this.ensureMapBackgrounds(state.mapId);
+    }
+
+    // 1. Arena Bounds, Abyss Line, Switch & OBB Obstacles
     this.arenaGraphics.clear();
 
-    // Subtle arena border
-    const left = worldToScreenX(-C.ARENA_HALF_WIDTH);
-    const right = worldToScreenX(C.ARENA_HALF_WIDTH);
-    const top = worldToScreenY(C.ARENA_HALF_HEIGHT);
-    const bottom = worldToScreenY(-C.ARENA_HALF_HEIGHT);
+    // Subtle arena border & bottom abyss hazard line (DEATH_BOTTOM_Y = 75)
+    const left = worldToScreenX(0);
+    const right = worldToScreenX(C.ARENA_WIDTH);
+    const top = worldToScreenY(C.ARENA_HEIGHT);
+    const bottom = worldToScreenY(0);
     this.arenaGraphics
       .rect(left, top, right - left, bottom - top)
-      .stroke({ color: 0x1e293b, width: 2 });
+      .stroke({ color: 0x334155, width: 2, alpha: 0.5 });
 
-    // KOTH Crown Zone
-    if (map.hillZone) {
-      const hx = worldToScreenX(map.hillZone.x);
-      const hy = worldToScreenY(map.hillZone.y);
-      const hr = map.hillZone.radius * PIXELS_PER_METER;
+    const deathLineY = worldToScreenY(C.DEATH_BOTTOM_Y);
+    this.arenaGraphics
+      .moveTo(0, deathLineY)
+      .lineTo(VIEW_WIDTH, deathLineY)
+      .stroke({ color: 0xef4444, width: 2, alpha: 0.32 });
+
+    // Interactive Switch (e.g. w_multi_dm_lvl04 Frog Lever)
+    if (map.switchDef) {
+      const sx = worldToScreenX(map.switchDef.x);
+      const sy = worldToScreenY(map.switchDef.y);
+      const sr = map.switchDef.radius;
+      const activeColor = state.switchReversed ? 0x22c55e : 0xf59e0b;
       this.arenaGraphics
-        .circle(hx, hy, hr)
-        .fill({ color: 0xf59e0b, alpha: 0.14 })
-        .stroke({ color: 0xfbbf24, width: 3 });
+        .circle(sx, sy, sr)
+        .fill({ color: activeColor, alpha: 0.25 })
+        .stroke({ color: activeColor, width: 4 });
+      this.arenaGraphics
+        .circle(sx, sy, sr * 0.42)
+        .fill({ color: activeColor, alpha: 0.9 });
     }
 
     // Gravity Vortices
     for (const v of map.vortices) {
       const vx = worldToScreenX(v.x);
       const vy = worldToScreenY(v.y);
-      const vr = v.radius * PIXELS_PER_METER;
       const col = v.strength >= 0 ? 0x8b5cf6 : 0xec4899;
       this.arenaGraphics
-        .circle(vx, vy, vr)
+        .circle(vx, vy, v.radius)
         .fill({ color: col, alpha: 0.12 })
         .stroke({ color: col, width: 2, alpha: 0.55 });
     }
 
-    // Walls
+    // OBB Walls & Saw/Cube/Beam Obstacles
     for (const w of state.walls) {
       if (!w.active) continue;
-      const x1 = worldToScreenX(w.x1);
-      const y1 = worldToScreenY(w.y1);
-      const x2 = worldToScreenX(w.x2);
-      const y2 = worldToScreenY(w.y2);
-      const wallColor =
+
+      const isSawDisc =
+        w.type === 'deadly' &&
+        (w.meshActor?.includes('scie') ||
+          (Math.abs(w.halfW - w.halfH) <= 4 && w.halfW >= 32));
+
+      if (isSawDisc) {
+        const scx = worldToScreenX(w.cx);
+        const scy = worldToScreenY(w.cy);
+        const r = w.halfW;
+        const teeth = 10;
+        const pts: number[] = [];
+        for (let t = 0; t < teeth * 2; t++) {
+          const ang = -w.rotRad + (t * Math.PI) / teeth;
+          const tr = t % 2 === 0 ? r * 1.05 : r * 0.78;
+          pts.push(scx + Math.cos(ang) * tr, scy + Math.sin(ang) * tr);
+        }
+        this.arenaGraphics
+          .poly(pts)
+          .fill({ color: 0x7f1d1d, alpha: 0.92 })
+          .stroke({ color: 0xef4444, width: 3.5 });
+        this.arenaGraphics
+          .circle(scx, scy, r * 0.28)
+          .fill({ color: 0x991b1b })
+          .stroke({ color: 0xfca5a5, width: 2 });
+        continue;
+      }
+
+      const cos = Math.cos(w.rotRad);
+      const sin = Math.sin(w.rotRad);
+      const localCorners: Array<[number, number]> = [
+        [-w.halfW, -w.halfH],
+        [w.halfW, -w.halfH],
+        [w.halfW, w.halfH],
+        [-w.halfW, w.halfH],
+      ];
+      const polyPts: number[] = [];
+      for (const [lx, ly] of localCorners) {
+        const wx = w.cx + lx * cos - ly * sin;
+        const wy = w.cy + lx * sin + ly * cos;
+        polyPts.push(worldToScreenX(wx), worldToScreenY(wy));
+      }
+
+      const fillColor =
+        w.type === 'deadly'
+          ? 0x7f1d1d
+          : w.type === 'bouncy'
+            ? w.meshActor?.includes('cube')
+              ? 0x1e3a8a
+              : 0x1e293b
+            : w.type === 'breakable'
+              ? 0x78350f
+              : 0x0f172a;
+      const strokeColor =
         w.type === 'deadly'
           ? 0xef4444
           : w.type === 'bouncy'
             ? 0x38bdf8
             : w.type === 'breakable'
               ? 0xf59e0b
-              : 0x94a3b8;
+              : 0x64748b;
+
       this.arenaGraphics
-        .moveTo(x1, y1)
-        .lineTo(x2, y2)
-        .stroke({ color: wallColor, width: 10, cap: 'round' });
+        .poly(polyPts)
+        .fill({ color: fillColor, alpha: 0.88 })
+        .stroke({ color: strokeColor, width: 3 });
     }
 
-    // 2. Pickups (Gems) & Attach Points
+    // 2. Dynamic Attach Points (Pivots) & Nearest Target Sector
     this.ropesGraphics.clear();
 
-    for (const pk of state.pickups) {
-      if (!pk.active) continue;
-      const gx = worldToScreenX(pk.x);
-      const gy = worldToScreenY(pk.y);
-      const color =
-        pk.gemType === 'diamond'
-          ? 0x38bdf8
-          : pk.gemType === 'gold'
-            ? 0xfacc15
-            : pk.gemType === 'silver'
-              ? 0xe2e8f0
-              : 0xd97706;
-      const radius = pk.gemType === 'diamond' ? 13 : pk.gemType === 'gold' ? 9 : 7;
-      this.arenaGraphics
-        .poly([gx, gy - radius, gx + radius, gy, gx, gy + radius, gx - radius, gy])
-        .fill({ color })
-        .stroke({ color: 0x0f172a, width: 2 });
-    }
-
-    // Attach Points (Pivots)
     const localPlayer = state.players[this.mySlotIndex];
     const nearestPivot =
       localPlayer && localPlayer.active && localPlayer.status === PlayerStatus.FREE_FALL
         ? this.localSim.findNearestAttachPoint(localPlayer.x, localPlayer.y)
         : null;
+    const localColor = (PLAYER_COLORS[localPlayer?.colorId ?? 0] ?? PLAYER_COLORS[0]).hex;
 
-    for (const ap of map.attachPoints) {
+    for (const ap of state.attachPoints) {
       const px = worldToScreenX(ap.x);
       const py = worldToScreenY(ap.y);
       const isTarget = nearestPivot?.id === ap.id;
 
       if (isTarget) {
-        this.arenaGraphics
-          .circle(px, py, 22)
-          .stroke({ color: 0xfbbf24, width: 2.5, alpha: 0.9 });
+        const spin = nowSec * 4.5;
+        drawArc(this.arenaGraphics, px, py, 28, spin, spin + Math.PI * 0.55, localColor, 4.5, 0.95);
+        drawArc(
+          this.arenaGraphics,
+          px,
+          py,
+          28,
+          spin + Math.PI,
+          spin + Math.PI * 1.55,
+          localColor,
+          4.5,
+          0.95
+        );
       }
+
       this.arenaGraphics
-        .circle(px, py, 11)
-        .fill({ color: isTarget ? 0xfbbf24 : 0x475569 })
-        .stroke({ color: 0xf8fafc, width: 2.5 });
+        .circle(px, py, 16)
+        .fill({ color: isTarget ? localColor : 0x334155, alpha: 0.92 })
+        .stroke({ color: 0xf8fafc, width: 3 });
+      this.arenaGraphics
+        .circle(px, py, 6)
+        .fill({ color: isTarget ? 0xf8fafc : 0x94a3b8 });
     }
 
-    // 3. Ropes, Motion Trails & Players
+    // Identify leader (highest score > 0) for Golden Crown
+    let leaderSlot = -1;
+    let bestScore = 0;
+    for (const p of state.players) {
+      if (p.active && p.score > bestScore) {
+        bestScore = p.score;
+        leaderSlot = p.slotIndex;
+      }
+    }
+
+    // 3. Ropes, Dual Shield Gauges, Spawn Cursor & Players
     for (let i = 0; i < 4; i++) {
       const p = state.players[i];
       const spr = this.playerSprites[i];
@@ -740,11 +918,51 @@ export class RotasticWebClient {
         continue;
       }
 
+      const colorMeta = PLAYER_COLORS[p.colorId] ?? PLAYER_COLORS[0];
+      const charMeta = CHARACTER_NAMES[p.characterId] ?? CHARACTER_NAMES[0];
+
+      // SPAWN_CURSOR: top-of-screen sliding drop selector
+      if (p.status === PlayerStatus.SPAWN_CURSOR) {
+        spr.visible = true;
+        lbl.visible = true;
+        const cx = worldToScreenX(p.spawnCursorX);
+        const cy = 62;
+        const bob = Math.sin(nowSec * 8) * 4;
+
+        const texKey = `/assets/textures/global/t_character_${colorMeta.code}_${charMeta.id}_fly_c.png`;
+        const tex = this.texturesCache.get(texKey);
+        if (tex) {
+          spr.texture = tex;
+          spr.tint = 0xffffff;
+        } else {
+          spr.tint = colorMeta.hex;
+        }
+        spr.x = cx;
+        spr.y = cy;
+        spr.rotation = 0;
+        spr.alpha = 0.85;
+
+        // Dashed drop guide & chevron arrow pointing down
+        this.ropesGraphics
+          .moveTo(cx, cy + 40)
+          .lineTo(cx, cy + 92)
+          .stroke({ color: colorMeta.hex, width: 2.5, alpha: 0.45 });
+        this.ropesGraphics
+          .poly([cx - 12, cy + 44 + bob, cx + 12, cy + 44 + bob, cx, cy + 60 + bob])
+          .fill({ color: colorMeta.hex, alpha: 0.95 });
+        this.ropesGraphics
+          .circle(cx, cy, C.PLAYER_RADIUS)
+          .stroke({ color: colorMeta.hex, width: 3 });
+
+        lbl.text = i === this.mySlotIndex ? `${p.name} (APERTE ESPAÇO)` : p.name;
+        lbl.x = cx;
+        lbl.y = cy + 68;
+        continue;
+      }
+
       spr.visible = true;
       lbl.visible = true;
 
-      const colorMeta = PLAYER_COLORS[p.colorId] ?? PLAYER_COLORS[0];
-      const charMeta = CHARACTER_NAMES[p.characterId] ?? CHARACTER_NAMES[0];
       const sx = worldToScreenX(disp.x);
       const sy = worldToScreenY(disp.y);
 
@@ -752,22 +970,32 @@ export class RotasticWebClient {
       for (let t = 0; t < disp.trails.length - 1; t++) {
         const pt = disp.trails[t];
         const alpha = (1 - t / disp.trails.length) * 0.35;
-        const r = (1 - t / disp.trails.length) * 14;
+        const r = (1 - t / disp.trails.length) * 18;
         this.ropesGraphics
           .circle(worldToScreenX(pt.x), worldToScreenY(pt.y), r)
           .fill({ color: colorMeta.hex, alpha });
       }
 
-      // Active Rope Line
+      // Active Two-Tone Rope Line
       if (p.status === PlayerStatus.SWINGING && p.attachedPivotId >= 0) {
-        const pivot = map.attachPoints.find((a) => a.id === p.attachedPivotId);
+        const pivot = state.attachPoints.find((a) => a.id === p.attachedPivotId);
         if (pivot) {
           const px = worldToScreenX(pivot.x);
           const py = worldToScreenY(pivot.y);
+          const mx = (px + sx) * 0.5;
+          const my = (py + sy) * 0.5;
+          this.ropesGraphics
+            .moveTo(px, py)
+            .lineTo(mx, my)
+            .stroke({ color: 0xf97316, width: 6, cap: 'round' });
+          this.ropesGraphics
+            .moveTo(mx, my)
+            .lineTo(sx, sy)
+            .stroke({ color: 0xf8fafc, width: 4, cap: 'round' });
           this.ropesGraphics
             .moveTo(px, py)
             .lineTo(sx, sy)
-            .stroke({ color: colorMeta.hex, width: 4.5, cap: 'round' });
+            .stroke({ color: colorMeta.hex, width: 2, alpha: 0.85 });
         }
       }
 
@@ -792,19 +1020,61 @@ export class RotasticWebClient {
       spr.x = sx;
       spr.y = sy;
       spr.rotation = Math.atan2(-p.vy, p.vx) * 0.25;
-      spr.alpha = p.invulnTimer > 0 ? (Math.floor(performance.now() / 80) % 2 === 0 ? 0.5 : 1.0) : 1.0;
+      spr.alpha = p.invulnTimer > 0 ? (Math.floor(performance.now() / 75) % 2 === 0 ? 0.45 : 1.0) : 1.0;
 
-      // Player Ring & Nameplate
+      // Base player identification ring
       this.ropesGraphics
-        .circle(sx, sy, C.PLAYER_RADIUS * PIXELS_PER_METER)
+        .circle(sx, sy, C.PLAYER_RADIUS)
         .stroke({
           color: p.status === PlayerStatus.DIZZY ? 0xf97316 : colorMeta.hex,
-          width: i === this.mySlotIndex ? 3.5 : 2,
+          width: i === this.mySlotIndex ? 3 : 2,
+          alpha: 0.9,
         });
 
-      lbl.text = p.status === PlayerStatus.DIZZY ? `💫 ${p.name}` : p.name;
+      // Outer Protection Shield Ring (c1): arc fill -> white shield bubble at 1.0
+      if (p.chargeGauge >= 1.0) {
+        this.ropesGraphics
+          .circle(sx, sy, C.PLAYER_RADIUS + 4)
+          .fill({ color: 0xffffff, alpha: 0.14 })
+          .stroke({ color: 0xf8fafc, width: 3.5, alpha: 0.95 });
+      } else if (p.chargeGauge > 0.02) {
+        drawArc(
+          this.ropesGraphics,
+          sx,
+          sy,
+          C.PLAYER_RADIUS + 4,
+          -Math.PI * 0.5,
+          -Math.PI * 0.5 + p.chargeGauge * Math.PI * 2,
+          colorMeta.hex,
+          3.5,
+          0.95
+        );
+      }
+
+      // Thick Orange Trick/Mass Ring (c2): boosts collision weight & acts as secondary shield at 1.0
+      if (p.chargeGauge2 >= 1.0) {
+        this.ropesGraphics
+          .circle(sx, sy, C.PLAYER_RADIUS + 11)
+          .stroke({ color: 0xf97316, width: 6, alpha: 0.95 });
+      } else if (p.chargeGauge2 > 0.02) {
+        drawArc(
+          this.ropesGraphics,
+          sx,
+          sy,
+          C.PLAYER_RADIUS + 11,
+          -Math.PI * 0.5,
+          -Math.PI * 0.5 + p.chargeGauge2 * Math.PI * 2,
+          0xf97316,
+          6,
+          0.95
+        );
+      }
+
+      const crownPrefix = p.slotIndex === leaderSlot ? '👑 ' : '';
+      const dizzyPrefix = p.status === PlayerStatus.DIZZY ? '💫 ' : '';
+      lbl.text = `${crownPrefix}${dizzyPrefix}${p.name}`;
       lbl.x = sx;
-      lbl.y = sy;
+      lbl.y = sy - 8;
     }
 
     // 4. Update Floating Score / Event Popups
@@ -833,12 +1103,22 @@ export class RotasticWebClient {
     const ss = String(totalSec % 60).padStart(2, '0');
     this.hudTimerValEl.textContent = `${mm}:${ss}`;
 
+    const isHostInGame =
+      this.lobbyState?.sessionState === OnlineSessionState.IN_GAME &&
+      this.peerId > 0 &&
+      this.peerId === this.lobbyState.leaderPeerId;
+    if (this.hostReturnMenuBtn) {
+      this.hostReturnMenuBtn.style.display = isHostInGame ? 'inline-block' : 'none';
+    }
+
     const cardsHtml = state.players
       .filter((p) => p.active)
       .map((p) => {
         const col = PLAYER_COLORS[p.colorId] ?? PLAYER_COLORS[0];
         const ch = CHARACTER_NAMES[p.characterId] ?? CHARACTER_NAMES[0];
         const isMe = p.slotIndex === this.mySlotIndex;
+        const shieldBadge = p.chargeGauge >= 1.0 ? ' 🫧' : '';
+        const orangeBadge = p.chargeGauge2 > 0 ? ` 🟠${Math.round(p.chargeGauge2 * 100)}%` : '';
         return `
           <div class="player-hud-card" style="border-color: ${col.css}">
             <div class="p-name">
@@ -846,7 +1126,7 @@ export class RotasticWebClient {
               <span>${p.isBot ? '🤖' : '🎮'}</span>
             </div>
             <div class="p-score">${p.score}</div>
-            <div class="p-sub">${ch.label} • K:${p.kills} D:${p.deaths}</div>
+            <div class="p-sub">${ch.label} • K:${p.kills} D:${p.deaths}${shieldBadge}${orangeBadge}</div>
           </div>
         `;
       })
@@ -941,8 +1221,11 @@ export class RotasticWebClient {
       (m) =>
         `<option value="${m.id}" ${
           m.id === this.lobbyState!.config.mapId ? 'selected' : ''
-        }>[${m.mode.toUpperCase()}] ${m.name}</option>`
+        }>${m.name}</option>`
     ).join('');
+    const selectedMapDef = getMultiplayerMapById(this.lobbyState.config.mapId);
+    const isHost = this.peerId > 0 && this.peerId === this.lobbyState.leaderPeerId;
+    const isInGame = this.lobbyState.sessionState === OnlineSessionState.IN_GAME;
 
     this.modalOverlayEl.innerHTML = `
       <div class="panel">
@@ -996,8 +1279,9 @@ export class RotasticWebClient {
             </div>
 
             <div class="form-row">
-              <label>Arena Multiplayer (19 Mapas Originais)</label>
+              <label>Arena Deathmatch (${MULTIPLAYER_MAPS.length} Mapas Originais)</label>
               <select id="sel-map">${mapOptionsHtml}</select>
+              <div style="font-size: 11px; color: #94a3b8; margin-top: 4px">${selectedMapDef.subtitle}</div>
             </div>
 
             <div class="grid-2" style="gap: 8px">
@@ -1021,19 +1305,28 @@ export class RotasticWebClient {
         <div style="display:flex; justify-content: space-between; align-items: center; margin-top: 18px; padding-top: 14px; border-top: 1px solid #334155">
           <div style="font-size: 13px; color: #94a3b8">
             Estado da Sessão: <code>0x${this.lobbyState.sessionState.toString(16).toUpperCase()}</code>
+            ${isHost ? ' • <span style="color:#fbbf24">👑 Host da Sala</span>' : ''}
           </div>
           <div style="display: flex; gap: 10px">
             ${
-              this.lobbyState.sessionState === OnlineSessionState.IN_GAME
-                ? '<button class="btn-secondary" id="btn-resume-game">Voltar à Partida</button>'
-                : ''
+              isInGame
+                ? `
+                  ${
+                    isHost
+                      ? '<button class="btn-secondary" id="btn-host-end-match-modal" style="border-color: #f59e0b; color: #fde68a">🏁 Encerrar Partida (Voltar ao Menu)</button>'
+                      : ''
+                  }
+                  <button class="btn-secondary" id="btn-resume-game">Voltar à Partida</button>
+                `
+                : `
+                  <button class="btn-primary" id="btn-ready-toggle">
+                    ${mySlot.ready ? 'Cancelar Pronto' : '✔ Marcar Pronto'}
+                  </button>
+                  <button class="btn-success" id="btn-start-match">
+                    🚀 Iniciar Partida Agora!
+                  </button>
+                `
             }
-            <button class="btn-primary" id="btn-ready-toggle">
-              ${mySlot.ready ? 'Cancelar Pronto' : '✔ Marcar Pronto'}
-            </button>
-            <button class="btn-success" id="btn-start-match">
-              🚀 Iniciar Partida Agora!
-            </button>
           </div>
         </div>
       </div>
@@ -1130,6 +1423,10 @@ export class RotasticWebClient {
         { phaseCode: BarrierPhaseCode.LOBBY_READY, ready: true, forceStart: true }
       );
       this.ws?.send(pkt);
+    });
+
+    document.getElementById('btn-host-end-match-modal')?.addEventListener('click', () => {
+      this.sendHostReturnToLobby();
     });
 
     document.getElementById('btn-resume-game')?.addEventListener('click', () => {

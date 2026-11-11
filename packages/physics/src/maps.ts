@@ -1,26 +1,48 @@
 import { GameModeId, GemType, WallType } from './constants.js';
 
+export interface WaypointMotion {
+  kind: 'waypoints';
+  points: Array<{ x: number; y: number; durationSec: number }>;
+  switchControlled?: boolean;
+}
+
+export interface RotateMotion {
+  kind: 'rotate';
+  /** Angular velocity in degrees per second (positive = CCW in Y-up). */
+  degPerSec: number;
+}
+
 export interface AttachPointDef {
   id: number;
+  name: string;
   x: number;
   y: number;
+  motion?: WaypointMotion;
 }
 
 export interface WallDef {
   id: number;
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
+  name: string;
+  cx: number;
+  cy: number;
+  halfW: number;
+  halfH: number;
+  rotDeg: number;
   type: WallType;
+  meshActor?: string;
+  motion?: RotateMotion | WaypointMotion;
 }
 
-export interface VortexDef {
-  id: number;
+export interface SwitchDef {
+  name: string;
   x: number;
   y: number;
   radius: number;
-  strength: number; // positive = attract, negative = repel
+}
+
+export interface BgLayerDef {
+  texture: string;
+  alpha?: number;
 }
 
 export interface PickupSpawnDef {
@@ -31,669 +53,601 @@ export interface PickupSpawnDef {
   waveGroup: number;
 }
 
+export interface VortexDef {
+  id: number;
+  x: number;
+  y: number;
+  radius: number;
+  strength: number;
+}
+
 export interface MultiplayerMapDef {
   id: string;
   name: string;
+  subtitle: string;
   mode: GameModeId;
-  theme: 'basic' | 'ero' | 'jem' | 'koth';
+  bgmTrack: string;
   defaultScoreLimit: number;
   defaultTimeLimitSec: number;
+  bgLayers: BgLayerDef[];
   spawns: Array<{ x: number; y: number }>;
   attachPoints: AttachPointDef[];
   walls: WallDef[];
+  switchDef?: SwitchDef;
   vortices: VortexDef[];
   pickups: PickupSpawnDef[];
   hillZone?: { x: number; y: number; radius: number };
 }
 
-function makeDiamondRingPickups(
-  startId: number,
-  cx: number,
-  cy: number,
-  radius: number,
-  count: number,
-  gemType: GemType,
-  waveGroup: number
-): PickupSpawnDef[] {
-  const out: PickupSpawnDef[] = [];
-  for (let i = 0; i < count; i++) {
-    const angle = (i / count) * Math.PI * 2;
-    out.push({
-      id: startId + i,
-      x: Number((cx + Math.cos(angle) * radius).toFixed(2)),
-      y: Number((cy + Math.sin(angle) * radius).toFixed(2)),
-      gemType,
-      waveGroup,
-    });
+function defaultArenaWalls(startId = 0): WallDef[] {
+  return [
+    {
+      id: startId,
+      name: 'PRP_wallLeft',
+      cx: 15,
+      cy: 540,
+      halfW: 15,
+      halfH: 600,
+      rotDeg: 0,
+      type: 'bouncy',
+      meshActor: 'o_rebondecranbois_l',
+    },
+    {
+      id: startId + 1,
+      name: 'PRP_wallRight',
+      cx: 1905,
+      cy: 540,
+      halfW: 15,
+      halfH: 600,
+      rotDeg: 0,
+      type: 'bouncy',
+      meshActor: 'o_rebondecranbois_r',
+    },
+    {
+      id: startId + 2,
+      name: 'WallTop',
+      cx: 960,
+      cy: 1480,
+      halfW: 96,
+      halfH: 25,
+      rotDeg: 0,
+      type: 'bouncy',
+    },
+  ];
+}
+
+const DEFAULT_TOP_SPAWNS = [
+  { x: 384, y: 1080 },
+  { x: 768, y: 1080 },
+  { x: 1152, y: 1080 },
+  { x: 1536, y: 1080 },
+];
+
+/**
+ * Evaluate looping waypoint interpolation at time `tSec`.
+ */
+export function evaluateWaypointMotion(
+  motion: WaypointMotion,
+  tSec: number,
+  reverse = false
+): { x: number; y: number } {
+  const pts = motion.points;
+  if (pts.length === 0) return { x: 0, y: 0 };
+  if (pts.length === 1) return { x: pts[0].x, y: pts[0].y };
+
+  let totalDur = 0;
+  for (let i = 0; i < pts.length; i++) {
+    totalDur += Math.max(0.05, pts[i].durationSec);
   }
-  return out;
+  let elapsed = ((tSec % totalDur) + totalDur) % totalDur;
+  if (reverse) {
+    elapsed = (totalDur - elapsed) % totalDur;
+  }
+
+  for (let i = 0; i < pts.length; i++) {
+    const a = pts[i];
+    const b = pts[(i + 1) % pts.length];
+    const segDur = Math.max(0.05, a.durationSec);
+    if (elapsed <= segDur) {
+      const alpha = elapsed / segDur;
+      return {
+        x: a.x + (b.x - a.x) * alpha,
+        y: a.y + (b.y - a.y) * alpha,
+      };
+    }
+    elapsed -= segDur;
+  }
+  return { x: pts[0].x, y: pts[0].y };
 }
 
 /**
- * All 19 Multiplayer Maps extracted from Rotastic's `w_multi*.pc` packages.
- * Coordinates are in Rotastic 2D world units ([-18, +18] x [-10.5, +10.5], Y-up).
+ * All 8 official Multiplayer Deathmatch arenas from `Lobby MapList DataTable` (`w_menurotastic_fetm.pc`)
+ * in exact `1920x1080` Y-up coordinates (`reference/decompiled/deathmatch-maps-spec.json`).
  */
 export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
   {
-    id: 'w_multi_coll_lvl01',
-    name: 'Crystal Keep (Collect 01)',
-    mode: 'collect',
-    theme: 'basic',
-    defaultScoreLimit: 5000,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -10, y: 4.5 },
-      { x: 10, y: 4.5 },
-      { x: -10, y: -3.5 },
-      { x: 10, y: -3.5 },
-    ],
-    attachPoints: [
-      { id: 0, x: -9.5, y: 3.5 },
-      { id: 1, x: 9.5, y: 3.5 },
-      { id: 2, x: -9.5, y: -3.5 },
-      { id: 3, x: 9.5, y: -3.5 },
-      { id: 4, x: -4.2, y: 0.0 },
-      { id: 5, x: 4.2, y: 0.0 },
-      { id: 6, x: 0.0, y: 4.8 },
-      { id: 7, x: 0.0, y: -4.8 },
-    ],
-    walls: [
-      { id: 0, x1: -15.5, y1: 8.8, x2: 15.5, y2: 8.8, type: 'bouncy' },
-      { id: 1, x1: -15.5, y1: -8.8, x2: -5.0, y2: -8.8, type: 'bouncy' },
-      { id: 2, x1: 5.0, y1: -8.8, x2: 15.5, y2: -8.8, type: 'bouncy' },
-      { id: 3, x1: -16.2, y1: -7.5, x2: -16.2, y2: 7.5, type: 'bouncy' },
-      { id: 4, x1: 16.2, y1: -7.5, x2: 16.2, y2: 7.5, type: 'bouncy' },
-    ],
-    vortices: [],
-    pickups: [
-      { id: 0, x: 0, y: 0, gemType: 'diamond', waveGroup: 0 },
-      ...makeDiamondRingPickups(1, 0, 0, 2.8, 8, 'gold', 0),
-      ...makeDiamondRingPickups(9, -9.5, 3.5, 2.4, 6, 'silver', 0),
-      ...makeDiamondRingPickups(15, 9.5, 3.5, 2.4, 6, 'silver', 0),
-      ...makeDiamondRingPickups(21, -9.5, -3.5, 2.4, 6, 'bronze', 1),
-      ...makeDiamondRingPickups(27, 9.5, -3.5, 2.4, 6, 'bronze', 1),
-      { id: 33, x: 0, y: 6.8, gemType: 'diamond', waveGroup: 1 },
-      { id: 34, x: 0, y: -6.8, gemType: 'diamond', waveGroup: 1 },
-    ],
-  },
-  {
-    id: 'w_multi_coll_lvl02',
-    name: 'Twin Gears (Collect 02)',
-    mode: 'collect',
-    theme: 'jem',
-    defaultScoreLimit: 5500,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -11, y: 3 },
-      { x: 11, y: 3 },
-      { x: -6, y: -4 },
-      { x: 6, y: -4 },
-    ],
-    attachPoints: [
-      { id: 0, x: -7.5, y: 1.5 },
-      { id: 1, x: 7.5, y: 1.5 },
-      { id: 2, x: -2.8, y: 4.5 },
-      { id: 3, x: 2.8, y: 4.5 },
-      { id: 4, x: -2.8, y: -4.2 },
-      { id: 5, x: 2.8, y: -4.2 },
-      { id: 6, x: 0.0, y: 0.2 },
-    ],
-    walls: [
-      { id: 0, x1: -14.0, y1: 8.6, x2: 14.0, y2: 8.6, type: 'bouncy' },
-      { id: 1, x1: -16.0, y1: -6.5, x2: -16.0, y2: 6.5, type: 'bouncy' },
-      { id: 2, x1: 16.0, y1: -6.5, x2: 16.0, y2: 6.5, type: 'bouncy' },
-      { id: 3, x1: -4.5, y1: -8.6, x2: 4.5, y2: -8.6, type: 'deadly' },
-    ],
-    vortices: [{ id: 0, x: 0, y: 0.2, radius: 5.0, strength: 4.5 }],
-    pickups: [
-      ...makeDiamondRingPickups(0, -7.5, 1.5, 3.0, 8, 'gold', 0),
-      ...makeDiamondRingPickups(8, 7.5, 1.5, 3.0, 8, 'gold', 0),
-      { id: 16, x: 0, y: 6.2, gemType: 'diamond', waveGroup: 0 },
-      ...makeDiamondRingPickups(17, 0, 0.2, 3.4, 10, 'silver', 1),
-      { id: 27, x: -12.0, y: 0, gemType: 'diamond', waveGroup: 1 },
-      { id: 28, x: 12.0, y: 0, gemType: 'diamond', waveGroup: 1 },
-    ],
-  },
-  {
-    id: 'w_multi_coll_lvl03',
-    name: 'Vortex Vault (Collect 03)',
-    mode: 'collect',
-    theme: 'jem',
-    defaultScoreLimit: 6000,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -11, y: 5 },
-      { x: 11, y: 5 },
-      { x: -11, y: -5 },
-      { x: 11, y: -5 },
-    ],
-    attachPoints: [
-      { id: 0, x: -10.0, y: 4.2 },
-      { id: 1, x: 10.0, y: 4.2 },
-      { id: 2, x: -10.0, y: -4.2 },
-      { id: 3, x: 10.0, y: -4.2 },
-      { id: 4, x: -4.8, y: 2.2 },
-      { id: 5, x: 4.8, y: 2.2 },
-      { id: 6, x: -4.8, y: -2.2 },
-      { id: 7, x: 4.8, y: -2.2 },
-    ],
-    walls: [
-      { id: 0, x1: -16.0, y1: 8.8, x2: 16.0, y2: 8.8, type: 'bouncy' },
-      { id: 1, x1: -16.0, y1: -8.8, x2: 16.0, y2: -8.8, type: 'bouncy' },
-      { id: 2, x1: -1.8, y1: -3.2, x2: 1.8, y2: -3.2, type: 'breakable' },
-      { id: 3, x1: -1.8, y1: 3.2, x2: 1.8, y2: 3.2, type: 'breakable' },
-    ],
-    vortices: [
-      { id: 0, x: 0, y: 0, radius: 5.5, strength: -6.5 },
-    ],
-    pickups: [
-      { id: 0, x: 0, y: 0, gemType: 'diamond', waveGroup: 0 },
-      ...makeDiamondRingPickups(1, 0, 0, 2.2, 8, 'gold', 0),
-      ...makeDiamondRingPickups(9, -10, 0, 2.8, 6, 'silver', 1),
-      ...makeDiamondRingPickups(15, 10, 0, 2.8, 6, 'silver', 1),
-    ],
-  },
-  {
-    id: 'w_multi_coll_lvl04',
-    name: 'Pendulum Foundry (Collect 04)',
-    mode: 'collect',
-    theme: 'ero',
-    defaultScoreLimit: 5000,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -12, y: 4 },
-      { x: 12, y: 4 },
-      { x: -4, y: 5 },
-      { x: 4, y: 5 },
-    ],
-    attachPoints: [
-      { id: 0, x: -11.0, y: 3.2 },
-      { id: 1, x: -5.5, y: 0.5 },
-      { id: 2, x: 0.0, y: 3.8 },
-      { id: 3, x: 5.5, y: 0.5 },
-      { id: 4, x: 11.0, y: 3.2 },
-      { id: 5, x: -5.5, y: -4.8 },
-      { id: 6, x: 5.5, y: -4.8 },
-    ],
-    walls: [
-      { id: 0, x1: -16.2, y1: -8.0, x2: -16.2, y2: 8.0, type: 'bouncy' },
-      { id: 1, x1: 16.2, y1: -8.0, x2: 16.2, y2: 8.0, type: 'bouncy' },
-      { id: 2, x1: -12.0, y1: -8.8, x2: 12.0, y2: -8.8, type: 'deadly' },
-    ],
-    vortices: [],
-    pickups: [
-      ...makeDiamondRingPickups(0, -5.5, 0.5, 2.8, 8, 'gold', 0),
-      ...makeDiamondRingPickups(8, 5.5, 0.5, 2.8, 8, 'gold', 0),
-      { id: 16, x: 0, y: -2.5, gemType: 'diamond', waveGroup: 0 },
-      ...makeDiamondRingPickups(17, 0, 3.8, 2.6, 8, 'silver', 1),
-    ],
-  },
-  {
-    id: 'w_multi_coll_lvl05',
-    name: 'Ricochet Caverns (Collect 05)',
-    mode: 'collect',
-    theme: 'basic',
-    defaultScoreLimit: 5500,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -9, y: 4 },
-      { x: 9, y: 4 },
-      { x: -9, y: -4 },
-      { x: 9, y: -4 },
-    ],
-    attachPoints: [
-      { id: 0, x: -8.0, y: 3.2 },
-      { id: 1, x: 8.0, y: 3.2 },
-      { id: 2, x: -8.0, y: -3.2 },
-      { id: 3, x: 8.0, y: -3.2 },
-      { id: 4, x: 0.0, y: 0.0 },
-    ],
-    walls: [
-      { id: 0, x1: -14.5, y1: 8.5, x2: 14.5, y2: 8.5, type: 'bouncy' },
-      { id: 1, x1: -14.5, y1: -8.5, x2: 14.5, y2: -8.5, type: 'bouncy' },
-      { id: 2, x1: -15.8, y1: -6.5, x2: -15.8, y2: 6.5, type: 'bouncy' },
-      { id: 3, x1: 15.8, y1: -6.5, x2: 15.8, y2: 6.5, type: 'bouncy' },
-    ],
-    vortices: [],
-    pickups: [
-      ...makeDiamondRingPickups(0, 0, 0, 3.5, 10, 'gold', 0),
-      { id: 10, x: -12.5, y: 0, gemType: 'diamond', waveGroup: 0 },
-      { id: 11, x: 12.5, y: 0, gemType: 'diamond', waveGroup: 0 },
-      ...makeDiamondRingPickups(12, -8, 3.2, 2.2, 6, 'silver', 1),
-      ...makeDiamondRingPickups(18, 8, -3.2, 2.2, 6, 'silver', 1),
-    ],
-  },
-  {
-    id: 'w_multi_coll_lvl06',
-    name: 'Diamond Abyss (Collect 06)',
-    mode: 'collect',
-    theme: 'jem',
-    defaultScoreLimit: 6500,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -10, y: 5 },
-      { x: 10, y: 5 },
-      { x: -5, y: 2 },
-      { x: 5, y: 2 },
-    ],
-    attachPoints: [
-      { id: 0, x: -9.5, y: 4.0 },
-      { id: 1, x: -3.5, y: 1.5 },
-      { id: 2, x: 3.5, y: 1.5 },
-      { id: 3, x: 9.5, y: 4.0 },
-      { id: 4, x: -6.5, y: -3.5 },
-      { id: 5, x: 6.5, y: -3.5 },
-      { id: 6, x: 0.0, y: -4.8 },
-    ],
-    walls: [
-      { id: 0, x1: -15.5, y1: 8.8, x2: 15.5, y2: 8.8, type: 'bouncy' },
-      { id: 1, x1: -16.2, y1: -4.0, x2: -12.0, y2: -8.5, type: 'deadly' },
-      { id: 2, x1: 16.2, y1: -4.0, x2: 12.0, y2: -8.5, type: 'deadly' },
-    ],
-    vortices: [{ id: 0, x: 0, y: -1.5, radius: 5.0, strength: 5.2 }],
-    pickups: [
-      { id: 0, x: 0, y: -7.2, gemType: 'diamond', waveGroup: 0 },
-      { id: 1, x: 0, y: 5.8, gemType: 'diamond', waveGroup: 0 },
-      ...makeDiamondRingPickups(2, -3.5, 1.5, 2.5, 6, 'gold', 0),
-      ...makeDiamondRingPickups(8, 3.5, 1.5, 2.5, 6, 'gold', 0),
-      ...makeDiamondRingPickups(14, 0, -4.8, 2.5, 8, 'gold', 1),
-    ],
-  },
-  {
-    id: 'w_multi_dm_lvl01',
-    name: 'Blade Pit (Deathmatch 01)',
+    id: 'w_multi_dm_lvl09',
+    name: 'Campagne — Moinho & Ponte',
+    subtitle: '3 serras/lanças patrulhando bordas + pivô superior móvel',
     mode: 'deathmatch',
-    theme: 'ero',
+    bgmTrack: 'bgm_syl_foret',
     defaultScoreLimit: 10,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -9.5, y: 4.5 },
-      { x: 9.5, y: 4.5 },
-      { x: -9.5, y: -3.5 },
-      { x: 9.5, y: -3.5 },
+    defaultTimeLimitSec: 90,
+    bgLayers: [
+      { texture: 't_bgcampagne01_c' },
+      { texture: 't_bgcampagne00_c' },
     ],
+    spawns: DEFAULT_TOP_SPAWNS,
     attachPoints: [
-      { id: 0, x: -8.5, y: 3.5 },
-      { id: 1, x: 8.5, y: 3.5 },
-      { id: 2, x: -8.5, y: -3.5 },
-      { id: 3, x: 8.5, y: -3.5 },
-      { id: 4, x: -3.2, y: 0.0 },
-      { id: 5, x: 3.2, y: 0.0 },
-      { id: 6, x: 0.0, y: 4.2 },
-      { id: 7, x: 0.0, y: -4.2 },
+      { id: 0, name: 'PRP_attachRef', x: 350, y: 300 },
+      { id: 1, name: 'PRP_attachRef000', x: 960, y: 400 },
+      { id: 2, name: 'PRP_attachRef001', x: 1570, y: 300 },
+      {
+        id: 3,
+        name: 'PRP_attachRef002',
+        x: 300,
+        y: 850,
+        motion: {
+          kind: 'waypoints',
+          points: [
+            { x: 320, y: 830, durationSec: 4.5 },
+            { x: 1600, y: 830, durationSec: 4.5 },
+          ],
+        },
+      },
     ],
     walls: [
-      { id: 0, x1: -14.5, y1: 8.6, x2: 14.5, y2: 8.6, type: 'bouncy' },
-      { id: 1, x1: -14.5, y1: -8.6, x2: -4.5, y2: -8.6, type: 'deadly' },
-      { id: 2, x1: 4.5, y1: -8.6, x2: 14.5, y2: -8.6, type: 'deadly' },
-      { id: 3, x1: -16.0, y1: -6.5, x2: -16.0, y2: 6.5, type: 'bouncy' },
-      { id: 4, x1: 16.0, y1: -6.5, x2: 16.0, y2: 6.5, type: 'bouncy' },
+      ...defaultArenaWalls(0),
+      {
+        id: 3,
+        name: 'MurTueur',
+        cx: 125,
+        cy: 15,
+        halfW: 125,
+        halfH: 25,
+        rotDeg: 0,
+        type: 'deadly',
+        meshActor: 'o_Armes',
+        motion: {
+          kind: 'waypoints',
+          points: [
+            { x: 165, y: 18, durationSec: 10 },
+            { x: 1795, y: 18, durationSec: 10 },
+          ],
+        },
+      },
+      {
+        id: 4,
+        name: 'MurTueurGauche',
+        cx: 22,
+        cy: 955,
+        halfW: 25,
+        halfH: 125,
+        rotDeg: 0,
+        type: 'deadly',
+        meshActor: 'o_multi04_BordTueur',
+        motion: {
+          kind: 'waypoints',
+          points: [
+            { x: 22, y: 955, durationSec: 10 },
+            { x: 22, y: 125, durationSec: 10 },
+          ],
+        },
+      },
+      {
+        id: 5,
+        name: 'MurTueurDroite',
+        cx: 1898,
+        cy: 125,
+        halfW: 25,
+        halfH: 125,
+        rotDeg: 0,
+        type: 'deadly',
+        meshActor: 'o_multi04_BordTueur000',
+        motion: {
+          kind: 'waypoints',
+          points: [
+            { x: 1898, y: 125, durationSec: 10 },
+            { x: 1898, y: 955, durationSec: 10 },
+          ],
+        },
+      },
     ],
     vortices: [],
     pickups: [],
   },
   {
     id: 'w_multi_dm_lvl02',
-    name: 'Spike Crucible (Deathmatch 02)',
+    name: 'Ville Marron — Cubo Giratório',
+    subtitle: 'Cubo elástico 512x512 girando 90°/4s no centro',
     mode: 'deathmatch',
-    theme: 'ero',
+    bgmTrack: 'bgm_syl_ville',
     defaultScoreLimit: 10,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -10, y: 4 },
-      { x: 10, y: 4 },
-      { x: -5, y: -3 },
-      { x: 5, y: -3 },
+    defaultTimeLimitSec: 90,
+    bgLayers: [
+      { texture: 't_bgville2maron00_c' },
+      { texture: 't_bgville2maron01_c' },
     ],
+    spawns: DEFAULT_TOP_SPAWNS,
     attachPoints: [
-      { id: 0, x: -9.0, y: 3.0 },
-      { id: 1, x: 9.0, y: 3.0 },
-      { id: 2, x: -4.5, y: -3.0 },
-      { id: 3, x: 4.5, y: -3.0 },
-      { id: 4, x: 0.0, y: 1.5 },
+      { id: 0, name: 'PRP_attachRef000', x: 340, y: 880 },
+      { id: 1, name: 'PRP_attachRef001', x: 1580, y: 880 },
+      { id: 2, name: 'PRP_attachRef002', x: 340, y: 220 },
+      { id: 3, name: 'PRP_attachRef003', x: 1580, y: 220 },
     ],
     walls: [
-      { id: 0, x1: -15.5, y1: 8.5, x2: 15.5, y2: 8.5, type: 'deadly' },
-      { id: 1, x1: -15.5, y1: -8.5, x2: 15.5, y2: -8.5, type: 'deadly' },
-      { id: 2, x1: -16.0, y1: -7.0, x2: -16.0, y2: 7.0, type: 'bouncy' },
-      { id: 3, x1: 16.0, y1: -7.0, x2: 16.0, y2: 7.0, type: 'bouncy' },
+      ...defaultArenaWalls(0),
+      {
+        id: 3,
+        name: 'Mur001',
+        cx: 960,
+        cy: 540,
+        halfW: 256,
+        halfH: 256,
+        rotDeg: 0,
+        type: 'bouncy',
+        meshActor: 'o_m04_cube',
+        motion: { kind: 'rotate', degPerSec: 22.5 }, // 90 deg / 4s
+      },
     ],
-    vortices: [{ id: 0, x: 0, y: -2.0, radius: 5.5, strength: 6.0 }],
+    vortices: [],
     pickups: [],
   },
   {
-    id: 'w_multi_dm_lvl03',
-    name: 'Grinder Dome (Deathmatch 03)',
+    id: 'w_multi_dm_lvl01',
+    name: 'Floresta Negra — Hélice Letal',
+    subtitle: 'Barra mortal girando no centro entre 6 âncoras',
     mode: 'deathmatch',
-    theme: 'ero',
-    defaultScoreLimit: 12,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -11, y: 4 },
-      { x: 11, y: 4 },
-      { x: -11, y: -4 },
-      { x: 11, y: -4 },
+    bgmTrack: 'bgm_syl_donjon',
+    defaultScoreLimit: 10,
+    defaultTimeLimitSec: 90,
+    bgLayers: [
+      { texture: 't_bgforet203_c' },
+      { texture: 't_bgforet201_c' },
+      { texture: 't_bgforet200_c' },
     ],
+    spawns: DEFAULT_TOP_SPAWNS,
     attachPoints: [
-      { id: 0, x: -10.0, y: 3.5 },
-      { id: 1, x: 10.0, y: 3.5 },
-      { id: 2, x: -10.0, y: -3.5 },
-      { id: 3, x: 10.0, y: -3.5 },
-      { id: 4, x: -4.0, y: 3.5 },
-      { id: 5, x: 4.0, y: 3.5 },
-      { id: 6, x: -4.0, y: -3.5 },
-      { id: 7, x: 4.0, y: -3.5 },
+      { id: 0, name: 'PRP_attachRef001', x: 720, y: 860 },
+      { id: 1, name: 'PRP_attachRef002', x: 1200, y: 860 },
+      { id: 2, name: 'PRP_attachRef003', x: 300, y: 540 },
+      { id: 3, name: 'PRP_attachRef004', x: 1620, y: 540 },
+      { id: 4, name: 'PRP_attachRef005', x: 720, y: 220 },
+      { id: 5, name: 'PRP_attachRef006', x: 1200, y: 220 },
     ],
     walls: [
-      { id: 0, x1: -3.0, y1: 0, x2: 3.0, y2: 0, type: 'deadly' },
-      { id: 1, x1: -15.8, y1: 8.6, x2: 15.8, y2: 8.6, type: 'bouncy' },
-      { id: 2, x1: -15.8, y1: -8.6, x2: 15.8, y2: -8.6, type: 'bouncy' },
+      ...defaultArenaWalls(0),
+      {
+        id: 3,
+        name: 'Mur001',
+        cx: 960,
+        cy: 540,
+        halfW: 25,
+        halfH: 290,
+        rotDeg: 0,
+        type: 'deadly',
+        meshActor: 'o_SerpentMulti03',
+        motion: { kind: 'rotate', degPerSec: 24 }, // accelerates 12->24 deg/s in FlowGraph
+      },
     ],
     vortices: [],
     pickups: [],
   },
   {
     id: 'w_multi_dm_lvl04',
-    name: 'Slaughter Ring (Deathmatch 04)',
+    name: 'Cemitério — Serras & Sapo Switch',
+    subtitle: '4 serras circulares letais + alavanca do sapo na borda direita',
     mode: 'deathmatch',
-    theme: 'ero',
-    defaultScoreLimit: 15,
-    defaultTimeLimitSec: 150,
-    spawns: [
-      { x: -8, y: 5 },
-      { x: 8, y: 5 },
-      { x: -8, y: -5 },
-      { x: 8, y: -5 },
-    ],
-    attachPoints: [
-      { id: 0, x: -6.5, y: 3.5 },
-      { id: 1, x: 6.5, y: 3.5 },
-      { id: 2, x: -6.5, y: -3.5 },
-      { id: 3, x: 6.5, y: -3.5 },
-      { id: 4, x: 0.0, y: 0.0 },
-    ],
-    walls: [
-      { id: 0, x1: -13.5, y1: 8.2, x2: 13.5, y2: 8.2, type: 'bouncy' },
-      { id: 1, x1: -13.5, y1: -8.2, x2: 13.5, y2: -8.2, type: 'bouncy' },
-      { id: 2, x1: -14.8, y1: -7.2, x2: -14.8, y2: 7.2, type: 'deadly' },
-      { id: 3, x1: 14.8, y1: -7.2, x2: 14.8, y2: 7.2, type: 'deadly' },
-    ],
-    vortices: [{ id: 0, x: 0, y: 0, radius: 6.5, strength: -5.5 }],
-    pickups: [],
-  },
-  {
-    id: 'w_multi_basic00',
-    name: 'Bastion Courtyard (Basic 00)',
-    mode: 'collect',
-    theme: 'basic',
-    defaultScoreLimit: 4500,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -9, y: 4 },
-      { x: 9, y: 4 },
-      { x: -9, y: -3 },
-      { x: 9, y: -3 },
-    ],
-    attachPoints: [
-      { id: 0, x: -8.0, y: 3.0 },
-      { id: 1, x: 8.0, y: 3.0 },
-      { id: 2, x: -8.0, y: -3.0 },
-      { id: 3, x: 8.0, y: -3.0 },
-      { id: 4, x: 0.0, y: 2.5 },
-      { id: 5, x: 0.0, y: -2.5 },
-    ],
-    walls: [
-      { id: 0, x1: -15.5, y1: 8.6, x2: 15.5, y2: 8.6, type: 'bouncy' },
-      { id: 1, x1: -15.5, y1: -8.6, x2: 15.5, y2: -8.6, type: 'bouncy' },
-    ],
-    vortices: [],
-    pickups: [
-      ...makeDiamondRingPickups(0, 0, 2.5, 2.5, 8, 'silver', 0),
-      ...makeDiamondRingPickups(8, 0, -2.5, 2.5, 8, 'gold', 0),
-      { id: 16, x: 0, y: 0, gemType: 'diamond', waveGroup: 1 },
-    ],
-  },
-  {
-    id: 'w_multi_basic01',
-    name: 'Watchtower Swing (Basic 01)',
-    mode: 'collect',
-    theme: 'basic',
-    defaultScoreLimit: 5000,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -11, y: 4 },
-      { x: 11, y: 4 },
-      { x: -5, y: -4 },
-      { x: 5, y: -4 },
-    ],
-    attachPoints: [
-      { id: 0, x: -10.0, y: 3.0 },
-      { id: 1, x: -4.0, y: 3.0 },
-      { id: 2, x: 4.0, y: 3.0 },
-      { id: 3, x: 10.0, y: 3.0 },
-      { id: 4, x: -4.0, y: -3.5 },
-      { id: 5, x: 4.0, y: -3.5 },
-    ],
-    walls: [
-      { id: 0, x1: -16.0, y1: -7.5, x2: -16.0, y2: 7.5, type: 'bouncy' },
-      { id: 1, x1: 16.0, y1: -7.5, x2: 16.0, y2: 7.5, type: 'bouncy' },
-    ],
-    vortices: [],
-    pickups: [
-      ...makeDiamondRingPickups(0, -4, 3, 2.4, 6, 'gold', 0),
-      ...makeDiamondRingPickups(6, 4, 3, 2.4, 6, 'gold', 0),
-      { id: 12, x: 0, y: -5.5, gemType: 'diamond', waveGroup: 0 },
-    ],
-  },
-  {
-    id: 'w_multi_basic02',
-    name: 'Iron Catapult (Basic 02)',
-    mode: 'deathmatch',
-    theme: 'basic',
+    bgmTrack: 'bgm_syl_foret',
     defaultScoreLimit: 10,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -10, y: 4 },
-      { x: 10, y: 4 },
-      { x: -10, y: -4 },
-      { x: 10, y: -4 },
+    defaultTimeLimitSec: 90,
+    bgLayers: [
+      { texture: 't_bgcimet2ciel_c' },
+      { texture: 't_bgcimet2tombes02_c' },
+      { texture: 't_bgcimet200_c' },
     ],
+    spawns: DEFAULT_TOP_SPAWNS,
     attachPoints: [
-      { id: 0, x: -8.5, y: 3.2 },
-      { id: 1, x: 8.5, y: 3.2 },
-      { id: 2, x: -8.5, y: -3.2 },
-      { id: 3, x: 8.5, y: -3.2 },
-      { id: 4, x: 0.0, y: 0.0 },
+      { id: 0, name: 'PRP_attachRef000', x: 340, y: 860 },
+      { id: 1, name: 'PRP_attachRef001', x: 1580, y: 860 },
+      { id: 2, name: 'PRP_attachRef002', x: 1270, y: 220 },
+      { id: 3, name: 'PRP_attachRef003', x: 650, y: 220 },
+      { id: 4, name: 'PRP_attachRef004', x: 960, y: 540 },
     ],
     walls: [
-      { id: 0, x1: -15.5, y1: 8.6, x2: 15.5, y2: 8.6, type: 'bouncy' },
-      { id: 1, x1: -15.5, y1: -8.6, x2: 15.5, y2: -8.6, type: 'deadly' },
+      ...defaultArenaWalls(0),
+      {
+        id: 3,
+        name: 'Scie001',
+        cx: -200,
+        cy: 860,
+        halfW: 90,
+        halfH: 90,
+        rotDeg: 0,
+        type: 'deadly',
+        meshActor: 'o_tueur_md08',
+        motion: {
+          kind: 'waypoints',
+          switchControlled: true,
+          points: [
+            { x: -200, y: 860, durationSec: 8.9 },
+            { x: 1580, y: 860, durationSec: 3.2 },
+            { x: 1580, y: 220, durationSec: 6.9 },
+            { x: 340, y: 220, durationSec: 3.2 },
+            { x: 340, y: 860, durationSec: 2.0 },
+          ],
+        },
+      },
+      {
+        id: 4,
+        name: 'Scie002',
+        cx: 2120,
+        cy: 860,
+        halfW: 90,
+        halfH: 90,
+        rotDeg: 0,
+        type: 'deadly',
+        meshActor: 'o_tueur_md08',
+        motion: {
+          kind: 'waypoints',
+          switchControlled: true,
+          points: [
+            { x: 2120, y: 860, durationSec: 8.9 },
+            { x: 340, y: 860, durationSec: 3.2 },
+            { x: 340, y: 220, durationSec: 6.9 },
+            { x: 1580, y: 220, durationSec: 3.2 },
+            { x: 1580, y: 860, durationSec: 2.0 },
+          ],
+        },
+      },
+      {
+        id: 5,
+        name: 'Scie003',
+        cx: 2120,
+        cy: 220,
+        halfW: 90,
+        halfH: 90,
+        rotDeg: 0,
+        type: 'deadly',
+        meshActor: 'o_tueur_md08',
+        motion: {
+          kind: 'waypoints',
+          switchControlled: true,
+          points: [
+            { x: 2120, y: 220, durationSec: 8.9 },
+            { x: 340, y: 220, durationSec: 3.2 },
+            { x: 340, y: 860, durationSec: 6.9 },
+            { x: 1580, y: 860, durationSec: 3.2 },
+            { x: 1580, y: 220, durationSec: 2.0 },
+          ],
+        },
+      },
+      {
+        id: 6,
+        name: 'Scie004',
+        cx: -200,
+        cy: 220,
+        halfW: 90,
+        halfH: 90,
+        rotDeg: 0,
+        type: 'deadly',
+        meshActor: 'o_tueur_md08',
+        motion: {
+          kind: 'waypoints',
+          switchControlled: true,
+          points: [
+            { x: -200, y: 220, durationSec: 8.9 },
+            { x: 1580, y: 220, durationSec: 3.2 },
+            { x: 1580, y: 860, durationSec: 6.9 },
+            { x: 340, y: 860, durationSec: 3.2 },
+            { x: 340, y: 220, durationSec: 2.0 },
+          ],
+        },
+      },
     ],
+    switchDef: {
+      name: 'PST_MecaSwitch',
+      x: 1890,
+      y: 540,
+      radius: 56,
+    },
     vortices: [],
     pickups: [],
   },
   {
-    id: 'w_multiero00',
-    name: 'Crimson Gallows (Ero 00)',
+    id: 'w_multi_dm_lvl07',
+    name: 'Castelo — Cantos Angulares',
+    subtitle: 'Arena clássica com cunhas de pedra a 45° nas laterais',
     mode: 'deathmatch',
-    theme: 'ero',
+    bgmTrack: 'bgm_syl_campagne',
     defaultScoreLimit: 10,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -10, y: 4 },
-      { x: 10, y: 4 },
-      { x: -6, y: -3 },
-      { x: 6, y: -3 },
+    defaultTimeLimitSec: 90,
+    bgLayers: [
+      { texture: 't_bgchateau202_c' },
+      { texture: 't_bgchateau201_c' },
+      { texture: 't_bgchateau200_c' },
     ],
+    spawns: DEFAULT_TOP_SPAWNS,
     attachPoints: [
-      { id: 0, x: -9.0, y: 3.5 },
-      { id: 1, x: 9.0, y: 3.5 },
-      { id: 2, x: -4.5, y: -2.5 },
-      { id: 3, x: 4.5, y: -2.5 },
-      { id: 4, x: 0.0, y: 3.5 },
+      { id: 0, name: 'PRP_attachRef', x: 960, y: 540 },
+      { id: 1, name: 'PRP_attachRef000', x: 500, y: 300 },
+      { id: 2, name: 'PRP_attachRef001', x: 1420, y: 300 },
+      { id: 3, name: 'PRP_attachRef002', x: 500, y: 780 },
+      { id: 4, name: 'PRP_attachRef003', x: 1420, y: 780 },
     ],
     walls: [
-      { id: 0, x1: -15.5, y1: 8.6, x2: 15.5, y2: 8.6, type: 'bouncy' },
-      { id: 1, x1: -16.0, y1: -7.5, x2: -16.0, y2: 7.5, type: 'deadly' },
-      { id: 2, x1: 16.0, y1: -7.5, x2: 16.0, y2: 7.5, type: 'deadly' },
+      ...defaultArenaWalls(0),
+      {
+        id: 3,
+        name: 'Prop005',
+        cx: 0,
+        cy: 540,
+        halfW: 150,
+        halfH: 150,
+        rotDeg: 45,
+        type: 'bouncy',
+        meshActor: 'o_pierre_md01',
+      },
+      {
+        id: 4,
+        name: 'Prop007',
+        cx: 1920,
+        cy: 540,
+        halfW: 150,
+        halfH: 150,
+        rotDeg: -45,
+        type: 'bouncy',
+        meshActor: 'o_pierre_md01',
+      },
     ],
     vortices: [],
     pickups: [],
   },
   {
-    id: 'w_multiero01',
-    name: 'Guillotine Alley (Ero 01)',
+    id: 'w_multi_dm_lvl10',
+    name: 'Floresta — Clássica',
+    subtitle: '4 âncoras com rebote puro nas bordas',
     mode: 'deathmatch',
-    theme: 'ero',
-    defaultScoreLimit: 12,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -11, y: 4.5 },
-      { x: 11, y: 4.5 },
-      { x: -11, y: -3.5 },
-      { x: 11, y: -3.5 },
+    bgmTrack: 'bgm_syl_campagne',
+    defaultScoreLimit: 10,
+    defaultTimeLimitSec: 90,
+    bgLayers: [
+      { texture: 't_bgforet03_c' },
+      { texture: 't_bgforet01_c' },
+      { texture: 't_bgforet00_c' },
     ],
+    spawns: DEFAULT_TOP_SPAWNS,
     attachPoints: [
-      { id: 0, x: -9.5, y: 3.5 },
-      { id: 1, x: 9.5, y: 3.5 },
-      { id: 2, x: -9.5, y: -3.5 },
-      { id: 3, x: 9.5, y: -3.5 },
-      { id: 4, x: -3.5, y: 0.0 },
-      { id: 5, x: 3.5, y: 0.0 },
+      { id: 0, name: 'PRP_attachRef', x: 350, y: 250 },
+      { id: 1, name: 'PRP_attachRef000', x: 960, y: 350 },
+      { id: 2, name: 'PRP_attachRef001', x: 1570, y: 250 },
+      { id: 3, name: 'PRP_attachRef002', x: 300, y: 850 },
     ],
-    walls: [
-      { id: 0, x1: 0, y1: -5.5, x2: 0, y2: 5.5, type: 'breakable' },
-      { id: 1, x1: -15.5, y1: 8.6, x2: 15.5, y2: 8.6, type: 'bouncy' },
-      { id: 2, x1: -15.5, y1: -8.6, x2: 15.5, y2: -8.6, type: 'deadly' },
-    ],
+    walls: defaultArenaWalls(0),
     vortices: [],
     pickups: [],
   },
   {
-    id: 'w_multiero02',
-    name: 'Blood Pendulum (Ero 02)',
+    id: 'w_multi_dm_lvl11',
+    name: 'Vila dos Portões — Pilares Metálicos',
+    subtitle: 'Dois pilares centrais elásticos dividindo a arena em 3 corredores',
     mode: 'deathmatch',
-    theme: 'ero',
-    defaultScoreLimit: 12,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -9, y: 5 },
-      { x: 9, y: 5 },
-      { x: -9, y: -4 },
-      { x: 9, y: -4 },
+    bgmTrack: 'bgm_syl_donjon',
+    defaultScoreLimit: 10,
+    defaultTimeLimitSec: 90,
+    bgLayers: [
+      { texture: 't_bgvillemaron00_c' },
+      { texture: 't_bgvillemaron01_c' },
     ],
+    spawns: DEFAULT_TOP_SPAWNS,
     attachPoints: [
-      { id: 0, x: -7.5, y: 3.8 },
-      { id: 1, x: 7.5, y: 3.8 },
-      { id: 2, x: -7.5, y: -3.8 },
-      { id: 3, x: 7.5, y: -3.8 },
-      { id: 4, x: 0.0, y: 0.0 },
+      { id: 0, name: 'PRP_attachRef001', x: 960, y: 540 },
+      { id: 1, name: 'PRP_attachRef004', x: 500, y: 900 },
+      { id: 2, name: 'PRP_attachRef005', x: 1420, y: 900 },
+      { id: 3, name: 'PRP_attachRef006', x: 1420, y: 180 },
+      { id: 4, name: 'PRP_attachRef007', x: 500, y: 180 },
     ],
     walls: [
-      { id: 0, x1: -15.5, y1: 8.6, x2: 15.5, y2: 8.6, type: 'deadly' },
-      { id: 1, x1: -15.5, y1: -8.6, x2: 15.5, y2: -8.6, type: 'deadly' },
-      { id: 2, x1: -16.0, y1: -7.5, x2: -16.0, y2: 7.5, type: 'bouncy' },
-      { id: 3, x1: 16.0, y1: -7.5, x2: 16.0, y2: 7.5, type: 'bouncy' },
-    ],
-    vortices: [{ id: 0, x: 0, y: 0, radius: 5.5, strength: 5.0 }],
-    pickups: [],
-  },
-  {
-    id: 'w_multijem00',
-    name: 'Jewel Sanctum (Jem 00)',
-    mode: 'collect',
-    theme: 'jem',
-    defaultScoreLimit: 6000,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -10, y: 4 },
-      { x: 10, y: 4 },
-      { x: -10, y: -4 },
-      { x: 10, y: -4 },
-    ],
-    attachPoints: [
-      { id: 0, x: -8.5, y: 3.2 },
-      { id: 1, x: 8.5, y: 3.2 },
-      { id: 2, x: -8.5, y: -3.2 },
-      { id: 3, x: 8.5, y: -3.2 },
-      { id: 4, x: -3.2, y: 0.0 },
-      { id: 5, x: 3.2, y: 0.0 },
-    ],
-    walls: [
-      { id: 0, x1: -15.5, y1: 8.6, x2: 15.5, y2: 8.6, type: 'bouncy' },
-      { id: 1, x1: -15.5, y1: -8.6, x2: 15.5, y2: -8.6, type: 'bouncy' },
-    ],
-    vortices: [],
-    pickups: [
-      { id: 0, x: 0, y: 0, gemType: 'diamond', waveGroup: 0 },
-      ...makeDiamondRingPickups(1, -3.2, 0, 2.5, 8, 'gold', 0),
-      ...makeDiamondRingPickups(9, 3.2, 0, 2.5, 8, 'gold', 0),
-      { id: 17, x: 0, y: 5.5, gemType: 'diamond', waveGroup: 1 },
-      { id: 18, x: 0, y: -5.5, gemType: 'diamond', waveGroup: 1 },
-    ],
-  },
-  {
-    id: 'w_multikoth00',
-    name: 'Crown Citadel (King of the Hill 00)',
-    mode: 'koth',
-    theme: 'koth',
-    defaultScoreLimit: 1000,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -11, y: 4.5 },
-      { x: 11, y: 4.5 },
-      { x: -11, y: -4.5 },
-      { x: 11, y: -4.5 },
-    ],
-    attachPoints: [
-      { id: 0, x: -9.5, y: 3.8 },
-      { id: 1, x: 9.5, y: 3.8 },
-      { id: 2, x: -9.5, y: -3.8 },
-      { id: 3, x: 9.5, y: -3.8 },
-      { id: 4, x: -3.6, y: 1.8 },
-      { id: 5, x: 3.6, y: 1.8 },
-      { id: 6, x: -3.6, y: -1.8 },
-      { id: 7, x: 3.6, y: -1.8 },
-      { id: 8, x: 0.0, y: 0.0 },
-    ],
-    walls: [
-      { id: 0, x1: -15.8, y1: 8.6, x2: 15.8, y2: 8.6, type: 'bouncy' },
-      { id: 1, x1: -15.8, y1: -8.6, x2: 15.8, y2: -8.6, type: 'bouncy' },
-      { id: 2, x1: -16.2, y1: -7.5, x2: -16.2, y2: 7.5, type: 'bouncy' },
-      { id: 3, x1: 16.2, y1: -7.5, x2: 16.2, y2: 7.5, type: 'bouncy' },
+      ...defaultArenaWalls(0),
+      {
+        id: 3,
+        name: 'Prop006',
+        cx: 653.6,
+        cy: 540,
+        halfW: 36,
+        halfH: 175,
+        rotDeg: 0,
+        type: 'bouncy',
+        meshActor: 'o_RebonMetal01_MD09',
+      },
+      {
+        id: 4,
+        name: 'Prop009',
+        cx: 1269.3,
+        cy: 540,
+        halfW: 36,
+        halfH: 175,
+        rotDeg: 0,
+        type: 'bouncy',
+        meshActor: 'o_RebonMetal02_MD09',
+      },
     ],
     vortices: [],
     pickups: [],
-    hillZone: { x: 0, y: 0, radius: 4.5 },
   },
   {
-    id: 'w_multikoth01',
-    name: 'Sovereign Vortex (King of the Hill 01)',
-    mode: 'koth',
-    theme: 'koth',
-    defaultScoreLimit: 1000,
-    defaultTimeLimitSec: 120,
-    spawns: [
-      { x: -10, y: 5 },
-      { x: 10, y: 5 },
-      { x: -10, y: -5 },
-      { x: 10, y: -5 },
+    id: 'w_multi_dm_lvl13',
+    name: 'Porto Noturno — Âncoras Deslizantes',
+    subtitle: '4 âncoras externas cruzando horizontalmente em ciclos de 2s',
+    mode: 'deathmatch',
+    bgmTrack: 'bgm_syl_cimetiere_alt',
+    defaultScoreLimit: 10,
+    defaultTimeLimitSec: 90,
+    bgLayers: [
+      { texture: 't_bgport202_c' },
+      { texture: 't_bgport201_c' },
+      { texture: 't_bgport200_c' },
+      { texture: 't_bgport203_c' },
     ],
+    spawns: DEFAULT_TOP_SPAWNS,
     attachPoints: [
-      { id: 0, x: -8.5, y: 4.0 },
-      { id: 1, x: 8.5, y: 4.0 },
-      { id: 2, x: -8.5, y: -4.0 },
-      { id: 3, x: 8.5, y: -4.0 },
-      { id: 4, x: -2.8, y: 0.0 },
-      { id: 5, x: 2.8, y: 0.0 },
+      {
+        id: 0,
+        name: 'PRP_attach001',
+        x: 1620,
+        y: 780,
+        motion: {
+          kind: 'waypoints',
+          points: [
+            { x: 1620, y: 780, durationSec: 2 },
+            { x: 1020, y: 780, durationSec: 2 },
+          ],
+        },
+      },
+      {
+        id: 1,
+        name: 'PRP_attach002',
+        x: 500,
+        y: 300,
+        motion: {
+          kind: 'waypoints',
+          points: [
+            { x: 500, y: 300, durationSec: 2 },
+            { x: 1100, y: 300, durationSec: 2 },
+          ],
+        },
+      },
+      {
+        id: 2,
+        name: 'PRP_attach003',
+        x: 1420,
+        y: 300,
+        motion: {
+          kind: 'waypoints',
+          points: [
+            { x: 1420, y: 300, durationSec: 2 },
+            { x: 820, y: 300, durationSec: 2 },
+          ],
+        },
+      },
+      {
+        id: 3,
+        name: 'PRP_attach004',
+        x: 300,
+        y: 780,
+        motion: {
+          kind: 'waypoints',
+          points: [
+            { x: 300, y: 780, durationSec: 2 },
+            { x: 900, y: 780, durationSec: 2 },
+          ],
+        },
+      },
+      { id: 4, name: 'PRP_attach005', x: 960, y: 540 },
     ],
-    walls: [
-      { id: 0, x1: -15.5, y1: 8.6, x2: 15.5, y2: 8.6, type: 'bouncy' },
-      { id: 1, x1: -15.5, y1: -8.6, x2: 15.5, y2: -8.6, type: 'deadly' },
-    ],
-    vortices: [{ id: 0, x: 0, y: 0, radius: 5.2, strength: 3.5 }],
+    walls: defaultArenaWalls(0),
+    vortices: [],
     pickups: [],
-    hillZone: { x: 0, y: 0, radius: 4.2 },
   },
 ];
 

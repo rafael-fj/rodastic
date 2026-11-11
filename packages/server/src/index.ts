@@ -401,6 +401,18 @@ export class RoomSession {
         break;
       }
 
+      case AppMessageSubType.HOST_RETURN_TO_LOBBY: {
+        if (client.peerId !== this.leaderPeerId) {
+          break;
+        }
+        this.sim.state.matchFinished = true;
+        this.countdownSec = 0;
+        this.countdownTimer = 0;
+        this.pendingEvents = [];
+        this.returnToLobby();
+        break;
+      }
+
       default:
         break;
     }
