@@ -50,6 +50,7 @@ export interface PlayerSimState {
   wallTrickCooldown: number;
   swingLoopAccumRad: number;
   turnBoostCount: number; // 0..5 reverse spin boost stacks
+  swingBoostTimer: number; // 0..0.4s (+0xC4C) apex/reverse tangential acceleration timer
   lastActionHeld: boolean;
   lastReverseHeld: boolean;
   lastAttackerSlot: number; // -1 or 0..3
@@ -305,6 +306,7 @@ export class RotasticSimulation {
         wallTrickCooldown: 0,
         swingLoopAccumRad: 0,
         turnBoostCount: 0,
+        swingBoostTimer: 0,
         lastActionHeld: false,
         lastReverseHeld: false,
         lastAttackerSlot: -1,
@@ -399,6 +401,7 @@ export class RotasticSimulation {
       p.chargeGauge2 = 0.0;
       p.chargeMultiplier = 0;
       p.turnBoostCount = 0;
+      p.swingBoostTimer = 0;
       p.lastReverseHeld = false;
     }
   }
@@ -671,6 +674,7 @@ export class RotasticSimulation {
       p.regrappleTimer = 0.12;
       p.wallTrickCooldown = 0;
       p.swingLoopAccumRad = 0;
+      p.swingBoostTimer = 0;
       this.events.push({ type: 'spawndrop', slotIndex: p.slotIndex, x: p.x, y: p.y });
     }
   }
@@ -772,6 +776,7 @@ export class RotasticSimulation {
     p.attachTimer = 0;
     p.swingLoopAccumRad = 0;
     p.turnBoostCount = 0;
+    p.swingBoostTimer = 0;
 
     p.x = nearest.x + Math.cos(angle) * r;
     p.y = nearest.y + Math.sin(angle) * r;
@@ -801,16 +806,30 @@ export class RotasticSimulation {
     p.attachedPivotId = -1;
     p.attachTimer = 0;
     p.turnBoostCount = 0;
+    p.swingBoostTimer = 0;
     p.regrappleTimer = C.REGRAPPLE_COOLDOWN_SEC;
 
     this.events.push({ type: 'release', slotIndex: p.slotIndex, x: p.x, y: p.y });
   }
 
+  private computeWorldAccel(): { ax: number; ay: number } {
+    return { ax: 0, ay: -C.GRAVITY };
+  }
+
+  /**
+   * Exact pendulum step decompiled from `Rotastic.exe` (`0x0056B3D0..0x0056BC5A`):
+   *   1. Quadratic self-pump: `vt_pumped = vt + sgn(vt) * (vt^2 * 0.0015 + boostAccel) * dt`
+   *      where `boostAccel = (1 - swingBoostTimer / 0.4) * 1300` while `swingBoostTimer > 0`.
+   *   2. Linear tangential gravity: `vt_new = clamp(vt_pumped + dot(accel, tangent) * dt, -maxSpeed, +maxSpeed)`.
+   *   3. Angular velocity clamp: `omega = clamp(vt_new / max(r, 1), -maxOmega, +maxOmega)`.
+   *   4. Apex zero-crossing boost: if `vt * vt_new <= 0`, sets `swingBoostTimer = 0.4 * max(0, dot(accelDir, r_hat))`.
+   */
   private stepSwinging(p: PlayerSimState, cmd: PlayerInputCommand, dt: number): void {
     const pivot = this.state.attachPoints.find((ap) => ap.id === p.attachedPivotId);
     if (!pivot) {
       p.status = PlayerStatus.FREE_FALL;
       p.attachedPivotId = -1;
+      p.swingBoostTimer = 0;
       return;
     }
 
@@ -825,17 +844,15 @@ export class RotasticSimulation {
       p.omega = flipSign * minFlipOmega;
       p.turnBoostCount = Math.min(5, p.turnBoostCount + 1);
       p.swingLoopAccumRad = 0;
+      p.swingBoostTimer = C.SWING_BOOST_DURATION_SEC * 0.5;
       this.events.push({ type: 'invert', slotIndex: p.slotIndex, x: p.x, y: p.y });
     }
 
     // Effective limits include turnBoost stacks (900 + 60*k up to 1200 u/s)
     const effectiveSwingMaxSpeed = C.SWING_MAX_SPEED + p.turnBoostCount * C.TURN_BOOST_SPEED_STEP;
     const effectiveMaxOmega = C.MAX_OMEGA_RAD_S + p.turnBoostCount * C.TURN_BOOST_OMEGA_STEP;
-    const maxOmegaBySpeed = effectiveSwingMaxSpeed / Math.max(r, C.ROPE_ATTACH_MIN_DIST);
-    const maxOmega = Math.min(effectiveMaxOmega, maxOmegaBySpeed);
 
-    // Only expand short rope (< 150) after small delay; long ropes (> 150) keep their length until release!
-    // Preserve tangential velocity (omega *= rOld / r) so expanding does not manufacture fake launch speed.
+    // Expand short rope (< 150) after delay; preserve tangential velocity (omega *= rOld / r).
     if (r < C.ROPE_MIN_RADIUS && p.attachTimer >= C.ROPE_UNWIND_DELAY_SEC) {
       const rOld = r;
       r = Math.min(C.ROPE_MIN_RADIUS, r + C.ROPE_ADJUST_SPEED * dt);
@@ -845,24 +862,50 @@ export class RotasticSimulation {
       p.ropeLength = r;
     }
 
-    // Tangential gravity acceleration in Y-up coordinates (guard denom >= 55 against close-range singularities)
-    const denomR = Math.max(r, 55);
-    const gravityAlpha = -(C.GRAVITY / denomR) * Math.cos(p.ropeAngle);
+    const safeR = Math.max(r, C.ROPE_ATTACH_MIN_DIST);
+    const vt = p.omega * safeR;
+    const sgn = vt >= 0 ? 1 : -1;
 
+    // Blend remaining swingBoostTimer (`+0xC4C`) into tangential acceleration (`0x0056B5AE..0x0056B63D`)
+    let boostAccel = 0;
+    if (p.swingBoostTimer > 0) {
+      const alpha = Math.min(1, p.swingBoostTimer / C.SWING_BOOST_DURATION_SEC);
+      boostAccel = (1 - alpha) * C.SWING_BOOST_TARGET_SPEED;
+      p.swingBoostTimer = Math.max(0, p.swingBoostTimer - dt);
+    }
+
+    // Quadratic pump + boost, clamped to preserve pre-gravity sign (`0x0056B646..0x0056B71D`)
+    const pumpedRaw = vt + sgn * (vt * vt * C.SWING_QUAD_PUMP + boostAccel) * dt;
+    const vtPumped = vt >= 0 ? Math.max(0, pumpedRaw) : Math.min(0, pumpedRaw);
+
+    // Tangential gravity acceleration in Y-up coordinates (`0x0056B71D..0x0056B75B`)
     const tx = -Math.sin(p.ropeAngle);
     const ty = Math.cos(p.ropeAngle);
-    const inputTangential = cmd.axisX * tx + cmd.axisY * ty;
-    const inputAlpha = (inputTangential * C.SWING_INPUT_TORQUE) / denomR;
+    const accel = this.computeWorldAccel();
+    const aTan = accel.ax * tx + accel.ay * ty;
 
-    p.omega += (gravityAlpha + inputAlpha) * dt;
-    p.omega *= 1 + C.SWING_PUMP_FACTOR * dt * 2.5;
+    let vtNew = clamp(vtPumped + aTan * dt, -effectiveSwingMaxSpeed, effectiveSwingMaxSpeed);
+    let omegaNew = clamp(vtNew / safeR, -effectiveMaxOmega, effectiveMaxOmega);
+    vtNew = omegaNew * safeR;
 
-    p.omega = clamp(p.omega, -maxOmega, maxOmega);
-
-    const dAngle = p.omega * dt;
+    const dAngle = omegaNew * dt;
+    p.omega = omegaNew;
     p.ropeAngle += dAngle;
     if (p.ropeAngle > Math.PI) p.ropeAngle -= Math.PI * 2;
     if (p.ropeAngle < -Math.PI) p.ropeAngle += Math.PI * 2;
+
+    // Trigger apex swingBoostTimer when gravity reverses tangential motion across 0 (`0x0056BB75..0x0056BC5A`)
+    if (!justReverse && vt * vtNew <= 0 && (vt !== 0 || vtNew !== 0)) {
+      const accelLen = Math.hypot(accel.ax, accel.ay);
+      if (accelLen > 1e-4) {
+        const align =
+          (accel.ax / accelLen) * Math.cos(p.ropeAngle) +
+          (accel.ay / accelLen) * Math.sin(p.ropeAngle);
+        if (align > 0) {
+          p.swingBoostTimer = C.SWING_BOOST_DURATION_SEC * align;
+        }
+      }
+    }
 
     // Award "Get It" (+0.2 orange gauge) for completing a fast full revolution
     if (Math.abs(p.omega) * r >= 680) {
@@ -887,8 +930,9 @@ export class RotasticSimulation {
    * - Zero horizontal air drag (`vx` preserved during flight)
    */
   private stepFreeFall(p: PlayerSimState, cmd: PlayerInputCommand, dt: number): void {
-    p.vx += cmd.axisX * C.AIR_STEER_ACCEL * dt;
-    p.vy += (-C.GRAVITY + cmd.axisY * (C.AIR_STEER_ACCEL * 0.35)) * dt;
+    const accel = this.computeWorldAccel();
+    p.vx += (accel.ax + cmd.axisX * C.AIR_STEER_ACCEL) * dt;
+    p.vy += (accel.ay + cmd.axisY * (C.AIR_STEER_ACCEL * 0.35)) * dt;
 
     const speed = Math.hypot(p.vx, p.vy);
     if (speed > C.PLAYER_MAX_SPEED) {
@@ -942,9 +986,12 @@ export class RotasticSimulation {
 
       if (p.status === PlayerStatus.SWINGING) {
         p.omega = -p.omega * 0.96;
+        p.swingBoostTimer = 0;
         const pivot = this.state.attachPoints.find((ap) => ap.id === p.attachedPivotId);
         if (pivot) {
           p.ropeAngle = Math.atan2(p.y - pivot.y, p.x - pivot.x);
+          p.vx = -p.omega * p.ropeLength * Math.sin(p.ropeAngle);
+          p.vy = p.omega * p.ropeLength * Math.cos(p.ropeAngle);
         }
       } else {
         const vn = p.vx * hit.nx + p.vy * hit.ny;
@@ -1203,6 +1250,7 @@ export class RotasticSimulation {
     victim.statusTimer = C.RESPAWN_DELAY_SEC;
     victim.attachedPivotId = -1;
     victim.turnBoostCount = 0;
+    victim.swingBoostTimer = 0;
     victim.vx = 0;
     victim.vy = 0;
     victim.y = C.GRAVESTONE_Y; // Resting tombstone height at bottom of arena

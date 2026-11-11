@@ -353,4 +353,68 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     expect(p.attachedPivotId).toBe(2);
     expect(p.ropeLength).toBeGreaterThan(650);
   });
+
+  it('matches Rotastic.exe StepSwinging quadratic pump + gravity on climbing arcs (0x0056B3D0)', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl09');
+    sim.configurePlayerSlot(0, { active: true, name: 'Climber' });
+    const p = sim.state.players[0];
+    const pivot = sim.state.attachPoints.find((ap) => ap.id === 1)!; // (960, 400)
+
+    // Upper-arc climb observed in session-20261111-170417 (f=546..580): r=164.9, ang=122.1 deg, vt=-454.4 u/s
+    const r = 164.9;
+    const startAng = (122.1 * Math.PI) / 180;
+    p.status = PlayerStatus.SWINGING;
+    p.attachedPivotId = pivot.id;
+    p.ropeLength = r;
+    p.ropeAngle = startAng;
+    p.omega = -454.4 / r;
+    p.attachTimer = 0.25;
+    p.swingBoostTimer = 0;
+    p.x = pivot.x + Math.cos(startAng) * r;
+    p.y = pivot.y + Math.sin(startAng) * r;
+    p.vx = -p.omega * r * Math.sin(startAng);
+    p.vy = p.omega * r * Math.cos(startAng);
+
+    for (let i = 1; i <= 14; i++) {
+      sim.step({ 0: { seq: i, actionHeld: true, axisX: 0, axisY: 0 } });
+    }
+    const endSpeed = Math.hypot(p.vx, p.vy);
+    expect(p.status).toBe(PlayerStatus.SWINGING);
+    // Original telemetry speeds up slightly across the apex (454 -> ~480 u/s) instead of stalling!
+    expect(endSpeed).toBeGreaterThan(465);
+    expect(endSpeed).toBeLessThan(530);
+  });
+
+  it('triggers apex zero-crossing swingBoostTimer (0x0056BB75) when gravity reverses swing direction', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl09');
+    sim.configurePlayerSlot(0, { active: true, name: 'ApexStall' });
+    const p = sim.state.players[0];
+    const pivot = sim.state.attachPoints.find((ap) => ap.id === 1)!;
+
+    // Slow upward climb near -29.6 deg (matching session-20261111-170417 f=11335..11368)
+    const r = 155.4;
+    const startAng = (-29.6 * Math.PI) / 180;
+    p.status = PlayerStatus.SWINGING;
+    p.attachedPivotId = pivot.id;
+    p.ropeLength = r;
+    p.ropeAngle = startAng;
+    p.omega = 15.0 / r; // slowly rising against gravity, about to cross 0
+    p.attachTimer = 0.5;
+    p.swingBoostTimer = 0;
+    p.x = pivot.x + Math.cos(startAng) * r;
+    p.y = pivot.y + Math.sin(startAng) * r;
+    p.vx = -p.omega * r * Math.sin(startAng);
+    p.vy = p.omega * r * Math.cos(startAng);
+
+    let peakBoost = 0;
+    for (let i = 1; i <= 14; i++) {
+      sim.step({ 0: { seq: i, actionHeld: true, axisX: 0, axisY: 0 } });
+      peakBoost = Math.max(peakBoost, p.swingBoostTimer);
+    }
+
+    // Should have triggered ~0.198s swingBoostTimer (`0.4 * sin(29.6 deg)`) and whipped downward to ~-295 u/s
+    expect(peakBoost).toBeGreaterThan(0.16);
+    expect(peakBoost).toBeLessThan(0.24);
+    expect(p.omega * p.ropeLength).toBeLessThan(-240);
+  });
 });

@@ -23,13 +23,16 @@ export const ROTASTIC_PHYSICS_CONSTANTS = {
   AIR_STEER_ACCEL: 240.0,
   PLAYER_MAX_SPEED: 2000.0,
 
-  // Rope & Swinging (simRef[0x18] = 900, simRef[0x1C] = 6, simRef[0x40] = 1.2)
+  // Rope & Swinging (simRef[0x10] = 0.0015f, [0x18] = 900, [0x1C] = 6, [0x2C] = 1300, [0x30] = 0.4, [0x40] = 1.2)
   SWING_MAX_SPEED: 900.0,
   MIN_OMEGA_RAD_S: 1.0471976, // 60 deg/s
   MAX_OMEGA_RAD_S: 6.0,
   TURN_BOOST_SPEED_STEP: 60.0, // simRef[0x20] = 60 u/s per reverse stack (max 5 -> 1200)
   TURN_BOOST_OMEGA_STEP: 0.4, // 60 / 150 = 0.4 rad/s per stack
-  SWING_PUMP_FACTOR: 0.05, // simRef[0x38] = 0.05
+  SWING_QUAD_PUMP: 0.0015, // simRef[0x10] = 0.0015f (0x3AC49BA6): quadratic self-pump dv_t/dt += sgn*vt^2*0.0015
+  SWING_BOOST_TARGET_SPEED: 1300.0, // simRef[0x2C] = 1300.0f boost term while swingBoostTimer > 0
+  SWING_BOOST_DURATION_SEC: 0.4, // simRef[0x30] = 0.4f apex/reverse boost duration
+  SWING_PUMP_FACTOR: 0.05, // simRef[0x38] = 0.05 (release lookback window; kept for compatibility)
   SWING_INPUT_TORQUE: 260.0,
   ROPE_ATTACH_MIN_DIST: 1.0, // Minimum instant attach distance (can grapple right at the pivot!)
   ROPE_MIN_RADIUS: 150.0, // Nominal target radius minRopeRadius = 150 (unwinds toward 150 after delay)
