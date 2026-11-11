@@ -1567,10 +1567,18 @@ export class RotasticWebClient {
         spr.rotation = Math.max(-0.22, Math.min(0.22, p.vx / 2200));
       }
 
-      // Smooth sine shimmer instead of 13Hz harsh blink strobe during post-spawn/shield invuln
-      spr.alpha = p.invulnTimer > 0 ? 0.72 + 0.25 * Math.sin(nowSec * 12) : 1.0;
+      // Exact Rotastic.exe 5Hz cubic blink curve (0x0056C465 .. 0x0056C4E0):
+      // frac = (invulnTimer * 5) % 1; u = 2 * max(frac, 1 - frac) - 1; opacity = u^3
+      if (p.invulnTimer > 0) {
+        const frac = (p.invulnTimer * 5.0) % 1.0;
+        const tWave = frac < 0.5 ? 1.0 - frac : frac;
+        const u = tWave * 2.0 - 1.0;
+        spr.alpha = Math.max(0.03, u * u * u);
+      } else {
+        spr.alpha = 1.0;
+      }
 
-      // Subtle inner hitbox ring + gentle cyan pulse halo during invulnerability
+      // Subtle inner hitbox ring + bright translucent invulnerability veil (frame_000110 / 325 / 326)
       const visualBubbleRadius = 78; // Measured 161px diameter in Rotastic.exe screenshots
       this.ropesGraphics
         .circle(sx, sy, C.PLAYER_RADIUS)
@@ -1581,12 +1589,17 @@ export class RotasticWebClient {
         });
 
       if (p.invulnTimer > 0) {
+        const pulseGlow = 0.5 + 0.5 * Math.sin(p.invulnTimer * Math.PI * 10);
         this.ropesGraphics
-          .circle(sx, sy, visualBubbleRadius + 12)
+          .circle(sx, sy, visualBubbleRadius)
+          .fill({ color: 0xffffff, alpha: 0.18 + 0.14 * (1 - spr.alpha) })
+          .stroke({ color: 0xffffff, width: 6.5, alpha: 0.85 + 0.15 * pulseGlow });
+        this.ropesGraphics
+          .circle(sx, sy, visualBubbleRadius + 9)
           .stroke({
             color: 0xe0f2fe,
-            width: 2.5,
-            alpha: 0.35 + 0.25 * Math.sin(nowSec * 12),
+            width: 3.5,
+            alpha: 0.35 + 0.4 * pulseGlow,
           });
       }
 

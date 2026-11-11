@@ -92,6 +92,7 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     }
 
     cutter.status = PlayerStatus.FREE_FALL;
+    cutter.invulnTimer = 0; // Active non-invulnerable attacker earns +0xD4C orange charge (0x0056AFF5)
     cutter.x = (340 + swinger.x) * 0.5;
     cutter.y = (880 + swinger.y) * 0.5;
     cutter.vx = 700;
@@ -513,5 +514,77 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     p.y = 140;
     sim.step({ 0: { seq: 13, actionHeld: true, axisX: 0, axisY: 0 } });
     expect(p.status).toBe(PlayerStatus.SWINGING);
+  });
+
+  it('protects invulnerable players (+0xD54 > 0) against deadly hazards, slaughter, knock-detach, and blocks c2 gain (0x005790F9 / 0x0056AFF5)', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl09');
+    sim.configurePlayerSlot(0, { active: true, name: 'InvulnVictim' });
+    sim.configurePlayerSlot(1, { active: true, name: 'Attacker' });
+    const victim = sim.state.players[0];
+    const attacker = sim.state.players[1];
+
+    // 1. Invulnerable player resists Slaughter even at massive kinetic energy ratio & does not lose c1
+    victim.status = PlayerStatus.FREE_FALL;
+    victim.invulnTimer = C.SPAWN_INVULN_SEC; // 1.0s
+    victim.chargeGauge = 0.3;
+    victim.chargeGauge2 = 0.0;
+    victim.x = 600;
+    victim.y = 500;
+    victim.vx = 0;
+    victim.vy = 0;
+
+    attacker.status = PlayerStatus.FREE_FALL;
+    attacker.invulnTimer = 0;
+    attacker.chargeGauge2 = 1.0; // mass 11.0
+    attacker.x = 550;
+    attacker.y = 500;
+    attacker.vx = 950;
+    attacker.vy = 0;
+
+    const slaughterEvs = sim.step({
+      0: { seq: 1, actionHeld: false, axisX: 0, axisY: 0 },
+      1: { seq: 1, actionHeld: false, axisX: 0, axisY: 0 },
+    });
+    expect(slaughterEvs.some((e) => e.type === 'slaughter')).toBe(false);
+    expect(victim.status).toBe(PlayerStatus.FREE_FALL);
+
+    // 2. Deadly wall contact while invulnerable bounces cleanly without killing or breaking c1 shield (0x005790F9)
+    victim.status = PlayerStatus.FREE_FALL;
+    victim.invulnTimer = 0.5;
+    victim.chargeGauge = 1.0;
+    victim.x = 55; // touching MurTueurGauche (cx=22, halfW=25)
+    victim.y = 955;
+    victim.vx = -600;
+    victim.vy = 0;
+    const trapEvs = sim.step({
+      0: { seq: 2, actionHeld: false, axisX: 0, axisY: 0 },
+      1: { seq: 2, actionHeld: false, axisX: 0, axisY: 0 },
+    });
+    expect(trapEvs.some((e) => e.type === 'death' || e.type === 'shieldbreak')).toBe(false);
+    expect(victim.status).toBe(PlayerStatus.FREE_FALL);
+    expect(victim.chargeGauge).toBe(1.0);
+    expect(victim.vx).toBeGreaterThan(0); // reflected outward safely
+
+    // 3. Orange c2 (+0xD4C) gain is blocked while invulnTimer > 0 (0x0056AFF5)
+    victim.chargeGauge2 = 0;
+    attacker.status = PlayerStatus.SWINGING;
+    attacker.attachedPivotId = 0;
+    attacker.ropeLength = 220;
+    attacker.attachTimer = 0.5;
+    attacker.invulnTimer = 0;
+    attacker.x = 350;
+    attacker.y = 80;
+    victim.status = PlayerStatus.FREE_FALL;
+    victim.invulnTimer = 0.6;
+    victim.x = 350;
+    victim.y = 190;
+    victim.vx = 650;
+    victim.vy = 0;
+    const invulnCutEvs = sim.step({
+      0: { seq: 3, actionHeld: false, axisX: 0, axisY: 0 },
+      1: { seq: 3, actionHeld: true, axisX: 0, axisY: 0 },
+    });
+    expect(invulnCutEvs.some((e) => e.type === 'ropecut' && e.slotIndex === 0)).toBe(true);
+    expect(victim.chargeGauge2).toBe(0); // +0xD4C untouched while invulnTimer > 0!
   });
 });

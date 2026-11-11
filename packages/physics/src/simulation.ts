@@ -707,7 +707,10 @@ export class RotasticSimulation {
   }
 
   private awardOrangeTrick(p: PlayerSimState, amount: number, label: string, x: number, y: number): void {
-    p.chargeGauge2 = clamp(p.chargeGauge2 + amount, 0, 1);
+    // 0x0056AFF5: block c2 (+0xD4C) gain while invulnerable (+0xD54 > 0)
+    if (p.invulnTimer <= 0) {
+      p.chargeGauge2 = clamp(p.chargeGauge2 + amount, 0, 1);
+    }
     const pts = amount >= 1.0 ? 300 : C.ORANGE_TRICK_POINTS;
     this.events.push({
       type: 'trick',
@@ -1007,6 +1010,11 @@ export class RotasticSimulation {
         if (p.invulnTimer > 0) {
           p.x = hit.contactX + hit.nx * (C.PLAYER_RADIUS + 2);
           p.y = hit.contactY + hit.ny * (C.PLAYER_RADIUS + 2);
+          const vn = p.vx * hit.nx + p.vy * hit.ny;
+          if (vn < 0) {
+            p.vx -= 2 * vn * hit.nx;
+            p.vy -= 2 * vn * hit.ny;
+          }
           continue;
         }
         if (this.tryConsumeShield(p, hit.nx, hit.ny, hit.contactX, hit.contactY)) {
@@ -1231,12 +1239,12 @@ export class RotasticSimulation {
           b.vy = effVyB + factorB * velAlongNormal * ny;
         }
 
-        // Update swung angular velocity or detach if hit hard by heavier rival
+        // Update swung angular velocity or detach if hit hard by heavier rival (invuln prevents forced detach)
         for (const p of [a, b]) {
           const otherMass = p === a ? mB : mA;
           const selfMass = p === a ? mA : mB;
           if (p.status === PlayerStatus.SWINGING) {
-            if (otherMass > selfMass * 1.5 && Math.hypot(p.vx, p.vy) > 850) {
+            if (p.invulnTimer <= 0 && otherMass > selfMass * 1.5 && Math.hypot(p.vx, p.vy) > 850) {
               p.status = PlayerStatus.FREE_FALL;
               p.attachedPivotId = -1;
               p.regrappleTimer = C.REGRAPPLE_COOLDOWN_SEC;
