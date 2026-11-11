@@ -1,17 +1,19 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "generatedBy": "tools/assets/build-web-assets.mjs",
   "stats": {
-    "sourceDdsCount": 934,
-    "uniquePngCount": 404,
-    "totalPngBytes": 5458333,
-    "totalPngMB": 5.21,
+    "sourceDdsCount": 703,
+    "uniquePngCount": 432,
+    "totalPngBytes": 14477359,
+    "totalPngMB": 13.81,
     "audioSfxCount": 172,
     "totalWavBytes": 14990528,
     "totalWavMB": 14.3,
-    "multiplayerMapCount": 19
+    "deathmatchMapCount": 8
   },
   "globalTextures": {
+    "t_accroche01_c": "/assets/textures/global/t_accroche01_c.png",
+    "t_accrocheaura_c": "/assets/textures/global/t_accrocheaura_c.png",
     "t_beam2_c": "/assets/textures/global/t_beam2_c.png",
     "t_character_b_elf_attach_c": "/assets/textures/global/t_character_b_elf_attach_c.png",
     "t_character_b_elf_bounce_c": "/assets/textures/global/t_character_b_elf_bounce_c.png",
@@ -221,6 +223,9 @@
     "t_character_y_skull_slide_c": "/assets/textures/global/t_character_y_skull_slide_c.png",
     "t_character_y_skull_spawn_c": "/assets/textures/global/t_character_y_skull_spawn_c.png",
     "t_character_y_skull_ubeam_c": "/assets/textures/global/t_character_y_skull_ubeam_c.png",
+    "t_corde_c": "/assets/textures/global/t_corde_c.png",
+    "t_cordebeam_c": "/assets/textures/global/t_cordebeam_c.png",
+    "t_cordeuberbeam_c": "/assets/textures/global/t_cordeuberbeam_c.png",
     "t_fx_smokew_c": "/assets/textures/global/t_fx_smokew_c.png",
     "t_fx_trickbleu_c": "/assets/textures/global/t_fx_trickbleu_c.png",
     "t_fx_trickjaune_c": "/assets/textures/global/t_fx_trickjaune_c.png",
@@ -277,195 +282,83 @@
     "t_trailcolorskull_c": "/assets/textures/global/t_trailcolorskull_c.png",
     "t_trailgradient_c": "/assets/textures/global/t_trailgradient_c.png"
   },
+  "backgroundTextures": {
+    "t_bgcampagne00_c": "/assets/textures/backgrounds/t_bgcampagne00_c.png",
+    "t_bgcampagne01_c": "/assets/textures/backgrounds/t_bgcampagne01_c.png",
+    "t_bgcampagneane_c": "/assets/textures/backgrounds/t_bgcampagneane_c.png",
+    "t_bgcampagnemaison_c": "/assets/textures/backgrounds/t_bgcampagnemaison_c.png",
+    "t_bgcampagnemoulin_c": "/assets/textures/backgrounds/t_bgcampagnemoulin_c.png",
+    "t_bgcampagnenuages00_c": "/assets/textures/backgrounds/t_bgcampagnenuages00_c.png",
+    "t_bgcampagnenuages01_c": "/assets/textures/backgrounds/t_bgcampagnenuages01_c.png",
+    "t_bgcampagneoiseaux_c": "/assets/textures/backgrounds/t_bgcampagneoiseaux_c.png",
+    "t_bgcampagnepont_c": "/assets/textures/backgrounds/t_bgcampagnepont_c.png",
+    "t_bgcampagnepontpersos_c": "/assets/textures/backgrounds/t_bgcampagnepontpersos_c.png",
+    "t_bgcampagneriviere_c": "/assets/textures/backgrounds/t_bgcampagneriviere_c.png",
+    "t_bgcampagneruines_c": "/assets/textures/backgrounds/t_bgcampagneruines_c.png",
+    "t_bgcampagnevaches_c": "/assets/textures/backgrounds/t_bgcampagnevaches_c.png",
+    "t_bgchateau200_c": "/assets/textures/backgrounds/t_bgchateau200_c.png",
+    "t_bgchateau201_c": "/assets/textures/backgrounds/t_bgchateau201_c.png",
+    "t_bgchateau202_c": "/assets/textures/backgrounds/t_bgchateau202_c.png",
+    "t_bgchateau2_cage_c": "/assets/textures/backgrounds/t_bgchateau2_cage_c.png",
+    "t_bgchateau2_dragon_c": "/assets/textures/backgrounds/t_bgchateau2_dragon_c.png",
+    "t_bgchateau2_drapeaux_c": "/assets/textures/backgrounds/t_bgchateau2_drapeaux_c.png",
+    "t_bgchateau2_gardes_c": "/assets/textures/backgrounds/t_bgchateau2_gardes_c.png",
+    "t_bgchateau2_nuages_c": "/assets/textures/backgrounds/t_bgchateau2_nuages_c.png",
+    "t_bgchateau2_ours_roche_c": "/assets/textures/backgrounds/t_bgchateau2_ours_roche_c.png",
+    "t_bgchateau2_yeux_c": "/assets/textures/backgrounds/t_bgchateau2_yeux_c.png",
+    "t_bgcimet200_c": "/assets/textures/backgrounds/t_bgcimet200_c.png",
+    "t_bgcimet2arbre1_c": "/assets/textures/backgrounds/t_bgcimet2arbre1_c.png",
+    "t_bgcimet2arbre2_c": "/assets/textures/backgrounds/t_bgcimet2arbre2_c.png",
+    "t_bgcimet2brouillard_c": "/assets/textures/backgrounds/t_bgcimet2brouillard_c.png",
+    "t_bgcimet2chauvesouris_c": "/assets/textures/backgrounds/t_bgcimet2chauvesouris_c.png",
+    "t_bgcimet2ciel_c": "/assets/textures/backgrounds/t_bgcimet2ciel_c.png",
+    "t_bgcimet2citrouilles_c": "/assets/textures/backgrounds/t_bgcimet2citrouilles_c.png",
+    "t_bgcimet2fantomes_c": "/assets/textures/backgrounds/t_bgcimet2fantomes_c.png",
+    "t_bgcimet2nuages_c": "/assets/textures/backgrounds/t_bgcimet2nuages_c.png",
+    "t_bgcimet2pendus_c": "/assets/textures/backgrounds/t_bgcimet2pendus_c.png",
+    "t_bgcimet2persos_c": "/assets/textures/backgrounds/t_bgcimet2persos_c.png",
+    "t_bgcimet2tombes01_c": "/assets/textures/backgrounds/t_bgcimet2tombes01_c.png",
+    "t_bgcimet2tombes02_c": "/assets/textures/backgrounds/t_bgcimet2tombes02_c.png",
+    "t_bgforet00_c": "/assets/textures/backgrounds/t_bgforet00_c.png",
+    "t_bgforet01_c": "/assets/textures/backgrounds/t_bgforet01_c.png",
+    "t_bgforet03_c": "/assets/textures/backgrounds/t_bgforet03_c.png",
+    "t_bgforet200_c": "/assets/textures/backgrounds/t_bgforet200_c.png",
+    "t_bgforet201_c": "/assets/textures/backgrounds/t_bgforet201_c.png",
+    "t_bgforet203_c": "/assets/textures/backgrounds/t_bgforet203_c.png",
+    "t_bgforet2elan_c": "/assets/textures/backgrounds/t_bgforet2elan_c.png",
+    "t_bgforet2nuages_c": "/assets/textures/backgrounds/t_bgforet2nuages_c.png",
+    "t_bgforet2soldat_c": "/assets/textures/backgrounds/t_bgforet2soldat_c.png",
+    "t_bgforet2souche_c": "/assets/textures/backgrounds/t_bgforet2souche_c.png",
+    "t_bgforetelan_c": "/assets/textures/backgrounds/t_bgforetelan_c.png",
+    "t_bgforetnuages_c": "/assets/textures/backgrounds/t_bgforetnuages_c.png",
+    "t_bgforetsoldat_c": "/assets/textures/backgrounds/t_bgforetsoldat_c.png",
+    "t_bgforetsouche_c": "/assets/textures/backgrounds/t_bgforetsouche_c.png",
+    "t_bgport200_c": "/assets/textures/backgrounds/t_bgport200_c.png",
+    "t_bgport201_c": "/assets/textures/backgrounds/t_bgport201_c.png",
+    "t_bgport202_c": "/assets/textures/backgrounds/t_bgport202_c.png",
+    "t_bgport203_c": "/assets/textures/backgrounds/t_bgport203_c.png",
+    "t_bgport2bateau01_c": "/assets/textures/backgrounds/t_bgport2bateau01_c.png",
+    "t_bgport2bateau02_c": "/assets/textures/backgrounds/t_bgport2bateau02_c.png",
+    "t_bgport2bateau03_c": "/assets/textures/backgrounds/t_bgport2bateau03_c.png",
+    "t_bgport2nuages_c": "/assets/textures/backgrounds/t_bgport2nuages_c.png",
+    "t_bgport2objets_c": "/assets/textures/backgrounds/t_bgport2objets_c.png",
+    "t_bgportwateruv_c": "/assets/textures/backgrounds/t_bgportwateruv_c.png",
+    "t_bgville2maron00_c": "/assets/textures/backgrounds/t_bgville2maron00_c.png",
+    "t_bgville2maron01_c": "/assets/textures/backgrounds/t_bgville2maron01_c.png",
+    "t_bgville2maronarmes_c": "/assets/textures/backgrounds/t_bgville2maronarmes_c.png",
+    "t_bgville2maronbalance_c": "/assets/textures/backgrounds/t_bgville2maronbalance_c.png",
+    "t_bgville2marondragon_c": "/assets/textures/backgrounds/t_bgville2marondragon_c.png",
+    "t_bgville2maronenseigne_c": "/assets/textures/backgrounds/t_bgville2maronenseigne_c.png",
+    "t_bgville2maronnuages_c": "/assets/textures/backgrounds/t_bgville2maronnuages_c.png",
+    "t_bgvillemaron00_c": "/assets/textures/backgrounds/t_bgvillemaron00_c.png",
+    "t_bgvillemaron01_c": "/assets/textures/backgrounds/t_bgvillemaron01_c.png",
+    "t_bgvillemaronarmes_c": "/assets/textures/backgrounds/t_bgvillemaronarmes_c.png",
+    "t_bgvillemaronbalance_c": "/assets/textures/backgrounds/t_bgvillemaronbalance_c.png",
+    "t_bgvillemarondragon_c": "/assets/textures/backgrounds/t_bgvillemarondragon_c.png",
+    "t_bgvillemaronenseigne_c": "/assets/textures/backgrounds/t_bgvillemaronenseigne_c.png",
+    "t_bgvillemaronnuages_c": "/assets/textures/backgrounds/t_bgvillemaronnuages_c.png"
+  },
   "mapTextures": {
-    "w_multi_coll_lvl01": {
-      "t_beambreak": "/assets/textures/arenas/t_beambreak.png",
-      "t_beamcorona_white_c": "/assets/textures/arenas/t_beamcorona_white_c.png",
-      "t_belier_arme04_c": "/assets/textures/arenas/t_belier_arme04_c.png",
-      "t_belier_c": "/assets/textures/arenas/t_belier_c.png",
-      "t_belierarme01_c": "/assets/textures/arenas/t_belierarme01_c.png",
-      "t_belierarme01sang_c": "/assets/textures/arenas/t_belierarme01sang_c.png",
-      "t_belierarme02_c": "/assets/textures/arenas/t_belierarme02_c.png",
-      "t_belierarme02sang_c": "/assets/textures/arenas/t_belierarme02sang_c.png",
-      "t_belierarme03_c": "/assets/textures/arenas/t_belierarme03_c.png",
-      "t_belierarme03sang_c": "/assets/textures/arenas/t_belierarme03sang_c.png",
-      "t_belierarme04sang_c": "/assets/textures/arenas/t_belierarme04sang_c.png",
-      "t_beliergarde01_c": "/assets/textures/arenas/t_beliergarde01_c.png",
-      "t_beliergarde02_c": "/assets/textures/arenas/t_beliergarde02_c.png",
-      "t_beliergarde02b_c": "/assets/textures/arenas/t_beliergarde02b_c.png",
-      "t_beliergarde03_c": "/assets/textures/arenas/t_beliergarde03_c.png",
-      "t_beliergarde03b_c": "/assets/textures/arenas/t_beliergarde03b_c.png",
-      "t_beliergarde04_c": "/assets/textures/arenas/t_beliergarde04_c.png",
-      "t_fx_uberbeam_c": "/assets/textures/arenas/t_fx_uberbeam_c.png",
-      "t_glissparticules_c": "/assets/textures/arenas/t_glissparticules_c.png",
-      "t_guicomboblue2_c": "/assets/textures/arenas/t_guicomboblue2_c.png",
-      "t_guicomboblue_c": "/assets/textures/arenas/t_guicomboblue_c.png",
-      "t_guicombogreen2_c": "/assets/textures/arenas/t_guicombogreen2_c.png",
-      "t_guicombogreen_c": "/assets/textures/arenas/t_guicombogreen_c.png",
-      "t_guicombopink2_c": "/assets/textures/arenas/t_guicombopink2_c.png",
-      "t_guicombopink_c": "/assets/textures/arenas/t_guicombopink_c.png",
-      "t_guicomboyellow2_c": "/assets/textures/arenas/t_guicomboyellow2_c.png",
-      "t_guicomboyellow_c": "/assets/textures/arenas/t_guicomboyellow_c.png",
-      "t_guicouronne_c": "/assets/textures/arenas/t_guicouronne_c.png",
-      "t_guicutfx_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guiimpact_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guikill_c": "/assets/textures/arenas/t_guikill_c.png",
-      "t_guimodesoloelmcount_c": "/assets/textures/arenas/t_guimodesoloelmcount_c.png",
-      "t_guipoussiere_c": "/assets/textures/arenas/t_guipoussiere_c.png",
-      "t_guiscorebas2_c": "/assets/textures/arenas/t_guiscorebas2_c.png",
-      "t_lance_c": "/assets/textures/arenas/t_lance_c.png",
-      "t_lancegarde01_c": "/assets/textures/arenas/t_lancegarde01_c.png",
-      "t_lancegarde01b_c": "/assets/textures/arenas/t_lancegarde01b_c.png",
-      "t_lancegarde01c_c": "/assets/textures/arenas/t_lancegarde01c_c.png",
-      "t_lancegarde01d_c": "/assets/textures/arenas/t_lancegarde01d_c.png",
-      "t_lancelames_c": "/assets/textures/arenas/t_lancelames_c.png",
-      "t_lancepic02_c": "/assets/textures/arenas/t_lancepic02_c.png",
-      "t_lancepic02b_c": "/assets/textures/arenas/t_lancepic02b_c.png",
-      "t_lancepic02bsang_c": "/assets/textures/arenas/t_lancepic02bsang_c.png",
-      "t_lancepic04sang_c": "/assets/textures/arenas/t_lancepic04sang_c.png",
-      "t_lancesupport_c": "/assets/textures/arenas/t_lancesupport_c.png",
-      "t_lvl20_murtueur_c": "/assets/textures/arenas/t_lvl20_murtueur_c.png",
-      "t_placeholderld_black_c": "/assets/textures/arenas/t_placeholderld_black_c.png",
-      "t_plusone": "/assets/textures/arenas/t_plusone.png",
-      "t_rebonecranpierre_c": "/assets/textures/arenas/t_rebonecranpierre_c.png",
-      "t_rebonpierretile01_c": "/assets/textures/arenas/t_rebonpierretile01_c.png",
-      "t_rebonpierretile02_c": "/assets/textures/arenas/t_rebonpierretile02_c.png",
-      "t_rebonpierretile03_c": "/assets/textures/arenas/t_rebonpierretile03_c.png",
-      "t_stock_flame_01": "/assets/textures/arenas/t_stock_flame_01.png",
-      "t_trailgradient_c": "/assets/textures/global/t_trailgradient_c.png",
-      "t_ubeambreak": "/assets/textures/arenas/t_ubeambreak.png"
-    },
-    "w_multi_coll_lvl03": {
-      "t_beambreak": "/assets/textures/arenas/t_beambreak.png",
-      "t_beamcorona_white_c": "/assets/textures/arenas/t_beamcorona_white_c.png",
-      "t_fx_uberbeam_c": "/assets/textures/arenas/t_fx_uberbeam_c.png",
-      "t_glissparticules_c": "/assets/textures/arenas/t_glissparticules_c.png",
-      "t_guicomboblue2_c": "/assets/textures/arenas/t_guicomboblue2_c.png",
-      "t_guicomboblue_c": "/assets/textures/arenas/t_guicomboblue_c.png",
-      "t_guicombogreen2_c": "/assets/textures/arenas/t_guicombogreen2_c.png",
-      "t_guicombogreen_c": "/assets/textures/arenas/t_guicombogreen_c.png",
-      "t_guicombopink2_c": "/assets/textures/arenas/t_guicombopink2_c.png",
-      "t_guicombopink_c": "/assets/textures/arenas/t_guicombopink_c.png",
-      "t_guicomboyellow2_c": "/assets/textures/arenas/t_guicomboyellow2_c.png",
-      "t_guicomboyellow_c": "/assets/textures/arenas/t_guicomboyellow_c.png",
-      "t_guicouronne_c": "/assets/textures/arenas/t_guicouronne_c.png",
-      "t_guicutfx_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guiimpact_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guikill_c": "/assets/textures/arenas/t_guikill_c.png",
-      "t_guimodesoloelmcount_c": "/assets/textures/arenas/t_guimodesoloelmcount_c.png",
-      "t_guipoussiere_c": "/assets/textures/arenas/t_guipoussiere_c.png",
-      "t_guiscorebas2_c": "/assets/textures/arenas/t_guiscorebas2_c.png",
-      "t_leaf_c": "/assets/textures/arenas/t_leaf_c.png",
-      "t_placeholderld_black_c": "/assets/textures/arenas/t_placeholderld_black_c.png",
-      "t_plusone": "/assets/textures/arenas/t_plusone.png",
-      "t_rebonecranbois01_c": "/assets/textures/arenas/t_rebonecranbois01_c.png",
-      "t_rebonecranbois02_c": "/assets/textures/arenas/t_rebonecranbois01_c.png",
-      "t_stock_flame_01": "/assets/textures/arenas/t_stock_flame_01.png",
-      "t_trailgradient_c": "/assets/textures/global/t_trailgradient_c.png",
-      "t_tueurvortex01a_c": "/assets/textures/arenas/t_tueurvortex01a_c.png",
-      "t_tueurvortex01b_c": "/assets/textures/arenas/t_tueurvortex01b_c.png",
-      "t_tueurvortex01c_c": "/assets/textures/arenas/t_tueurvortex01c_c.png",
-      "t_tueurvortex01d_c": "/assets/textures/arenas/t_tueurvortex01d_c.png",
-      "t_tueurvortex01e_c": "/assets/textures/arenas/t_tueurvortex01e_c.png",
-      "t_tueurvortex01f_c": "/assets/textures/arenas/t_tueurvortex01f_c.png",
-      "t_tueurvortex01g_c": "/assets/textures/arenas/t_tueurvortex01g_c.png",
-      "t_tueurvortex01h_c": "/assets/textures/arenas/t_tueurvortex01h_c.png",
-      "t_ubeambreak": "/assets/textures/arenas/t_ubeambreak.png"
-    },
-    "w_multi_coll_lvl04": {
-      "t_beambreak": "/assets/textures/arenas/t_beambreak.png",
-      "t_beamcorona_white_c": "/assets/textures/arenas/t_beamcorona_white_c.png",
-      "t_carrebois_c": "/assets/textures/arenas/t_carrebois_c.png",
-      "t_eltsmetal_c": "/assets/textures/arenas/t_eltsmetal_c.png",
-      "t_fx_uberbeam_c": "/assets/textures/arenas/t_fx_uberbeam_c.png",
-      "t_glissparticules_c": "/assets/textures/arenas/t_glissparticules_c.png",
-      "t_guicomboblue2_c": "/assets/textures/arenas/t_guicomboblue2_c.png",
-      "t_guicomboblue_c": "/assets/textures/arenas/t_guicomboblue_c.png",
-      "t_guicombogreen2_c": "/assets/textures/arenas/t_guicombogreen2_c.png",
-      "t_guicombogreen_c": "/assets/textures/arenas/t_guicombogreen_c.png",
-      "t_guicombopink2_c": "/assets/textures/arenas/t_guicombopink2_c.png",
-      "t_guicombopink_c": "/assets/textures/arenas/t_guicombopink_c.png",
-      "t_guicomboyellow2_c": "/assets/textures/arenas/t_guicomboyellow2_c.png",
-      "t_guicomboyellow_c": "/assets/textures/arenas/t_guicomboyellow_c.png",
-      "t_guicouronne_c": "/assets/textures/arenas/t_guicouronne_c.png",
-      "t_guicutfx_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guiimpact_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guikill_c": "/assets/textures/arenas/t_guikill_c.png",
-      "t_guimodesoloelmcount_c": "/assets/textures/arenas/t_guimodesoloelmcount_c.png",
-      "t_guipoussiere_c": "/assets/textures/arenas/t_guipoussiere_c.png",
-      "t_guiscorebas2_c": "/assets/textures/arenas/t_guiscorebas2_c.png",
-      "t_placeholderld_black_c": "/assets/textures/arenas/t_placeholderld_black_c.png",
-      "t_plusone": "/assets/textures/arenas/t_plusone.png",
-      "t_poulie01_c": "/assets/textures/arenas/t_poulie01_c.png",
-      "t_poulie_pointes_c": "/assets/textures/arenas/t_poulie_pointes_c.png",
-      "t_pouliecorde_c": "/assets/textures/arenas/t_pouliecorde_c.png",
-      "t_rebonecranbois01_c": "/assets/textures/arenas/t_rebonecranbois01_c.png",
-      "t_rebonecranbois02_c": "/assets/textures/arenas/t_rebonecranbois01_c.png",
-      "t_smallcarrebois_c": "/assets/textures/arenas/t_smallcarrebois_c.png",
-      "t_stock_flame_01": "/assets/textures/arenas/t_stock_flame_01.png",
-      "t_trailgradient_c": "/assets/textures/global/t_trailgradient_c.png",
-      "t_ubeambreak": "/assets/textures/arenas/t_ubeambreak.png"
-    },
-    "w_multi_coll_lvl05": {
-      "t_beambreak": "/assets/textures/arenas/t_beambreak.png",
-      "t_beamcorona_white_c": "/assets/textures/arenas/t_beamcorona_white_c.png",
-      "t_carrebois_c": "/assets/textures/arenas/t_carrebois_c.png",
-      "t_eltsmetal_c": "/assets/textures/arenas/t_eltsmetal_c.png",
-      "t_fx_uberbeam_c": "/assets/textures/arenas/t_fx_uberbeam_c.png",
-      "t_glissparticules_c": "/assets/textures/arenas/t_glissparticules_c.png",
-      "t_guicomboblue2_c": "/assets/textures/arenas/t_guicomboblue2_c.png",
-      "t_guicomboblue_c": "/assets/textures/arenas/t_guicomboblue_c.png",
-      "t_guicombogreen2_c": "/assets/textures/arenas/t_guicombogreen2_c.png",
-      "t_guicombogreen_c": "/assets/textures/arenas/t_guicombogreen_c.png",
-      "t_guicombopink2_c": "/assets/textures/arenas/t_guicombopink2_c.png",
-      "t_guicombopink_c": "/assets/textures/arenas/t_guicombopink_c.png",
-      "t_guicomboyellow2_c": "/assets/textures/arenas/t_guicomboyellow2_c.png",
-      "t_guicomboyellow_c": "/assets/textures/arenas/t_guicomboyellow_c.png",
-      "t_guicouronne_c": "/assets/textures/arenas/t_guicouronne_c.png",
-      "t_guicutfx_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guiimpact_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guikill_c": "/assets/textures/arenas/t_guikill_c.png",
-      "t_guimodesoloelmcount_c": "/assets/textures/arenas/t_guimodesoloelmcount_c.png",
-      "t_guipoussiere_c": "/assets/textures/arenas/t_guipoussiere_c.png",
-      "t_guiscorebas2_c": "/assets/textures/arenas/t_guiscorebas2_c.png",
-      "t_placeholderld_black_c": "/assets/textures/arenas/t_placeholderld_black_c.png",
-      "t_plusone": "/assets/textures/arenas/t_plusone.png",
-      "t_rebonboistile01_c": "/assets/textures/arenas/t_rebonboistile01_c.png",
-      "t_rebonboistile03_c": "/assets/textures/arenas/t_rebonboistile03_c.png",
-      "t_rebonecranbois01_c": "/assets/textures/arenas/t_rebonecranbois01_c.png",
-      "t_rebonecranbois02_c": "/assets/textures/arenas/t_rebonecranbois01_c.png",
-      "t_stock_flame_01": "/assets/textures/arenas/t_stock_flame_01.png",
-      "t_trailgradient_c": "/assets/textures/global/t_trailgradient_c.png",
-      "t_ubeambreak": "/assets/textures/arenas/t_ubeambreak.png"
-    },
-    "w_multi_coll_lvl07": {
-      "t_beambreak": "/assets/textures/arenas/t_beambreak.png",
-      "t_beamcorona_white_c": "/assets/textures/arenas/t_beamcorona_white_c.png",
-      "t_fx_uberbeam_c": "/assets/textures/arenas/t_fx_uberbeam_c.png",
-      "t_glissparticules_c": "/assets/textures/arenas/t_glissparticules_c.png",
-      "t_guicomboblue2_c": "/assets/textures/arenas/t_guicomboblue2_c.png",
-      "t_guicomboblue_c": "/assets/textures/arenas/t_guicomboblue_c.png",
-      "t_guicombogreen2_c": "/assets/textures/arenas/t_guicombogreen2_c.png",
-      "t_guicombogreen_c": "/assets/textures/arenas/t_guicombogreen_c.png",
-      "t_guicombopink2_c": "/assets/textures/arenas/t_guicombopink2_c.png",
-      "t_guicombopink_c": "/assets/textures/arenas/t_guicombopink_c.png",
-      "t_guicomboyellow2_c": "/assets/textures/arenas/t_guicomboyellow2_c.png",
-      "t_guicomboyellow_c": "/assets/textures/arenas/t_guicomboyellow_c.png",
-      "t_guicouronne_c": "/assets/textures/arenas/t_guicouronne_c.png",
-      "t_guicutfx_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guiimpact_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guikill_c": "/assets/textures/arenas/t_guikill_c.png",
-      "t_guimodesoloelmcount_c": "/assets/textures/arenas/t_guimodesoloelmcount_c.png",
-      "t_guipoussiere_c": "/assets/textures/arenas/t_guipoussiere_c.png",
-      "t_guiscorebas2_c": "/assets/textures/arenas/t_guiscorebas2_c.png",
-      "t_placeholderld_black_c": "/assets/textures/arenas/t_placeholderld_black_c.png",
-      "t_plusone": "/assets/textures/arenas/t_plusone.png",
-      "t_rebonecranbois01_c": "/assets/textures/arenas/t_rebonecranbois01_c.png",
-      "t_rebonecranbois02_c": "/assets/textures/arenas/t_rebonecranbois01_c.png",
-      "t_stock_flame_01": "/assets/textures/arenas/t_stock_flame_01.png",
-      "t_trailgradient_c": "/assets/textures/global/t_trailgradient_c.png",
-      "t_ubeambreak": "/assets/textures/arenas/t_ubeambreak.png"
-    },
     "w_multi_dm_lvl01": {
       "t_beambreak": "/assets/textures/arenas/t_beambreak.png",
       "t_beamcorona_white_c": "/assets/textures/arenas/t_beamcorona_white_c.png",
@@ -744,144 +637,6 @@
       "t_trailgradient_c": "/assets/textures/global/t_trailgradient_c.png",
       "t_ubeambreak": "/assets/textures/arenas/t_ubeambreak.png"
     },
-    "w_ps3_collect_2": {
-      "t_beambreak": "/assets/textures/arenas/t_beambreak.png",
-      "t_beamcorona_white_c": "/assets/textures/arenas/t_beamcorona_white_c.png",
-      "t_fx_uberbeam_c": "/assets/textures/arenas/t_fx_uberbeam_c.png",
-      "t_glissparticules_c": "/assets/textures/arenas/t_glissparticules_c.png",
-      "t_glow02_c": "/assets/textures/arenas/t_glow02_c.png",
-      "t_guicollectelogo_c": "/assets/textures/arenas/t_guicollectelogo_c.png",
-      "t_guicomboblue2_c": "/assets/textures/arenas/t_guicomboblue2_c.png",
-      "t_guicomboblue_c": "/assets/textures/arenas/t_guicomboblue_c.png",
-      "t_guicombogreen2_c": "/assets/textures/arenas/t_guicombogreen2_c.png",
-      "t_guicombogreen_c": "/assets/textures/arenas/t_guicombogreen_c.png",
-      "t_guicombopink2_c": "/assets/textures/arenas/t_guicombopink2_c.png",
-      "t_guicombopink_c": "/assets/textures/arenas/t_guicombopink_c.png",
-      "t_guicomboyellow2_c": "/assets/textures/arenas/t_guicomboyellow2_c.png",
-      "t_guicomboyellow_c": "/assets/textures/arenas/t_guicomboyellow_c.png",
-      "t_guicouronne_c": "/assets/textures/arenas/t_guicouronne_c.png",
-      "t_guicutfx_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guiimpact_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guikill_c": "/assets/textures/arenas/t_guikill_c.png",
-      "t_guipoussiere_c": "/assets/textures/arenas/t_guipoussiere_c.png",
-      "t_guiscorebas2_c": "/assets/textures/arenas/t_guiscorebas2_c.png",
-      "t_menulevelcomp04_c": "/assets/textures/arenas/t_menulevelcomp04_c.png",
-      "t_plusone": "/assets/textures/arenas/t_plusone.png",
-      "t_porteentre04a_c": "/assets/textures/arenas/t_porteentre04a_c.png",
-      "t_porteentre04b_c": "/assets/textures/arenas/t_porteentre04b_c.png",
-      "t_rebonecranbois01_c": "/assets/textures/arenas/t_rebonecranbois01_c.png",
-      "t_rebonecranbois02_c": "/assets/textures/arenas/t_rebonecranbois01_c.png",
-      "t_stock_flame_01": "/assets/textures/arenas/t_stock_flame_01.png",
-      "t_trailgradient_c": "/assets/textures/global/t_trailgradient_c.png",
-      "t_ubeambreak": "/assets/textures/arenas/t_ubeambreak.png",
-      "t_versus_c": "/assets/textures/arenas/t_versus_c.png",
-      "t_vspigrouge_c": "/assets/textures/arenas/t_vspigrouge_c.png",
-      "t_vspigvert_c": "/assets/textures/arenas/t_vspigvert_c.png"
-    },
-    "w_ps3_collect_3": {
-      "t_beambreak": "/assets/textures/arenas/t_beambreak.png",
-      "t_beamcorona_white_c": "/assets/textures/arenas/t_beamcorona_white_c.png",
-      "t_belier_arme04_c": "/assets/textures/arenas/t_belier_arme04_c.png",
-      "t_belier_c": "/assets/textures/arenas/t_belier_c.png",
-      "t_belierarme01_c": "/assets/textures/arenas/t_belierarme01_c.png",
-      "t_belierarme01sang_c": "/assets/textures/arenas/t_belierarme01sang_c.png",
-      "t_belierarme02_c": "/assets/textures/arenas/t_belierarme02_c.png",
-      "t_belierarme02sang_c": "/assets/textures/arenas/t_belierarme02sang_c.png",
-      "t_belierarme03_c": "/assets/textures/arenas/t_belierarme03_c.png",
-      "t_belierarme03sang_c": "/assets/textures/arenas/t_belierarme03sang_c.png",
-      "t_belierarme04sang_c": "/assets/textures/arenas/t_belierarme04sang_c.png",
-      "t_beliergarde01_c": "/assets/textures/arenas/t_beliergarde01_c.png",
-      "t_beliergarde02_c": "/assets/textures/arenas/t_beliergarde02_c.png",
-      "t_beliergarde02b_c": "/assets/textures/arenas/t_beliergarde02b_c.png",
-      "t_beliergarde03_c": "/assets/textures/arenas/t_beliergarde03_c.png",
-      "t_beliergarde03b_c": "/assets/textures/arenas/t_beliergarde03b_c.png",
-      "t_beliergarde04_c": "/assets/textures/arenas/t_beliergarde04_c.png",
-      "t_fx_uberbeam_c": "/assets/textures/arenas/t_fx_uberbeam_c.png",
-      "t_glissparticules_c": "/assets/textures/arenas/t_glissparticules_c.png",
-      "t_glow02_c": "/assets/textures/arenas/t_glow02_c.png",
-      "t_guicollectelogo_c": "/assets/textures/arenas/t_guicollectelogo_c.png",
-      "t_guicomboblue2_c": "/assets/textures/arenas/t_guicomboblue2_c.png",
-      "t_guicomboblue_c": "/assets/textures/arenas/t_guicomboblue_c.png",
-      "t_guicombogreen2_c": "/assets/textures/arenas/t_guicombogreen2_c.png",
-      "t_guicombogreen_c": "/assets/textures/arenas/t_guicombogreen_c.png",
-      "t_guicombopink2_c": "/assets/textures/arenas/t_guicombopink2_c.png",
-      "t_guicombopink_c": "/assets/textures/arenas/t_guicombopink_c.png",
-      "t_guicomboyellow2_c": "/assets/textures/arenas/t_guicomboyellow2_c.png",
-      "t_guicomboyellow_c": "/assets/textures/arenas/t_guicomboyellow_c.png",
-      "t_guicouronne_c": "/assets/textures/arenas/t_guicouronne_c.png",
-      "t_guicutfx_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guiimpact_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guikill_c": "/assets/textures/arenas/t_guikill_c.png",
-      "t_guipoussiere_c": "/assets/textures/arenas/t_guipoussiere_c.png",
-      "t_guiscorebas2_c": "/assets/textures/arenas/t_guiscorebas2_c.png",
-      "t_lance_c": "/assets/textures/arenas/t_lance_c.png",
-      "t_lancegarde01_c": "/assets/textures/arenas/t_lancegarde01_c.png",
-      "t_lancegarde01b_c": "/assets/textures/arenas/t_lancegarde01b_c.png",
-      "t_lancegarde01c_c": "/assets/textures/arenas/t_lancegarde01c_c.png",
-      "t_lancegarde01d_c": "/assets/textures/arenas/t_lancegarde01d_c.png",
-      "t_lancelames_c": "/assets/textures/arenas/t_lancelames_c.png",
-      "t_lancepic02_c": "/assets/textures/arenas/t_lancepic02_c.png",
-      "t_lancepic02b_c": "/assets/textures/arenas/t_lancepic02b_c.png",
-      "t_lancepic02bsang_c": "/assets/textures/arenas/t_lancepic02bsang_c.png",
-      "t_lancepic04sang_c": "/assets/textures/arenas/t_lancepic04sang_c.png",
-      "t_lancesupport_c": "/assets/textures/arenas/t_lancesupport_c.png",
-      "t_lvl20_murtueur_c": "/assets/textures/arenas/t_lvl20_murtueur_c.png",
-      "t_menulevelcomp04_c": "/assets/textures/arenas/t_menulevelcomp04_c.png",
-      "t_plusone": "/assets/textures/arenas/t_plusone.png",
-      "t_porteentre04a_c": "/assets/textures/arenas/t_porteentre04a_c.png",
-      "t_porteentre04b_c": "/assets/textures/arenas/t_porteentre04b_c.png",
-      "t_rebonecranpierre_c": "/assets/textures/arenas/t_rebonecranpierre_c.png",
-      "t_rebonpierretile01_c": "/assets/textures/arenas/t_rebonpierretile01_c.png",
-      "t_rebonpierretile02_c": "/assets/textures/arenas/t_rebonpierretile02_c.png",
-      "t_rebonpierretile03_c": "/assets/textures/arenas/t_rebonpierretile03_c.png",
-      "t_stock_flame_01": "/assets/textures/arenas/t_stock_flame_01.png",
-      "t_trailgradient_c": "/assets/textures/global/t_trailgradient_c.png",
-      "t_ubeambreak": "/assets/textures/arenas/t_ubeambreak.png",
-      "t_versus_c": "/assets/textures/arenas/t_versus_c.png",
-      "t_vssqueljaune_c": "/assets/textures/arenas/t_vssqueljaune_c.png",
-      "t_vssquelrouge_c": "/assets/textures/arenas/t_vssquelrouge_c.png",
-      "t_vssquelvert_c": "/assets/textures/arenas/t_vssquelvert_c.png"
-    },
-    "w_ps3_collect_4": {
-      "t_beambreak": "/assets/textures/arenas/t_beambreak.png",
-      "t_beamcorona_white_c": "/assets/textures/arenas/t_beamcorona_white_c.png",
-      "t_carrebois_c": "/assets/textures/arenas/t_carrebois_c.png",
-      "t_eltsmetal_c": "/assets/textures/arenas/t_eltsmetal_c.png",
-      "t_fx_uberbeam_c": "/assets/textures/arenas/t_fx_uberbeam_c.png",
-      "t_glissparticules_c": "/assets/textures/arenas/t_glissparticules_c.png",
-      "t_glow02_c": "/assets/textures/arenas/t_glow02_c.png",
-      "t_guicollectelogo_c": "/assets/textures/arenas/t_guicollectelogo_c.png",
-      "t_guicomboblue2_c": "/assets/textures/arenas/t_guicomboblue2_c.png",
-      "t_guicomboblue_c": "/assets/textures/arenas/t_guicomboblue_c.png",
-      "t_guicombogreen2_c": "/assets/textures/arenas/t_guicombogreen2_c.png",
-      "t_guicombogreen_c": "/assets/textures/arenas/t_guicombogreen_c.png",
-      "t_guicombopink2_c": "/assets/textures/arenas/t_guicombopink2_c.png",
-      "t_guicombopink_c": "/assets/textures/arenas/t_guicombopink_c.png",
-      "t_guicomboyellow2_c": "/assets/textures/arenas/t_guicomboyellow2_c.png",
-      "t_guicomboyellow_c": "/assets/textures/arenas/t_guicomboyellow_c.png",
-      "t_guicouronne_c": "/assets/textures/arenas/t_guicouronne_c.png",
-      "t_guicutfx_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guiimpact_c": "/assets/textures/arenas/t_guicutfx_c.png",
-      "t_guikill_c": "/assets/textures/arenas/t_guikill_c.png",
-      "t_guipoussiere_c": "/assets/textures/arenas/t_guipoussiere_c.png",
-      "t_guiscorebas2_c": "/assets/textures/arenas/t_guiscorebas2_c.png",
-      "t_menulevelcomp04_c": "/assets/textures/arenas/t_menulevelcomp04_c.png",
-      "t_plusone": "/assets/textures/arenas/t_plusone.png",
-      "t_porteentre04a_c": "/assets/textures/arenas/t_porteentre04a_c.png",
-      "t_porteentre04b_c": "/assets/textures/arenas/t_porteentre04b_c.png",
-      "t_poulie01_c": "/assets/textures/arenas/t_poulie01_c.png",
-      "t_poulie_pointes_c": "/assets/textures/arenas/t_poulie_pointes_c.png",
-      "t_pouliecorde_c": "/assets/textures/arenas/t_pouliecorde_c.png",
-      "t_rebonecranbois01_c": "/assets/textures/arenas/t_rebonecranbois01_c.png",
-      "t_rebonecranbois02_c": "/assets/textures/arenas/t_rebonecranbois01_c.png",
-      "t_smallcarrebois_c": "/assets/textures/arenas/t_smallcarrebois_c.png",
-      "t_stock_flame_01": "/assets/textures/arenas/t_stock_flame_01.png",
-      "t_trailgradient_c": "/assets/textures/global/t_trailgradient_c.png",
-      "t_ubeambreak": "/assets/textures/arenas/t_ubeambreak.png",
-      "t_versus_c": "/assets/textures/arenas/t_versus_c.png",
-      "t_vssquelrouge_c": "/assets/textures/arenas/t_vssquelrouge_c.png",
-      "t_vssquelvert_c": "/assets/textures/arenas/t_vssquelvert_c.png"
-    },
     "w_ps3_deathmatch_2": {
       "t_beambreak": "/assets/textures/arenas/t_beambreak.png",
       "t_beamcorona_white_c": "/assets/textures/arenas/t_beamcorona_white_c.png",
@@ -988,6 +743,918 @@
     }
   },
   "texturesByHash": {
+    "cddf0eb9117b442f": {
+      "id": "t_bgcampagne00_c",
+      "url": "/assets/textures/backgrounds/t_bgcampagne00_c.png",
+      "width": 2048,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "cddf0eb9117b442f",
+      "pngBytes": 243049,
+      "sources": [
+        "backgrounds/t_bgcampagne00_c.dds"
+      ]
+    },
+    "ed30f65f992b595e": {
+      "id": "t_bgcampagne01_c",
+      "url": "/assets/textures/backgrounds/t_bgcampagne01_c.png",
+      "width": 2048,
+      "height": 1024,
+      "originalFormat": "DXT1",
+      "sha256": "ed30f65f992b595e",
+      "pngBytes": 372899,
+      "sources": [
+        "backgrounds/t_bgcampagne01_c.dds"
+      ]
+    },
+    "51733f2f700a9868": {
+      "id": "t_bgcampagneane_c",
+      "url": "/assets/textures/backgrounds/t_bgcampagneane_c.png",
+      "width": 256,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "51733f2f700a9868",
+      "pngBytes": 9670,
+      "sources": [
+        "backgrounds/t_bgcampagneane_c.dds"
+      ]
+    },
+    "b38d84e1177092bf": {
+      "id": "t_bgcampagnemaison_c",
+      "url": "/assets/textures/backgrounds/t_bgcampagnemaison_c.png",
+      "width": 1024,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "b38d84e1177092bf",
+      "pngBytes": 140971,
+      "sources": [
+        "backgrounds/t_bgcampagnemaison_c.dds"
+      ]
+    },
+    "a632f08891bcdb73": {
+      "id": "t_bgcampagnemoulin_c",
+      "url": "/assets/textures/backgrounds/t_bgcampagnemoulin_c.png",
+      "width": 1024,
+      "height": 512,
+      "originalFormat": "DXT5",
+      "sha256": "a632f08891bcdb73",
+      "pngBytes": 99265,
+      "sources": [
+        "backgrounds/t_bgcampagnemoulin_c.dds"
+      ]
+    },
+    "22eae875d65ad43c": {
+      "id": "t_bgcampagnenuages00_c",
+      "url": "/assets/textures/backgrounds/t_bgcampagnenuages00_c.png",
+      "width": 256,
+      "height": 64,
+      "originalFormat": "DXT5",
+      "sha256": "22eae875d65ad43c",
+      "pngBytes": 5649,
+      "sources": [
+        "backgrounds/t_bgcampagnenuages00_c.dds"
+      ]
+    },
+    "c75541cfa03ea202": {
+      "id": "t_bgcampagnenuages01_c",
+      "url": "/assets/textures/backgrounds/t_bgcampagnenuages01_c.png",
+      "width": 256,
+      "height": 32,
+      "originalFormat": "DXT5",
+      "sha256": "c75541cfa03ea202",
+      "pngBytes": 4400,
+      "sources": [
+        "backgrounds/t_bgcampagnenuages01_c.dds"
+      ]
+    },
+    "d6c9d98e6843d6a3": {
+      "id": "t_bgcampagneoiseaux_c",
+      "url": "/assets/textures/backgrounds/t_bgcampagneoiseaux_c.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "d6c9d98e6843d6a3",
+      "pngBytes": 3459,
+      "sources": [
+        "backgrounds/t_bgcampagneoiseaux_c.dds"
+      ]
+    },
+    "df4dab67a1590832": {
+      "id": "t_bgcampagnepont_c",
+      "url": "/assets/textures/backgrounds/t_bgcampagnepont_c.png",
+      "width": 1024,
+      "height": 512,
+      "originalFormat": "DXT5",
+      "sha256": "df4dab67a1590832",
+      "pngBytes": 63729,
+      "sources": [
+        "backgrounds/t_bgcampagnepont_c.dds"
+      ]
+    },
+    "1e556505cb5a754d": {
+      "id": "t_bgcampagnepontpersos_c",
+      "url": "/assets/textures/backgrounds/t_bgcampagnepontpersos_c.png",
+      "width": 512,
+      "height": 256,
+      "originalFormat": "DXT5",
+      "sha256": "1e556505cb5a754d",
+      "pngBytes": 47213,
+      "sources": [
+        "backgrounds/t_bgcampagnepontpersos_c.dds"
+      ]
+    },
+    "df0e6624bdf1d550": {
+      "id": "t_bgcampagneriviere_c",
+      "url": "/assets/textures/backgrounds/t_bgcampagneriviere_c.png",
+      "width": 128,
+      "height": 512,
+      "originalFormat": "DXT5",
+      "sha256": "df0e6624bdf1d550",
+      "pngBytes": 25802,
+      "sources": [
+        "backgrounds/t_bgcampagneriviere_c.dds"
+      ]
+    },
+    "1a0e1d04c9616063": {
+      "id": "t_bgcampagneruines_c",
+      "url": "/assets/textures/backgrounds/t_bgcampagneruines_c.png",
+      "width": 512,
+      "height": 512,
+      "originalFormat": "DXT5",
+      "sha256": "1a0e1d04c9616063",
+      "pngBytes": 38651,
+      "sources": [
+        "backgrounds/t_bgcampagneruines_c.dds"
+      ]
+    },
+    "29d2c2feab2ded1d": {
+      "id": "t_bgcampagnevaches_c",
+      "url": "/assets/textures/backgrounds/t_bgcampagnevaches_c.png",
+      "width": 256,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "29d2c2feab2ded1d",
+      "pngBytes": 10958,
+      "sources": [
+        "backgrounds/t_bgcampagnevaches_c.dds"
+      ]
+    },
+    "461a90dcc982fc86": {
+      "id": "t_bgchateau200_c",
+      "url": "/assets/textures/backgrounds/t_bgchateau200_c.png",
+      "width": 2048,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "461a90dcc982fc86",
+      "pngBytes": 634684,
+      "sources": [
+        "backgrounds/t_bgchateau200_c.dds"
+      ]
+    },
+    "24f6eb72fad79a96": {
+      "id": "t_bgchateau201_c",
+      "url": "/assets/textures/backgrounds/t_bgchateau201_c.png",
+      "width": 1024,
+      "height": 512,
+      "originalFormat": "DXT5",
+      "sha256": "24f6eb72fad79a96",
+      "pngBytes": 158113,
+      "sources": [
+        "backgrounds/t_bgchateau201_c.dds"
+      ]
+    },
+    "1eef7e5e6b734092": {
+      "id": "t_bgchateau202_c",
+      "url": "/assets/textures/backgrounds/t_bgchateau202_c.png",
+      "width": 1024,
+      "height": 512,
+      "originalFormat": "DXT1",
+      "sha256": "1eef7e5e6b734092",
+      "pngBytes": 154131,
+      "sources": [
+        "backgrounds/t_bgchateau202_c.dds"
+      ]
+    },
+    "b5a57007ce7e4132": {
+      "id": "t_bgchateau2_cage_c",
+      "url": "/assets/textures/backgrounds/t_bgchateau2_cage_c.png",
+      "width": 128,
+      "height": 256,
+      "originalFormat": "DXT5",
+      "sha256": "b5a57007ce7e4132",
+      "pngBytes": 20512,
+      "sources": [
+        "backgrounds/t_bgchateau2_cage_c.dds"
+      ]
+    },
+    "38ff2ef6b4f0c2e2": {
+      "id": "t_bgchateau2_dragon_c",
+      "url": "/assets/textures/backgrounds/t_bgchateau2_dragon_c.png",
+      "width": 256,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "38ff2ef6b4f0c2e2",
+      "pngBytes": 4686,
+      "sources": [
+        "backgrounds/t_bgchateau2_dragon_c.dds"
+      ]
+    },
+    "90b5b395132a9767": {
+      "id": "t_bgchateau2_drapeaux_c",
+      "url": "/assets/textures/backgrounds/t_bgchateau2_drapeaux_c.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "90b5b395132a9767",
+      "pngBytes": 6299,
+      "sources": [
+        "backgrounds/t_bgchateau2_drapeaux_c.dds"
+      ]
+    },
+    "4bc98a2691fd7ae1": {
+      "id": "t_bgchateau2_gardes_c",
+      "url": "/assets/textures/backgrounds/t_bgchateau2_gardes_c.png",
+      "width": 128,
+      "height": 64,
+      "originalFormat": "DXT5",
+      "sha256": "4bc98a2691fd7ae1",
+      "pngBytes": 6413,
+      "sources": [
+        "backgrounds/t_bgchateau2_gardes_c.dds"
+      ]
+    },
+    "9107e94f23acfcb9": {
+      "id": "t_bgchateau2_nuages_c",
+      "url": "/assets/textures/backgrounds/t_bgchateau2_nuages_c.png",
+      "width": 1024,
+      "height": 1024,
+      "originalFormat": "BGRA8",
+      "sha256": "9107e94f23acfcb9",
+      "pngBytes": 42107,
+      "sources": [
+        "backgrounds/t_bgchateau2_nuages_c.dds"
+      ]
+    },
+    "592418df03072aff": {
+      "id": "t_bgchateau2_ours_roche_c",
+      "url": "/assets/textures/backgrounds/t_bgchateau2_ours_roche_c.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "592418df03072aff",
+      "pngBytes": 10071,
+      "sources": [
+        "backgrounds/t_bgchateau2_ours_roche_c.dds"
+      ]
+    },
+    "9193f15a1db6cb97": {
+      "id": "t_bgchateau2_yeux_c",
+      "url": "/assets/textures/backgrounds/t_bgchateau2_yeux_c.png",
+      "width": 32,
+      "height": 32,
+      "originalFormat": "DXT5",
+      "sha256": "9193f15a1db6cb97",
+      "pngBytes": 506,
+      "sources": [
+        "backgrounds/t_bgchateau2_yeux_c.dds"
+      ]
+    },
+    "ff0521388fa92918": {
+      "id": "t_bgcimet200_c",
+      "url": "/assets/textures/backgrounds/t_bgcimet200_c.png",
+      "width": 2048,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "ff0521388fa92918",
+      "pngBytes": 635588,
+      "sources": [
+        "backgrounds/t_bgcimet200_c.dds"
+      ]
+    },
+    "da0fcce435db9cdf": {
+      "id": "t_bgcimet2arbre1_c",
+      "url": "/assets/textures/backgrounds/t_bgcimet2arbre1_c.png",
+      "width": 1024,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "da0fcce435db9cdf",
+      "pngBytes": 465228,
+      "sources": [
+        "backgrounds/t_bgcimet2arbre1_c.dds"
+      ]
+    },
+    "c6ad13a78cdff5d8": {
+      "id": "t_bgcimet2arbre2_c",
+      "url": "/assets/textures/backgrounds/t_bgcimet2arbre2_c.png",
+      "width": 1024,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "c6ad13a78cdff5d8",
+      "pngBytes": 538925,
+      "sources": [
+        "backgrounds/t_bgcimet2arbre2_c.dds"
+      ]
+    },
+    "e25c85b4daa71e54": {
+      "id": "t_bgcimet2brouillard_c",
+      "url": "/assets/textures/backgrounds/t_bgcimet2brouillard_c.png",
+      "width": 512,
+      "height": 256,
+      "originalFormat": "BGRA8",
+      "sha256": "e25c85b4daa71e54",
+      "pngBytes": 6544,
+      "sources": [
+        "backgrounds/t_bgcimet2brouillard_c.dds"
+      ]
+    },
+    "dcb75f28152eedb1": {
+      "id": "t_bgcimet2chauvesouris_c",
+      "url": "/assets/textures/backgrounds/t_bgcimet2chauvesouris_c.png",
+      "width": 128,
+      "height": 32,
+      "originalFormat": "DXT5",
+      "sha256": "dcb75f28152eedb1",
+      "pngBytes": 1643,
+      "sources": [
+        "backgrounds/t_bgcimet2chauvesouris_c.dds"
+      ]
+    },
+    "967918afc96b9bbf": {
+      "id": "t_bgcimet2ciel_c",
+      "url": "/assets/textures/backgrounds/t_bgcimet2ciel_c.png",
+      "width": 1024,
+      "height": 256,
+      "originalFormat": "BGRA8",
+      "sha256": "967918afc96b9bbf",
+      "pngBytes": 65932,
+      "sources": [
+        "backgrounds/t_bgcimet2ciel_c.dds"
+      ]
+    },
+    "3df58b6438b78bc7": {
+      "id": "t_bgcimet2citrouilles_c",
+      "url": "/assets/textures/backgrounds/t_bgcimet2citrouilles_c.png",
+      "width": 128,
+      "height": 64,
+      "originalFormat": "DXT5",
+      "sha256": "3df58b6438b78bc7",
+      "pngBytes": 7455,
+      "sources": [
+        "backgrounds/t_bgcimet2citrouilles_c.dds"
+      ]
+    },
+    "d3969f4888fcf6c7": {
+      "id": "t_bgcimet2fantomes_c",
+      "url": "/assets/textures/backgrounds/t_bgcimet2fantomes_c.png",
+      "width": 512,
+      "height": 256,
+      "originalFormat": "BGRA8",
+      "sha256": "d3969f4888fcf6c7",
+      "pngBytes": 11108,
+      "sources": [
+        "backgrounds/t_bgcimet2fantomes_c.dds"
+      ]
+    },
+    "0933c8a0c0d634e5": {
+      "id": "t_bgcimet2nuages_c",
+      "url": "/assets/textures/backgrounds/t_bgcimet2nuages_c.png",
+      "width": 512,
+      "height": 256,
+      "originalFormat": "DXT5",
+      "sha256": "0933c8a0c0d634e5",
+      "pngBytes": 11898,
+      "sources": [
+        "backgrounds/t_bgcimet2nuages_c.dds"
+      ]
+    },
+    "88b11da2680da09a": {
+      "id": "t_bgcimet2pendus_c",
+      "url": "/assets/textures/backgrounds/t_bgcimet2pendus_c.png",
+      "width": 256,
+      "height": 256,
+      "originalFormat": "DXT5",
+      "sha256": "88b11da2680da09a",
+      "pngBytes": 13109,
+      "sources": [
+        "backgrounds/t_bgcimet2pendus_c.dds"
+      ]
+    },
+    "7697d69a500df895": {
+      "id": "t_bgcimet2persos_c",
+      "url": "/assets/textures/backgrounds/t_bgcimet2persos_c.png",
+      "width": 256,
+      "height": 256,
+      "originalFormat": "DXT5",
+      "sha256": "7697d69a500df895",
+      "pngBytes": 15087,
+      "sources": [
+        "backgrounds/t_bgcimet2persos_c.dds"
+      ]
+    },
+    "35ddc829795db8ce": {
+      "id": "t_bgcimet2tombes01_c",
+      "url": "/assets/textures/backgrounds/t_bgcimet2tombes01_c.png",
+      "width": 512,
+      "height": 512,
+      "originalFormat": "DXT5",
+      "sha256": "35ddc829795db8ce",
+      "pngBytes": 55042,
+      "sources": [
+        "backgrounds/t_bgcimet2tombes01_c.dds"
+      ]
+    },
+    "c17e0daec1607358": {
+      "id": "t_bgcimet2tombes02_c",
+      "url": "/assets/textures/backgrounds/t_bgcimet2tombes02_c.png",
+      "width": 1024,
+      "height": 512,
+      "originalFormat": "DXT5",
+      "sha256": "c17e0daec1607358",
+      "pngBytes": 107474,
+      "sources": [
+        "backgrounds/t_bgcimet2tombes02_c.dds"
+      ]
+    },
+    "b3a1f1e0c68a8af1": {
+      "id": "t_bgforet00_c",
+      "url": "/assets/textures/backgrounds/t_bgforet00_c.png",
+      "width": 2048,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "b3a1f1e0c68a8af1",
+      "pngBytes": 751901,
+      "sources": [
+        "backgrounds/t_bgforet00_c.dds"
+      ]
+    },
+    "51b56389ca43bfc1": {
+      "id": "t_bgforet01_c",
+      "url": "/assets/textures/backgrounds/t_bgforet01_c.png",
+      "width": 2048,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "51b56389ca43bfc1",
+      "pngBytes": 601732,
+      "sources": [
+        "backgrounds/t_bgforet01_c.dds"
+      ]
+    },
+    "044854a5dbbec409": {
+      "id": "t_bgforet03_c",
+      "url": "/assets/textures/backgrounds/t_bgforet03_c.png",
+      "width": 256,
+      "height": 128,
+      "originalFormat": "DXT1",
+      "sha256": "044854a5dbbec409",
+      "pngBytes": 844,
+      "sources": [
+        "backgrounds/t_bgforet03_c.dds"
+      ]
+    },
+    "2dac343124d47e58": {
+      "id": "t_bgforet200_c",
+      "url": "/assets/textures/backgrounds/t_bgforet200_c.png",
+      "width": 2048,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "2dac343124d47e58",
+      "pngBytes": 833150,
+      "sources": [
+        "backgrounds/t_bgforet200_c.dds"
+      ]
+    },
+    "0377bebfd59c34ea": {
+      "id": "t_bgforet201_c",
+      "url": "/assets/textures/backgrounds/t_bgforet201_c.png",
+      "width": 2048,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "0377bebfd59c34ea",
+      "pngBytes": 894557,
+      "sources": [
+        "backgrounds/t_bgforet201_c.dds"
+      ]
+    },
+    "9df6536831599e87": {
+      "id": "t_bgforet203_c",
+      "url": "/assets/textures/backgrounds/t_bgforet203_c.png",
+      "width": 256,
+      "height": 128,
+      "originalFormat": "DXT1",
+      "sha256": "9df6536831599e87",
+      "pngBytes": 812,
+      "sources": [
+        "backgrounds/t_bgforet203_c.dds"
+      ]
+    },
+    "0d4c7d0a09b6a7aa": {
+      "id": "t_bgforet2elan_c",
+      "url": "/assets/textures/backgrounds/t_bgforet2elan_c.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "0d4c7d0a09b6a7aa",
+      "pngBytes": 9730,
+      "sources": [
+        "backgrounds/t_bgforet2elan_c.dds"
+      ]
+    },
+    "f3b6e5307ea01c94": {
+      "id": "t_bgforet2nuages_c",
+      "url": "/assets/textures/backgrounds/t_bgforet2nuages_c.png",
+      "width": 1024,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "f3b6e5307ea01c94",
+      "pngBytes": 48800,
+      "sources": [
+        "backgrounds/t_bgforet2nuages_c.dds"
+      ]
+    },
+    "5c33fe5da9393acd": {
+      "id": "t_bgforet2soldat_c",
+      "url": "/assets/textures/backgrounds/t_bgforet2soldat_c.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "5c33fe5da9393acd",
+      "pngBytes": 8848,
+      "sources": [
+        "backgrounds/t_bgforet2soldat_c.dds"
+      ]
+    },
+    "ef8c505f0b625c20": {
+      "id": "t_bgforet2souche_c",
+      "url": "/assets/textures/backgrounds/t_bgforet2souche_c.png",
+      "width": 128,
+      "height": 256,
+      "originalFormat": "DXT5",
+      "sha256": "ef8c505f0b625c20",
+      "pngBytes": 14688,
+      "sources": [
+        "backgrounds/t_bgforet2souche_c.dds"
+      ]
+    },
+    "b28d4b45feb692fe": {
+      "id": "t_bgforetelan_c",
+      "url": "/assets/textures/backgrounds/t_bgforetelan_c.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "b28d4b45feb692fe",
+      "pngBytes": 9588,
+      "sources": [
+        "backgrounds/t_bgforetelan_c.dds"
+      ]
+    },
+    "792f47ab4ac9068e": {
+      "id": "t_bgforetnuages_c",
+      "url": "/assets/textures/backgrounds/t_bgforetnuages_c.png",
+      "width": 1024,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "792f47ab4ac9068e",
+      "pngBytes": 48804,
+      "sources": [
+        "backgrounds/t_bgforetnuages_c.dds"
+      ]
+    },
+    "225493fd1f63b53d": {
+      "id": "t_bgforetsoldat_c",
+      "url": "/assets/textures/backgrounds/t_bgforetsoldat_c.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "225493fd1f63b53d",
+      "pngBytes": 5148,
+      "sources": [
+        "backgrounds/t_bgforetsoldat_c.dds"
+      ]
+    },
+    "d7e09bf51c553f68": {
+      "id": "t_bgforetsouche_c",
+      "url": "/assets/textures/backgrounds/t_bgforetsouche_c.png",
+      "width": 128,
+      "height": 256,
+      "originalFormat": "DXT5",
+      "sha256": "d7e09bf51c553f68",
+      "pngBytes": 15125,
+      "sources": [
+        "backgrounds/t_bgforetsouche_c.dds"
+      ]
+    },
+    "2f1751c1aa9294ee": {
+      "id": "t_bgport200_c",
+      "url": "/assets/textures/backgrounds/t_bgport200_c.png",
+      "width": 1024,
+      "height": 512,
+      "originalFormat": "DXT5",
+      "sha256": "2f1751c1aa9294ee",
+      "pngBytes": 178455,
+      "sources": [
+        "backgrounds/t_bgport200_c.dds"
+      ]
+    },
+    "88ab39f312f4acb7": {
+      "id": "t_bgport201_c",
+      "url": "/assets/textures/backgrounds/t_bgport201_c.png",
+      "width": 1024,
+      "height": 512,
+      "originalFormat": "DXT5",
+      "sha256": "88ab39f312f4acb7",
+      "pngBytes": 200867,
+      "sources": [
+        "backgrounds/t_bgport201_c.dds"
+      ]
+    },
+    "c01a1f584077d823": {
+      "id": "t_bgport202_c",
+      "url": "/assets/textures/backgrounds/t_bgport202_c.png",
+      "width": 1024,
+      "height": 512,
+      "originalFormat": "DXT1",
+      "sha256": "c01a1f584077d823",
+      "pngBytes": 218786,
+      "sources": [
+        "backgrounds/t_bgport202_c.dds"
+      ]
+    },
+    "322bbc40fb122b93": {
+      "id": "t_bgport203_c",
+      "url": "/assets/textures/backgrounds/t_bgport203_c.png",
+      "width": 2048,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "322bbc40fb122b93",
+      "pngBytes": 310308,
+      "sources": [
+        "backgrounds/t_bgport203_c.dds"
+      ]
+    },
+    "66217e24747cf1f3": {
+      "id": "t_bgport2bateau01_c",
+      "url": "/assets/textures/backgrounds/t_bgport2bateau01_c.png",
+      "width": 1024,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "66217e24747cf1f3",
+      "pngBytes": 166769,
+      "sources": [
+        "backgrounds/t_bgport2bateau01_c.dds"
+      ]
+    },
+    "b4c176b374d4494b": {
+      "id": "t_bgport2bateau02_c",
+      "url": "/assets/textures/backgrounds/t_bgport2bateau02_c.png",
+      "width": 512,
+      "height": 512,
+      "originalFormat": "DXT5",
+      "sha256": "b4c176b374d4494b",
+      "pngBytes": 86560,
+      "sources": [
+        "backgrounds/t_bgport2bateau02_c.dds"
+      ]
+    },
+    "4947e0909fe5e2a7": {
+      "id": "t_bgport2bateau03_c",
+      "url": "/assets/textures/backgrounds/t_bgport2bateau03_c.png",
+      "width": 256,
+      "height": 256,
+      "originalFormat": "DXT5",
+      "sha256": "4947e0909fe5e2a7",
+      "pngBytes": 42008,
+      "sources": [
+        "backgrounds/t_bgport2bateau03_c.dds"
+      ]
+    },
+    "c1dfe7469ba727a7": {
+      "id": "t_bgport2nuages_c",
+      "url": "/assets/textures/backgrounds/t_bgport2nuages_c.png",
+      "width": 512,
+      "height": 512,
+      "originalFormat": "DXT5",
+      "sha256": "c1dfe7469ba727a7",
+      "pngBytes": 33319,
+      "sources": [
+        "backgrounds/t_bgport2nuages_c.dds"
+      ]
+    },
+    "102ba69a268731a2": {
+      "id": "t_bgport2objets_c",
+      "url": "/assets/textures/backgrounds/t_bgport2objets_c.png",
+      "width": 256,
+      "height": 512,
+      "originalFormat": "DXT5",
+      "sha256": "102ba69a268731a2",
+      "pngBytes": 29196,
+      "sources": [
+        "backgrounds/t_bgport2objets_c.dds"
+      ]
+    },
+    "93a736329c6a1c24": {
+      "id": "t_bgportwateruv_c",
+      "url": "/assets/textures/backgrounds/t_bgportwateruv_c.png",
+      "width": 1024,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "93a736329c6a1c24",
+      "pngBytes": 64112,
+      "sources": [
+        "backgrounds/t_bgportwateruv_c.dds"
+      ]
+    },
+    "132a8636cf5bd8aa": {
+      "id": "t_bgville2maron00_c",
+      "url": "/assets/textures/backgrounds/t_bgville2maron00_c.png",
+      "width": 256,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "132a8636cf5bd8aa",
+      "pngBytes": 723,
+      "sources": [
+        "backgrounds/t_bgville2maron00_c.dds"
+      ]
+    },
+    "1346a470283beb97": {
+      "id": "t_bgville2maron01_c",
+      "url": "/assets/textures/backgrounds/t_bgville2maron01_c.png",
+      "width": 2048,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "1346a470283beb97",
+      "pngBytes": 855844,
+      "sources": [
+        "backgrounds/t_bgville2maron01_c.dds"
+      ]
+    },
+    "7676e7a910472c8d": {
+      "id": "t_bgville2maronarmes_c",
+      "url": "/assets/textures/backgrounds/t_bgville2maronarmes_c.png",
+      "width": 256,
+      "height": 256,
+      "originalFormat": "DXT5",
+      "sha256": "7676e7a910472c8d",
+      "pngBytes": 22464,
+      "sources": [
+        "backgrounds/t_bgville2maronarmes_c.dds"
+      ]
+    },
+    "1c01755338730943": {
+      "id": "t_bgville2maronbalance_c",
+      "url": "/assets/textures/backgrounds/t_bgville2maronbalance_c.png",
+      "width": 64,
+      "height": 256,
+      "originalFormat": "DXT5",
+      "sha256": "1c01755338730943",
+      "pngBytes": 5884,
+      "sources": [
+        "backgrounds/t_bgville2maronbalance_c.dds"
+      ]
+    },
+    "ac7a5d317db228c8": {
+      "id": "t_bgville2marondragon_c",
+      "url": "/assets/textures/backgrounds/t_bgville2marondragon_c.png",
+      "width": 256,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "ac7a5d317db228c8",
+      "pngBytes": 4687,
+      "sources": [
+        "backgrounds/t_bgville2marondragon_c.dds"
+      ]
+    },
+    "c08c3cb3d4107458": {
+      "id": "t_bgville2maronenseigne_c",
+      "url": "/assets/textures/backgrounds/t_bgville2maronenseigne_c.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "c08c3cb3d4107458",
+      "pngBytes": 10065,
+      "sources": [
+        "backgrounds/t_bgville2maronenseigne_c.dds"
+      ]
+    },
+    "208bfac713638730": {
+      "id": "t_bgville2maronnuages_c",
+      "url": "/assets/textures/backgrounds/t_bgville2maronnuages_c.png",
+      "width": 1024,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "208bfac713638730",
+      "pngBytes": 19740,
+      "sources": [
+        "backgrounds/t_bgville2maronnuages_c.dds"
+      ]
+    },
+    "557f7cc369ca9a9a": {
+      "id": "t_bgvillemaron00_c",
+      "url": "/assets/textures/backgrounds/t_bgvillemaron00_c.png",
+      "width": 2048,
+      "height": 1024,
+      "originalFormat": "DXT1",
+      "sha256": "557f7cc369ca9a9a",
+      "pngBytes": 10956,
+      "sources": [
+        "backgrounds/t_bgvillemaron00_c.dds"
+      ]
+    },
+    "f0ddeedaed2b80c0": {
+      "id": "t_bgvillemaron01_c",
+      "url": "/assets/textures/backgrounds/t_bgvillemaron01_c.png",
+      "width": 2048,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "f0ddeedaed2b80c0",
+      "pngBytes": 840382,
+      "sources": [
+        "backgrounds/t_bgvillemaron01_c.dds"
+      ]
+    },
+    "9a4bf29958b3b966": {
+      "id": "t_bgvillemaronarmes_c",
+      "url": "/assets/textures/backgrounds/t_bgvillemaronarmes_c.png",
+      "width": 256,
+      "height": 256,
+      "originalFormat": "DXT5",
+      "sha256": "9a4bf29958b3b966",
+      "pngBytes": 22272,
+      "sources": [
+        "backgrounds/t_bgvillemaronarmes_c.dds"
+      ]
+    },
+    "5bb49307a1a4d074": {
+      "id": "t_bgvillemaronbalance_c",
+      "url": "/assets/textures/backgrounds/t_bgvillemaronbalance_c.png",
+      "width": 64,
+      "height": 256,
+      "originalFormat": "DXT5",
+      "sha256": "5bb49307a1a4d074",
+      "pngBytes": 5836,
+      "sources": [
+        "backgrounds/t_bgvillemaronbalance_c.dds"
+      ]
+    },
+    "ff9619a6c992730e": {
+      "id": "t_bgvillemarondragon_c",
+      "url": "/assets/textures/backgrounds/t_bgvillemarondragon_c.png",
+      "width": 256,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "ff9619a6c992730e",
+      "pngBytes": 4686,
+      "sources": [
+        "backgrounds/t_bgvillemarondragon_c.dds"
+      ]
+    },
+    "108e39c4a991927f": {
+      "id": "t_bgvillemaronenseigne_c",
+      "url": "/assets/textures/backgrounds/t_bgvillemaronenseigne_c.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "108e39c4a991927f",
+      "pngBytes": 9900,
+      "sources": [
+        "backgrounds/t_bgvillemaronenseigne_c.dds"
+      ]
+    },
+    "8c547190cb603b94": {
+      "id": "t_bgvillemaronnuages_c",
+      "url": "/assets/textures/backgrounds/t_bgvillemaronnuages_c.png",
+      "width": 1024,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "8c547190cb603b94",
+      "pngBytes": 19759,
+      "sources": [
+        "backgrounds/t_bgvillemaronnuages_c.dds"
+      ]
+    },
+    "2ade9e7a6eb2d028": {
+      "id": "t_accroche01_c",
+      "url": "/assets/textures/global/t_accroche01_c.png",
+      "width": 64,
+      "height": 64,
+      "originalFormat": "DXT5",
+      "sha256": "2ade9e7a6eb2d028",
+      "pngBytes": 3535,
+      "sources": [
+        "global/t_accroche01_c.dds"
+      ]
+    },
+    "ee79899484bf02db": {
+      "id": "t_accrocheaura_c",
+      "url": "/assets/textures/global/t_accrocheaura_c.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "ee79899484bf02db",
+      "pngBytes": 7168,
+      "sources": [
+        "global/t_accrocheaura_c.dds"
+      ]
+    },
     "6c96b1c6bbf12fe1": {
       "id": "t_beam2_c",
       "url": "/assets/textures/global/t_beam2_c.png",
@@ -3496,6 +4163,42 @@
         "global/t_character_y_skull_ubeam_c.dds"
       ]
     },
+    "6713bbf983ce32c6": {
+      "id": "t_corde_c",
+      "url": "/assets/textures/global/t_corde_c.png",
+      "width": 64,
+      "height": 64,
+      "originalFormat": "DXT5",
+      "sha256": "6713bbf983ce32c6",
+      "pngBytes": 1226,
+      "sources": [
+        "global/t_corde_c.dds"
+      ]
+    },
+    "193d852eb6e592fd": {
+      "id": "t_cordebeam_c",
+      "url": "/assets/textures/global/t_cordebeam_c.png",
+      "width": 32,
+      "height": 64,
+      "originalFormat": "DXT5",
+      "sha256": "193d852eb6e592fd",
+      "pngBytes": 317,
+      "sources": [
+        "global/t_cordebeam_c.dds"
+      ]
+    },
+    "8c26b27a6936ec9c": {
+      "id": "t_cordeuberbeam_c",
+      "url": "/assets/textures/global/t_cordeuberbeam_c.png",
+      "width": 32,
+      "height": 64,
+      "originalFormat": "DXT5",
+      "sha256": "8c26b27a6936ec9c",
+      "pngBytes": 782,
+      "sources": [
+        "global/t_cordeuberbeam_c.dds"
+      ]
+    },
     "bad8d3324caee888": {
       "id": "t_fx_smokew_c",
       "url": "/assets/textures/global/t_fx_smokew_c.png",
@@ -4157,11 +4860,6 @@
       "pngBytes": 741,
       "sources": [
         "global/t_trailgradient_c.dds",
-        "multiplayer/w_multi_coll_lvl01/t_trailgradient_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_trailgradient_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_trailgradient_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_trailgradient_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_trailgradient_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_trailgradient_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_trailgradient_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_trailgradient_c.dds",
@@ -4170,9 +4868,6 @@
         "multiplayer/w_multi_dm_lvl10/t_trailgradient_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_trailgradient_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_trailgradient_c.dds",
-        "multiplayer/w_ps3_collect_2/t_trailgradient_c.dds",
-        "multiplayer/w_ps3_collect_3/t_trailgradient_c.dds",
-        "multiplayer/w_ps3_collect_4/t_trailgradient_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_trailgradient_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_trailgradient_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_trailgradient_c.dds"
@@ -4187,11 +4882,6 @@
       "sha256": "c833890cdd8d9063",
       "pngBytes": 1744,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_beambreak.dds",
-        "multiplayer/w_multi_coll_lvl03/t_beambreak.dds",
-        "multiplayer/w_multi_coll_lvl04/t_beambreak.dds",
-        "multiplayer/w_multi_coll_lvl05/t_beambreak.dds",
-        "multiplayer/w_multi_coll_lvl07/t_beambreak.dds",
         "multiplayer/w_multi_dm_lvl01/t_beambreak.dds",
         "multiplayer/w_multi_dm_lvl02/t_beambreak.dds",
         "multiplayer/w_multi_dm_lvl04/t_beambreak.dds",
@@ -4200,9 +4890,6 @@
         "multiplayer/w_multi_dm_lvl10/t_beambreak.dds",
         "multiplayer/w_multi_dm_lvl11/t_beambreak.dds",
         "multiplayer/w_multi_dm_lvl13/t_beambreak.dds",
-        "multiplayer/w_ps3_collect_2/t_beambreak.dds",
-        "multiplayer/w_ps3_collect_3/t_beambreak.dds",
-        "multiplayer/w_ps3_collect_4/t_beambreak.dds",
         "multiplayer/w_ps3_deathmatch_2/t_beambreak.dds",
         "multiplayer/w_ps3_deathmatch_3/t_beambreak.dds",
         "multiplayer/w_ps3_deathmatch_4/t_beambreak.dds"
@@ -4217,11 +4904,6 @@
       "sha256": "b50a002f20177ac8",
       "pngBytes": 758,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_beamcorona_white_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_beamcorona_white_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_beamcorona_white_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_beamcorona_white_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_beamcorona_white_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_beamcorona_white_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_beamcorona_white_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_beamcorona_white_c.dds",
@@ -4230,207 +4912,9 @@
         "multiplayer/w_multi_dm_lvl10/t_beamcorona_white_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_beamcorona_white_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_beamcorona_white_c.dds",
-        "multiplayer/w_ps3_collect_2/t_beamcorona_white_c.dds",
-        "multiplayer/w_ps3_collect_3/t_beamcorona_white_c.dds",
-        "multiplayer/w_ps3_collect_4/t_beamcorona_white_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_beamcorona_white_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_beamcorona_white_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_beamcorona_white_c.dds"
-      ]
-    },
-    "dd9d7c9838c7f589": {
-      "id": "t_belier_arme04_c",
-      "url": "/assets/textures/arenas/t_belier_arme04_c.png",
-      "width": 256,
-      "height": 256,
-      "originalFormat": "DXT5",
-      "sha256": "dd9d7c9838c7f589",
-      "pngBytes": 35249,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_belier_arme04_c.dds",
-        "multiplayer/w_ps3_collect_3/t_belier_arme04_c.dds"
-      ]
-    },
-    "69f7dd6cccfc3894": {
-      "id": "t_belier_c",
-      "url": "/assets/textures/arenas/t_belier_c.png",
-      "width": 256,
-      "height": 1024,
-      "originalFormat": "DXT5",
-      "sha256": "69f7dd6cccfc3894",
-      "pngBytes": 92817,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_belier_c.dds",
-        "multiplayer/w_ps3_collect_3/t_belier_c.dds"
-      ]
-    },
-    "b85f11741f975c68": {
-      "id": "t_belierarme01_c",
-      "url": "/assets/textures/arenas/t_belierarme01_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "b85f11741f975c68",
-      "pngBytes": 8230,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_belierarme01_c.dds",
-        "multiplayer/w_ps3_collect_3/t_belierarme01_c.dds"
-      ]
-    },
-    "a976591cd516652e": {
-      "id": "t_belierarme01sang_c",
-      "url": "/assets/textures/arenas/t_belierarme01sang_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "a976591cd516652e",
-      "pngBytes": 10176,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_belierarme01sang_c.dds",
-        "multiplayer/w_ps3_collect_3/t_belierarme01sang_c.dds"
-      ]
-    },
-    "23cde4110b5b5a26": {
-      "id": "t_belierarme02_c",
-      "url": "/assets/textures/arenas/t_belierarme02_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "23cde4110b5b5a26",
-      "pngBytes": 7370,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_belierarme02_c.dds",
-        "multiplayer/w_ps3_collect_3/t_belierarme02_c.dds"
-      ]
-    },
-    "d49c0add476a44a3": {
-      "id": "t_belierarme02sang_c",
-      "url": "/assets/textures/arenas/t_belierarme02sang_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "d49c0add476a44a3",
-      "pngBytes": 8437,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_belierarme02sang_c.dds",
-        "multiplayer/w_ps3_collect_3/t_belierarme02sang_c.dds"
-      ]
-    },
-    "292c12d5a0e7e05a": {
-      "id": "t_belierarme03_c",
-      "url": "/assets/textures/arenas/t_belierarme03_c.png",
-      "width": 256,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "292c12d5a0e7e05a",
-      "pngBytes": 22764,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_belierarme03_c.dds",
-        "multiplayer/w_ps3_collect_3/t_belierarme03_c.dds"
-      ]
-    },
-    "e6f852c48acd87a6": {
-      "id": "t_belierarme03sang_c",
-      "url": "/assets/textures/arenas/t_belierarme03sang_c.png",
-      "width": 256,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "e6f852c48acd87a6",
-      "pngBytes": 24599,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_belierarme03sang_c.dds",
-        "multiplayer/w_ps3_collect_3/t_belierarme03sang_c.dds"
-      ]
-    },
-    "1676741cd80f6e20": {
-      "id": "t_belierarme04sang_c",
-      "url": "/assets/textures/arenas/t_belierarme04sang_c.png",
-      "width": 256,
-      "height": 256,
-      "originalFormat": "DXT5",
-      "sha256": "1676741cd80f6e20",
-      "pngBytes": 37672,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_belierarme04sang_c.dds",
-        "multiplayer/w_ps3_collect_3/t_belierarme04sang_c.dds"
-      ]
-    },
-    "9b1b0a83db0a939d": {
-      "id": "t_beliergarde01_c",
-      "url": "/assets/textures/arenas/t_beliergarde01_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "9b1b0a83db0a939d",
-      "pngBytes": 7118,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_beliergarde01_c.dds",
-        "multiplayer/w_ps3_collect_3/t_beliergarde01_c.dds"
-      ]
-    },
-    "a0e372def57079b2": {
-      "id": "t_beliergarde02_c",
-      "url": "/assets/textures/arenas/t_beliergarde02_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "a0e372def57079b2",
-      "pngBytes": 5667,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_beliergarde02_c.dds",
-        "multiplayer/w_ps3_collect_3/t_beliergarde02_c.dds"
-      ]
-    },
-    "27e7508cfe6b075f": {
-      "id": "t_beliergarde02b_c",
-      "url": "/assets/textures/arenas/t_beliergarde02b_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "27e7508cfe6b075f",
-      "pngBytes": 4299,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_beliergarde02b_c.dds",
-        "multiplayer/w_ps3_collect_3/t_beliergarde02b_c.dds"
-      ]
-    },
-    "0e84f9d2d8905cbe": {
-      "id": "t_beliergarde03_c",
-      "url": "/assets/textures/arenas/t_beliergarde03_c.png",
-      "width": 64,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "0e84f9d2d8905cbe",
-      "pngBytes": 6009,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_beliergarde03_c.dds",
-        "multiplayer/w_ps3_collect_3/t_beliergarde03_c.dds"
-      ]
-    },
-    "2971cf0a7b252503": {
-      "id": "t_beliergarde03b_c",
-      "url": "/assets/textures/arenas/t_beliergarde03b_c.png",
-      "width": 64,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "2971cf0a7b252503",
-      "pngBytes": 4128,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_beliergarde03b_c.dds",
-        "multiplayer/w_ps3_collect_3/t_beliergarde03b_c.dds"
-      ]
-    },
-    "7a12a307376a4511": {
-      "id": "t_beliergarde04_c",
-      "url": "/assets/textures/arenas/t_beliergarde04_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "7a12a307376a4511",
-      "pngBytes": 7972,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_beliergarde04_c.dds",
-        "multiplayer/w_ps3_collect_3/t_beliergarde04_c.dds"
       ]
     },
     "9916621df732f576": {
@@ -4442,11 +4926,6 @@
       "sha256": "9916621df732f576",
       "pngBytes": 1537,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_fx_uberbeam_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_fx_uberbeam_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_fx_uberbeam_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_fx_uberbeam_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_fx_uberbeam_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_fx_uberbeam_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_fx_uberbeam_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_fx_uberbeam_c.dds",
@@ -4455,9 +4934,6 @@
         "multiplayer/w_multi_dm_lvl10/t_fx_uberbeam_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_fx_uberbeam_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_fx_uberbeam_c.dds",
-        "multiplayer/w_ps3_collect_2/t_fx_uberbeam_c.dds",
-        "multiplayer/w_ps3_collect_3/t_fx_uberbeam_c.dds",
-        "multiplayer/w_ps3_collect_4/t_fx_uberbeam_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_fx_uberbeam_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_fx_uberbeam_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_fx_uberbeam_c.dds"
@@ -4472,11 +4948,6 @@
       "sha256": "19f1d20527187056",
       "pngBytes": 8910,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_glissparticules_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_glissparticules_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_glissparticules_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_glissparticules_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_glissparticules_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_glissparticules_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_glissparticules_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_glissparticules_c.dds",
@@ -4485,9 +4956,6 @@
         "multiplayer/w_multi_dm_lvl10/t_glissparticules_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_glissparticules_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_glissparticules_c.dds",
-        "multiplayer/w_ps3_collect_2/t_glissparticules_c.dds",
-        "multiplayer/w_ps3_collect_3/t_glissparticules_c.dds",
-        "multiplayer/w_ps3_collect_4/t_glissparticules_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_glissparticules_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_glissparticules_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_glissparticules_c.dds"
@@ -4502,11 +4970,6 @@
       "sha256": "caeab9130dc7fc03",
       "pngBytes": 596,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_guicomboblue2_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_guicomboblue2_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_guicomboblue2_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_guicomboblue2_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_guicomboblue2_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_guicomboblue2_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_guicomboblue2_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_guicomboblue2_c.dds",
@@ -4515,9 +4978,6 @@
         "multiplayer/w_multi_dm_lvl10/t_guicomboblue2_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_guicomboblue2_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_guicomboblue2_c.dds",
-        "multiplayer/w_ps3_collect_2/t_guicomboblue2_c.dds",
-        "multiplayer/w_ps3_collect_3/t_guicomboblue2_c.dds",
-        "multiplayer/w_ps3_collect_4/t_guicomboblue2_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_guicomboblue2_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_guicomboblue2_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_guicomboblue2_c.dds"
@@ -4532,11 +4992,6 @@
       "sha256": "5fe677ce6c02786e",
       "pngBytes": 2970,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_guicomboblue_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_guicomboblue_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_guicomboblue_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_guicomboblue_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_guicomboblue_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_guicomboblue_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_guicomboblue_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_guicomboblue_c.dds",
@@ -4545,9 +5000,6 @@
         "multiplayer/w_multi_dm_lvl10/t_guicomboblue_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_guicomboblue_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_guicomboblue_c.dds",
-        "multiplayer/w_ps3_collect_2/t_guicomboblue_c.dds",
-        "multiplayer/w_ps3_collect_3/t_guicomboblue_c.dds",
-        "multiplayer/w_ps3_collect_4/t_guicomboblue_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_guicomboblue_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_guicomboblue_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_guicomboblue_c.dds"
@@ -4562,11 +5014,6 @@
       "sha256": "630f3a6558a3ee5b",
       "pngBytes": 609,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_guicombogreen2_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_guicombogreen2_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_guicombogreen2_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_guicombogreen2_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_guicombogreen2_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_guicombogreen2_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_guicombogreen2_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_guicombogreen2_c.dds",
@@ -4575,9 +5022,6 @@
         "multiplayer/w_multi_dm_lvl10/t_guicombogreen2_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_guicombogreen2_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_guicombogreen2_c.dds",
-        "multiplayer/w_ps3_collect_2/t_guicombogreen2_c.dds",
-        "multiplayer/w_ps3_collect_3/t_guicombogreen2_c.dds",
-        "multiplayer/w_ps3_collect_4/t_guicombogreen2_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_guicombogreen2_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_guicombogreen2_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_guicombogreen2_c.dds"
@@ -4592,11 +5036,6 @@
       "sha256": "2c91ba13ba24babc",
       "pngBytes": 2969,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_guicombogreen_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_guicombogreen_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_guicombogreen_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_guicombogreen_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_guicombogreen_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_guicombogreen_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_guicombogreen_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_guicombogreen_c.dds",
@@ -4605,9 +5044,6 @@
         "multiplayer/w_multi_dm_lvl10/t_guicombogreen_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_guicombogreen_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_guicombogreen_c.dds",
-        "multiplayer/w_ps3_collect_2/t_guicombogreen_c.dds",
-        "multiplayer/w_ps3_collect_3/t_guicombogreen_c.dds",
-        "multiplayer/w_ps3_collect_4/t_guicombogreen_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_guicombogreen_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_guicombogreen_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_guicombogreen_c.dds"
@@ -4622,11 +5058,6 @@
       "sha256": "2f5c4665399eb292",
       "pngBytes": 293,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_guicombopink2_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_guicombopink2_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_guicombopink2_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_guicombopink2_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_guicombopink2_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_guicombopink2_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_guicombopink2_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_guicombopink2_c.dds",
@@ -4635,9 +5066,6 @@
         "multiplayer/w_multi_dm_lvl10/t_guicombopink2_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_guicombopink2_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_guicombopink2_c.dds",
-        "multiplayer/w_ps3_collect_2/t_guicombopink2_c.dds",
-        "multiplayer/w_ps3_collect_3/t_guicombopink2_c.dds",
-        "multiplayer/w_ps3_collect_4/t_guicombopink2_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_guicombopink2_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_guicombopink2_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_guicombopink2_c.dds"
@@ -4652,11 +5080,6 @@
       "sha256": "89e7534572f4d3f8",
       "pngBytes": 2304,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_guicombopink_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_guicombopink_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_guicombopink_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_guicombopink_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_guicombopink_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_guicombopink_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_guicombopink_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_guicombopink_c.dds",
@@ -4665,9 +5088,6 @@
         "multiplayer/w_multi_dm_lvl10/t_guicombopink_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_guicombopink_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_guicombopink_c.dds",
-        "multiplayer/w_ps3_collect_2/t_guicombopink_c.dds",
-        "multiplayer/w_ps3_collect_3/t_guicombopink_c.dds",
-        "multiplayer/w_ps3_collect_4/t_guicombopink_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_guicombopink_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_guicombopink_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_guicombopink_c.dds"
@@ -4682,11 +5102,6 @@
       "sha256": "cdb8755d3eb34840",
       "pngBytes": 429,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_guicomboyellow2_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_guicomboyellow2_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_guicomboyellow2_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_guicomboyellow2_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_guicomboyellow2_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_guicomboyellow2_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_guicomboyellow2_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_guicomboyellow2_c.dds",
@@ -4695,9 +5110,6 @@
         "multiplayer/w_multi_dm_lvl10/t_guicomboyellow2_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_guicomboyellow2_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_guicomboyellow2_c.dds",
-        "multiplayer/w_ps3_collect_2/t_guicomboyellow2_c.dds",
-        "multiplayer/w_ps3_collect_3/t_guicomboyellow2_c.dds",
-        "multiplayer/w_ps3_collect_4/t_guicomboyellow2_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_guicomboyellow2_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_guicomboyellow2_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_guicomboyellow2_c.dds"
@@ -4712,11 +5124,6 @@
       "sha256": "b109d81d86fd5d50",
       "pngBytes": 2471,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_guicomboyellow_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_guicomboyellow_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_guicomboyellow_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_guicomboyellow_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_guicomboyellow_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_guicomboyellow_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_guicomboyellow_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_guicomboyellow_c.dds",
@@ -4725,9 +5132,6 @@
         "multiplayer/w_multi_dm_lvl10/t_guicomboyellow_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_guicomboyellow_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_guicomboyellow_c.dds",
-        "multiplayer/w_ps3_collect_2/t_guicomboyellow_c.dds",
-        "multiplayer/w_ps3_collect_3/t_guicomboyellow_c.dds",
-        "multiplayer/w_ps3_collect_4/t_guicomboyellow_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_guicomboyellow_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_guicomboyellow_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_guicomboyellow_c.dds"
@@ -4742,11 +5146,6 @@
       "sha256": "15ca8034d2649f7f",
       "pngBytes": 3499,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_guicouronne_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_guicouronne_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_guicouronne_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_guicouronne_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_guicouronne_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_guicouronne_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_guicouronne_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_guicouronne_c.dds",
@@ -4755,9 +5154,6 @@
         "multiplayer/w_multi_dm_lvl10/t_guicouronne_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_guicouronne_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_guicouronne_c.dds",
-        "multiplayer/w_ps3_collect_2/t_guicouronne_c.dds",
-        "multiplayer/w_ps3_collect_3/t_guicouronne_c.dds",
-        "multiplayer/w_ps3_collect_4/t_guicouronne_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_guicouronne_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_guicouronne_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_guicouronne_c.dds"
@@ -4772,16 +5168,6 @@
       "sha256": "4077ddab47c24a7d",
       "pngBytes": 3315,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_guicutfx_c.dds",
-        "multiplayer/w_multi_coll_lvl01/t_guiimpact_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_guicutfx_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_guiimpact_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_guicutfx_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_guiimpact_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_guicutfx_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_guiimpact_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_guicutfx_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_guiimpact_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_guicutfx_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_guiimpact_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_guicutfx_c.dds",
@@ -4798,12 +5184,6 @@
         "multiplayer/w_multi_dm_lvl11/t_guiimpact_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_guicutfx_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_guiimpact_c.dds",
-        "multiplayer/w_ps3_collect_2/t_guicutfx_c.dds",
-        "multiplayer/w_ps3_collect_2/t_guiimpact_c.dds",
-        "multiplayer/w_ps3_collect_3/t_guicutfx_c.dds",
-        "multiplayer/w_ps3_collect_3/t_guiimpact_c.dds",
-        "multiplayer/w_ps3_collect_4/t_guicutfx_c.dds",
-        "multiplayer/w_ps3_collect_4/t_guiimpact_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_guicutfx_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_guiimpact_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_guicutfx_c.dds",
@@ -4821,11 +5201,6 @@
       "sha256": "43eb0e9446f93cb4",
       "pngBytes": 2952,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_guikill_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_guikill_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_guikill_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_guikill_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_guikill_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_guikill_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_guikill_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_guikill_c.dds",
@@ -4834,9 +5209,6 @@
         "multiplayer/w_multi_dm_lvl10/t_guikill_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_guikill_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_guikill_c.dds",
-        "multiplayer/w_ps3_collect_2/t_guikill_c.dds",
-        "multiplayer/w_ps3_collect_3/t_guikill_c.dds",
-        "multiplayer/w_ps3_collect_4/t_guikill_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_guikill_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_guikill_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_guikill_c.dds"
@@ -4851,11 +5223,6 @@
       "sha256": "fc18e3882b093500",
       "pngBytes": 7951,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_guimodesoloelmcount_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_guimodesoloelmcount_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_guimodesoloelmcount_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_guimodesoloelmcount_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_guimodesoloelmcount_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_guimodesoloelmcount_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_guimodesoloelmcount_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_guimodesoloelmcount_c.dds",
@@ -4875,11 +5242,6 @@
       "sha256": "4277d9c6a7338de7",
       "pngBytes": 8103,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_guipoussiere_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_guipoussiere_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_guipoussiere_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_guipoussiere_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_guipoussiere_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_guipoussiere_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_guipoussiere_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_guipoussiere_c.dds",
@@ -4888,9 +5250,6 @@
         "multiplayer/w_multi_dm_lvl10/t_guipoussiere_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_guipoussiere_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_guipoussiere_c.dds",
-        "multiplayer/w_ps3_collect_2/t_guipoussiere_c.dds",
-        "multiplayer/w_ps3_collect_3/t_guipoussiere_c.dds",
-        "multiplayer/w_ps3_collect_4/t_guipoussiere_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_guipoussiere_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_guipoussiere_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_guipoussiere_c.dds"
@@ -4905,11 +5264,6 @@
       "sha256": "664ca4b32e0d982c",
       "pngBytes": 904,
       "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_guiscorebas2_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_guiscorebas2_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_guiscorebas2_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_guiscorebas2_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_guiscorebas2_c.dds",
         "multiplayer/w_multi_dm_lvl01/t_guiscorebas2_c.dds",
         "multiplayer/w_multi_dm_lvl02/t_guiscorebas2_c.dds",
         "multiplayer/w_multi_dm_lvl04/t_guiscorebas2_c.dds",
@@ -4918,588 +5272,9 @@
         "multiplayer/w_multi_dm_lvl10/t_guiscorebas2_c.dds",
         "multiplayer/w_multi_dm_lvl11/t_guiscorebas2_c.dds",
         "multiplayer/w_multi_dm_lvl13/t_guiscorebas2_c.dds",
-        "multiplayer/w_ps3_collect_2/t_guiscorebas2_c.dds",
-        "multiplayer/w_ps3_collect_3/t_guiscorebas2_c.dds",
-        "multiplayer/w_ps3_collect_4/t_guiscorebas2_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_guiscorebas2_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_guiscorebas2_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_guiscorebas2_c.dds"
-      ]
-    },
-    "40d5ddcfd3ef4cbd": {
-      "id": "t_lance_c",
-      "url": "/assets/textures/arenas/t_lance_c.png",
-      "width": 32,
-      "height": 1024,
-      "originalFormat": "DXT5",
-      "sha256": "40d5ddcfd3ef4cbd",
-      "pngBytes": 11880,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_lance_c.dds",
-        "multiplayer/w_ps3_collect_3/t_lance_c.dds"
-      ]
-    },
-    "603b066c0cdcf7dc": {
-      "id": "t_lancegarde01_c",
-      "url": "/assets/textures/arenas/t_lancegarde01_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "603b066c0cdcf7dc",
-      "pngBytes": 7986,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_lancegarde01_c.dds",
-        "multiplayer/w_ps3_collect_3/t_lancegarde01_c.dds"
-      ]
-    },
-    "e6cc6664e4df0ddf": {
-      "id": "t_lancegarde01b_c",
-      "url": "/assets/textures/arenas/t_lancegarde01b_c.png",
-      "width": 64,
-      "height": 64,
-      "originalFormat": "DXT5",
-      "sha256": "e6cc6664e4df0ddf",
-      "pngBytes": 2397,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_lancegarde01b_c.dds",
-        "multiplayer/w_ps3_collect_3/t_lancegarde01b_c.dds"
-      ]
-    },
-    "7d4986a9e76f4128": {
-      "id": "t_lancegarde01c_c",
-      "url": "/assets/textures/arenas/t_lancegarde01c_c.png",
-      "width": 64,
-      "height": 64,
-      "originalFormat": "DXT5",
-      "sha256": "7d4986a9e76f4128",
-      "pngBytes": 2816,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_lancegarde01c_c.dds",
-        "multiplayer/w_ps3_collect_3/t_lancegarde01c_c.dds"
-      ]
-    },
-    "bb750207c7bc3994": {
-      "id": "t_lancegarde01d_c",
-      "url": "/assets/textures/arenas/t_lancegarde01d_c.png",
-      "width": 64,
-      "height": 64,
-      "originalFormat": "DXT5",
-      "sha256": "bb750207c7bc3994",
-      "pngBytes": 2264,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_lancegarde01d_c.dds",
-        "multiplayer/w_ps3_collect_3/t_lancegarde01d_c.dds"
-      ]
-    },
-    "136c36cda23ccdda": {
-      "id": "t_lancelames_c",
-      "url": "/assets/textures/arenas/t_lancelames_c.png",
-      "width": 512,
-      "height": 512,
-      "originalFormat": "DXT5",
-      "sha256": "136c36cda23ccdda",
-      "pngBytes": 43247,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_lancelames_c.dds",
-        "multiplayer/w_ps3_collect_3/t_lancelames_c.dds"
-      ]
-    },
-    "9481ac30bf709427": {
-      "id": "t_lancepic02_c",
-      "url": "/assets/textures/arenas/t_lancepic02_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "9481ac30bf709427",
-      "pngBytes": 2246,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_lancepic02_c.dds",
-        "multiplayer/w_ps3_collect_3/t_lancepic02_c.dds"
-      ]
-    },
-    "6f8c7976ff964d30": {
-      "id": "t_lancepic02b_c",
-      "url": "/assets/textures/arenas/t_lancepic02b_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "6f8c7976ff964d30",
-      "pngBytes": 6041,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_lancepic02b_c.dds",
-        "multiplayer/w_ps3_collect_3/t_lancepic02b_c.dds"
-      ]
-    },
-    "68b3bde283201525": {
-      "id": "t_lancepic02bsang_c",
-      "url": "/assets/textures/arenas/t_lancepic02bsang_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "68b3bde283201525",
-      "pngBytes": 7881,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_lancepic02bsang_c.dds",
-        "multiplayer/w_ps3_collect_3/t_lancepic02bsang_c.dds"
-      ]
-    },
-    "3e27abf03bafd61f": {
-      "id": "t_lancepic04sang_c",
-      "url": "/assets/textures/arenas/t_lancepic04sang_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "3e27abf03bafd61f",
-      "pngBytes": 9209,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_lancepic04sang_c.dds",
-        "multiplayer/w_ps3_collect_3/t_lancepic04sang_c.dds"
-      ]
-    },
-    "5a1abd4538da4fb7": {
-      "id": "t_lancesupport_c",
-      "url": "/assets/textures/arenas/t_lancesupport_c.png",
-      "width": 64,
-      "height": 64,
-      "originalFormat": "DXT5",
-      "sha256": "5a1abd4538da4fb7",
-      "pngBytes": 1053,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_lancesupport_c.dds",
-        "multiplayer/w_ps3_collect_3/t_lancesupport_c.dds"
-      ]
-    },
-    "514ae78c4db6394c": {
-      "id": "t_lvl20_murtueur_c",
-      "url": "/assets/textures/arenas/t_lvl20_murtueur_c.png",
-      "width": 1024,
-      "height": 512,
-      "originalFormat": "DXT5",
-      "sha256": "514ae78c4db6394c",
-      "pngBytes": 436328,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_lvl20_murtueur_c.dds",
-        "multiplayer/w_ps3_collect_3/t_lvl20_murtueur_c.dds"
-      ]
-    },
-    "01b9c478ec5409d6": {
-      "id": "t_placeholderld_black_c",
-      "url": "/assets/textures/arenas/t_placeholderld_black_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT1",
-      "sha256": "01b9c478ec5409d6",
-      "pngBytes": 279,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_placeholderld_black_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_placeholderld_black_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_placeholderld_black_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_placeholderld_black_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_placeholderld_black_c.dds",
-        "multiplayer/w_multi_dm_lvl01/t_placeholderld_black_c.dds",
-        "multiplayer/w_multi_dm_lvl02/t_placeholderld_black_c.dds",
-        "multiplayer/w_multi_dm_lvl04/t_placeholderld_black_c.dds",
-        "multiplayer/w_multi_dm_lvl07/t_placeholderld_black_c.dds",
-        "multiplayer/w_multi_dm_lvl09/t_placeholderld_black_c.dds",
-        "multiplayer/w_multi_dm_lvl10/t_placeholderld_black_c.dds",
-        "multiplayer/w_multi_dm_lvl11/t_placeholderld_black_c.dds",
-        "multiplayer/w_multi_dm_lvl13/t_placeholderld_black_c.dds"
-      ]
-    },
-    "ca6afbd63b173adb": {
-      "id": "t_plusone",
-      "url": "/assets/textures/arenas/t_plusone.png",
-      "width": 64,
-      "height": 64,
-      "originalFormat": "DXT5",
-      "sha256": "ca6afbd63b173adb",
-      "pngBytes": 422,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_plusone.dds",
-        "multiplayer/w_multi_coll_lvl03/t_plusone.dds",
-        "multiplayer/w_multi_coll_lvl04/t_plusone.dds",
-        "multiplayer/w_multi_coll_lvl05/t_plusone.dds",
-        "multiplayer/w_multi_coll_lvl07/t_plusone.dds",
-        "multiplayer/w_multi_dm_lvl01/t_plusone.dds",
-        "multiplayer/w_multi_dm_lvl02/t_plusone.dds",
-        "multiplayer/w_multi_dm_lvl04/t_plusone.dds",
-        "multiplayer/w_multi_dm_lvl07/t_plusone.dds",
-        "multiplayer/w_multi_dm_lvl09/t_plusone.dds",
-        "multiplayer/w_multi_dm_lvl10/t_plusone.dds",
-        "multiplayer/w_multi_dm_lvl11/t_plusone.dds",
-        "multiplayer/w_multi_dm_lvl13/t_plusone.dds",
-        "multiplayer/w_ps3_collect_2/t_plusone.dds",
-        "multiplayer/w_ps3_collect_3/t_plusone.dds",
-        "multiplayer/w_ps3_collect_4/t_plusone.dds",
-        "multiplayer/w_ps3_deathmatch_2/t_plusone.dds",
-        "multiplayer/w_ps3_deathmatch_3/t_plusone.dds",
-        "multiplayer/w_ps3_deathmatch_4/t_plusone.dds"
-      ]
-    },
-    "9f4ef550a9c134e3": {
-      "id": "t_rebonecranpierre_c",
-      "url": "/assets/textures/arenas/t_rebonecranpierre_c.png",
-      "width": 1024,
-      "height": 32,
-      "originalFormat": "DXT5",
-      "sha256": "9f4ef550a9c134e3",
-      "pngBytes": 12122,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_rebonecranpierre_c.dds",
-        "multiplayer/w_multi_dm_lvl07/t_rebonecranpierre_c.dds",
-        "multiplayer/w_ps3_collect_3/t_rebonecranpierre_c.dds"
-      ]
-    },
-    "f552e417c179e3ff": {
-      "id": "t_rebonpierretile01_c",
-      "url": "/assets/textures/arenas/t_rebonpierretile01_c.png",
-      "width": 512,
-      "height": 64,
-      "originalFormat": "DXT5",
-      "sha256": "f552e417c179e3ff",
-      "pngBytes": 15821,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_rebonpierretile01_c.dds",
-        "multiplayer/w_ps3_collect_3/t_rebonpierretile01_c.dds"
-      ]
-    },
-    "e751d38cbe4983f7": {
-      "id": "t_rebonpierretile02_c",
-      "url": "/assets/textures/arenas/t_rebonpierretile02_c.png",
-      "width": 512,
-      "height": 64,
-      "originalFormat": "DXT5",
-      "sha256": "e751d38cbe4983f7",
-      "pngBytes": 17338,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_rebonpierretile02_c.dds",
-        "multiplayer/w_ps3_collect_3/t_rebonpierretile02_c.dds"
-      ]
-    },
-    "5d520ee80b65d2ae": {
-      "id": "t_rebonpierretile03_c",
-      "url": "/assets/textures/arenas/t_rebonpierretile03_c.png",
-      "width": 64,
-      "height": 64,
-      "originalFormat": "DXT5",
-      "sha256": "5d520ee80b65d2ae",
-      "pngBytes": 2029,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_rebonpierretile03_c.dds",
-        "multiplayer/w_ps3_collect_3/t_rebonpierretile03_c.dds"
-      ]
-    },
-    "cad1596e08a288b6": {
-      "id": "t_stock_flame_01",
-      "url": "/assets/textures/arenas/t_stock_flame_01.png",
-      "width": 64,
-      "height": 64,
-      "originalFormat": "DXT1",
-      "sha256": "cad1596e08a288b6",
-      "pngBytes": 3775,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_stock_flame_01.dds",
-        "multiplayer/w_multi_coll_lvl03/t_stock_flame_01.dds",
-        "multiplayer/w_multi_coll_lvl04/t_stock_flame_01.dds",
-        "multiplayer/w_multi_coll_lvl05/t_stock_flame_01.dds",
-        "multiplayer/w_multi_coll_lvl07/t_stock_flame_01.dds",
-        "multiplayer/w_multi_dm_lvl01/t_stock_flame_01.dds",
-        "multiplayer/w_multi_dm_lvl02/t_stock_flame_01.dds",
-        "multiplayer/w_multi_dm_lvl04/t_stock_flame_01.dds",
-        "multiplayer/w_multi_dm_lvl07/t_stock_flame_01.dds",
-        "multiplayer/w_multi_dm_lvl09/t_stock_flame_01.dds",
-        "multiplayer/w_multi_dm_lvl10/t_stock_flame_01.dds",
-        "multiplayer/w_multi_dm_lvl11/t_stock_flame_01.dds",
-        "multiplayer/w_multi_dm_lvl13/t_stock_flame_01.dds",
-        "multiplayer/w_ps3_collect_2/t_stock_flame_01.dds",
-        "multiplayer/w_ps3_collect_3/t_stock_flame_01.dds",
-        "multiplayer/w_ps3_collect_4/t_stock_flame_01.dds",
-        "multiplayer/w_ps3_deathmatch_2/t_stock_flame_01.dds",
-        "multiplayer/w_ps3_deathmatch_3/t_stock_flame_01.dds",
-        "multiplayer/w_ps3_deathmatch_4/t_stock_flame_01.dds"
-      ]
-    },
-    "66f728568c3aa2b1": {
-      "id": "t_ubeambreak",
-      "url": "/assets/textures/arenas/t_ubeambreak.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "66f728568c3aa2b1",
-      "pngBytes": 8378,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl01/t_ubeambreak.dds",
-        "multiplayer/w_multi_coll_lvl03/t_ubeambreak.dds",
-        "multiplayer/w_multi_coll_lvl04/t_ubeambreak.dds",
-        "multiplayer/w_multi_coll_lvl05/t_ubeambreak.dds",
-        "multiplayer/w_multi_coll_lvl07/t_ubeambreak.dds",
-        "multiplayer/w_multi_dm_lvl01/t_ubeambreak.dds",
-        "multiplayer/w_multi_dm_lvl02/t_ubeambreak.dds",
-        "multiplayer/w_multi_dm_lvl04/t_ubeambreak.dds",
-        "multiplayer/w_multi_dm_lvl07/t_ubeambreak.dds",
-        "multiplayer/w_multi_dm_lvl09/t_ubeambreak.dds",
-        "multiplayer/w_multi_dm_lvl10/t_ubeambreak.dds",
-        "multiplayer/w_multi_dm_lvl11/t_ubeambreak.dds",
-        "multiplayer/w_multi_dm_lvl13/t_ubeambreak.dds",
-        "multiplayer/w_ps3_collect_2/t_ubeambreak.dds",
-        "multiplayer/w_ps3_collect_3/t_ubeambreak.dds",
-        "multiplayer/w_ps3_collect_4/t_ubeambreak.dds",
-        "multiplayer/w_ps3_deathmatch_2/t_ubeambreak.dds",
-        "multiplayer/w_ps3_deathmatch_3/t_ubeambreak.dds",
-        "multiplayer/w_ps3_deathmatch_4/t_ubeambreak.dds"
-      ]
-    },
-    "b5bcc2950da4192c": {
-      "id": "t_leaf_c",
-      "url": "/assets/textures/arenas/t_leaf_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "b5bcc2950da4192c",
-      "pngBytes": 7631,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl03/t_leaf_c.dds"
-      ]
-    },
-    "fb3cebdecbc10779": {
-      "id": "t_rebonecranbois01_c",
-      "url": "/assets/textures/arenas/t_rebonecranbois01_c.png",
-      "width": 1024,
-      "height": 64,
-      "originalFormat": "DXT5",
-      "sha256": "fb3cebdecbc10779",
-      "pngBytes": 10956,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl03/t_rebonecranbois01_c.dds",
-        "multiplayer/w_multi_coll_lvl03/t_rebonecranbois02_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_rebonecranbois01_c.dds",
-        "multiplayer/w_multi_coll_lvl04/t_rebonecranbois02_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_rebonecranbois01_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_rebonecranbois02_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_rebonecranbois01_c.dds",
-        "multiplayer/w_multi_coll_lvl07/t_rebonecranbois02_c.dds",
-        "multiplayer/w_multi_dm_lvl01/t_rebonecranbois01_c.dds",
-        "multiplayer/w_multi_dm_lvl01/t_rebonecranbois02_c.dds",
-        "multiplayer/w_multi_dm_lvl02/t_rebonecranbois01_c.dds",
-        "multiplayer/w_multi_dm_lvl02/t_rebonecranbois02_c.dds",
-        "multiplayer/w_multi_dm_lvl04/t_rebonecranbois01_c.dds",
-        "multiplayer/w_multi_dm_lvl04/t_rebonecranbois02_c.dds",
-        "multiplayer/w_multi_dm_lvl09/t_rebonecranbois01_c.dds",
-        "multiplayer/w_multi_dm_lvl09/t_rebonecranbois02_c.dds",
-        "multiplayer/w_multi_dm_lvl10/t_rebonecranbois01_c.dds",
-        "multiplayer/w_multi_dm_lvl10/t_rebonecranbois02_c.dds",
-        "multiplayer/w_multi_dm_lvl13/t_rebonecranbois01_c.dds",
-        "multiplayer/w_multi_dm_lvl13/t_rebonecranbois02_c.dds",
-        "multiplayer/w_ps3_collect_2/t_rebonecranbois01_c.dds",
-        "multiplayer/w_ps3_collect_2/t_rebonecranbois02_c.dds",
-        "multiplayer/w_ps3_collect_4/t_rebonecranbois01_c.dds",
-        "multiplayer/w_ps3_collect_4/t_rebonecranbois02_c.dds",
-        "multiplayer/w_ps3_deathmatch_2/t_rebonecranbois01_c.dds",
-        "multiplayer/w_ps3_deathmatch_2/t_rebonecranbois02_c.dds",
-        "multiplayer/w_ps3_deathmatch_3/t_rebonecranbois01_c.dds",
-        "multiplayer/w_ps3_deathmatch_3/t_rebonecranbois02_c.dds",
-        "multiplayer/w_ps3_deathmatch_4/t_rebonecranbois01_c.dds",
-        "multiplayer/w_ps3_deathmatch_4/t_rebonecranbois02_c.dds"
-      ]
-    },
-    "99946ad98d742600": {
-      "id": "t_tueurvortex01a_c",
-      "url": "/assets/textures/arenas/t_tueurvortex01a_c.png",
-      "width": 64,
-      "height": 64,
-      "originalFormat": "DXT5",
-      "sha256": "99946ad98d742600",
-      "pngBytes": 1667,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl03/t_tueurvortex01a_c.dds"
-      ]
-    },
-    "a7dedaad18eef300": {
-      "id": "t_tueurvortex01b_c",
-      "url": "/assets/textures/arenas/t_tueurvortex01b_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "a7dedaad18eef300",
-      "pngBytes": 3172,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl03/t_tueurvortex01b_c.dds"
-      ]
-    },
-    "6dd5247eeb3512ff": {
-      "id": "t_tueurvortex01c_c",
-      "url": "/assets/textures/arenas/t_tueurvortex01c_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "6dd5247eeb3512ff",
-      "pngBytes": 9260,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl03/t_tueurvortex01c_c.dds"
-      ]
-    },
-    "9d5f8dc7955ab9dd": {
-      "id": "t_tueurvortex01d_c",
-      "url": "/assets/textures/arenas/t_tueurvortex01d_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "9d5f8dc7955ab9dd",
-      "pngBytes": 4209,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl03/t_tueurvortex01d_c.dds"
-      ]
-    },
-    "e57622e6b50f74f1": {
-      "id": "t_tueurvortex01e_c",
-      "url": "/assets/textures/arenas/t_tueurvortex01e_c.png",
-      "width": 256,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "e57622e6b50f74f1",
-      "pngBytes": 11525,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl03/t_tueurvortex01e_c.dds"
-      ]
-    },
-    "35b33538fa52f225": {
-      "id": "t_tueurvortex01f_c",
-      "url": "/assets/textures/arenas/t_tueurvortex01f_c.png",
-      "width": 256,
-      "height": 256,
-      "originalFormat": "DXT5",
-      "sha256": "35b33538fa52f225",
-      "pngBytes": 12518,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl03/t_tueurvortex01f_c.dds"
-      ]
-    },
-    "963e27a246de55f0": {
-      "id": "t_tueurvortex01g_c",
-      "url": "/assets/textures/arenas/t_tueurvortex01g_c.png",
-      "width": 64,
-      "height": 64,
-      "originalFormat": "DXT5",
-      "sha256": "963e27a246de55f0",
-      "pngBytes": 1349,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl03/t_tueurvortex01g_c.dds"
-      ]
-    },
-    "c382d3d5e5a65058": {
-      "id": "t_tueurvortex01h_c",
-      "url": "/assets/textures/arenas/t_tueurvortex01h_c.png",
-      "width": 32,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "c382d3d5e5a65058",
-      "pngBytes": 1806,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl03/t_tueurvortex01h_c.dds"
-      ]
-    },
-    "fa5b22b6e16e692f": {
-      "id": "t_carrebois_c",
-      "url": "/assets/textures/arenas/t_carrebois_c.png",
-      "width": 512,
-      "height": 512,
-      "originalFormat": "DXT5",
-      "sha256": "fa5b22b6e16e692f",
-      "pngBytes": 74325,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl04/t_carrebois_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_carrebois_c.dds",
-        "multiplayer/w_ps3_collect_4/t_carrebois_c.dds"
-      ]
-    },
-    "1dd8e3de67eb7165": {
-      "id": "t_eltsmetal_c",
-      "url": "/assets/textures/arenas/t_eltsmetal_c.png",
-      "width": 512,
-      "height": 64,
-      "originalFormat": "DXT5",
-      "sha256": "1dd8e3de67eb7165",
-      "pngBytes": 14597,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl04/t_eltsmetal_c.dds",
-        "multiplayer/w_multi_coll_lvl05/t_eltsmetal_c.dds",
-        "multiplayer/w_ps3_collect_4/t_eltsmetal_c.dds"
-      ]
-    },
-    "d770c4cb34f3b598": {
-      "id": "t_poulie01_c",
-      "url": "/assets/textures/arenas/t_poulie01_c.png",
-      "width": 64,
-      "height": 64,
-      "originalFormat": "DXT5",
-      "sha256": "d770c4cb34f3b598",
-      "pngBytes": 3172,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl04/t_poulie01_c.dds",
-        "multiplayer/w_ps3_collect_4/t_poulie01_c.dds"
-      ]
-    },
-    "f983f119e3fa9e50": {
-      "id": "t_poulie_pointes_c",
-      "url": "/assets/textures/arenas/t_poulie_pointes_c.png",
-      "width": 128,
-      "height": 256,
-      "originalFormat": "DXT5",
-      "sha256": "f983f119e3fa9e50",
-      "pngBytes": 13642,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl04/t_poulie_pointes_c.dds",
-        "multiplayer/w_ps3_collect_4/t_poulie_pointes_c.dds"
-      ]
-    },
-    "820bff89c7fc039c": {
-      "id": "t_pouliecorde_c",
-      "url": "/assets/textures/arenas/t_pouliecorde_c.png",
-      "width": 8,
-      "height": 32,
-      "originalFormat": "DXT1",
-      "sha256": "820bff89c7fc039c",
-      "pngBytes": 94,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl04/t_pouliecorde_c.dds",
-        "multiplayer/w_ps3_collect_4/t_pouliecorde_c.dds"
-      ]
-    },
-    "77a5d2857a639acb": {
-      "id": "t_smallcarrebois_c",
-      "url": "/assets/textures/arenas/t_smallcarrebois_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "77a5d2857a639acb",
-      "pngBytes": 8321,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl04/t_smallcarrebois_c.dds",
-        "multiplayer/w_ps3_collect_4/t_smallcarrebois_c.dds"
-      ]
-    },
-    "dfe2da7920d12f4b": {
-      "id": "t_rebonboistile01_c",
-      "url": "/assets/textures/arenas/t_rebonboistile01_c.png",
-      "width": 512,
-      "height": 64,
-      "originalFormat": "DXT5",
-      "sha256": "dfe2da7920d12f4b",
-      "pngBytes": 8982,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl05/t_rebonboistile01_c.dds"
-      ]
-    },
-    "4a0a085dfb57726f": {
-      "id": "t_rebonboistile03_c",
-      "url": "/assets/textures/arenas/t_rebonboistile03_c.png",
-      "width": 64,
-      "height": 64,
-      "originalFormat": "DXT5",
-      "sha256": "4a0a085dfb57726f",
-      "pngBytes": 1715,
-      "sources": [
-        "multiplayer/w_multi_coll_lvl05/t_rebonboistile03_c.dds"
       ]
     },
     "b77deaadbbac03e1": {
@@ -5548,6 +5323,120 @@
       "pngBytes": 33922,
       "sources": [
         "multiplayer/w_multi_dm_lvl01/t_multi03fond_c.dds"
+      ]
+    },
+    "01b9c478ec5409d6": {
+      "id": "t_placeholderld_black_c",
+      "url": "/assets/textures/arenas/t_placeholderld_black_c.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT1",
+      "sha256": "01b9c478ec5409d6",
+      "pngBytes": 279,
+      "sources": [
+        "multiplayer/w_multi_dm_lvl01/t_placeholderld_black_c.dds",
+        "multiplayer/w_multi_dm_lvl02/t_placeholderld_black_c.dds",
+        "multiplayer/w_multi_dm_lvl04/t_placeholderld_black_c.dds",
+        "multiplayer/w_multi_dm_lvl07/t_placeholderld_black_c.dds",
+        "multiplayer/w_multi_dm_lvl09/t_placeholderld_black_c.dds",
+        "multiplayer/w_multi_dm_lvl10/t_placeholderld_black_c.dds",
+        "multiplayer/w_multi_dm_lvl11/t_placeholderld_black_c.dds",
+        "multiplayer/w_multi_dm_lvl13/t_placeholderld_black_c.dds"
+      ]
+    },
+    "ca6afbd63b173adb": {
+      "id": "t_plusone",
+      "url": "/assets/textures/arenas/t_plusone.png",
+      "width": 64,
+      "height": 64,
+      "originalFormat": "DXT5",
+      "sha256": "ca6afbd63b173adb",
+      "pngBytes": 422,
+      "sources": [
+        "multiplayer/w_multi_dm_lvl01/t_plusone.dds",
+        "multiplayer/w_multi_dm_lvl02/t_plusone.dds",
+        "multiplayer/w_multi_dm_lvl04/t_plusone.dds",
+        "multiplayer/w_multi_dm_lvl07/t_plusone.dds",
+        "multiplayer/w_multi_dm_lvl09/t_plusone.dds",
+        "multiplayer/w_multi_dm_lvl10/t_plusone.dds",
+        "multiplayer/w_multi_dm_lvl11/t_plusone.dds",
+        "multiplayer/w_multi_dm_lvl13/t_plusone.dds",
+        "multiplayer/w_ps3_deathmatch_2/t_plusone.dds",
+        "multiplayer/w_ps3_deathmatch_3/t_plusone.dds",
+        "multiplayer/w_ps3_deathmatch_4/t_plusone.dds"
+      ]
+    },
+    "fb3cebdecbc10779": {
+      "id": "t_rebonecranbois01_c",
+      "url": "/assets/textures/arenas/t_rebonecranbois01_c.png",
+      "width": 1024,
+      "height": 64,
+      "originalFormat": "DXT5",
+      "sha256": "fb3cebdecbc10779",
+      "pngBytes": 10956,
+      "sources": [
+        "multiplayer/w_multi_dm_lvl01/t_rebonecranbois01_c.dds",
+        "multiplayer/w_multi_dm_lvl01/t_rebonecranbois02_c.dds",
+        "multiplayer/w_multi_dm_lvl02/t_rebonecranbois01_c.dds",
+        "multiplayer/w_multi_dm_lvl02/t_rebonecranbois02_c.dds",
+        "multiplayer/w_multi_dm_lvl04/t_rebonecranbois01_c.dds",
+        "multiplayer/w_multi_dm_lvl04/t_rebonecranbois02_c.dds",
+        "multiplayer/w_multi_dm_lvl09/t_rebonecranbois01_c.dds",
+        "multiplayer/w_multi_dm_lvl09/t_rebonecranbois02_c.dds",
+        "multiplayer/w_multi_dm_lvl10/t_rebonecranbois01_c.dds",
+        "multiplayer/w_multi_dm_lvl10/t_rebonecranbois02_c.dds",
+        "multiplayer/w_multi_dm_lvl13/t_rebonecranbois01_c.dds",
+        "multiplayer/w_multi_dm_lvl13/t_rebonecranbois02_c.dds",
+        "multiplayer/w_ps3_deathmatch_2/t_rebonecranbois01_c.dds",
+        "multiplayer/w_ps3_deathmatch_2/t_rebonecranbois02_c.dds",
+        "multiplayer/w_ps3_deathmatch_3/t_rebonecranbois01_c.dds",
+        "multiplayer/w_ps3_deathmatch_3/t_rebonecranbois02_c.dds",
+        "multiplayer/w_ps3_deathmatch_4/t_rebonecranbois01_c.dds",
+        "multiplayer/w_ps3_deathmatch_4/t_rebonecranbois02_c.dds"
+      ]
+    },
+    "cad1596e08a288b6": {
+      "id": "t_stock_flame_01",
+      "url": "/assets/textures/arenas/t_stock_flame_01.png",
+      "width": 64,
+      "height": 64,
+      "originalFormat": "DXT1",
+      "sha256": "cad1596e08a288b6",
+      "pngBytes": 3775,
+      "sources": [
+        "multiplayer/w_multi_dm_lvl01/t_stock_flame_01.dds",
+        "multiplayer/w_multi_dm_lvl02/t_stock_flame_01.dds",
+        "multiplayer/w_multi_dm_lvl04/t_stock_flame_01.dds",
+        "multiplayer/w_multi_dm_lvl07/t_stock_flame_01.dds",
+        "multiplayer/w_multi_dm_lvl09/t_stock_flame_01.dds",
+        "multiplayer/w_multi_dm_lvl10/t_stock_flame_01.dds",
+        "multiplayer/w_multi_dm_lvl11/t_stock_flame_01.dds",
+        "multiplayer/w_multi_dm_lvl13/t_stock_flame_01.dds",
+        "multiplayer/w_ps3_deathmatch_2/t_stock_flame_01.dds",
+        "multiplayer/w_ps3_deathmatch_3/t_stock_flame_01.dds",
+        "multiplayer/w_ps3_deathmatch_4/t_stock_flame_01.dds"
+      ]
+    },
+    "66f728568c3aa2b1": {
+      "id": "t_ubeambreak",
+      "url": "/assets/textures/arenas/t_ubeambreak.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT5",
+      "sha256": "66f728568c3aa2b1",
+      "pngBytes": 8378,
+      "sources": [
+        "multiplayer/w_multi_dm_lvl01/t_ubeambreak.dds",
+        "multiplayer/w_multi_dm_lvl02/t_ubeambreak.dds",
+        "multiplayer/w_multi_dm_lvl04/t_ubeambreak.dds",
+        "multiplayer/w_multi_dm_lvl07/t_ubeambreak.dds",
+        "multiplayer/w_multi_dm_lvl09/t_ubeambreak.dds",
+        "multiplayer/w_multi_dm_lvl10/t_ubeambreak.dds",
+        "multiplayer/w_multi_dm_lvl11/t_ubeambreak.dds",
+        "multiplayer/w_multi_dm_lvl13/t_ubeambreak.dds",
+        "multiplayer/w_ps3_deathmatch_2/t_ubeambreak.dds",
+        "multiplayer/w_ps3_deathmatch_3/t_ubeambreak.dds",
+        "multiplayer/w_ps3_deathmatch_4/t_ubeambreak.dds"
       ]
     },
     "496cfff0bee0f4da": {
@@ -6078,6 +5967,18 @@
         "multiplayer/w_multi_dm_lvl07/t_carrepierre_c.dds"
       ]
     },
+    "9f4ef550a9c134e3": {
+      "id": "t_rebonecranpierre_c",
+      "url": "/assets/textures/arenas/t_rebonecranpierre_c.png",
+      "width": 1024,
+      "height": 32,
+      "originalFormat": "DXT5",
+      "sha256": "9f4ef550a9c134e3",
+      "pngBytes": 12122,
+      "sources": [
+        "multiplayer/w_multi_dm_lvl07/t_rebonecranpierre_c.dds"
+      ]
+    },
     "07fd189477bbf9d0": {
       "id": "t_armes_c",
       "url": "/assets/textures/arenas/t_armes_c.png",
@@ -6161,158 +6062,9 @@
       "sha256": "bcd7b0098563479f",
       "pngBytes": 39083,
       "sources": [
-        "multiplayer/w_ps3_collect_2/t_glow02_c.dds",
-        "multiplayer/w_ps3_collect_3/t_glow02_c.dds",
-        "multiplayer/w_ps3_collect_4/t_glow02_c.dds",
         "multiplayer/w_ps3_deathmatch_2/t_glow02_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_glow02_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_glow02_c.dds"
-      ]
-    },
-    "1d780e9d0d556e4e": {
-      "id": "t_guicollectelogo_c",
-      "url": "/assets/textures/arenas/t_guicollectelogo_c.png",
-      "width": 128,
-      "height": 128,
-      "originalFormat": "DXT5",
-      "sha256": "1d780e9d0d556e4e",
-      "pngBytes": 4803,
-      "sources": [
-        "multiplayer/w_ps3_collect_2/t_guicollectelogo_c.dds",
-        "multiplayer/w_ps3_collect_3/t_guicollectelogo_c.dds",
-        "multiplayer/w_ps3_collect_4/t_guicollectelogo_c.dds"
-      ]
-    },
-    "704c172a72b09372": {
-      "id": "t_menulevelcomp04_c",
-      "url": "/assets/textures/arenas/t_menulevelcomp04_c.png",
-      "width": 256,
-      "height": 256,
-      "originalFormat": "DXT5",
-      "sha256": "704c172a72b09372",
-      "pngBytes": 9783,
-      "sources": [
-        "multiplayer/w_ps3_collect_2/t_menulevelcomp04_c.dds",
-        "multiplayer/w_ps3_collect_3/t_menulevelcomp04_c.dds",
-        "multiplayer/w_ps3_collect_4/t_menulevelcomp04_c.dds",
-        "multiplayer/w_ps3_deathmatch_2/t_menulevelcomp04_c.dds",
-        "multiplayer/w_ps3_deathmatch_3/t_menulevelcomp04_c.dds",
-        "multiplayer/w_ps3_deathmatch_4/t_menulevelcomp04_c.dds"
-      ]
-    },
-    "9d1d7aa6d1e694bf": {
-      "id": "t_porteentre04a_c",
-      "url": "/assets/textures/arenas/t_porteentre04a_c.png",
-      "width": 32,
-      "height": 32,
-      "originalFormat": "DXT1",
-      "sha256": "9d1d7aa6d1e694bf",
-      "pngBytes": 928,
-      "sources": [
-        "multiplayer/w_ps3_collect_2/t_porteentre04a_c.dds",
-        "multiplayer/w_ps3_collect_3/t_porteentre04a_c.dds",
-        "multiplayer/w_ps3_collect_4/t_porteentre04a_c.dds",
-        "multiplayer/w_ps3_deathmatch_2/t_porteentre04a_c.dds",
-        "multiplayer/w_ps3_deathmatch_3/t_porteentre04a_c.dds",
-        "multiplayer/w_ps3_deathmatch_4/t_porteentre04a_c.dds"
-      ]
-    },
-    "e9dcb8499a7ec1c7": {
-      "id": "t_porteentre04b_c",
-      "url": "/assets/textures/arenas/t_porteentre04b_c.png",
-      "width": 32,
-      "height": 32,
-      "originalFormat": "DXT1",
-      "sha256": "e9dcb8499a7ec1c7",
-      "pngBytes": 956,
-      "sources": [
-        "multiplayer/w_ps3_collect_2/t_porteentre04b_c.dds",
-        "multiplayer/w_ps3_collect_3/t_porteentre04b_c.dds",
-        "multiplayer/w_ps3_collect_4/t_porteentre04b_c.dds",
-        "multiplayer/w_ps3_deathmatch_2/t_porteentre04b_c.dds",
-        "multiplayer/w_ps3_deathmatch_3/t_porteentre04b_c.dds",
-        "multiplayer/w_ps3_deathmatch_4/t_porteentre04b_c.dds"
-      ]
-    },
-    "b51bd1744eed3763": {
-      "id": "t_versus_c",
-      "url": "/assets/textures/arenas/t_versus_c.png",
-      "width": 512,
-      "height": 256,
-      "originalFormat": "DXT5",
-      "sha256": "b51bd1744eed3763",
-      "pngBytes": 19818,
-      "sources": [
-        "multiplayer/w_ps3_collect_2/t_versus_c.dds",
-        "multiplayer/w_ps3_collect_3/t_versus_c.dds",
-        "multiplayer/w_ps3_collect_4/t_versus_c.dds",
-        "multiplayer/w_ps3_deathmatch_2/t_versus_c.dds",
-        "multiplayer/w_ps3_deathmatch_3/t_versus_c.dds",
-        "multiplayer/w_ps3_deathmatch_4/t_versus_c.dds"
-      ]
-    },
-    "fc46d513242b225c": {
-      "id": "t_vspigrouge_c",
-      "url": "/assets/textures/arenas/t_vspigrouge_c.png",
-      "width": 1024,
-      "height": 1024,
-      "originalFormat": "DXT5",
-      "sha256": "fc46d513242b225c",
-      "pngBytes": 123780,
-      "sources": [
-        "multiplayer/w_ps3_collect_2/t_vspigrouge_c.dds"
-      ]
-    },
-    "2d81dc638c9df83f": {
-      "id": "t_vspigvert_c",
-      "url": "/assets/textures/arenas/t_vspigvert_c.png",
-      "width": 1024,
-      "height": 1024,
-      "originalFormat": "DXT5",
-      "sha256": "2d81dc638c9df83f",
-      "pngBytes": 116479,
-      "sources": [
-        "multiplayer/w_ps3_collect_2/t_vspigvert_c.dds"
-      ]
-    },
-    "5918df48cba75ff2": {
-      "id": "t_vssqueljaune_c",
-      "url": "/assets/textures/arenas/t_vssqueljaune_c.png",
-      "width": 1024,
-      "height": 1024,
-      "originalFormat": "DXT5",
-      "sha256": "5918df48cba75ff2",
-      "pngBytes": 165487,
-      "sources": [
-        "multiplayer/w_ps3_collect_3/t_vssqueljaune_c.dds"
-      ]
-    },
-    "d8c64156cc8c23da": {
-      "id": "t_vssquelrouge_c",
-      "url": "/assets/textures/arenas/t_vssquelrouge_c.png",
-      "width": 1024,
-      "height": 1024,
-      "originalFormat": "DXT5",
-      "sha256": "d8c64156cc8c23da",
-      "pngBytes": 166141,
-      "sources": [
-        "multiplayer/w_ps3_collect_3/t_vssquelrouge_c.dds",
-        "multiplayer/w_ps3_collect_4/t_vssquelrouge_c.dds",
-        "multiplayer/w_ps3_deathmatch_2/t_vssquelrouge_c.dds"
-      ]
-    },
-    "4893c871b3a07f3a": {
-      "id": "t_vssquelvert_c",
-      "url": "/assets/textures/arenas/t_vssquelvert_c.png",
-      "width": 1024,
-      "height": 1024,
-      "originalFormat": "DXT5",
-      "sha256": "4893c871b3a07f3a",
-      "pngBytes": 168761,
-      "sources": [
-        "multiplayer/w_ps3_collect_3/t_vssquelvert_c.dds",
-        "multiplayer/w_ps3_collect_4/t_vssquelvert_c.dds",
-        "multiplayer/w_ps3_deathmatch_2/t_vssquelvert_c.dds"
       ]
     },
     "b2bfc9f983a8f6f8": {
@@ -6327,6 +6079,86 @@
         "multiplayer/w_ps3_deathmatch_2/t_guiscorecombats_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_guiscorecombats_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_guiscorecombats_c.dds"
+      ]
+    },
+    "704c172a72b09372": {
+      "id": "t_menulevelcomp04_c",
+      "url": "/assets/textures/arenas/t_menulevelcomp04_c.png",
+      "width": 256,
+      "height": 256,
+      "originalFormat": "DXT5",
+      "sha256": "704c172a72b09372",
+      "pngBytes": 9783,
+      "sources": [
+        "multiplayer/w_ps3_deathmatch_2/t_menulevelcomp04_c.dds",
+        "multiplayer/w_ps3_deathmatch_3/t_menulevelcomp04_c.dds",
+        "multiplayer/w_ps3_deathmatch_4/t_menulevelcomp04_c.dds"
+      ]
+    },
+    "9d1d7aa6d1e694bf": {
+      "id": "t_porteentre04a_c",
+      "url": "/assets/textures/arenas/t_porteentre04a_c.png",
+      "width": 32,
+      "height": 32,
+      "originalFormat": "DXT1",
+      "sha256": "9d1d7aa6d1e694bf",
+      "pngBytes": 928,
+      "sources": [
+        "multiplayer/w_ps3_deathmatch_2/t_porteentre04a_c.dds",
+        "multiplayer/w_ps3_deathmatch_3/t_porteentre04a_c.dds",
+        "multiplayer/w_ps3_deathmatch_4/t_porteentre04a_c.dds"
+      ]
+    },
+    "e9dcb8499a7ec1c7": {
+      "id": "t_porteentre04b_c",
+      "url": "/assets/textures/arenas/t_porteentre04b_c.png",
+      "width": 32,
+      "height": 32,
+      "originalFormat": "DXT1",
+      "sha256": "e9dcb8499a7ec1c7",
+      "pngBytes": 956,
+      "sources": [
+        "multiplayer/w_ps3_deathmatch_2/t_porteentre04b_c.dds",
+        "multiplayer/w_ps3_deathmatch_3/t_porteentre04b_c.dds",
+        "multiplayer/w_ps3_deathmatch_4/t_porteentre04b_c.dds"
+      ]
+    },
+    "b51bd1744eed3763": {
+      "id": "t_versus_c",
+      "url": "/assets/textures/arenas/t_versus_c.png",
+      "width": 512,
+      "height": 256,
+      "originalFormat": "DXT5",
+      "sha256": "b51bd1744eed3763",
+      "pngBytes": 19818,
+      "sources": [
+        "multiplayer/w_ps3_deathmatch_2/t_versus_c.dds",
+        "multiplayer/w_ps3_deathmatch_3/t_versus_c.dds",
+        "multiplayer/w_ps3_deathmatch_4/t_versus_c.dds"
+      ]
+    },
+    "d8c64156cc8c23da": {
+      "id": "t_vssquelrouge_c",
+      "url": "/assets/textures/arenas/t_vssquelrouge_c.png",
+      "width": 1024,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "d8c64156cc8c23da",
+      "pngBytes": 166141,
+      "sources": [
+        "multiplayer/w_ps3_deathmatch_2/t_vssquelrouge_c.dds"
+      ]
+    },
+    "4893c871b3a07f3a": {
+      "id": "t_vssquelvert_c",
+      "url": "/assets/textures/arenas/t_vssquelvert_c.png",
+      "width": 1024,
+      "height": 1024,
+      "originalFormat": "DXT5",
+      "sha256": "4893c871b3a07f3a",
+      "pngBytes": 168761,
+      "sources": [
+        "multiplayer/w_ps3_deathmatch_2/t_vssquelvert_c.dds"
       ]
     },
     "3c7d6279c887e4a7": {
@@ -8261,5 +8093,5 @@
       "sha256": "0c09d31af7541257"
     }
   },
-  "mapsUrl": "/assets/maps.json"
+  "mapsUrl": "/assets/deathmatch-maps.json"
 }

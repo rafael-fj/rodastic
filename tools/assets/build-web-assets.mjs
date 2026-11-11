@@ -26,12 +26,14 @@ const REPO_ROOT = path.resolve(__dirname, '..', '..');
 const SRC_TEXTURES_DIR = path.join(REPO_ROOT, 'assets-original', 'textures');
 const SRC_AUDIO_DIR = path.join(REPO_ROOT, 'assets-original', 'audio', 'sfx');
 const SRC_MAPS_SPEC = path.join(REPO_ROOT, 'reference', 'decompiled', 'multiplayer-maps-spec.json');
+const SRC_DM_MAPS_SPEC = path.join(REPO_ROOT, 'reference', 'decompiled', 'deathmatch-maps-spec.json');
 
 const OUT_ASSETS_DIR = path.join(REPO_ROOT, 'packages', 'client', 'public', 'assets');
 const OUT_TEXTURES_DIR = path.join(OUT_ASSETS_DIR, 'textures');
 const OUT_AUDIO_DIR = path.join(OUT_ASSETS_DIR, 'audio', 'sfx');
 const OUT_MANIFEST_PATH = path.join(OUT_ASSETS_DIR, 'manifest.json');
 const OUT_MAPS_PATH = path.join(OUT_ASSETS_DIR, 'maps.json');
+const OUT_DM_MAPS_PATH = path.join(OUT_ASSETS_DIR, 'deathmatch-maps.json');
 
 // ============================================================================
 // CRC32 Table for PNG Chunk Encoding
@@ -413,6 +415,7 @@ function main() {
   const hashToTextureEntry = new Map();
   const usedOutPaths = new Map(); // outRelPath -> sha256
   const globalTextures = {};
+  const backgroundTextures = {};
   const mapTextures = {};
   let totalPngBytes = 0;
 
@@ -420,7 +423,8 @@ function main() {
     const relFromSrc = path.relative(SRC_TEXTURES_DIR, ddsPath).replace(/\\/g, '/');
     const parts = relFromSrc.split('/');
     const isGlobal = parts[0] === 'global';
-    const mapPackage = !isGlobal && parts.length >= 2 ? parts[1] : null;
+    const isBackground = parts[0] === 'backgrounds';
+    const mapPackage = !isGlobal && !isBackground && parts.length >= 2 ? parts[1] : null;
     const cleanName = cleanAssetStem(ddsPath);
 
     const ddsBuf = fs.readFileSync(ddsPath);
@@ -431,7 +435,7 @@ function main() {
       const { width, height, format, rgba } = decodeDdsToRgba(ddsBuf);
       const pngBuf = encodeRgbaToPng(width, height, rgba);
 
-      const subFolder = isGlobal ? 'global' : 'arenas';
+      const subFolder = isGlobal ? 'global' : isBackground ? 'backgrounds' : 'arenas';
       let outRel = `textures/${subFolder}/${cleanName}.png`;
       if (usedOutPaths.has(outRel) && usedOutPaths.get(outRel) !== sha256) {
         outRel = `textures/${subFolder}/${cleanName}_${sha256.slice(0, 8)}.png`;
@@ -460,6 +464,8 @@ function main() {
 
     if (isGlobal) {
       globalTextures[cleanName] = texEntry.url;
+    } else if (isBackground) {
+      backgroundTextures[cleanName] = texEntry.url;
     } else if (mapPackage) {
       if (!mapTextures[mapPackage]) {
         mapTextures[mapPackage] = {};
@@ -502,16 +508,21 @@ function main() {
     };
   }
 
-  // 3. Copy & Link the 19 Multiplayer Maps Specification
+  // 3. Copy & Link the Multiplayer & Deathmatch Maps Specifications
   let mapsData = { maps: [] };
   if (fs.existsSync(SRC_MAPS_SPEC)) {
     mapsData = JSON.parse(fs.readFileSync(SRC_MAPS_SPEC, 'utf-8'));
     fs.writeFileSync(OUT_MAPS_PATH, JSON.stringify(mapsData, null, 2), 'utf-8');
   }
+  let dmMapsData = { maps: [] };
+  if (fs.existsSync(SRC_DM_MAPS_SPEC)) {
+    dmMapsData = JSON.parse(fs.readFileSync(SRC_DM_MAPS_SPEC, 'utf-8'));
+    fs.writeFileSync(OUT_DM_MAPS_PATH, JSON.stringify(dmMapsData, null, 2), 'utf-8');
+  }
 
   // 4. Write Master Web Asset Manifest
   const manifest = {
-    schemaVersion: '1.0.0',
+    schemaVersion: '1.1.0',
     generatedBy: 'tools/assets/build-web-assets.mjs',
     stats: {
       sourceDdsCount: ddsFiles.length,
@@ -521,13 +532,14 @@ function main() {
       audioSfxCount: wavFiles.length,
       totalWavBytes,
       totalWavMB: Number((totalWavBytes / (1024 * 1024)).toFixed(2)),
-      multiplayerMapCount: Array.isArray(mapsData.maps) ? mapsData.maps.length : 19,
+      deathmatchMapCount: Array.isArray(dmMapsData.maps) ? dmMapsData.maps.length : 8,
     },
     globalTextures,
+    backgroundTextures,
     mapTextures,
     texturesByHash: Object.fromEntries(hashToTextureEntry.entries()),
     audioSfx: audioCatalog,
-    mapsUrl: '/assets/maps.json',
+    mapsUrl: '/assets/deathmatch-maps.json',
   };
 
   fs.writeFileSync(OUT_MANIFEST_PATH, JSON.stringify(manifest, null, 2), 'utf-8');
@@ -537,7 +549,7 @@ function main() {
     `[assets:build] Completed in ${elapsedSec}s:\n` +
       `  - DDS -> PNG: ${ddsFiles.length} source files deduplicated to ${hashToTextureEntry.size} PNGs (${manifest.stats.totalPngMB} MB)\n` +
       `  - WAV SFX:    ${wavFiles.length} audio files (${manifest.stats.totalWavMB} MB)\n` +
-      `  - Maps Spec:  ${manifest.stats.multiplayerMapCount} multiplayer maps -> packages/client/public/assets/maps.json\n` +
+      `  - Maps Spec:  ${manifest.stats.deathmatchMapCount} deathmatch maps -> packages/client/public/assets/deathmatch-maps.json\n` +
       `  - Manifest:   packages/client/public/assets/manifest.json`
   );
 }

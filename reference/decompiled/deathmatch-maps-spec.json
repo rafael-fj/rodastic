@@ -1,0 +1,6737 @@
+{
+  "generatedAt": "2026-11-11T14:00:56.329Z",
+  "totalDeathmatchMaps": 8,
+  "extractedBackgroundTextures": [
+    "t_bgcampagne00_c",
+    "t_bgcampagne01_c",
+    "t_bgcampagneane_c",
+    "t_bgcampagnemaison_c",
+    "t_bgcampagnemoulin_c",
+    "t_bgcampagnenuages00_c",
+    "t_bgcampagnenuages01_c",
+    "t_bgcampagneoiseaux_c",
+    "t_bgcampagnepont_c",
+    "t_bgcampagnepontpersos_c",
+    "t_bgcampagneriviere_c",
+    "t_bgcampagneruines_c",
+    "t_bgcampagnevaches_c",
+    "t_bgchateau200_c",
+    "t_bgchateau201_c",
+    "t_bgchateau202_c",
+    "t_bgchateau2_cage_c",
+    "t_bgchateau2_dragon_c",
+    "t_bgchateau2_drapeaux_c",
+    "t_bgchateau2_gardes_c",
+    "t_bgchateau2_nuages_c",
+    "t_bgchateau2_ours_roche_c",
+    "t_bgchateau2_yeux_c",
+    "t_bgcimet200_c",
+    "t_bgcimet2arbre1_c",
+    "t_bgcimet2arbre2_c",
+    "t_bgcimet2brouillard_c",
+    "t_bgcimet2chauvesouris_c",
+    "t_bgcimet2ciel_c",
+    "t_bgcimet2citrouilles_c",
+    "t_bgcimet2fantomes_c",
+    "t_bgcimet2nuages_c",
+    "t_bgcimet2pendus_c",
+    "t_bgcimet2persos_c",
+    "t_bgcimet2tombes01_c",
+    "t_bgcimet2tombes02_c",
+    "t_bgforet00_c",
+    "t_bgforet01_c",
+    "t_bgforet03_c",
+    "t_bgforet200_c",
+    "t_bgforet201_c",
+    "t_bgforet203_c",
+    "t_bgforet2elan_c",
+    "t_bgforet2nuages_c",
+    "t_bgforet2soldat_c",
+    "t_bgforet2souche_c",
+    "t_bgforetelan_c",
+    "t_bgforetnuages_c",
+    "t_bgforetsoldat_c",
+    "t_bgforetsouche_c",
+    "t_bgport200_c",
+    "t_bgport201_c",
+    "t_bgport202_c",
+    "t_bgport203_c",
+    "t_bgport2bateau01_c",
+    "t_bgport2bateau02_c",
+    "t_bgport2bateau03_c",
+    "t_bgport2nuages_c",
+    "t_bgport2objets_c",
+    "t_bgportwateruv_c",
+    "t_bgville2maron00_c",
+    "t_bgville2maron01_c",
+    "t_bgville2maronarmes_c",
+    "t_bgville2maronbalance_c",
+    "t_bgville2marondragon_c",
+    "t_bgville2maronenseigne_c",
+    "t_bgville2maronnuages_c",
+    "t_bgvillemaron00_c",
+    "t_bgvillemaron01_c",
+    "t_bgvillemaronarmes_c",
+    "t_bgvillemaronbalance_c",
+    "t_bgvillemarondragon_c",
+    "t_bgvillemaronenseigne_c",
+    "t_bgvillemaronnuages_c"
+  ],
+  "extractedGlobalGameplayTextures": [
+    "t_accroche01_c",
+    "t_accrocheaura_c",
+    "t_corde_c",
+    "t_cordebeam_c",
+    "t_cordeuberbeam_c",
+    "t_fx_smokew_c"
+  ],
+  "maps": [
+    {
+      "mapId": "w_multi_dm_lvl01",
+      "packageFile": "w_multi_dm_lvl01.pc",
+      "authorAndDate": "06/10/2012 at 16:12:52 by Pascal-L",
+      "viewportSize": {
+        "width": 1920,
+        "height": 1080
+      },
+      "camera": {
+        "x": 960,
+        "y": 540,
+        "z": -7291.9238
+      },
+      "bgmTrack": "bgm_syl_donjon",
+      "matchTimerSeconds": 120,
+      "simulation": {
+        "gravity": {
+          "x": 0,
+          "y": -686.7,
+          "z": 0
+        },
+        "airDampingScalar": 0.0015,
+        "maxLinearSpeed": 2000,
+        "baseMaxTangentialSpeed": 900,
+        "baseMaxAngularSpeed": 6,
+        "baseRopeRadius": 150,
+        "turnBoostSpeedPerStack": 60,
+        "turnBoostCosBase": 0.8,
+        "turnBoostCosStep": 0.04,
+        "swingBoostTargetSpeed": 1300,
+        "swingBoostDuration": 0.4,
+        "tangentialGravityScale": 10,
+        "releaseLookbackWindow": 0.05,
+        "releaseGaussianSigma": 0.8409,
+        "releaseBoostMultiplier": 1.2,
+        "wallBounceRestitution": 1,
+        "grappleReattachLockout": 0.05,
+        "chargeFillRate": 0.58,
+        "chargeEnabled": true,
+        "minSpeedForChargeAndPvpClamp": 450,
+        "stunChargeMultiplier": 1,
+        "stunDuration": 0.55,
+        "respawnInvulnDuration": 1,
+        "oobReelinSpeed": 50,
+        "oobMargin": 32,
+        "allowRegrappleOnFreshPress": true
+      },
+      "counts": {
+        "attachPoints": 6,
+        "walls": 4,
+        "deadlyWalls": 1,
+        "backgroundLayers": 1,
+        "decorativeProps": 3,
+        "switches": 0,
+        "playerSpawns": 8
+      },
+      "backgroundLayers": [
+        {
+          "name": "o_BG_Forest2",
+          "actorMeshName": "o_bg_forest2",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -3659.1428,
+            "y": -970.9719,
+            "z": 5681.0771
+          },
+          "bboxMax": {
+            "x": 2624.4309,
+            "y": 7452.4102,
+            "z": 0
+          },
+          "textures": [
+            "t_bgforet2soldat_c",
+            "t_bgforet203_c",
+            "t_bgforet2nuages_c",
+            "t_bgforet201_c",
+            "t_bgforet2souche_c",
+            "t_bgforet2elan_c",
+            "t_bgforet200_c"
+          ]
+        }
+      ],
+      "decorativeProps": [
+        {
+          "name": "o_poutremulti03",
+          "actorMeshName": "o_poutremulti03",
+          "position": {
+            "x": 935.7603,
+            "y": -20.7263,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -128,
+            "y": -16.4301,
+            "z": 128
+          },
+          "bboxMax": {
+            "x": 1007.5699,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_multi03fond_c"
+          ]
+        },
+        {
+          "name": "o_SerpentMulti03",
+          "actorMeshName": "o_serpentmulti03",
+          "position": {
+            "x": 959.2531,
+            "y": 521.2192,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 88.4056,
+          "bboxMin": {
+            "x": -791.687,
+            "y": -71.7407,
+            "z": 232.313
+          },
+          "bboxMax": {
+            "x": 94.3917,
+            "y": 91.5869,
+            "z": 0
+          },
+          "textures": [
+            "t_multi03c_c",
+            "t_multi03a_c",
+            "t_multi03b_c"
+          ]
+        },
+        {
+          "name": "o_vissemulti03",
+          "actorMeshName": "o_vissemulti03",
+          "position": {
+            "x": 960.0164,
+            "y": 522.7338,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -16,
+            "y": -16,
+            "z": 16
+          },
+          "bboxMax": {
+            "x": 16,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_multi03c_c"
+          ]
+        }
+      ],
+      "attachPoints": [
+        {
+          "name": "PRP_attachRef001",
+          "position": {
+            "x": 720,
+            "y": 860,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef002",
+          "position": {
+            "x": 1200,
+            "y": 860,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef003",
+          "position": {
+            "x": 300,
+            "y": 540,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef004",
+          "position": {
+            "x": 1620,
+            "y": 540,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef005",
+          "position": {
+            "x": 720,
+            "y": 220,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef006",
+          "position": {
+            "x": 1200,
+            "y": 220,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        }
+      ],
+      "walls": [
+        {
+          "name": "PRP_wallLeft",
+          "parentRef": null,
+          "position": {
+            "x": 0,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": 0,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 30,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranbois_l",
+          "textures": [
+            "t_rebonecranbois01_c"
+          ]
+        },
+        {
+          "name": "PRP_wallRight",
+          "parentRef": null,
+          "position": {
+            "x": 1920,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -30.0001,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 0.0001,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranbois_r",
+          "textures": [
+            "t_rebonecranbois02_c"
+          ]
+        },
+        {
+          "name": "WallTop",
+          "parentRef": null,
+          "position": {
+            "x": 960,
+            "y": 1480,
+            "z": 0
+          },
+          "scale": {
+            "x": 3.84,
+            "y": 1,
+            "z": 4.3126
+          },
+          "rotationQuat": {
+            "x": 0.7071,
+            "y": 0,
+            "z": 0.7071,
+            "w": 0
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -25,
+            "y": -25,
+            "z": -25
+          },
+          "bboxMax": {
+            "x": 25,
+            "y": 25,
+            "z": 25
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": null,
+          "textures": []
+        },
+        {
+          "name": "Mur001",
+          "parentRef": "RefPoint001",
+          "position": {
+            "x": 959.405,
+            "y": 824.0381,
+            "z": 0
+          },
+          "scale": {
+            "x": 0.5,
+            "y": 6,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -50,
+            "y": -50.2801,
+            "z": -50
+          },
+          "bboxMax": {
+            "x": 50,
+            "y": 49.7199,
+            "z": 50
+          },
+          "isDeadly": true,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              -1.6805,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_cubeunit_black",
+          "textures": [
+            "t_placeholderld_black_c"
+          ]
+        }
+      ],
+      "switches": [],
+      "flowMotions": {
+        "rotations": [
+          {
+            "offsetHex": "0x37332",
+            "targetGuid": -80272507,
+            "deltaEulerDeg": {
+              "x": 0,
+              "y": 0,
+              "z": 120
+            },
+            "durationSec": 10
+          },
+          {
+            "offsetHex": "0x3741f",
+            "targetGuid": -80272507,
+            "deltaEulerDeg": {
+              "x": 0,
+              "y": 0,
+              "z": 120
+            },
+            "durationSec": 10
+          },
+          {
+            "offsetHex": "0x3750c",
+            "targetGuid": -80272507,
+            "deltaEulerDeg": {
+              "x": 0,
+              "y": 0,
+              "z": 120
+            },
+            "durationSec": 10
+          },
+          {
+            "offsetHex": "0x375f9",
+            "targetGuid": -80272507,
+            "deltaEulerDeg": {
+              "x": 0,
+              "y": 0,
+              "z": 120
+            },
+            "durationSec": 7.5
+          },
+          {
+            "offsetHex": "0x376e6",
+            "targetGuid": -80272507,
+            "deltaEulerDeg": {
+              "x": 0,
+              "y": 0,
+              "z": 120
+            },
+            "durationSec": 7.5
+          },
+          {
+            "offsetHex": "0x377d3",
+            "targetGuid": -80272507,
+            "deltaEulerDeg": {
+              "x": 0,
+              "y": 0,
+              "z": 120
+            },
+            "durationSec": 7.5
+          },
+          {
+            "offsetHex": "0x378c0",
+            "targetGuid": -80272507,
+            "deltaEulerDeg": {
+              "x": 0,
+              "y": 0,
+              "z": 120
+            },
+            "durationSec": 5
+          },
+          {
+            "offsetHex": "0x379ad",
+            "targetGuid": -80272507,
+            "deltaEulerDeg": {
+              "x": 0,
+              "y": 0,
+              "z": 120
+            },
+            "durationSec": 5
+          },
+          {
+            "offsetHex": "0x37a9a",
+            "targetGuid": -80272507,
+            "deltaEulerDeg": {
+              "x": 0,
+              "y": 0,
+              "z": 120
+            },
+            "durationSec": 5
+          }
+        ],
+        "moves": [],
+        "timers": [],
+        "shakes": []
+      },
+      "deathTrigger": {
+        "name": "TriggerPlanePlayerDeath",
+        "position": {
+          "x": 960,
+          "y": -300,
+          "z": 350
+        },
+        "bboxMin": {
+          "x": -1250,
+          "y": 0,
+          "z": -750
+        },
+        "bboxMax": {
+          "x": 1250,
+          "y": 0,
+          "z": 750
+        }
+      },
+      "playerSpawns": [
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer1",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer1",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer2",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer2",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer3",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer3",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer4",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer4",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        }
+      ]
+    },
+    {
+      "mapId": "w_multi_dm_lvl02",
+      "packageFile": "w_multi_dm_lvl02.pc",
+      "authorAndDate": "06/10/2012 at 16:12:50 by Pascal-L",
+      "viewportSize": {
+        "width": 1920,
+        "height": 1080
+      },
+      "camera": {
+        "x": 960,
+        "y": 540,
+        "z": -7291.9238
+      },
+      "bgmTrack": "bgm_syl_ville",
+      "matchTimerSeconds": 120,
+      "simulation": {
+        "gravity": {
+          "x": 0,
+          "y": -686.7,
+          "z": 0
+        },
+        "airDampingScalar": 0.0015,
+        "maxLinearSpeed": 2000,
+        "baseMaxTangentialSpeed": 900,
+        "baseMaxAngularSpeed": 6,
+        "baseRopeRadius": 150,
+        "turnBoostSpeedPerStack": 60,
+        "turnBoostCosBase": 0.8,
+        "turnBoostCosStep": 0.04,
+        "swingBoostTargetSpeed": 1300,
+        "swingBoostDuration": 0.4,
+        "tangentialGravityScale": 10,
+        "releaseLookbackWindow": 0.05,
+        "releaseGaussianSigma": 0.8409,
+        "releaseBoostMultiplier": 1.2,
+        "wallBounceRestitution": 1,
+        "grappleReattachLockout": 0.05,
+        "chargeFillRate": 0.58,
+        "chargeEnabled": true,
+        "minSpeedForChargeAndPvpClamp": 450,
+        "stunChargeMultiplier": 1,
+        "stunDuration": 0.55,
+        "respawnInvulnDuration": 1,
+        "oobReelinSpeed": 50,
+        "oobMargin": 32,
+        "allowRegrappleOnFreshPress": true
+      },
+      "counts": {
+        "attachPoints": 4,
+        "walls": 4,
+        "deadlyWalls": 0,
+        "backgroundLayers": 1,
+        "decorativeProps": 5,
+        "switches": 0,
+        "playerSpawns": 8
+      },
+      "backgroundLayers": [
+        {
+          "name": "o_BG_VilleMarron",
+          "actorMeshName": "o_bg_villemarron2",
+          "position": {
+            "x": 972.5017,
+            "y": 539.7871,
+            "z": 7288.6846
+          },
+          "scale": {
+            "x": 1.01,
+            "y": 1.01,
+            "z": 1.01
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -4356.2534,
+            "y": -2036.9846,
+            "z": -181.861
+          },
+          "bboxMax": {
+            "x": 4480.0791,
+            "y": 2170.6296,
+            "z": 685.0583
+          },
+          "textures": [
+            "t_bgville2maron00_c",
+            "t_bgville2marondragon_c",
+            "t_bgville2maronnuages_c",
+            "t_bgville2maron01_c",
+            "t_bgville2maronarmes_c",
+            "t_bgville2maronenseigne_c",
+            "t_bgville2maronbalance_c"
+          ]
+        }
+      ],
+      "decorativeProps": [
+        {
+          "name": "o_nacelleAne",
+          "actorMeshName": "o_nacelleane",
+          "position": {
+            "x": 796.4126,
+            "y": 702.1677,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -64.3425,
+            "y": -112.4492,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 64.3425,
+            "y": 93.6749,
+            "z": 0
+          },
+          "textures": [
+            "t_multi04_02_c",
+            "t_multi04_09_c",
+            "t_multi04_04_c",
+            "t_multi04_07_c",
+            "t_multi04_08_c"
+          ]
+        },
+        {
+          "name": "o_nacelleLapin",
+          "actorMeshName": "o_nacellelapin",
+          "position": {
+            "x": 801.0181,
+            "y": 377.9149,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -75.6769,
+            "y": -120.3504,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 75.6769,
+            "y": 74.5096,
+            "z": 0
+          },
+          "textures": [
+            "t_multi04_02_c",
+            "t_multi04_14_c",
+            "t_multi04_13_c",
+            "t_multi04_15_c",
+            "t_multi04_04_c"
+          ]
+        },
+        {
+          "name": "o_nacelleMort",
+          "actorMeshName": "o_nacellemort",
+          "position": {
+            "x": 1117.8435,
+            "y": 377.9149,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -65.0384,
+            "y": -113.459,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 65.0384,
+            "y": 89.1056,
+            "z": 0
+          },
+          "textures": [
+            "t_multi04_02_c",
+            "t_multi04_09_c",
+            "t_multi04_10_c",
+            "t_multi04_04_c",
+            "t_multi04_11_c"
+          ]
+        },
+        {
+          "name": "o_nacelleRoi",
+          "actorMeshName": "o_nacelleroi",
+          "position": {
+            "x": 1117.8435,
+            "y": 702.1677,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -90.4866,
+            "y": -116.2025,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 90.4866,
+            "y": 91.946,
+            "z": 0
+          },
+          "textures": [
+            "t_multi04_02_c",
+            "t_multi04_05_c",
+            "t_multi04_06_c",
+            "t_multi04_04_c"
+          ]
+        },
+        {
+          "name": "o_SmokeONroof",
+          "actorMeshName": "o_smokeonroof",
+          "position": null,
+          "scale": null,
+          "rotationDegZ": 0,
+          "bboxMin": null,
+          "bboxMax": null,
+          "textures": [
+            "t_fx_smokew_c"
+          ]
+        }
+      ],
+      "attachPoints": [
+        {
+          "name": "PRP_attachRef000",
+          "position": {
+            "x": 340,
+            "y": 880,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef001",
+          "position": {
+            "x": 1580,
+            "y": 880,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef002",
+          "position": {
+            "x": 340,
+            "y": 220,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef003",
+          "position": {
+            "x": 1580,
+            "y": 220,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        }
+      ],
+      "walls": [
+        {
+          "name": "Mur001",
+          "parentRef": null,
+          "position": {
+            "x": 960,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -256,
+            "y": -256,
+            "z": -6.0386
+          },
+          "bboxMax": {
+            "x": 256,
+            "y": 256,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_m04_cube",
+          "textures": [
+            "t_multi04_01_c",
+            "t_multi04_03_c"
+          ]
+        },
+        {
+          "name": "WallTop",
+          "parentRef": null,
+          "position": {
+            "x": 960,
+            "y": 1480,
+            "z": 0
+          },
+          "scale": {
+            "x": 3.84,
+            "y": 1,
+            "z": 4.3126
+          },
+          "rotationQuat": {
+            "x": 0.7071,
+            "y": 0,
+            "z": 0.7071,
+            "w": 0
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -25,
+            "y": -25,
+            "z": -25
+          },
+          "bboxMax": {
+            "x": 25,
+            "y": 25,
+            "z": 25
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": null,
+          "textures": []
+        },
+        {
+          "name": "PRP_background001",
+          "parentRef": null,
+          "position": {
+            "x": 1920,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -30.0001,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 0.0001,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranbois_r",
+          "textures": [
+            "t_rebonecranbois02_c"
+          ]
+        },
+        {
+          "name": "PRP_wallLeft",
+          "parentRef": null,
+          "position": {
+            "x": 0,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": 0,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 30,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranbois_l",
+          "textures": [
+            "t_rebonecranbois01_c"
+          ]
+        }
+      ],
+      "switches": [],
+      "flowMotions": {
+        "rotations": [
+          {
+            "offsetHex": "0x18823",
+            "targetGuid": 1340176284,
+            "deltaEulerDeg": {
+              "x": 0,
+              "y": 0,
+              "z": 90
+            },
+            "durationSec": 4
+          }
+        ],
+        "moves": [],
+        "timers": [],
+        "shakes": []
+      },
+      "deathTrigger": {
+        "name": "TriggerPlanePlayerDeath",
+        "position": {
+          "x": 960,
+          "y": -300,
+          "z": 350
+        },
+        "bboxMin": {
+          "x": -1250,
+          "y": 0,
+          "z": -750
+        },
+        "bboxMax": {
+          "x": 1250,
+          "y": 0,
+          "z": 750
+        }
+      },
+      "playerSpawns": [
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer1",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer1",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer2",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer2",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer3",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer3",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer4",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer4",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        }
+      ]
+    },
+    {
+      "mapId": "w_multi_dm_lvl04",
+      "packageFile": "w_multi_dm_lvl04.pc",
+      "authorAndDate": "06/10/2012 at 16:13:00 by Pascal-L",
+      "viewportSize": {
+        "width": 1920,
+        "height": 1080
+      },
+      "camera": {
+        "x": 960,
+        "y": 540,
+        "z": -7291.9238
+      },
+      "bgmTrack": "bgm_syl_foret",
+      "matchTimerSeconds": 120,
+      "simulation": {
+        "gravity": {
+          "x": 0,
+          "y": -686.7,
+          "z": 0
+        },
+        "airDampingScalar": 0.0015,
+        "maxLinearSpeed": 2000,
+        "baseMaxTangentialSpeed": 900,
+        "baseMaxAngularSpeed": 6,
+        "baseRopeRadius": 150,
+        "turnBoostSpeedPerStack": 60,
+        "turnBoostCosBase": 0.8,
+        "turnBoostCosStep": 0.04,
+        "swingBoostTargetSpeed": 1300,
+        "swingBoostDuration": 0.4,
+        "tangentialGravityScale": 10,
+        "releaseLookbackWindow": 0.05,
+        "releaseGaussianSigma": 0.8409,
+        "releaseBoostMultiplier": 1.2,
+        "wallBounceRestitution": 1,
+        "grappleReattachLockout": 0.05,
+        "chargeFillRate": 0.58,
+        "chargeEnabled": true,
+        "minSpeedForChargeAndPvpClamp": 450,
+        "stunChargeMultiplier": 1,
+        "stunDuration": 0.55,
+        "respawnInvulnDuration": 1,
+        "oobReelinSpeed": 50,
+        "oobMargin": 32,
+        "allowRegrappleOnFreshPress": true
+      },
+      "counts": {
+        "attachPoints": 5,
+        "walls": 7,
+        "deadlyWalls": 4,
+        "backgroundLayers": 1,
+        "decorativeProps": 2,
+        "switches": 1,
+        "playerSpawns": 8
+      },
+      "backgroundLayers": [
+        {
+          "name": "o_BG_Cimetery",
+          "actorMeshName": "o_bg_cimetery2",
+          "position": {
+            "x": 184,
+            "y": 60.6,
+            "z": -689.6
+          },
+          "scale": {
+            "x": 2,
+            "y": 2,
+            "z": 2
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -3800.1355,
+            "y": -464.5758,
+            "z": 5997.8315
+          },
+          "bboxMax": {
+            "x": 926.7257,
+            "y": 3018.1636,
+            "z": 0
+          },
+          "textures": [
+            "t_bgforetsoldat_c",
+            "t_bgcimet2ciel_c",
+            "t_bgcimet2persos_c",
+            "t_bgcimet2chauvesouris_c",
+            "t_bgcimet2nuages_c",
+            "t_bgcimet200_c",
+            "t_bgcimet2fantomes_c",
+            "t_bgcimet2tombes02_c",
+            "t_bgcimet2tombes01_c",
+            "t_bgcimet2arbre2_c",
+            "t_bgcimet2pendus_c",
+            "t_bgcimet2citrouilles_c",
+            "t_bgcimet2arbre1_c",
+            "t_bgcimet2brouillard_c"
+          ]
+        }
+      ],
+      "decorativeProps": [
+        {
+          "name": "o_levierBestiole_Vivante",
+          "actorMeshName": "o_leviercrapeau",
+          "position": {
+            "x": 1920,
+            "y": 539.9997,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": -89.9989,
+          "bboxMin": {
+            "x": -67.5825,
+            "y": 88.4129,
+            "z": -5.2193
+          },
+          "bboxMax": {
+            "x": 36.8006,
+            "y": 196.949,
+            "z": -4.2192
+          },
+          "textures": [
+            "t_leviercrapeau_c"
+          ]
+        },
+        {
+          "name": "o_levierBestiole_Dead",
+          "actorMeshName": "o_leviercrapeaudead",
+          "position": {
+            "x": 1920,
+            "y": 539.9998,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": -89.9989,
+          "bboxMin": {
+            "x": -108.2118,
+            "y": 46.1774,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 72.1187,
+            "y": 226.5079,
+            "z": 0
+          },
+          "textures": [
+            "t_levierdead_c"
+          ]
+        }
+      ],
+      "attachPoints": [
+        {
+          "name": "PRP_attachRef000",
+          "position": {
+            "x": 340,
+            "y": 860,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef001",
+          "position": {
+            "x": 1580,
+            "y": 860,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef002",
+          "position": {
+            "x": 1270,
+            "y": 220,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef003",
+          "position": {
+            "x": 650,
+            "y": 220,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef004",
+          "position": {
+            "x": 960,
+            "y": 540,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        }
+      ],
+      "walls": [
+        {
+          "name": "WallTop",
+          "parentRef": null,
+          "position": {
+            "x": 960,
+            "y": 1480,
+            "z": 0
+          },
+          "scale": {
+            "x": 3.84,
+            "y": 1,
+            "z": 4.3126
+          },
+          "rotationQuat": {
+            "x": 0.7071,
+            "y": 0,
+            "z": 0.7071,
+            "w": 0
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -25,
+            "y": -25,
+            "z": -25
+          },
+          "bboxMax": {
+            "x": 25,
+            "y": 25,
+            "z": 25
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": null,
+          "textures": []
+        },
+        {
+          "name": "PRP_background001",
+          "parentRef": null,
+          "position": {
+            "x": 1920,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -30.0001,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 0.0001,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranbois_r",
+          "textures": [
+            "t_rebonecranbois02_c"
+          ]
+        },
+        {
+          "name": "PRP_wallLeft",
+          "parentRef": null,
+          "position": {
+            "x": 0,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": 0,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 30,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranbois_l",
+          "textures": [
+            "t_rebonecranbois01_c"
+          ]
+        },
+        {
+          "name": "Scie001",
+          "parentRef": null,
+          "position": {
+            "x": -200,
+            "y": 860,
+            "z": 0
+          },
+          "scale": {
+            "x": 0.8,
+            "y": 0.8,
+            "z": 0.8
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -219.1476,
+            "y": -219.5707,
+            "z": -61.825
+          },
+          "bboxMax": {
+            "x": 187.7894,
+            "y": 206.1248,
+            "z": 400.0001
+          },
+          "isDeadly": true,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": -910515119,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_tueur_md08",
+          "textures": [
+            "t_m08monstrg11_c",
+            "t_m08monstrd07_c",
+            "t_m08monstrd06_c",
+            "t_m08monstrd02_c",
+            "t_m08monstrd03_c",
+            "t_m08monstrm03_c",
+            "t_m08monstrd01_c",
+            "t_m08monstrd05_c",
+            "t_m08monstrd04_c",
+            "t_m08monstrg08_c",
+            "t_m08monstrg10_c",
+            "t_m08monstrg06_c",
+            "t_m08monstrg07_c",
+            "t_m08monstrm02_c",
+            "t_m08monstrm01_c",
+            "t_m08monstrg01_c",
+            "t_m08monstrg02_c",
+            "t_m08monstrg03_c",
+            "t_m08monstrg04_c",
+            "t_m08monstrg05_c"
+          ]
+        },
+        {
+          "name": "Scie002",
+          "parentRef": null,
+          "position": {
+            "x": 2120,
+            "y": 860,
+            "z": 0
+          },
+          "scale": {
+            "x": 0.8,
+            "y": 0.8,
+            "z": 0.8
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -219.1476,
+            "y": -219.5707,
+            "z": -61.825
+          },
+          "bboxMax": {
+            "x": 187.7894,
+            "y": 206.1248,
+            "z": 400.0001
+          },
+          "isDeadly": true,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": -910515119,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_tueur_md08",
+          "textures": [
+            "t_m08monstrg11_c",
+            "t_m08monstrd07_c",
+            "t_m08monstrd06_c",
+            "t_m08monstrd02_c",
+            "t_m08monstrd03_c",
+            "t_m08monstrm03_c",
+            "t_m08monstrd01_c",
+            "t_m08monstrd05_c",
+            "t_m08monstrd04_c",
+            "t_m08monstrg08_c",
+            "t_m08monstrg10_c",
+            "t_m08monstrg06_c",
+            "t_m08monstrg07_c",
+            "t_m08monstrm02_c",
+            "t_m08monstrm01_c",
+            "t_m08monstrg01_c",
+            "t_m08monstrg02_c",
+            "t_m08monstrg03_c",
+            "t_m08monstrg04_c",
+            "t_m08monstrg05_c"
+          ]
+        },
+        {
+          "name": "Scie003",
+          "parentRef": null,
+          "position": {
+            "x": 2120,
+            "y": 220,
+            "z": 0
+          },
+          "scale": {
+            "x": 0.8,
+            "y": 0.8,
+            "z": 0.8
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -219.1476,
+            "y": -219.5707,
+            "z": -61.825
+          },
+          "bboxMax": {
+            "x": 187.7894,
+            "y": 206.1248,
+            "z": 400.0001
+          },
+          "isDeadly": true,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": -910515119,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_tueur_md08",
+          "textures": [
+            "t_m08monstrg11_c",
+            "t_m08monstrd07_c",
+            "t_m08monstrd06_c",
+            "t_m08monstrd02_c",
+            "t_m08monstrd03_c",
+            "t_m08monstrm03_c",
+            "t_m08monstrd01_c",
+            "t_m08monstrd05_c",
+            "t_m08monstrd04_c",
+            "t_m08monstrg08_c",
+            "t_m08monstrg10_c",
+            "t_m08monstrg06_c",
+            "t_m08monstrg07_c",
+            "t_m08monstrm02_c",
+            "t_m08monstrm01_c",
+            "t_m08monstrg01_c",
+            "t_m08monstrg02_c",
+            "t_m08monstrg03_c",
+            "t_m08monstrg04_c",
+            "t_m08monstrg05_c"
+          ]
+        },
+        {
+          "name": "Scie004",
+          "parentRef": null,
+          "position": {
+            "x": -200,
+            "y": 220,
+            "z": 0
+          },
+          "scale": {
+            "x": 0.8,
+            "y": 0.8,
+            "z": 0.8
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -219.1476,
+            "y": -219.5707,
+            "z": -61.825
+          },
+          "bboxMax": {
+            "x": 187.7894,
+            "y": 206.1248,
+            "z": 400.0001
+          },
+          "isDeadly": true,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": -910515119,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_tueur_md08",
+          "textures": [
+            "t_m08monstrg11_c",
+            "t_m08monstrd07_c",
+            "t_m08monstrd06_c",
+            "t_m08monstrd02_c",
+            "t_m08monstrd03_c",
+            "t_m08monstrm03_c",
+            "t_m08monstrd01_c",
+            "t_m08monstrd05_c",
+            "t_m08monstrd04_c",
+            "t_m08monstrg08_c",
+            "t_m08monstrg10_c",
+            "t_m08monstrg06_c",
+            "t_m08monstrg07_c",
+            "t_m08monstrm02_c",
+            "t_m08monstrm01_c",
+            "t_m08monstrg01_c",
+            "t_m08monstrg02_c",
+            "t_m08monstrg03_c",
+            "t_m08monstrg04_c",
+            "t_m08monstrg05_c"
+          ]
+        }
+      ],
+      "switches": [
+        {
+          "name": "PST_MecaSwitch",
+          "position": {
+            "x": 1920,
+            "y": 540,
+            "z": 0
+          },
+          "rotationDegZ": -89.9989,
+          "textures": [
+            "t_levierbaseback_c",
+            "t_levierbaseoff_c",
+            "t_levierbaseon_c",
+            "t_levierbase_c",
+            "t_leviercrapeau_c",
+            "t_levierdead_c"
+          ]
+        }
+      ],
+      "flowMotions": {
+        "rotations": [],
+        "moves": [
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x18b07",
+            "targetGuid": -1372639692,
+            "targetPos": {
+              "x": 1580,
+              "y": 860,
+              "z": 0
+            },
+            "durationSec": 8.9
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x18ce0",
+            "targetGuid": -1372639692,
+            "targetPos": {
+              "x": 1580,
+              "y": 220,
+              "z": 0
+            },
+            "durationSec": 3.2
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x18dc9",
+            "targetGuid": -1372639692,
+            "targetPos": {
+              "x": 340,
+              "y": 220,
+              "z": 0
+            },
+            "durationSec": 6.9
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x18eb2",
+            "targetGuid": -1372639692,
+            "targetPos": {
+              "x": 340,
+              "y": 860,
+              "z": 0
+            },
+            "durationSec": 3.2
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x18f9b",
+            "targetGuid": -1372639692,
+            "targetPos": {
+              "x": -200,
+              "y": 860,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x191d3",
+            "targetGuid": -1553200915,
+            "targetPos": {
+              "x": 340,
+              "y": 860,
+              "z": 0
+            },
+            "durationSec": 8.9
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x193ac",
+            "targetGuid": -1553200915,
+            "targetPos": {
+              "x": 340,
+              "y": 220,
+              "z": 0
+            },
+            "durationSec": 3.2
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x19495",
+            "targetGuid": -1553200915,
+            "targetPos": {
+              "x": 1580,
+              "y": 220,
+              "z": 0
+            },
+            "durationSec": 6.9
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x1957e",
+            "targetGuid": -1553200915,
+            "targetPos": {
+              "x": 1580,
+              "y": 860,
+              "z": 0
+            },
+            "durationSec": 3.2
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x19667",
+            "targetGuid": -1553200915,
+            "targetPos": {
+              "x": 2120,
+              "y": 860,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x1989f",
+            "targetGuid": -1481829030,
+            "targetPos": {
+              "x": 340,
+              "y": 220,
+              "z": 0
+            },
+            "durationSec": 8.9
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x19a78",
+            "targetGuid": -1481829030,
+            "targetPos": {
+              "x": 340,
+              "y": 860,
+              "z": 0
+            },
+            "durationSec": 3.2
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x19b61",
+            "targetGuid": -1481829030,
+            "targetPos": {
+              "x": 1580,
+              "y": 860,
+              "z": 0
+            },
+            "durationSec": 6.9
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x19c4a",
+            "targetGuid": -1481829030,
+            "targetPos": {
+              "x": 1580,
+              "y": 220,
+              "z": 0
+            },
+            "durationSec": 3.2
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x19d33",
+            "targetGuid": -1481829030,
+            "targetPos": {
+              "x": 2120,
+              "y": 220,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x19f0c",
+            "targetGuid": -1175829153,
+            "targetPos": {
+              "x": 1580,
+              "y": 220,
+              "z": 0
+            },
+            "durationSec": 8.9
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x1a0e5",
+            "targetGuid": -1175829153,
+            "targetPos": {
+              "x": 1580,
+              "y": 860,
+              "z": 0
+            },
+            "durationSec": 3.2
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x1a1ce",
+            "targetGuid": -1175829153,
+            "targetPos": {
+              "x": 340,
+              "y": 860,
+              "z": 0
+            },
+            "durationSec": 6.9
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x1a2b7",
+            "targetGuid": -1175829153,
+            "targetPos": {
+              "x": 340,
+              "y": 220,
+              "z": 0
+            },
+            "durationSec": 3.2
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x1a3a0",
+            "targetGuid": -1175829153,
+            "targetPos": {
+              "x": -200,
+              "y": 220,
+              "z": 0
+            },
+            "durationSec": 2
+          }
+        ],
+        "timers": [
+          {
+            "offsetHex": "0x18aaf",
+            "delaySec": 5
+          },
+          {
+            "offsetHex": "0x1917b",
+            "delaySec": 10
+          },
+          {
+            "offsetHex": "0x19847",
+            "delaySec": 15
+          },
+          {
+            "offsetHex": "0x1a580",
+            "delaySec": 20
+          }
+        ],
+        "shakes": []
+      },
+      "deathTrigger": {
+        "name": "TriggerPlanePlayerDeath",
+        "position": {
+          "x": 960,
+          "y": -300,
+          "z": 350
+        },
+        "bboxMin": {
+          "x": -1250,
+          "y": 0,
+          "z": -750
+        },
+        "bboxMax": {
+          "x": 1250,
+          "y": 0,
+          "z": 750
+        }
+      },
+      "playerSpawns": [
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer1",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer1",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer2",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer2",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer3",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer3",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer4",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer4",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        }
+      ]
+    },
+    {
+      "mapId": "w_multi_dm_lvl07",
+      "packageFile": "w_multi_dm_lvl07.pc",
+      "authorAndDate": "06/10/2012 at 16:13:02 by Pascal-L",
+      "viewportSize": {
+        "width": 1920,
+        "height": 1080
+      },
+      "camera": {
+        "x": 960,
+        "y": 540,
+        "z": -7291.9238
+      },
+      "bgmTrack": "bgm_syl_campagne",
+      "matchTimerSeconds": 120,
+      "simulation": {
+        "gravity": {
+          "x": 0,
+          "y": -686.7,
+          "z": 0
+        },
+        "airDampingScalar": 0.0015,
+        "maxLinearSpeed": 2000,
+        "baseMaxTangentialSpeed": 900,
+        "baseMaxAngularSpeed": 6,
+        "baseRopeRadius": 150,
+        "turnBoostSpeedPerStack": 60,
+        "turnBoostCosBase": 0.8,
+        "turnBoostCosStep": 0.04,
+        "swingBoostTargetSpeed": 1300,
+        "swingBoostDuration": 0.4,
+        "tangentialGravityScale": 10,
+        "releaseLookbackWindow": 0.05,
+        "releaseGaussianSigma": 0.8409,
+        "releaseBoostMultiplier": 1.2,
+        "wallBounceRestitution": 1,
+        "grappleReattachLockout": 0.05,
+        "chargeFillRate": 0.58,
+        "chargeEnabled": true,
+        "minSpeedForChargeAndPvpClamp": 450,
+        "stunChargeMultiplier": 1,
+        "stunDuration": 0.55,
+        "respawnInvulnDuration": 1,
+        "oobReelinSpeed": 50,
+        "oobMargin": 32,
+        "allowRegrappleOnFreshPress": true
+      },
+      "counts": {
+        "attachPoints": 5,
+        "walls": 5,
+        "deadlyWalls": 0,
+        "backgroundLayers": 4,
+        "decorativeProps": 0,
+        "switches": 0,
+        "playerSpawns": 8
+      },
+      "backgroundLayers": [
+        {
+          "name": "o_BGChateau",
+          "actorMeshName": "o_bgchateau2",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -1762.5304,
+            "y": -3387.9705,
+            "z": 2013.1367
+          },
+          "bboxMax": {
+            "x": 3844.8086,
+            "y": 7240.1528,
+            "z": 8158.0366
+          },
+          "textures": [
+            "t_bgchateau2_cage_c",
+            "t_bgchateau2_dragon_c",
+            "t_bgchateau201_c",
+            "t_bgchateau2_ours_roche_c",
+            "t_bgchateau2_gardes_c",
+            "t_bgchateau200_c",
+            "t_bgchateau2_yeux_c"
+          ]
+        },
+        {
+          "name": "o_BGChateau01_Far",
+          "actorMeshName": "o_bgchateau2_far",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -1020.0387,
+            "y": -3387.9702,
+            "z": 7747.9629
+          },
+          "bboxMax": {
+            "x": 2940.0386,
+            "y": 1653.7717,
+            "z": 7861.5483
+          },
+          "textures": [
+            "t_bgchateau2_cage_c",
+            "t_bgchateau202_c"
+          ]
+        },
+        {
+          "name": "o_BGChateau01_Flags",
+          "actorMeshName": "o_bgchateau2_flags",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": 1417.6165,
+            "y": 948.1143,
+            "z": 6822.0527
+          },
+          "bboxMax": {
+            "x": 2545.7793,
+            "y": 1121.3102,
+            "z": 6822.0527
+          },
+          "textures": [
+            "t_bgchateau2_drapeaux_c"
+          ]
+        },
+        {
+          "name": "o_BGChateau_Clouds",
+          "actorMeshName": "o_bgchateau2_clouds",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -1523.1182,
+            "y": -3387.9705,
+            "z": 1790.2866
+          },
+          "bboxMax": {
+            "x": 4024.3152,
+            "y": 2590.9319,
+            "z": 2013.1367
+          },
+          "textures": [
+            "t_bgport2objets_c",
+            "t_bgchateau2_nuages_c"
+          ]
+        }
+      ],
+      "decorativeProps": [],
+      "attachPoints": [
+        {
+          "name": "PRP_attachRef",
+          "position": {
+            "x": 960,
+            "y": 540,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef000",
+          "position": {
+            "x": 500,
+            "y": 300,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef001",
+          "position": {
+            "x": 1420,
+            "y": 300,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef002",
+          "position": {
+            "x": 500,
+            "y": 780,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef003",
+          "position": {
+            "x": 1420,
+            "y": 780,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        }
+      ],
+      "walls": [
+        {
+          "name": "Prop005",
+          "parentRef": null,
+          "position": {
+            "x": 0,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0.3827,
+            "w": 0.9239
+          },
+          "rotationDegZ": 45.0029,
+          "bboxMin": {
+            "x": -150,
+            "y": -150,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 150,
+            "y": 150,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_pierre_md01",
+          "textures": [
+            "t_carrepierre_c"
+          ]
+        },
+        {
+          "name": "Prop007",
+          "parentRef": null,
+          "position": {
+            "x": 1920,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": -0.3827,
+            "w": 0.9239
+          },
+          "rotationDegZ": -45.0029,
+          "bboxMin": {
+            "x": -150,
+            "y": -150,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 150,
+            "y": 150,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_pierre_md01",
+          "textures": [
+            "t_carrepierre_c"
+          ]
+        },
+        {
+          "name": "WallTop000",
+          "parentRef": null,
+          "position": {
+            "x": 960,
+            "y": 1480,
+            "z": 0
+          },
+          "scale": {
+            "x": 3.84,
+            "y": 1,
+            "z": 4.3126
+          },
+          "rotationQuat": {
+            "x": 0.7071,
+            "y": 0,
+            "z": 0.7071,
+            "w": 0
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -25,
+            "y": -25,
+            "z": -25
+          },
+          "bboxMax": {
+            "x": 25,
+            "y": 25,
+            "z": 25
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": null,
+          "textures": []
+        },
+        {
+          "name": "PRP_wallLeft",
+          "parentRef": null,
+          "position": {
+            "x": 0,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": 0,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 32.0001,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranpierre_l",
+          "textures": [
+            "t_rebonecranpierre_c"
+          ]
+        },
+        {
+          "name": "PRP_wallRight",
+          "parentRef": null,
+          "position": {
+            "x": 1920,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -32.0001,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 0.0001,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranpierre_r",
+          "textures": [
+            "t_rebonecranpierre_c"
+          ]
+        }
+      ],
+      "switches": [],
+      "flowMotions": {
+        "rotations": [],
+        "moves": [],
+        "timers": [],
+        "shakes": []
+      },
+      "deathTrigger": {
+        "name": "TriggerPlanePlayerDeath",
+        "position": {
+          "x": 960,
+          "y": -300,
+          "z": 350
+        },
+        "bboxMin": {
+          "x": -1250,
+          "y": 0,
+          "z": -750
+        },
+        "bboxMax": {
+          "x": 1250,
+          "y": 0,
+          "z": 750
+        }
+      },
+      "playerSpawns": [
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer1",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer1",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer2",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer2",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer3",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer3",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer4",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer4",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        }
+      ]
+    },
+    {
+      "mapId": "w_multi_dm_lvl09",
+      "packageFile": "w_multi_dm_lvl09.pc",
+      "authorAndDate": "06/10/2012 at 16:13:12 by Pascal-L",
+      "viewportSize": {
+        "width": 1920,
+        "height": 1080
+      },
+      "camera": {
+        "x": 960,
+        "y": 540,
+        "z": -7291.9238
+      },
+      "bgmTrack": "bgm_syl_foret",
+      "matchTimerSeconds": 120,
+      "simulation": {
+        "gravity": {
+          "x": 0,
+          "y": -686.7,
+          "z": 0
+        },
+        "airDampingScalar": 0.0015,
+        "maxLinearSpeed": 2000,
+        "baseMaxTangentialSpeed": 900,
+        "baseMaxAngularSpeed": 6,
+        "baseRopeRadius": 150,
+        "turnBoostSpeedPerStack": 60,
+        "turnBoostCosBase": 0.8,
+        "turnBoostCosStep": 0.04,
+        "swingBoostTargetSpeed": 1300,
+        "swingBoostDuration": 0.4,
+        "tangentialGravityScale": 10,
+        "releaseLookbackWindow": 0.05,
+        "releaseGaussianSigma": 0.8409,
+        "releaseBoostMultiplier": 1.2,
+        "wallBounceRestitution": 1,
+        "grappleReattachLockout": 0.05,
+        "chargeFillRate": 0.58,
+        "chargeEnabled": true,
+        "minSpeedForChargeAndPvpClamp": 450,
+        "stunChargeMultiplier": 1,
+        "stunDuration": 0.55,
+        "respawnInvulnDuration": 1,
+        "oobReelinSpeed": 50,
+        "oobMargin": 32,
+        "allowRegrappleOnFreshPress": true
+      },
+      "counts": {
+        "attachPoints": 4,
+        "walls": 6,
+        "deadlyWalls": 3,
+        "backgroundLayers": 5,
+        "decorativeProps": 4,
+        "switches": 0,
+        "playerSpawns": 9
+      },
+      "backgroundLayers": [
+        {
+          "name": "O_BG_Campagne",
+          "actorMeshName": "o_bg_campagne",
+          "position": {
+            "x": 58.2556,
+            "y": 90.2,
+            "z": 6886.2607
+          },
+          "scale": {
+            "x": 2.32,
+            "y": 2.32,
+            "z": 2.32
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -1173.7769,
+            "y": -862.8286,
+            "z": 1810.0822
+          },
+          "bboxMax": {
+            "x": 914.9164,
+            "y": 2915.8591,
+            "z": 0
+          },
+          "textures": [
+            "t_bgcampagnemaison_c",
+            "t_bgcampagneoiseaux_c",
+            "t_bgcampagnepont_c",
+            "t_bgcampagnepontpersos_c",
+            "t_bgcampagne00_c",
+            "t_bgcampagneane_c"
+          ]
+        },
+        {
+          "name": "O_fOND_BGCampagne",
+          "actorMeshName": "o_fond_bgcampagne",
+          "position": {
+            "x": 141.1041,
+            "y": 126.686,
+            "z": 5077.771
+          },
+          "scale": {
+            "x": 2.07,
+            "y": 2.07,
+            "z": 2.07
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -3186.5535,
+            "y": -479.5504,
+            "z": 3972.1084
+          },
+          "bboxMax": {
+            "x": 884.3409,
+            "y": 2979.4587,
+            "z": 0
+          },
+          "textures": [
+            "t_bgcampagnemaison_c",
+            "t_bgcampagne01_c",
+            "t_bgcampagnenuages00_c",
+            "t_bgcampagnenuages01_c",
+            "t_bgcampagnemoulin_c",
+            "t_bgcampagnevaches_c",
+            "t_bgcampagneruines_c"
+          ]
+        },
+        {
+          "name": "o_BG_campagneWater",
+          "actorMeshName": "o_bg_campagnewater",
+          "position": {
+            "x": 141.1041,
+            "y": 126.686,
+            "z": 5077.771
+          },
+          "scale": {
+            "x": 2.07,
+            "y": 2.07,
+            "z": 2.07
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -882.5132,
+            "y": -1265.3223,
+            "z": 1439.8662
+          },
+          "bboxMax": {
+            "x": 431.6989,
+            "y": 2995.4495,
+            "z": 0
+          },
+          "textures": [
+            "t_bgcampagnemaison_c",
+            "t_bgcampagne01_c",
+            "t_bgcampagneriviere_c"
+          ]
+        },
+        {
+          "name": "O_Home_Campagne",
+          "actorMeshName": "o_home_campagne",
+          "position": {
+            "x": 2345.7185,
+            "y": 363.954,
+            "z": 13060.2275
+          },
+          "scale": {
+            "x": 2.18,
+            "y": 2.18,
+            "z": 2.18
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -205.6065,
+            "y": -619.5079,
+            "z": 619.5079
+          },
+          "bboxMax": {
+            "x": 329.6906,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_bgcampagnemaison_c"
+          ]
+        },
+        {
+          "name": "O_Ruine_Campagne",
+          "actorMeshName": "o_ruine_campagne",
+          "position": {
+            "x": 1354.7953,
+            "y": 798.6173,
+            "z": 11539.4541
+          },
+          "scale": {
+            "x": 2,
+            "y": 2,
+            "z": 2
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -298.1056,
+            "y": -175.8823,
+            "z": 298.1056
+          },
+          "bboxMax": {
+            "x": 175.8823,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_bgcampagneruines_c"
+          ]
+        }
+      ],
+      "decorativeProps": [
+        {
+          "name": "o_Armes",
+          "actorMeshName": "o_armes",
+          "position": {
+            "x": 125,
+            "y": 15,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -113.0119,
+            "y": -149.718,
+            "z": -12.2073
+          },
+          "bboxMax": {
+            "x": 101.6334,
+            "y": 73.2404,
+            "z": 9.9221
+          },
+          "textures": [
+            "t_armes_c"
+          ]
+        },
+        {
+          "name": "o_multi04_BordTueur",
+          "actorMeshName": "o_multi04_bordtueur",
+          "position": {
+            "x": 0.0395,
+            "y": 955.7363,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -6.7423,
+            "y": -128,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 6.7423,
+            "y": 32,
+            "z": 0
+          },
+          "textures": [
+            "t_bordecrantue03_c",
+            "t_bordecrantue04_c"
+          ]
+        },
+        {
+          "name": "o_multi04_BordTueur000",
+          "actorMeshName": "o_multi04_bordtueur",
+          "position": {
+            "x": 1922.3608,
+            "y": 123.5783,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 180,
+          "bboxMin": {
+            "x": -6.7423,
+            "y": -128,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 6.7423,
+            "y": 32,
+            "z": 0
+          },
+          "textures": [
+            "t_bordecrantue03_c",
+            "t_bordecrantue04_c"
+          ]
+        },
+        {
+          "name": "o_SmokeONroof000",
+          "actorMeshName": "o_smokeonroof000",
+          "position": null,
+          "scale": null,
+          "rotationDegZ": 0,
+          "bboxMin": null,
+          "bboxMax": null,
+          "textures": []
+        }
+      ],
+      "attachPoints": [
+        {
+          "name": "PRP_attachRef",
+          "position": {
+            "x": 350,
+            "y": 300,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef000",
+          "position": {
+            "x": 960,
+            "y": 400,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef001",
+          "position": {
+            "x": 1570,
+            "y": 300,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef002",
+          "position": {
+            "x": 300,
+            "y": 850,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        }
+      ],
+      "walls": [
+        {
+          "name": "MurTueur",
+          "parentRef": null,
+          "position": {
+            "x": 125,
+            "y": 15,
+            "z": 0
+          },
+          "scale": {
+            "x": 2.5,
+            "y": 0.5,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -50,
+            "y": -50.2801,
+            "z": -50
+          },
+          "bboxMax": {
+            "x": 50,
+            "y": 49.7199,
+            "z": 50
+          },
+          "isDeadly": true,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": null,
+          "meshActor": "o_cubeunit_black",
+          "textures": [
+            "t_placeholderld_black_c"
+          ]
+        },
+        {
+          "name": "MurTueurDroite",
+          "parentRef": null,
+          "position": {
+            "x": 0,
+            "y": 955,
+            "z": 0
+          },
+          "scale": {
+            "x": 0.5,
+            "y": 2.5,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -50,
+            "y": -50.2801,
+            "z": -50
+          },
+          "bboxMax": {
+            "x": 50,
+            "y": 49.7199,
+            "z": 50
+          },
+          "isDeadly": true,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              -0.7002,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_cubeunit_black",
+          "textures": [
+            "t_placeholderld_black_c"
+          ]
+        },
+        {
+          "name": "MurTueurGauche",
+          "parentRef": null,
+          "position": {
+            "x": 1920,
+            "y": 125,
+            "z": 0
+          },
+          "scale": {
+            "x": 0.5,
+            "y": 2.5,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -50,
+            "y": -50.2801,
+            "z": -50
+          },
+          "bboxMax": {
+            "x": 50,
+            "y": 49.7199,
+            "z": 50
+          },
+          "isDeadly": true,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              -0.7002,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_cubeunit_black",
+          "textures": [
+            "t_placeholderld_black_c"
+          ]
+        },
+        {
+          "name": "PRP_background001",
+          "parentRef": null,
+          "position": {
+            "x": 1920,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -30.0001,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 0.0001,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranbois_r",
+          "textures": [
+            "t_rebonecranbois02_c"
+          ]
+        },
+        {
+          "name": "PRP_wallLeft",
+          "parentRef": null,
+          "position": {
+            "x": 0,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": 0,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 30,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranbois_l",
+          "textures": [
+            "t_rebonecranbois01_c"
+          ]
+        },
+        {
+          "name": "WallTop",
+          "parentRef": null,
+          "position": {
+            "x": 960,
+            "y": 1480,
+            "z": 0
+          },
+          "scale": {
+            "x": 3.84,
+            "y": 1,
+            "z": 4.3126
+          },
+          "rotationQuat": {
+            "x": 0.7071,
+            "y": 0,
+            "z": 0.7071,
+            "w": 0
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -25,
+            "y": -25,
+            "z": -25
+          },
+          "bboxMax": {
+            "x": 25,
+            "y": 25,
+            "z": 25
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": null,
+          "textures": []
+        }
+      ],
+      "switches": [],
+      "flowMotions": {
+        "rotations": [],
+        "moves": [
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x188a6",
+            "targetGuid": 2130505913,
+            "targetPos": {
+              "x": 1795,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 10
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x189ec",
+            "targetGuid": 2130505913,
+            "targetPos": {
+              "x": 165,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 10
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x19059",
+            "targetGuid": 459237351,
+            "targetPos": {
+              "x": 0,
+              "y": 125,
+              "z": 0
+            },
+            "durationSec": 10
+          },
+          {
+            "kind": "MoveTo",
+            "offsetHex": "0x19636",
+            "targetGuid": 240095066,
+            "targetPos": {
+              "x": 1920,
+              "y": 955,
+              "z": 0
+            },
+            "durationSec": 10
+          }
+        ],
+        "timers": [],
+        "shakes": []
+      },
+      "deathTrigger": {
+        "name": "TriggerPlanePlayerDeath",
+        "position": {
+          "x": 960,
+          "y": -300,
+          "z": 350
+        },
+        "bboxMin": {
+          "x": -1250,
+          "y": 0,
+          "z": -750
+        },
+        "bboxMax": {
+          "x": 1250,
+          "y": 0,
+          "z": 750
+        }
+      },
+      "playerSpawns": [
+        {
+          "className": "CSpawnArea",
+          "name": "Spline001",
+          "position": {
+            "x": 300,
+            "y": 820,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -120,
+            "z": -0.2121
+          },
+          "bboxMax": {
+            "x": 1320,
+            "y": 0.01,
+            "z": 4.6069
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer1",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer1",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer2",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer2",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer3",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer3",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer4",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer4",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        }
+      ]
+    },
+    {
+      "mapId": "w_multi_dm_lvl10",
+      "packageFile": "w_multi_dm_lvl10.pc",
+      "authorAndDate": "06/10/2012 at 16:13:05 by Pascal-L",
+      "viewportSize": {
+        "width": 1920,
+        "height": 1080
+      },
+      "camera": {
+        "x": 960,
+        "y": 540,
+        "z": -7291.9238
+      },
+      "bgmTrack": "bgm_syl_campagne",
+      "matchTimerSeconds": 120,
+      "simulation": {
+        "gravity": {
+          "x": 0,
+          "y": -686.7,
+          "z": 0
+        },
+        "airDampingScalar": 0.0015,
+        "maxLinearSpeed": 2000,
+        "baseMaxTangentialSpeed": 900,
+        "baseMaxAngularSpeed": 6,
+        "baseRopeRadius": 150,
+        "turnBoostSpeedPerStack": 60,
+        "turnBoostCosBase": 0.8,
+        "turnBoostCosStep": 0.04,
+        "swingBoostTargetSpeed": 1300,
+        "swingBoostDuration": 0.4,
+        "tangentialGravityScale": 10,
+        "releaseLookbackWindow": 0.05,
+        "releaseGaussianSigma": 0.8409,
+        "releaseBoostMultiplier": 1.2,
+        "wallBounceRestitution": 1,
+        "grappleReattachLockout": 0.05,
+        "chargeFillRate": 0.58,
+        "chargeEnabled": true,
+        "minSpeedForChargeAndPvpClamp": 450,
+        "stunChargeMultiplier": 1,
+        "stunDuration": 0.55,
+        "respawnInvulnDuration": 1,
+        "oobReelinSpeed": 50,
+        "oobMargin": 32,
+        "allowRegrappleOnFreshPress": true
+      },
+      "counts": {
+        "attachPoints": 4,
+        "walls": 3,
+        "deadlyWalls": 0,
+        "backgroundLayers": 1,
+        "decorativeProps": 0,
+        "switches": 0,
+        "playerSpawns": 9
+      },
+      "backgroundLayers": [
+        {
+          "name": "o_BG_Forest",
+          "actorMeshName": "o_bg_forest",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -3659.1428,
+            "y": -970.9719,
+            "z": 5681.0771
+          },
+          "bboxMax": {
+            "x": 2624.4309,
+            "y": 7452.4102,
+            "z": 0
+          },
+          "textures": [
+            "t_bgforetsoldat_c",
+            "t_bgforet03_c",
+            "t_bgforetnuages_c",
+            "t_bgforet01_c",
+            "t_bgforetsouche_c",
+            "t_bgforetelan_c",
+            "t_bgforet00_c"
+          ]
+        }
+      ],
+      "decorativeProps": [],
+      "attachPoints": [
+        {
+          "name": "PRP_attachRef",
+          "position": {
+            "x": 350,
+            "y": 250,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef000",
+          "position": {
+            "x": 960,
+            "y": 350,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef001",
+          "position": {
+            "x": 1570,
+            "y": 250,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef002",
+          "position": {
+            "x": 300,
+            "y": 850,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        }
+      ],
+      "walls": [
+        {
+          "name": "PRP_background001",
+          "parentRef": null,
+          "position": {
+            "x": 1920,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -30.0001,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 0.0001,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranbois_r",
+          "textures": [
+            "t_rebonecranbois02_c"
+          ]
+        },
+        {
+          "name": "PRP_wallLeft",
+          "parentRef": null,
+          "position": {
+            "x": 0,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": 0,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 30,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranbois_l",
+          "textures": [
+            "t_rebonecranbois01_c"
+          ]
+        },
+        {
+          "name": "WallTop",
+          "parentRef": null,
+          "position": {
+            "x": 960,
+            "y": 1480,
+            "z": 0
+          },
+          "scale": {
+            "x": 3.84,
+            "y": 1,
+            "z": 4.3126
+          },
+          "rotationQuat": {
+            "x": 0.7071,
+            "y": 0,
+            "z": 0.7071,
+            "w": 0
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -25,
+            "y": -25,
+            "z": -25
+          },
+          "bboxMax": {
+            "x": 25,
+            "y": 25,
+            "z": 25
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": null,
+          "textures": []
+        }
+      ],
+      "switches": [],
+      "flowMotions": {
+        "rotations": [],
+        "moves": [],
+        "timers": [],
+        "shakes": []
+      },
+      "deathTrigger": {
+        "name": "TriggerPlanePlayerDeath",
+        "position": {
+          "x": 960,
+          "y": -300,
+          "z": 350
+        },
+        "bboxMin": {
+          "x": -1250,
+          "y": 0,
+          "z": -750
+        },
+        "bboxMax": {
+          "x": 1250,
+          "y": 0,
+          "z": 750
+        }
+      },
+      "playerSpawns": [
+        {
+          "className": "CSpawnArea",
+          "name": "Spline001",
+          "position": {
+            "x": 200,
+            "y": 820,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -150,
+            "z": -0.2121
+          },
+          "bboxMax": {
+            "x": 1520,
+            "y": 0.01,
+            "z": 4.6069
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer1",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer1",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer2",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer2",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer3",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer3",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer4",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer4",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        }
+      ]
+    },
+    {
+      "mapId": "w_multi_dm_lvl11",
+      "packageFile": "w_multi_dm_lvl11.pc",
+      "authorAndDate": "06/10/2012 at 16:13:06 by Pascal-L",
+      "viewportSize": {
+        "width": 1920,
+        "height": 1080
+      },
+      "camera": {
+        "x": 960,
+        "y": 540,
+        "z": -7291.9238
+      },
+      "bgmTrack": "bgm_syl_donjon",
+      "matchTimerSeconds": 120,
+      "simulation": {
+        "gravity": {
+          "x": 0,
+          "y": -686.7,
+          "z": 0
+        },
+        "airDampingScalar": 0.0015,
+        "maxLinearSpeed": 2000,
+        "baseMaxTangentialSpeed": 900,
+        "baseMaxAngularSpeed": 6,
+        "baseRopeRadius": 150,
+        "turnBoostSpeedPerStack": 60,
+        "turnBoostCosBase": 0.8,
+        "turnBoostCosStep": 0.04,
+        "swingBoostTargetSpeed": 1300,
+        "swingBoostDuration": 0.4,
+        "tangentialGravityScale": 10,
+        "releaseLookbackWindow": 0.05,
+        "releaseGaussianSigma": 0.8409,
+        "releaseBoostMultiplier": 1.2,
+        "wallBounceRestitution": 1,
+        "grappleReattachLockout": 0.05,
+        "chargeFillRate": 0.58,
+        "chargeEnabled": true,
+        "minSpeedForChargeAndPvpClamp": 450,
+        "stunChargeMultiplier": 1,
+        "stunDuration": 0.55,
+        "respawnInvulnDuration": 1,
+        "oobReelinSpeed": 50,
+        "oobMargin": 32,
+        "allowRegrappleOnFreshPress": true
+      },
+      "counts": {
+        "attachPoints": 5,
+        "walls": 5,
+        "deadlyWalls": 0,
+        "backgroundLayers": 1,
+        "decorativeProps": 4,
+        "switches": 0,
+        "playerSpawns": 8
+      },
+      "backgroundLayers": [
+        {
+          "name": "o_BG_VilleMarron",
+          "actorMeshName": "o_bg_villemarron",
+          "position": {
+            "x": 972.5017,
+            "y": 539.7871,
+            "z": 7288.6846
+          },
+          "scale": {
+            "x": 1.01,
+            "y": 1.01,
+            "z": 1.01
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -4356.2534,
+            "y": -2036.9846,
+            "z": -181.861
+          },
+          "bboxMax": {
+            "x": 4480.0791,
+            "y": 2170.6296,
+            "z": 685.0583
+          },
+          "textures": [
+            "t_bgvillemaron00_c",
+            "t_bgvillemarondragon_c",
+            "t_bgvillemaronnuages_c",
+            "t_bgvillemaron01_c",
+            "t_bgvillemaronarmes_c",
+            "t_bgvillemaronenseigne_c",
+            "t_bgvillemaronbalance_c"
+          ]
+        }
+      ],
+      "decorativeProps": [
+        {
+          "name": "o_RebonMetal01_MD09",
+          "actorMeshName": "o_rebonmetal02_md09",
+          "position": {
+            "x": 653.634,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 180,
+          "bboxMin": {
+            "x": -40.8104,
+            "y": -198.2012,
+            "z": 38.6394
+          },
+          "bboxMax": {
+            "x": 198.3921,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_rebonmetaltile01_c",
+            "t_rebonmetaltile03_c"
+          ]
+        },
+        {
+          "name": "o_RebonMetal02_MD09",
+          "actorMeshName": "o_rebonmetal02_md09",
+          "position": {
+            "x": 1269.272,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -40.8104,
+            "y": -198.2012,
+            "z": 38.6394
+          },
+          "bboxMax": {
+            "x": 198.3921,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_rebonmetaltile01_c",
+            "t_rebonmetaltile03_c"
+          ]
+        },
+        {
+          "name": "o_SmokeONroof001",
+          "actorMeshName": "o_smokeonroof001",
+          "position": null,
+          "scale": null,
+          "rotationDegZ": 0,
+          "bboxMin": null,
+          "bboxMax": null,
+          "textures": []
+        },
+        {
+          "name": "o_SmokeONroof003",
+          "actorMeshName": "o_smokeonroof003",
+          "position": null,
+          "scale": null,
+          "rotationDegZ": 0,
+          "bboxMin": null,
+          "bboxMax": null,
+          "textures": []
+        }
+      ],
+      "attachPoints": [
+        {
+          "name": "PRP_attachRef001",
+          "position": {
+            "x": 960,
+            "y": 540,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef004",
+          "position": {
+            "x": 500,
+            "y": 900,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef005",
+          "position": {
+            "x": 1420,
+            "y": 900,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef006",
+          "position": {
+            "x": 1420,
+            "y": 180,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attachRef007",
+          "position": {
+            "x": 500,
+            "y": 180,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        }
+      ],
+      "walls": [
+        {
+          "name": "Prop006",
+          "parentRef": null,
+          "position": {
+            "x": 653.634,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 0.75,
+            "y": 3.5,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -25,
+            "y": -25,
+            "z": -25
+          },
+          "bboxMax": {
+            "x": 25,
+            "y": 25,
+            "z": 25
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": null,
+          "textures": []
+        },
+        {
+          "name": "Prop009",
+          "parentRef": null,
+          "position": {
+            "x": 1269.272,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 0.75,
+            "y": 3.5,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -25,
+            "y": -25,
+            "z": -25
+          },
+          "bboxMax": {
+            "x": 25,
+            "y": 25,
+            "z": 25
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": null,
+          "textures": []
+        },
+        {
+          "name": "PRP_background001",
+          "parentRef": null,
+          "position": {
+            "x": 1920,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -32.0001,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 0.0001,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranmetal_r",
+          "textures": [
+            "t_rebonecranmetal01_c"
+          ]
+        },
+        {
+          "name": "PRP_wallLeft000",
+          "parentRef": null,
+          "position": {
+            "x": 0,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": 0,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 32.0001,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranmetal_l",
+          "textures": [
+            "t_rebonecranmetal01_c"
+          ]
+        },
+        {
+          "name": "WallTop",
+          "parentRef": null,
+          "position": {
+            "x": 960,
+            "y": 1480,
+            "z": 0
+          },
+          "scale": {
+            "x": 3.84,
+            "y": 1,
+            "z": 4.3126
+          },
+          "rotationQuat": {
+            "x": 0.7071,
+            "y": 0,
+            "z": 0.7071,
+            "w": 0
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -25,
+            "y": -25,
+            "z": -25
+          },
+          "bboxMax": {
+            "x": 25,
+            "y": 25,
+            "z": 25
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": null,
+          "textures": []
+        }
+      ],
+      "switches": [],
+      "flowMotions": {
+        "rotations": [],
+        "moves": [],
+        "timers": [],
+        "shakes": []
+      },
+      "deathTrigger": {
+        "name": "TriggerPlanePlayerDeath000",
+        "position": {
+          "x": 960,
+          "y": -300,
+          "z": 350
+        },
+        "bboxMin": {
+          "x": -1250,
+          "y": 0,
+          "z": -750
+        },
+        "bboxMax": {
+          "x": 1250,
+          "y": 0,
+          "z": 750
+        }
+      },
+      "playerSpawns": [
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer1",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer1",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer2",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer2",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer3",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer3",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer4",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer4",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        }
+      ]
+    },
+    {
+      "mapId": "w_multi_dm_lvl13",
+      "packageFile": "w_multi_dm_lvl13.pc",
+      "authorAndDate": "06/10/2012 at 16:13:08 by Pascal-L",
+      "viewportSize": {
+        "width": 1920,
+        "height": 1080
+      },
+      "camera": {
+        "x": 960,
+        "y": 540,
+        "z": -7291.9238
+      },
+      "bgmTrack": "bgm_syl_cimetiere_alt",
+      "matchTimerSeconds": 120,
+      "simulation": {
+        "gravity": {
+          "x": 0,
+          "y": -686.7,
+          "z": 0
+        },
+        "airDampingScalar": 0.0015,
+        "maxLinearSpeed": 2000,
+        "baseMaxTangentialSpeed": 900,
+        "baseMaxAngularSpeed": 6,
+        "baseRopeRadius": 150,
+        "turnBoostSpeedPerStack": 60,
+        "turnBoostCosBase": 0.8,
+        "turnBoostCosStep": 0.04,
+        "swingBoostTargetSpeed": 1300,
+        "swingBoostDuration": 0.4,
+        "tangentialGravityScale": 10,
+        "releaseLookbackWindow": 0.05,
+        "releaseGaussianSigma": 0.8409,
+        "releaseBoostMultiplier": 1.2,
+        "wallBounceRestitution": 1,
+        "grappleReattachLockout": 0.05,
+        "chargeFillRate": 0.58,
+        "chargeEnabled": true,
+        "minSpeedForChargeAndPvpClamp": 450,
+        "stunChargeMultiplier": 1,
+        "stunDuration": 0.55,
+        "respawnInvulnDuration": 1,
+        "oobReelinSpeed": 50,
+        "oobMargin": 32,
+        "allowRegrappleOnFreshPress": true
+      },
+      "counts": {
+        "attachPoints": 5,
+        "walls": 3,
+        "deadlyWalls": 0,
+        "backgroundLayers": 4,
+        "decorativeProps": 0,
+        "switches": 0,
+        "playerSpawns": 8
+      },
+      "backgroundLayers": [
+        {
+          "name": "o_BGPort02",
+          "actorMeshName": "o_bgport22",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -1107.3989,
+            "y": -3387.9707,
+            "z": -0.0002
+          },
+          "bboxMax": {
+            "x": 4228.6934,
+            "y": 2711.2144,
+            "z": 1741.3625
+          },
+          "textures": [
+            "t_bgport2objets_c",
+            "t_bgport201_c",
+            "t_bgport2bateau03_c",
+            "t_bgport203_c",
+            "t_bgport2bateau02_c",
+            "t_bgport200_c",
+            "t_bgport2bateau01_c"
+          ]
+        },
+        {
+          "name": "o_BGPort02_Clouds",
+          "actorMeshName": "o_bgport22_clouds",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -1523.1182,
+            "y": -3387.9705,
+            "z": 1790.2866
+          },
+          "bboxMax": {
+            "x": 4024.3152,
+            "y": 2491.0569,
+            "z": 2013.1367
+          },
+          "textures": [
+            "t_bgport2objets_c",
+            "t_bgport2nuages_c"
+          ]
+        },
+        {
+          "name": "o_BGPort02_Far",
+          "actorMeshName": "o_bgport22_far",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -3299.8652,
+            "y": -3387.9705,
+            "z": 24901.4355
+          },
+          "bboxMax": {
+            "x": 5219.8652,
+            "y": 2936.1743,
+            "z": 25064.9648
+          },
+          "textures": [
+            "t_bgport2objets_c",
+            "t_bgport202_c"
+          ]
+        },
+        {
+          "name": "o_BGPort02_Water",
+          "actorMeshName": "o_bgport02_water",
+          "position": null,
+          "scale": null,
+          "rotationDegZ": 0,
+          "bboxMin": null,
+          "bboxMax": null,
+          "textures": [
+            "t_bgportwateruv_c"
+          ]
+        }
+      ],
+      "decorativeProps": [],
+      "attachPoints": [
+        {
+          "name": "PRP_attach001",
+          "position": {
+            "x": 1620,
+            "y": 780,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attach002",
+          "position": {
+            "x": 500,
+            "y": 300,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attach003",
+          "position": {
+            "x": 1420,
+            "y": 300,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attach004",
+          "position": {
+            "x": 300,
+            "y": 780,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        },
+        {
+          "name": "PRP_attach005",
+          "position": {
+            "x": 960,
+            "y": 540,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -20,
+            "y": -20,
+            "z": 20
+          },
+          "bboxMax": {
+            "x": 20,
+            "y": 0,
+            "z": 10000
+          },
+          "textures": [
+            "t_accroche01_c",
+            "t_accrocheaura_c"
+          ]
+        }
+      ],
+      "walls": [
+        {
+          "name": "PRP_background001",
+          "parentRef": null,
+          "position": {
+            "x": 1920,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -30.0001,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 0.0001,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranbois_r",
+          "textures": [
+            "t_rebonecranbois02_c"
+          ]
+        },
+        {
+          "name": "PRP_wallLeft",
+          "parentRef": null,
+          "position": {
+            "x": 0,
+            "y": 540,
+            "z": 0
+          },
+          "scale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "rotationQuat": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": 0,
+            "y": -600,
+            "z": 0
+          },
+          "bboxMax": {
+            "x": 30,
+            "y": 600,
+            "z": 0
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": "o_rebondecranbois_l",
+          "textures": [
+            "t_rebonecranbois01_c"
+          ]
+        },
+        {
+          "name": "WallTop",
+          "parentRef": null,
+          "position": {
+            "x": 960,
+            "y": 1480,
+            "z": 0
+          },
+          "scale": {
+            "x": 3.84,
+            "y": 1,
+            "z": 4.3126
+          },
+          "rotationQuat": {
+            "x": 0.7071,
+            "y": 0,
+            "z": 0.7071,
+            "w": 0
+          },
+          "rotationDegZ": 0,
+          "bboxMin": {
+            "x": -25,
+            "y": -25,
+            "z": -25
+          },
+          "bboxMax": {
+            "x": 25,
+            "y": 25,
+            "z": 25
+          },
+          "isDeadly": false,
+          "isSticky": false,
+          "physicsParams": {
+            "restitution": 1,
+            "repulsion": 500,
+            "slide": 200
+          },
+          "linkHash": 0,
+          "simBody": {
+            "type": "SimBodyBox",
+            "params": [
+              1,
+              1,
+              0,
+              0,
+              -50,
+              0,
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          "meshActor": null,
+          "textures": []
+        }
+      ],
+      "switches": [],
+      "flowMotions": {
+        "rotations": [],
+        "moves": [
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x18ba9",
+            "targetGuid": 1878085457,
+            "targetPos": {
+              "x": 600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x18be9",
+            "targetGuid": 1655859592,
+            "targetPos": {
+              "x": -600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x18e03",
+            "targetGuid": 1878085457,
+            "targetPos": {
+              "x": -600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x18e43",
+            "targetGuid": 1655859592,
+            "targetPos": {
+              "x": 600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x191da",
+            "targetGuid": 1718842431,
+            "targetPos": {
+              "x": 600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x1921a",
+            "targetGuid": 2016683066,
+            "targetPos": {
+              "x": -600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x19434",
+            "targetGuid": 1718842431,
+            "targetPos": {
+              "x": -600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x19474",
+            "targetGuid": 2016683066,
+            "targetPos": {
+              "x": 600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x19781",
+            "targetGuid": 1878085457,
+            "targetPos": {
+              "x": 600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x19a4c",
+            "targetGuid": 1655859592,
+            "targetPos": {
+              "x": -600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x19c24",
+            "targetGuid": 1878085457,
+            "targetPos": {
+              "x": -600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x19eef",
+            "targetGuid": 1718842431,
+            "targetPos": {
+              "x": 600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x1a0c7",
+            "targetGuid": 1655859592,
+            "targetPos": {
+              "x": 600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x1a392",
+            "targetGuid": 2016683066,
+            "targetPos": {
+              "x": -600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x1a56a",
+            "targetGuid": 1718842431,
+            "targetPos": {
+              "x": -600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          },
+          {
+            "kind": "MoveBy",
+            "offsetHex": "0x1a742",
+            "targetGuid": 2016683066,
+            "targetPos": {
+              "x": 600,
+              "y": 0,
+              "z": 0
+            },
+            "durationSec": 2
+          }
+        ],
+        "timers": [
+          {
+            "offsetHex": "0x189d4",
+            "delaySec": 5
+          },
+          {
+            "offsetHex": "0x18dab",
+            "delaySec": 5
+          },
+          {
+            "offsetHex": "0x19005",
+            "delaySec": 5
+          },
+          {
+            "offsetHex": "0x193dc",
+            "delaySec": 5
+          },
+          {
+            "offsetHex": "0x19636",
+            "delaySec": 5
+          },
+          {
+            "offsetHex": "0x19901",
+            "delaySec": 5
+          },
+          {
+            "offsetHex": "0x19bcc",
+            "delaySec": 2.5
+          },
+          {
+            "offsetHex": "0x19da4",
+            "delaySec": 2.5
+          },
+          {
+            "offsetHex": "0x1a06f",
+            "delaySec": 2.5
+          },
+          {
+            "offsetHex": "0x1a247",
+            "delaySec": 2.5
+          },
+          {
+            "offsetHex": "0x1a512",
+            "delaySec": 2.5
+          },
+          {
+            "offsetHex": "0x1a6ea",
+            "delaySec": 5
+          }
+        ],
+        "shakes": []
+      },
+      "deathTrigger": {
+        "name": "TriggerPlanePlayerDeath",
+        "position": {
+          "x": 960,
+          "y": -300,
+          "z": 350
+        },
+        "bboxMin": {
+          "x": -1250,
+          "y": 0,
+          "z": -750
+        },
+        "bboxMax": {
+          "x": 1250,
+          "y": 0,
+          "z": 750
+        }
+      },
+      "playerSpawns": [
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer1",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer1",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer2",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer2",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer3",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer3",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        },
+        {
+          "className": "CSpawnPoint",
+          "name": "PRP_spawnPointSplinePlayer4",
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -75,
+            "y": -75,
+            "z": -35.8828
+          },
+          "bboxMax": {
+            "x": 75,
+            "y": 75,
+            "z": 25.7633
+          }
+        },
+        {
+          "className": "CSpawnArea",
+          "name": "splinePlayer4",
+          "position": {
+            "x": 150,
+            "y": 1080,
+            "z": 0
+          },
+          "bboxMin": {
+            "x": -0.01,
+            "y": -0.01,
+            "z": -0.01
+          },
+          "bboxMax": {
+            "x": 1620,
+            "y": 0.01,
+            "z": 0.01
+          }
+        }
+      ]
+    }
+  ]
+}
