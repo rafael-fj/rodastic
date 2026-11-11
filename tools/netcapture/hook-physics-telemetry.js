@@ -38,7 +38,13 @@ const ADDR = {
   EnterSpawnCursor: rva(0x00540ef0),
   NotifyDeath: rva(0x005409f0),
   CWall_ctor: rva(0x00507d50),
+  CWall_ctor2: rva(0x00558640),
+  CWall_vfunc4: rva(0x00506c10),
   CAttachPoint_ctor: rva(0x00521290),
+  CAttachPoint_vfunc4: rva(0x00520c80),
+  CAttachPoint_highlight: rva(0x00520cf0),
+  CAttachPoint_attachFx: rva(0x00520d60),
+  CAttachPoint_detachFx: rva(0x00520dd0),
   CAttachPoint_vfunc44: rva(0x00520af0),
   SceneObj_dtor: rva(0x00506b40),
   DM_vfunc3: rva(0x005345c0),
@@ -567,33 +573,34 @@ function installHooks() {
   });
 
   // 6. Scene object lifecycle (walls & attach points)
-  Interceptor.attach(ADDR.CWall_ctor, {
-    onLeave(retval) {
-      if (isValidPtr(retval)) {
-        trackedWalls.set(retval.toString(), { wallPtr: retval, hitCount: 0 });
-      }
-    },
-  });
+  function registerWall(p) {
+    if (isValidPtr(p)) {
+      const k = p.toString();
+      if (!trackedWalls.has(k)) trackedWalls.set(k, { wallPtr: p, hitCount: 0 });
+    }
+  }
+  function registerAttachPoint(p) {
+    if (isValidPtr(p)) {
+      const k = p.toString();
+      if (!trackedAttachPoints.has(k)) trackedAttachPoints.set(k, { apPtr: p });
+    }
+  }
 
-  Interceptor.attach(ADDR.CAttachPoint_ctor, {
-    onLeave(retval) {
-      if (isValidPtr(retval)) {
-        trackedAttachPoints.set(retval.toString(), { apPtr: retval });
-      }
-    },
-  });
-
-  Interceptor.attach(ADDR.CAttachPoint_vfunc44, {
+  Interceptor.attach(ADDR.CWall_ctor, { onLeave(retval) { registerWall(retval); } });
+  Interceptor.attach(ADDR.CWall_ctor2, { onLeave(retval) { registerWall(retval); } });
+  Interceptor.attach(ADDR.CWall_vfunc4, {
     onEnter() {
-      const apPtr = this.context.ecx;
-      if (isValidPtr(apPtr)) {
-        const k = apPtr.toString();
-        if (!trackedAttachPoints.has(k)) {
-          trackedAttachPoints.set(k, { apPtr });
-        }
-      }
+      const obj = this.context.ecx;
+      if (isValidPtr(obj) && readU32(obj) === 0x0098f5e0) registerWall(obj);
     },
   });
+
+  Interceptor.attach(ADDR.CAttachPoint_ctor, { onLeave(retval) { registerAttachPoint(retval); } });
+  Interceptor.attach(ADDR.CAttachPoint_vfunc4, { onEnter() { registerAttachPoint(this.context.ecx); } });
+  Interceptor.attach(ADDR.CAttachPoint_highlight, { onEnter() { registerAttachPoint(this.context.ecx); } });
+  Interceptor.attach(ADDR.CAttachPoint_attachFx, { onEnter() { registerAttachPoint(this.context.ecx); } });
+  Interceptor.attach(ADDR.CAttachPoint_detachFx, { onEnter() { registerAttachPoint(this.context.ecx); } });
+  Interceptor.attach(ADDR.CAttachPoint_vfunc44, { onEnter() { registerAttachPoint(this.context.ecx); } });
 
   Interceptor.attach(ADDR.SceneObj_dtor, {
     onEnter() {
