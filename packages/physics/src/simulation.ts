@@ -1205,38 +1205,8 @@ export class RotasticSimulation {
   }
 
   private checkWallsAndBounds(p: PlayerSimState, prevX: number, prevY: number): void {
-    // 1. Optional arena frog lever switch (PST_MecaSwitch in w_multi_dm_lvl04):
-    // Triggers on upward hit (vy > 80, de baixo pra cima) either via launch (FREE_FALL) or rope swing (SWINGING).
-    if (
-      this.map.switchDef &&
-      this.state.switchCooldownSec <= 0 &&
-      this.state.activeSwitchWallId === -1 &&
-      p.vy > 80
-    ) {
-      const sw = this.map.switchDef;
-      const distSq = (p.x - sw.x) ** 2 + (p.y - sw.y) ** 2;
-      const hitR = sw.radius + C.PLAYER_RADIUS;
-      if (distSq <= hitR * hitR) {
-        const switchWalls = this.map.walls.filter(
-          (w) => w.motion?.kind === 'waypoints' && w.motion.switchControlled
-        );
-        if (switchWalls.length > 0) {
-          const seed = ((this.state.tick * 1103515245 + 12345 + p.slotIndex * 2654435761) >>> 16) >>> 0;
-          const chosen = switchWalls[seed % switchWalls.length];
-          this.state.activeSwitchWallId = chosen.id;
-          this.state.activeSwitchElapsedSec = 0;
-          this.state.switchReversed = true;
-          this.state.switchCooldownSec =
-            chosen.motion?.kind === 'waypoints' ? getWaypointMotionDuration(chosen.motion) : 2.0;
-        } else {
-          this.state.switchReversed = !this.state.switchReversed;
-          this.state.switchCooldownSec = 2.0;
-        }
-        this.awardOrangeTrick(p, C.ORANGE_CHARGE_STEP, 'Switch!', sw.x, sw.y);
-        this.events.push({ type: 'switchtoggle', slotIndex: p.slotIndex, x: sw.x, y: sw.y });
-      }
-    }
-
+    // 1. Dynamic obstacle & bounds checks (switch activation is tied directly to hitting
+    // PST_MecaSwitch_Collider from below inside the OBB contact loop below).
     // 2. Swept OBB wall & moving hazard checks (0x005769E0 swinging / 0x00576BE0 free-fall):
     // Resolve earliest TOI contact per pass so multi-wall corners and fast upward bounces never stutter.
     let sweepPrevX = prevX;
@@ -1301,6 +1271,38 @@ export class RotasticSimulation {
       }
 
       const vn = p.vx * bestHit.nx + p.vy * bestHit.ny;
+
+      // Trigger PST_MecaSwitch when colliding with the underside of the lever OBB (ny < -0.2, moving upward)
+      if (
+        bestWall.name === 'PST_MecaSwitch_Collider' &&
+        vn < 0 &&
+        bestHit.ny < -0.2 &&
+        this.state.switchCooldownSec <= 0 &&
+        this.state.activeSwitchWallId === -1
+      ) {
+        const switchWalls = this.map.walls.filter(
+          (w) => w.motion?.kind === 'waypoints' && w.motion.switchControlled
+        );
+        if (switchWalls.length > 0) {
+          const seed = ((this.state.tick * 1103515245 + 12345 + p.slotIndex * 2654435761) >>> 16) >>> 0;
+          const chosen = switchWalls[seed % switchWalls.length];
+          this.state.activeSwitchWallId = chosen.id;
+          this.state.activeSwitchElapsedSec = 0;
+          this.state.switchReversed = true;
+          this.state.switchCooldownSec =
+            chosen.motion?.kind === 'waypoints' ? getWaypointMotionDuration(chosen.motion) : 2.0;
+        } else {
+          this.state.switchReversed = !this.state.switchReversed;
+          this.state.switchCooldownSec = 2.0;
+        }
+        this.awardOrangeTrick(p, C.ORANGE_CHARGE_STEP, 'Switch!', bestHit.contactX, bestHit.contactY);
+        this.events.push({
+          type: 'switchtoggle',
+          slotIndex: p.slotIndex,
+          x: bestHit.contactX,
+          y: bestHit.contactY,
+        });
+      }
 
       if (p.status === PlayerStatus.SWINGING) {
         const pivot = this.state.attachPoints.find((ap) => ap.id === p.attachedPivotId);

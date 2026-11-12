@@ -996,27 +996,28 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     }
     expect(sim04.state.activeSwitchWallId).toBe(-1);
 
-    // Moving downward (vy <= 80) or swinging must NOT trigger switch
+    // Moving downward onto top of lever collider must bounce WITHOUT triggering switch
     p04.status = PlayerStatus.FREE_FALL;
     p04.invulnTimer = 0;
-    p04.x = 1860;
-    p04.y = 540;
+    p04.x = 1838;
+    p04.y = 660;
     p04.vx = 0;
-    p04.vy = -200;
+    p04.vy = -800;
     const missDown = sim04.step({ 0: { seq: 301, actionHeld: false, axisX: 0, axisY: 0 } }, C.FIXED_DT);
     expect(missDown.some((e) => e.type === 'switchtoggle')).toBe(false);
+    expect(missDown.some((e) => e.type === 'bounce')).toBe(true);
 
-    // Hit PST_MecaSwitch moving upward from below (de baixo pra cima: vy > 80)
+    // Hit PST_MecaSwitch_Collider from below (de baixo pra cima: ny < -0.2)
     p04.status = PlayerStatus.FREE_FALL;
-    p04.x = 1840;
-    p04.y = 525;
-    p04.vx = 0;
-    p04.vy = 500;
+    p04.x = 1838;
+    p04.y = 515;
+    p04.vx = 120;
+    p04.vy = 850;
     const hitEvents = sim04.step({ 0: { seq: 302, actionHeld: false, axisX: 0, axisY: 0 } }, C.FIXED_DT);
     expect(hitEvents.some((e) => e.type === 'switchtoggle')).toBe(true);
     // Physical collider on PST_MecaSwitch bounces player away on impact
     expect(hitEvents.some((e) => e.type === 'bounce')).toBe(true);
-    expect(p04.vx).toBeLessThan(0);
+    expect(p04.vy).toBeLessThan(0);
 
     // Top-left pivot (340,860) must NOT be reachable from near switch (dist=1543 > ROPE_ATTACH_RANGE=680)
     expect(sim04.findNearestAttachPoint(1840, 540, C.ROPE_ATTACH_RANGE)?.id).not.toBe(0);

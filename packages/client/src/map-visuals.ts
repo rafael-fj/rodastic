@@ -189,9 +189,9 @@ export function getSwitchActorConfigs(
       id: 'switch_lever',
       actor: 'o_levierbois',
       transform: {
-        x: baseX + dirX * 100,
-        y: switchY,
-        rotDegZ: rotDeg + (leverFlipped ? -18 : 18),
+        x: baseX + dirX * 82,
+        y: switchY + (leverFlipped ? -45 : 45),
+        rotDegZ: rotDeg + (leverFlipped ? -30 : 30),
         coordSpace: 'blitz',
         perspective: false,
         zOrderBias: 20,
