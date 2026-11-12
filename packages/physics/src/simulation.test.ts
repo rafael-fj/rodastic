@@ -1191,21 +1191,24 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     }
     expect(p.chargeGauge2).toBeCloseTo(0.25, 4);
 
-    // 3. Risky (+0.25, 300 pts) when dipping <= 150 and climbing back >= 260
+    // 3. Risky (+0.25, 300 pts) when clutching a pivot grapple while dipping in danger zone (<= 160)
     p.chargeGauge2 = 0;
     p.status = PlayerStatus.FREE_FALL;
-    p.x = 500;
+    p.x = aps[0].x;
     p.y = 140;
     p.vx = 0;
     p.vy = 0;
     sim.step({});
     expect(p.riskyArmed).toBe(true);
-    p.y = 270;
-    const riskyEvs = sim.step({});
+    p.lastActionHeld = false;
+    p.chargeGauge = 1.0;
+    p.regrappleTimer = 0;
+    const riskyEvs = sim.step({ 0: { seq: 10, actionHeld: true, axisX: 0, axisY: 0 } });
     expect(riskyEvs.some((e) => e.type === 'trick' && e.points === 300 && e.label === 'Risky! +300')).toBe(true);
     expect(p.chargeGauge2).toBeCloseTo(0.25, 4);
 
     // 4. Emergency attach while DIZZY (after rope cut) consuming full orange bar c2 >= 1.0 (0x0056A5A0)
+    p.riskyArmed = false;
     p.status = PlayerStatus.DIZZY;
     p.statusTimer = 0.8;
     p.lastActionHeld = false;
@@ -1222,5 +1225,38 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     expect(p.status).toBe(PlayerStatus.SWINGING);
     expect(p.statusTimer).toBe(0);
     expect(p.chargeGauge2).toBe(0);
+  });
+
+  it('calibrates combo charge accumulation: kills, saw switches and single-pivot spinning do not grant false-positive combo (+0xD4C) (#41)', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl01');
+    sim.configurePlayerSlot(0, { active: true, name: 'Attacker' });
+    sim.configurePlayerSlot(1, { active: true, name: 'Victim' });
+    const p = sim.state.players[0];
+    const victim = sim.state.players[1];
+
+    // 1. Kills award score and kills count, but do NOT award +1.0 full orange combo
+    p.chargeGauge2 = 0.0;
+    victim.status = PlayerStatus.FREE_FALL;
+    victim.y = -350; // Triggers bottom lethal fall death credited to lastAttackerSlot
+    victim.lastAttackerSlot = p.slotIndex;
+    victim.lastAttackTimer = 2.0;
+    sim.step({});
+    expect(victim.status).toBe(PlayerStatus.DEAD);
+    expect(p.kills).toBe(1);
+    expect(p.score).toBe(1);
+    expect(p.chargeGauge2).toBe(0.0); // No free +1.0 combo on kill!
+
+    // 2. Continuous multi-loop spinning on a single pivot in open space does NOT spam combo charge
+    p.chargeGauge2 = 0.0;
+    p.status = PlayerStatus.SWINGING;
+    p.attachedPivotId = sim.state.attachPoints[1].id;
+    p.ropeLength = 80;
+    p.ropeAngle = 0;
+    p.omega = 8.0; // Fast spin (640 u/s tangential speed)
+    // Run 180 ticks (3 full seconds of fast spinning = ~4 full revolutions)
+    for (let t = 0; t < 180; t++) {
+      sim.step({ 0: { seq: t + 1, actionHeld: true, axisX: 0, axisY: 0 } });
+    }
+    expect(p.chargeGauge2).toBe(0.0); // Single-pivot spinning does not grant combo points!
   });
 });

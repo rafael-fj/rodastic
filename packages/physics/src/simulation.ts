@@ -1135,6 +1135,17 @@ export class RotasticSimulation {
     p.attachTimer = 0;
     p.swingNetRad = 0;
     this.recordPivotAttachForTricks(p, nearest);
+    if (p.riskyArmed) {
+      p.riskyArmed = false;
+      this.awardOrangeTrick(
+        p,
+        C.TRICKS.RISKY.charge,
+        `${C.TRICKS.RISKY.name} +${C.TRICKS.RISKY.points}`,
+        p.x,
+        p.y,
+        C.TRICKS.RISKY.points
+      );
+    }
     p.swingLoopAccumRad = 0;
     p.turnBoostCount = 0;
     p.swingBoostTimer = 0;
@@ -1301,39 +1312,6 @@ export class RotasticSimulation {
       }
     }
 
-    // Award "Get It" (+0.20, 150 pts) for completing a fast full revolution
-    if (Math.abs(p.omega) * r >= 680) {
-      p.swingLoopAccumRad += Math.abs(dAngle);
-      if (p.swingLoopAccumRad >= Math.PI * 2) {
-        p.swingLoopAccumRad -= Math.PI * 2;
-        this.awardOrangeTrick(
-          p,
-          C.TRICKS.GET_IT.charge,
-          `${C.TRICKS.GET_IT.name} +${C.TRICKS.GET_IT.points}`,
-          p.x,
-          p.y,
-          C.TRICKS.GET_IT.points
-        );
-      }
-    } else {
-      p.swingLoopAccumRad = 0;
-    }
-
-    // Risky (0x56e16c: 150.0 -> 200.0): dipping near bottom death zone and recovering upward
-    if (p.y <= 150) {
-      p.riskyArmed = true;
-    } else if (p.riskyArmed && p.y >= 260) {
-      p.riskyArmed = false;
-      this.awardOrangeTrick(
-        p,
-        C.TRICKS.RISKY.charge,
-        `${C.TRICKS.RISKY.name} +${C.TRICKS.RISKY.points}`,
-        p.x,
-        p.y,
-        C.TRICKS.RISKY.points
-      );
-    }
-
     p.x = pivot.x + Math.cos(p.ropeAngle) * r;
     p.y = pivot.y + Math.sin(p.ropeAngle) * r;
     p.vx = -p.omega * r * Math.sin(p.ropeAngle);
@@ -1452,7 +1430,6 @@ export class RotasticSimulation {
           this.state.switchReversed = !this.state.switchReversed;
           this.state.switchCooldownSec = 2.0;
         }
-        this.awardOrangeTrick(p, C.ORANGE_CHARGE_STEP, 'Switch!', bestHit.contactX, bestHit.contactY);
         this.events.push({
           type: 'switchtoggle',
           slotIndex: p.slotIndex,
@@ -1571,10 +1548,10 @@ export class RotasticSimulation {
       sweepPrevY = p.y;
 
       if (vn < 0) {
-        // High-speed bounce tricks charge orange bar: Pancake (|vn|/speed >= 0.9 @ >= 900 u/s -> +0.66/700) or Bounce (+0.20/150)
+        // High-speed free-fall bounce tricks charge orange bar: Pancake or Bounce
         const postSpeed = Math.hypot(p.vx, p.vy);
-        if (p.wallTrickCooldown <= 0 && postSpeed >= 420) {
-          p.wallTrickCooldown = 1.4;
+        if (p.status !== PlayerStatus.SWINGING && p.wallTrickCooldown <= 0 && postSpeed >= 500) {
+          p.wallTrickCooldown = 2.5;
           const isPancake = postSpeed >= 900 && Math.abs(vn) / Math.max(1, postSpeed) >= 0.9;
           const trick = isPancake ? C.TRICKS.PANCAKE : C.TRICKS.BOUNCE;
           this.awardOrangeTrick(
@@ -1591,19 +1568,11 @@ export class RotasticSimulation {
       }
     }
 
-    // Risky (0x56e16c: 150.0 -> 200.0): recovering upward after dipping near bottom hazard zone
-    if (p.y <= 150 && p.y > C.DEATH_BOTTOM_Y) {
+    // Risky arming: dipping near bottom hazard zone in free-fall (awarded upon clutching a pivot attach)
+    if (p.y <= 160 && p.y > C.DEATH_BOTTOM_Y) {
       p.riskyArmed = true;
-    } else if (p.riskyArmed && p.y >= 260) {
+    } else if (p.y > 320) {
       p.riskyArmed = false;
-      this.awardOrangeTrick(
-        p,
-        C.TRICKS.RISKY.charge,
-        `${C.TRICKS.RISKY.name} +${C.TRICKS.RISKY.points}`,
-        p.x,
-        p.y,
-        C.TRICKS.RISKY.points
-      );
     }
 
     // 3. Bottom fall death threshold (`TriggerPlanePlayerDeath @ y <= -300.0`, lethal even with full bubble)
@@ -1902,7 +1871,6 @@ export class RotasticSimulation {
       if (killer && killer.active) {
         killer.kills++;
         killer.score += 1;
-        this.awardOrangeTrick(killer, 1.0, 'KILL +300', victim.x, victim.y);
       }
     } else {
       victim.score = Math.max(0, victim.score - 1);
