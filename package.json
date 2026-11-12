@@ -8,12 +8,12 @@
     "node": ">=20.0.0"
   },
   "scripts": {
+    "start": "pnpm --filter @rotastic/server start",
+    "start:tunnel": "node tools/start-with-tunnel.mjs",
+    "tunnel": "node tools/tunnel.mjs",
     "dev": "pnpm --parallel --filter @rotastic/server --filter @rotastic/client dev",
     "dev:tunnel": "node tools/dev-with-tunnel.mjs",
-    "tunnel": "node tools/tunnel.mjs",
-    "tunnel:server": "node tools/tunnel.mjs 3001",
     "build": "pnpm --filter @rotastic/physics build && pnpm --filter @rotastic/protocol build && pnpm --filter @rotastic/client build && pnpm --filter @rotastic/server build",
-    "start": "pnpm --filter @rotastic/server start",
     "typecheck": "pnpm -r typecheck",
     "test": "vitest run",
     "test:watch": "vitest",
