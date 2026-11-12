@@ -789,4 +789,118 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     expect(clearBubbleCut.some((e) => e.type === 'ropecut' && e.slotIndex === 1)).toBe(true);
     expect(victim.status).toBe(PlayerStatus.DIZZY);
   });
+
+  it('bounces smoothly without stutter or wrong normal on fast upward impacts (#32)', () => {
+    // 1. Fast upward FREE_FALL strike into narrow pillar underside (Prop006: halfW=36, bottom y=365)
+    //    and overhead WallTop (y=1455) must reflect straight downward with no sideways/upward stutter.
+    const sim11 = new RotasticSimulation('w_multi_dm_lvl11');
+    sim11.configurePlayerSlot(0, { active: true, name: 'P1' });
+    const p1 = sim11.state.players[0];
+    p1.status = PlayerStatus.FREE_FALL;
+    p1.invulnTimer = 0;
+    p1.x = 670; // inside [617.6, 689.6] and closer to right edge (penX < penY)
+    p1.y = 310; // 310 + 44 = 354 < 365 (strictly below underside)
+    p1.vx = 0;
+    p1.vy = 2200; // sweeps +36.7 px/tick straight into Prop006 underside
+
+    let sawBounce = false;
+    for (let t = 1; t <= 12; t++) {
+      const evs = sim11.step({ 0: { seq: t, actionHeld: false, axisX: 0, axisY: 0 } });
+      if (evs.some((e) => e.type === 'bounce' && e.slotIndex === 0)) {
+        sawBounce = true;
+      }
+      if (sawBounce) {
+        expect(p1.vy).toBeLessThan(0);
+        expect(Math.abs(p1.vx)).toBeLessThan(1e-3);
+        expect(p1.y).toBeLessThanOrEqual(365 - C.PLAYER_RADIUS + 0.01);
+      }
+    }
+    expect(sawBounce).toBe(true);
+
+    // 1b. Very fast upward tunnel directly into thin WallTop (halfH=25, bottom y=1455, top y=1505)
+    p1.x = 960;
+    p1.y = 1405; // 1405 + 44 = 1449 < 1455
+    p1.vx = 0;
+    p1.vy = 4800; // +80 px/tick -> raw end y=1485 > cy(1480), would have pushed UP cleanly before fix
+    sim11.step({ 0: { seq: 13, actionHeld: false, axisX: 0, axisY: 0 } });
+    expect(p1.vy).toBeLessThan(0);
+    expect(p1.y).toBeLessThanOrEqual(C.TOP_CEILING_Y - C.PLAYER_RADIUS + 0.01);
+    let prevY = p1.y;
+    for (let t = 14; t <= 22; t++) {
+      sim11.step({ 0: { seq: t, actionHeld: false, axisX: 0, axisY: 0 } });
+      expect(p1.vy).toBeLessThan(0);
+      expect(p1.y).toBeLessThan(prevY);
+      prevY = p1.y;
+    }
+
+    // 2. High upward slide past y=1140 along PRP_wallLeft (cx=15, halfW=15, y in [-350, 1550])
+    const simWall = new RotasticSimulation('w_multi_dm_lvl09');
+    simWall.configurePlayerSlot(0, { active: true, name: 'P1' });
+    const pw = simWall.state.players[0];
+    pw.status = PlayerStatus.FREE_FALL;
+    pw.invulnTimer = 0;
+    pw.x = 76;
+    pw.y = 1125;
+    pw.vx = -400;
+    pw.vy = 1400;
+    for (let t = 1; t <= 8; t++) {
+      simWall.step({ 0: { seq: t, actionHeld: false, axisX: 0, axisY: 0 } });
+    }
+    // Refleted rightward off left wall without clipping any artificial y=1140 cap
+    expect(pw.vx).toBeGreaterThan(0);
+    expect(pw.vy).toBeGreaterThan(0);
+    expect(pw.y).toBeGreaterThan(1200);
+
+    // 3. Angled 45-deg block underside bounce (Prop005 in w_multi_dm_lvl07: cx=0, cy=540, half=150, rot=45)
+    const sim07 = new RotasticSimulation('w_multi_dm_lvl07');
+    sim07.configurePlayerSlot(0, { active: true, name: 'P1' });
+    const p7 = sim07.state.players[0];
+    p7.status = PlayerStatus.FREE_FALL;
+    p7.invulnTimer = 0;
+    p7.x = 135;
+    p7.y = 390; // signed dist to 45-deg face (nx=+0.707, ny=-0.707) is ~51.5 > 44
+    p7.vx = -600;
+    p7.vy = 1500;
+    let angledBounce = false;
+    for (let t = 1; t <= 8; t++) {
+      const evs = sim07.step({ 0: { seq: t, actionHeld: false, axisX: 0, axisY: 0 } });
+      if (evs.some((e) => e.type === 'bounce' && e.slotIndex === 0)) {
+        angledBounce = true;
+        expect(p7.vx).toBeGreaterThan(0);
+        expect(p7.vy).toBeLessThan(0);
+      }
+    }
+    expect(angledBounce).toBe(true);
+
+    // 4. SWINGING upward impact into WallTop: reverses omega once (vn < 0), preserves ropeLength, no stutter
+    const simSwing = new RotasticSimulation('w_multi_dm_lvl11');
+    simSwing.configurePlayerSlot(0, { active: true, name: 'P1' });
+    const ps = simSwing.state.players[0];
+    const pivot = simSwing.state.attachPoints[1]; // PRP_attachRef004 at (500, 900)
+    ps.status = PlayerStatus.SWINGING;
+    ps.invulnTimer = 0;
+    ps.attachedPivotId = pivot.id;
+    ps.ropeLength = 540;
+    ps.ropeAngle = 1.1; // (500 + 245, 900 + 481 = 1381) safely below WallTop (1455 - 44 = 1411)
+    ps.omega = 6.0; // swinging CCW upward toward WallTop
+    ps.x = pivot.x + Math.cos(ps.ropeAngle) * ps.ropeLength;
+    ps.y = pivot.y + Math.sin(ps.ropeAngle) * ps.ropeLength;
+
+    let swingBounceTick = -1;
+    let omegaAfterBounce = 0;
+    for (let t = 1; t <= 15; t++) {
+      const evs = simSwing.step({ 0: { seq: t, actionHeld: true, axisX: 0, axisY: 0 } });
+      const radiusActual = Math.hypot(ps.x - pivot.x, ps.y - pivot.y);
+      expect(Math.abs(radiusActual - ps.ropeLength)).toBeLessThan(1e-3);
+      if (evs.some((e) => e.type === 'bounce' && e.slotIndex === 0)) {
+        expect(swingBounceTick).toBe(-1); // single clean bounce, never double-toggles
+        swingBounceTick = t;
+        omegaAfterBounce = ps.omega;
+        expect(omegaAfterBounce).toBeLessThan(0);
+      } else if (swingBounceTick !== -1) {
+        expect(ps.omega).toBeLessThan(0);
+      }
+    }
+    expect(swingBounceTick).toBeGreaterThan(0);
+  });
 });

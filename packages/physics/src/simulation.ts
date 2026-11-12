@@ -254,6 +254,172 @@ export function closestPointOnOBB2D(
   return { contactX, contactY, nx, ny, distSq, inside };
 }
 
+interface SweptOBBHit {
+  contactX: number;
+  contactY: number;
+  nx: number;
+  ny: number;
+  distSq: number;
+  inside: boolean;
+  toi: number;
+}
+
+/**
+ * Resolve circle-vs-OBB contact using swept local-space slab entry (`prevX,prevY` -> `px,py`)
+ * against the Minkowski-expanded box `[halfW + radius, halfH + radius]` so fast upward
+ * collisions against narrow blocks/ceilings always resolve along the true entry face normal.
+ */
+function resolveSweptCircleOBB2D(
+  px: number,
+  py: number,
+  prevX: number,
+  prevY: number,
+  radius: number,
+  cx: number,
+  cy: number,
+  halfW: number,
+  halfH: number,
+  rotRad: number
+): SweptOBBHit | null {
+  const radiusSq = radius * radius;
+  const staticHit = closestPointOnOBB2D(px, py, cx, cy, halfW, halfH, rotRad);
+
+  const lCos = Math.cos(-rotRad);
+  const lSin = Math.sin(-rotRad);
+  const wCos = Math.cos(rotRad);
+  const wSin = Math.sin(rotRad);
+
+  const prx = prevX - cx;
+  const pry = prevY - cy;
+  const plx = prx * lCos - pry * lSin;
+  const ply = prx * lSin + pry * lCos;
+
+  const crx = px - cx;
+  const cry = py - cy;
+  const lx = crx * lCos - cry * lSin;
+  const ly = crx * lSin + cry * lCos;
+
+  const vlx = lx - plx;
+  const vly = ly - ply;
+  const extW = halfW + radius;
+  const extH = halfH + radius;
+
+  // Slab ray test on expanded AABB [-extW, extW] x [-extH, extH]
+  let txMin = -Infinity;
+  let txMax = Infinity;
+  if (Math.abs(vlx) < 1e-8) {
+    if (plx < -extW || plx > extW) {
+      txMin = 1;
+      txMax = -1;
+    }
+  } else {
+    const invVx = 1 / vlx;
+    const t1 = (-extW - plx) * invVx;
+    const t2 = (extW - plx) * invVx;
+    txMin = Math.min(t1, t2);
+    txMax = Math.max(t1, t2);
+  }
+
+  let tyMin = -Infinity;
+  let tyMax = Infinity;
+  if (Math.abs(vly) < 1e-8) {
+    if (ply < -extH || ply > extH) {
+      tyMin = 1;
+      tyMax = -1;
+    }
+  } else {
+    const invVy = 1 / vly;
+    const t1 = (-extH - ply) * invVy;
+    const t2 = (extH - ply) * invVy;
+    tyMin = Math.min(t1, t2);
+    tyMax = Math.max(t1, t2);
+  }
+
+  const tEnter = Math.max(txMin, tyMin);
+  const tExit = Math.min(txMax, tyMax);
+  const slabHit = tEnter <= tExit && tExit >= 0 && tEnter <= 1;
+
+  const toWorld = (lcx: number, lcy: number, lnx: number, lny: number, distSq: number, inside: boolean, toi: number): SweptOBBHit => ({
+    contactX: cx + lcx * wCos - lcy * wSin,
+    contactY: cy + lcx * wSin + lcy * wCos,
+    nx: lnx * wCos - lny * wSin,
+    ny: lnx * wSin + lny * wCos,
+    distSq,
+    inside,
+    toi,
+  });
+
+  // 1. Clean swept entry from strictly outside expanded box
+  if (slabHit && tEnter > 0 && tEnter <= 1) {
+    const ex = plx + vlx * tEnter;
+    const ey = ply + vly * tEnter;
+    if (txMin > tyMin) {
+      const lnx = plx >= 0 ? 1 : -1;
+      if (Math.abs(ey) <= halfH) {
+        return toWorld(lnx * halfW, ey, lnx, 0, Math.min(staticHit.distSq, radiusSq), staticHit.inside, tEnter);
+      }
+    } else {
+      const lny = ply >= 0 ? 1 : -1;
+      if (Math.abs(ex) <= halfW) {
+        return toWorld(ex, lny * halfH, 0, lny, Math.min(staticHit.distSq, radiusSq), staticHit.inside, tEnter);
+      }
+    }
+
+    // Entered expanded box in a corner Voronoi region: test exact rounded-corner arc of radius
+    const cornerX = (ex >= 0 ? 1 : -1) * halfW;
+    const cornerY = (ey >= 0 ? 1 : -1) * halfH;
+    const segCorner = closestPointOnSegment2D(cornerX, cornerY, plx, ply, lx, ly);
+    if (segCorner.distSq <= radiusSq) {
+      const dx = segCorner.cx - cornerX;
+      const dy = segCorner.cy - cornerY;
+      const d = Math.hypot(dx, dy);
+      if (d > 1e-6) {
+        return toWorld(cornerX, cornerY, dx / d, dy / d, segCorner.distSq, staticHit.inside, segCorner.t);
+      }
+    }
+    if (staticHit.distSq > radiusSq) {
+      return null;
+    }
+  }
+
+  // 2. Also guard against deep fast tunnel right through a thin core without static overlap at end
+  if (staticHit.distSq > radiusSq) {
+    return null;
+  }
+
+  // 3. Static overlap where prev was already inside expanded box: if center is inside core OBB,
+  //    filter candidate exit faces by incoming velocity so upward motion never pushes further up.
+  if (staticHit.inside && Math.hypot(vlx, vly) > 1e-4) {
+    const faces: Array<{ lcx: number; lcy: number; lnx: number; lny: number; pen: number }> = [
+      { lcx: -halfW, lcy: clamp(ly, -halfH, halfH), lnx: -1, lny: 0, pen: lx + halfW },
+      { lcx: halfW, lcy: clamp(ly, -halfH, halfH), lnx: 1, lny: 0, pen: halfW - lx },
+      { lcx: clamp(lx, -halfW, halfW), lcy: -halfH, lnx: 0, lny: -1, pen: ly + halfH },
+      { lcx: clamp(lx, -halfW, halfW), lcy: halfH, lnx: 0, lny: 1, pen: halfH - ly },
+    ];
+    let bestFace: (typeof faces)[number] | null = null;
+    for (const f of faces) {
+      if (vlx * f.lnx + vly * f.lny < -1e-4) {
+        if (!bestFace || f.pen < bestFace.pen) {
+          bestFace = f;
+        }
+      }
+    }
+    if (bestFace) {
+      return toWorld(bestFace.lcx, bestFace.lcy, bestFace.lnx, bestFace.lny, 0, true, 0);
+    }
+  }
+
+  return {
+    contactX: staticHit.contactX,
+    contactY: staticHit.contactY,
+    nx: staticHit.nx,
+    ny: staticHit.ny,
+    distSq: staticHit.distSq,
+    inside: staticHit.inside,
+    toi: 0,
+  };
+}
+
 export class RotasticSimulation {
   public map: MultiplayerMapDef;
   public state: WorldSimState;
@@ -496,9 +662,11 @@ export class RotasticSimulation {
     // 1. Update dynamic arena obstacles (FlowGraph rotations & waypoint patrols)
     this.updateDynamicEnvironment(dt);
 
-    // 2. Step each active player
+    // 2. Step each active player and record pre-step positions for swept wall contact
+    const prevPosBySlot = new Map<number, { x: number; y: number }>();
     for (const p of this.state.players) {
       if (!p.active) continue;
+      prevPosBySlot.set(p.slotIndex, { x: p.x, y: p.y });
 
       const cmd = inputs[p.slotIndex] ?? {
         seq: p.lastInputSeq,
@@ -575,12 +743,13 @@ export class RotasticSimulation {
       p.lastReverseHeld = Boolean(cmd.reverseHeld);
     }
 
-    // 3. Check Wall Collisions (OBB), Switch Trigger & Out-of-bounds
+    // 3. Check Wall Collisions (Swept OBB), Switch Trigger & Out-of-bounds
     for (const p of this.state.players) {
       if (!p.active || p.status === PlayerStatus.DEAD || p.status === PlayerStatus.SPAWN_CURSOR) {
         continue;
       }
-      this.checkWallsAndBounds(p);
+      const prev = prevPosBySlot.get(p.slotIndex) ?? { x: p.x, y: p.y };
+      this.checkWallsAndBounds(p, prev.x, prev.y);
     }
 
     // 4. Check Rope Cuts (CRotasticRope)
@@ -1006,7 +1175,7 @@ export class RotasticSimulation {
     p.y += p.vy * dt;
   }
 
-  private checkWallsAndBounds(p: PlayerSimState): void {
+  private checkWallsAndBounds(p: PlayerSimState, prevX: number, prevY: number): void {
     // 1. Optional arena frog lever switch (PST_MecaSwitch in w_multi_dm_lvl04)
     if (this.map.switchDef && this.state.switchCooldownSec <= 0) {
       const sw = this.map.switchDef;
@@ -1020,61 +1189,189 @@ export class RotasticSimulation {
       }
     }
 
-    // 2. OBB wall & moving hazard checks
-    for (const w of this.state.walls) {
-      if (!w.active) continue;
-      const hit = closestPointOnOBB2D(p.x, p.y, w.cx, w.cy, w.halfW, w.halfH, w.rotRad);
-      if (hit.distSq > C.PLAYER_RADIUS * C.PLAYER_RADIUS) continue;
+    // 2. Swept OBB wall & moving hazard checks (0x005769E0 swinging / 0x00576BE0 free-fall):
+    // Resolve earliest TOI contact per pass so multi-wall corners and fast upward bounces never stutter.
+    let sweepPrevX = prevX;
+    let sweepPrevY = prevY;
+    let swingBounced = false;
+    const hitWallsThisTick = new Set<number>();
 
-      if (w.type === 'deadly') {
+    for (let pass = 0; pass < 3; pass++) {
+      let bestWall: WallSimState | null = null;
+      let bestHit: SweptOBBHit | null = null;
+
+      for (const w of this.state.walls) {
+        if (!w.active || hitWallsThisTick.has(w.id)) continue;
+        const hit = resolveSweptCircleOBB2D(
+          p.x,
+          p.y,
+          sweepPrevX,
+          sweepPrevY,
+          C.PLAYER_RADIUS,
+          w.cx,
+          w.cy,
+          w.halfW,
+          w.halfH,
+          w.rotRad
+        );
+        if (!hit) continue;
+        if (
+          !bestHit ||
+          hit.toi < bestHit.toi - 1e-5 ||
+          (Math.abs(hit.toi - bestHit.toi) <= 1e-5 && hit.distSq < bestHit.distSq)
+        ) {
+          bestHit = hit;
+          bestWall = w;
+        }
+      }
+
+      if (!bestWall || !bestHit) break;
+      hitWallsThisTick.add(bestWall.id);
+
+      if (bestWall.type === 'deadly') {
         if (p.invulnTimer > 0) {
-          p.x = hit.contactX + hit.nx * (C.PLAYER_RADIUS + 2);
-          p.y = hit.contactY + hit.ny * (C.PLAYER_RADIUS + 2);
-          const vn = p.vx * hit.nx + p.vy * hit.ny;
+          p.x = bestHit.contactX + bestHit.nx * (C.PLAYER_RADIUS + 2);
+          p.y = bestHit.contactY + bestHit.ny * (C.PLAYER_RADIUS + 2);
+          const vn = p.vx * bestHit.nx + p.vy * bestHit.ny;
           if (vn < 0) {
-            p.vx -= 2 * vn * hit.nx;
-            p.vy -= 2 * vn * hit.ny;
+            p.vx -= 2 * vn * bestHit.nx;
+            p.vy -= 2 * vn * bestHit.ny;
           }
+          sweepPrevX = p.x;
+          sweepPrevY = p.y;
           continue;
         }
-        if (this.tryConsumeShield(p, hit.nx, hit.ny, hit.contactX, hit.contactY)) {
-          p.x = hit.contactX + hit.nx * (C.PLAYER_RADIUS + 6);
-          p.y = hit.contactY + hit.ny * (C.PLAYER_RADIUS + 6);
+        if (this.tryConsumeShield(p, bestHit.nx, bestHit.ny, bestHit.contactX, bestHit.contactY)) {
+          p.x = bestHit.contactX + bestHit.nx * (C.PLAYER_RADIUS + 6);
+          p.y = bestHit.contactY + bestHit.ny * (C.PLAYER_RADIUS + 6);
+          sweepPrevX = p.x;
+          sweepPrevY = p.y;
           continue;
         }
         this.killPlayer(p, p.lastAttackerSlot);
         return;
       }
 
-      // Push player outside elastic/normal OBB
-      p.x = hit.contactX + hit.nx * (C.PLAYER_RADIUS + 1.5);
-      p.y = hit.contactY + hit.ny * (C.PLAYER_RADIUS + 1.5);
+      const vn = p.vx * bestHit.nx + p.vy * bestHit.ny;
 
       if (p.status === PlayerStatus.SWINGING) {
-        p.omega = -p.omega * 0.96;
-        p.swingBoostTimer = 0;
         const pivot = this.state.attachPoints.find((ap) => ap.id === p.attachedPivotId);
-        if (pivot) {
-          p.ropeAngle = Math.atan2(p.y - pivot.y, p.x - pivot.x);
-          p.vx = -p.omega * p.ropeLength * Math.sin(p.ropeAngle);
-          p.vy = p.omega * p.ropeLength * Math.cos(p.ropeAngle);
+        if (pivot && p.ropeLength > 1) {
+          const r = p.ropeLength;
+          const clearanceSq = (C.PLAYER_RADIUS + 1.0) ** 2;
+          const startAngle = Math.atan2(sweepPrevY - pivot.y, sweepPrevX - pivot.x);
+          let dTheta = p.ropeAngle - startAngle;
+          while (dTheta > Math.PI) dTheta -= Math.PI * 2;
+          while (dTheta < -Math.PI) dTheta += Math.PI * 2;
+
+          const startPos = {
+            x: pivot.x + Math.cos(startAngle) * r,
+            y: pivot.y + Math.sin(startAngle) * r,
+          };
+          const startClear =
+            closestPointOnOBB2D(
+              startPos.x,
+              startPos.y,
+              bestWall.cx,
+              bestWall.cy,
+              bestWall.halfW,
+              bestWall.halfH,
+              bestWall.rotRad
+            ).distSq > clearanceSq;
+
+          if (startClear && Math.abs(dTheta) > 1e-4) {
+            let lo = 0;
+            let hi = 1;
+            for (let b = 0; b < 10; b++) {
+              const mid = (lo + hi) * 0.5;
+              const ang = startAngle + dTheta * mid;
+              const cx = pivot.x + Math.cos(ang) * r;
+              const cy = pivot.y + Math.sin(ang) * r;
+              const d2 = closestPointOnOBB2D(
+                cx,
+                cy,
+                bestWall.cx,
+                bestWall.cy,
+                bestWall.halfW,
+                bestWall.halfH,
+                bestWall.rotRad
+              ).distSq;
+              if (d2 > clearanceSq) {
+                lo = mid;
+              } else {
+                hi = mid;
+              }
+            }
+            p.ropeAngle = startAngle + dTheta * lo;
+          } else {
+            const pushX = bestHit.contactX + bestHit.nx * (C.PLAYER_RADIUS + 1.5);
+            const pushY = bestHit.contactY + bestHit.ny * (C.PLAYER_RADIUS + 1.5);
+            let candAngle = Math.atan2(pushY - pivot.y, pushX - pivot.x);
+            const tx = -Math.sin(candAngle);
+            const ty = Math.cos(candAngle);
+            const outDir = tx * bestHit.nx + ty * bestHit.ny >= 0 ? 1 : -1;
+            for (let s = 0; s < 16; s++) {
+              const testAng = candAngle + outDir * s * 0.02;
+              const testX = pivot.x + Math.cos(testAng) * r;
+              const testY = pivot.y + Math.sin(testAng) * r;
+              if (
+                closestPointOnOBB2D(
+                  testX,
+                  testY,
+                  bestWall.cx,
+                  bestWall.cy,
+                  bestWall.halfW,
+                  bestWall.halfH,
+                  bestWall.rotRad
+                ).distSq > clearanceSq
+              ) {
+                candAngle = testAng;
+                break;
+              }
+            }
+            p.ropeAngle = candAngle;
+          }
+
+          if (p.ropeAngle > Math.PI) p.ropeAngle -= Math.PI * 2;
+          if (p.ropeAngle < -Math.PI) p.ropeAngle += Math.PI * 2;
+          p.x = pivot.x + Math.cos(p.ropeAngle) * r;
+          p.y = pivot.y + Math.sin(p.ropeAngle) * r;
+        } else {
+          p.x = bestHit.contactX + bestHit.nx * (C.PLAYER_RADIUS + 1.5);
+          p.y = bestHit.contactY + bestHit.ny * (C.PLAYER_RADIUS + 1.5);
         }
+
+        // 0x00575E60 / 0x005769E0: only reverse omega when moving into the wall normal (vn < 0)
+        if (vn < 0 && !swingBounced) {
+          p.omega = -p.omega * 0.96;
+          p.swingBoostTimer = 0;
+          swingBounced = true;
+        }
+        p.vx = -p.omega * p.ropeLength * Math.sin(p.ropeAngle);
+        p.vy = p.omega * p.ropeLength * Math.cos(p.ropeAngle);
       } else {
-        const vn = p.vx * hit.nx + p.vy * hit.ny;
+        // Push player outside elastic/normal OBB along swept entry normal
+        p.x = bestHit.contactX + bestHit.nx * (C.PLAYER_RADIUS + 1.5);
+        p.y = bestHit.contactY + bestHit.ny * (C.PLAYER_RADIUS + 1.5);
         if (vn < 0) {
           const restitution = C.WALL_BOUNCE_RESTITUTION;
-          p.vx -= (1 + restitution) * vn * hit.nx;
-          p.vy -= (1 + restitution) * vn * hit.ny;
+          p.vx -= (1 + restitution) * vn * bestHit.nx;
+          p.vy -= (1 + restitution) * vn * bestHit.ny;
         }
       }
 
-      // High-speed bounce tricks charge orange bar (+0.2 / +150, observed on wall bounces!)
-      if (p.wallTrickCooldown <= 0 && Math.hypot(p.vx, p.vy) >= 420) {
-        p.wallTrickCooldown = 1.4;
-        this.awardOrangeTrick(p, C.ORANGE_CHARGE_STEP, '+150', hit.contactX, hit.contactY);
-      }
+      sweepPrevX = p.x;
+      sweepPrevY = p.y;
 
-      this.events.push({ type: 'bounce', slotIndex: p.slotIndex, x: hit.contactX, y: hit.contactY });
+      if (vn < 0) {
+        // High-speed bounce tricks charge orange bar (+0.2 / +150, observed on wall bounces!)
+        if (p.wallTrickCooldown <= 0 && Math.hypot(p.vx, p.vy) >= 420) {
+          p.wallTrickCooldown = 1.4;
+          this.awardOrangeTrick(p, C.ORANGE_CHARGE_STEP, '+150', bestHit.contactX, bestHit.contactY);
+        }
+
+        this.events.push({ type: 'bounce', slotIndex: p.slotIndex, x: bestHit.contactX, y: bestHit.contactY });
+      }
     }
 
     // 3. Bottom fall death threshold (`TriggerPlanePlayerDeath @ y <= -300.0`, lethal even with full bubble)
@@ -1083,7 +1380,7 @@ export class RotasticSimulation {
       return;
     }
 
-    // Safety clamp if out horizontally or extremely high
+    // Safety clamp if out horizontally or above WallTop underside (`TOP_CEILING_Y - PLAYER_RADIUS`)
     if (p.x < C.PLAYER_RADIUS) {
       p.x = C.PLAYER_RADIUS;
       if (p.vx < 0) p.vx = -p.vx;
@@ -1091,18 +1388,13 @@ export class RotasticSimulation {
       p.x = C.ARENA_WIDTH - C.PLAYER_RADIUS;
       if (p.vx > 0) p.vx = -p.vx;
     }
-    if (p.y > C.TOP_CEILING_Y) {
-      p.y = C.TOP_CEILING_Y;
+    const maxSafeCenterY = C.TOP_CEILING_Y - C.PLAYER_RADIUS;
+    if (p.y > maxSafeCenterY) {
+      p.y = maxSafeCenterY;
       if (p.vy > 0) p.vy = -p.vy;
     }
   }
 
-  /**
-   * 2D Segment + Swept Motion Rope Cutting (`CRotasticRope` @ `0x00543331` / `0x00578A90`):
-   * Any non-dizzy opponent intersecting another player's rope slices it ("Cut!"),
-   * awarding +0.2 orange charge + dizzying victim. Uses both capsule distance and
-   * swept tick motion so short-radius inner spins and fast dashes never miss.
-   */
   /**
    * Native rope cutting (`CRotasticRope::vfunc_44 @ 0x005435D0` + `OnCutEnemyRope @ 0x00578A90`):
    * - No minimum speed or angular velocity threshold (`0x00578A90` checks only different team + victim attached).
