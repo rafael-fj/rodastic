@@ -364,6 +364,9 @@ export class RotasticWebClient {
   private textureAnims = new Map<string, TextureAnimMeta>();
   private textureUrlById = new Map<string, string>();
   private loadedBgMapId = '';
+  private loadingBgMapId = '';
+  private mapBgLoadingPromise: Promise<void> | null = null;
+  private inFlightTextureLoads = new Map<string, Promise<Texture | undefined>>();
 
   // Match audio/announcer tracking
   private currentLeaderSlot = -1;
@@ -627,48 +630,69 @@ export class RotasticWebClient {
   }
 
   private async loadTextureUrls(urls: Iterable<string>, concurrency = 8): Promise<void> {
-    const pending: string[] = [];
+    const toLoad: string[] = [];
+    const inFlightPromises: Promise<Texture | undefined>[] = [];
+
     for (const u of urls) {
-      if (u && !this.texturesCache.has(u)) {
-        pending.push(u);
+      if (!u) continue;
+      if (this.texturesCache.has(u)) continue;
+      const existing = this.inFlightTextureLoads.get(u);
+      if (existing) {
+        inFlightPromises.push(existing);
+      } else {
+        toLoad.push(u);
       }
     }
-    if (pending.length === 0) return;
 
-    let index = 0;
-    const worker = async () => {
-      while (index < pending.length) {
-        const u = pending[index++];
-        if (!u || this.texturesCache.has(u)) continue;
-        try {
-          const tex = await Assets.load<Texture>({
-            src: u,
-            data: {
-              autoGenerateMipmaps: true,
-              scaleMode: 'linear',
-              mipmapFilter: 'linear',
-            },
-          });
-          if (tex?.source) {
-            tex.source.autoGenerateMipmaps = true;
-            tex.source.style.scaleMode = 'linear';
-            tex.source.style.mipmapFilter = 'linear';
-            tex.source.style.update();
-            tex.source.update();
-          }
-          this.texturesCache.set(u, tex);
-        } catch {
-          // Fallback graphics will be used if any texture fails
+    if (toLoad.length === 0 && inFlightPromises.length === 0) return;
+
+    if (toLoad.length > 0) {
+      let index = 0;
+      const worker = async () => {
+        while (index < toLoad.length) {
+          const u = toLoad[index++];
+          if (!u || this.texturesCache.has(u)) continue;
+          const promise = (async () => {
+            try {
+              const tex = await Assets.load<Texture>({
+                src: u,
+                data: {
+                  autoGenerateMipmaps: true,
+                  scaleMode: 'linear',
+                  mipmapFilter: 'linear',
+                },
+              });
+              if (tex?.source) {
+                tex.source.autoGenerateMipmaps = true;
+                tex.source.style.scaleMode = 'linear';
+                tex.source.style.mipmapFilter = 'linear';
+                tex.source.style.update();
+                tex.source.update();
+              }
+              this.texturesCache.set(u, tex);
+              return tex;
+            } catch (err) {
+              console.warn('Failed loading texture:', u, err);
+              return undefined;
+            } finally {
+              this.inFlightTextureLoads.delete(u);
+            }
+          })();
+
+          this.inFlightTextureLoads.set(u, promise);
+          await promise;
         }
-      }
-    };
+      };
 
-    const workers: Promise<void>[] = [];
-    const numWorkers = Math.min(concurrency, pending.length);
-    for (let w = 0; w < numWorkers; w++) {
-      workers.push(worker());
+      const workers: Promise<void>[] = [];
+      const numWorkers = Math.min(concurrency, toLoad.length);
+      for (let w = 0; w < numWorkers; w++) {
+        workers.push(worker());
+      }
+      await Promise.all([...workers, ...inFlightPromises]);
+    } else {
+      await Promise.all(inFlightPromises);
     }
-    await Promise.all(workers);
   }
 
   /**
@@ -746,112 +770,130 @@ export class RotasticWebClient {
   }
 
   private async ensureMapBackgrounds(mapId: string): Promise<void> {
-    if (this.loadedBgMapId === mapId) return;
-    this.loadedBgMapId = mapId;
-    const map = getMultiplayerMapById(mapId);
+    if (this.loadedBgMapId === mapId && !this.mapBgLoadingPromise) return;
+    if (this.loadingBgMapId === mapId && this.mapBgLoadingPromise) {
+      await this.mapBgLoadingPromise;
+      return;
+    }
 
-    const bgActorConfigs = getMapBackgroundActorConfigs(mapId);
-    const staticProps = getMapStaticProps(mapId);
-    const neededActors = new Set<string>([
-      'o_accroche',
-      'o_accroche_mobile',
-      'o_accrocheaura',
-      ...bgActorConfigs.map((c) => c.actor),
-      ...staticProps.map((p) => p.actor),
-    ]);
-    for (const w of map.walls) {
-      const resolved = resolveWallActorTransform(mapId, w);
-      if (resolved) neededActors.add(resolved.actorName);
-    }
-    if (mapId === 'w_multi_dm_lvl02') {
-      for (const n of LVL02_CUBE_NACELLES) neededActors.add(n.actor);
-    }
-    if (map.switchDef) {
-      for (const nm of [
-        'o_levierbase_back',
-        'o_levierbase_off',
-        'o_levierbase_on',
-        'o_levierbois',
-        'o_leviercrapeau',
-        'o_leviercrapeaudead',
-      ]) {
-        neededActors.add(nm);
+    this.loadingBgMapId = mapId;
+    const task = (async () => {
+      const map = getMultiplayerMapById(mapId);
+
+      const bgActorConfigs = getMapBackgroundActorConfigs(mapId);
+      const staticProps = getMapStaticProps(mapId);
+      const neededActors = new Set<string>([
+        'o_accroche',
+        'o_accroche_mobile',
+        'o_accrocheaura',
+        ...bgActorConfigs.map((c) => c.actor),
+        ...staticProps.map((p) => p.actor),
+      ]);
+      for (const w of map.walls) {
+        const resolved = resolveWallActorTransform(mapId, w);
+        if (resolved) neededActors.add(resolved.actorName);
       }
-    }
-
-    const urlSet = new Set<string>();
-    for (const layer of map.bgLayers) {
-      urlSet.add(`/assets/textures/backgrounds/${layer.texture}.png`);
-    }
-    const texIds = new Set<string>(collectActorTextureIds(neededActors));
-    if (map.vortices.length > 0) {
-      texIds.add('t_fx_wind00_c');
-    }
-    for (const texId of texIds) {
-      const url = this.textureUrlById.get(texId);
-      if (url) urlSet.add(url);
-      const anim = this.textureAnims.get(texId);
-      if (anim) {
-        for (const fUrl of anim.frameUrls) urlSet.add(fUrl);
+      if (mapId === 'w_multi_dm_lvl02') {
+        for (const n of LVL02_CUBE_NACELLES) neededActors.add(n.actor);
       }
-    }
+      if (map.switchDef) {
+        for (const nm of [
+          'o_levierbase_back',
+          'o_levierbase_off',
+          'o_levierbase_on',
+          'o_levierbois',
+          'o_leviercrapeau',
+          'o_leviercrapeaudead',
+        ]) {
+          neededActors.add(nm);
+        }
+      }
 
-    await this.loadTextureUrls(urlSet);
-
-    // Bail out if user switched map again while awaiting load
-    if (this.loadedBgMapId !== mapId) return;
-
-    this.bgContainer.removeChildren();
-    for (const entry of this.bgActorInstances) {
-      entry.instance.destroy();
-    }
-    this.bgActorInstances = [];
-
-    for (const inst of this.propActorInstances.values()) {
-      inst.destroy();
-    }
-    this.propActorInstances.clear();
-    for (const inst of this.pivotAuraInstances) inst.destroy();
-    for (const inst of this.pivotCoreInstances) inst.destroy();
-    this.pivotAuraInstances = [];
-    this.pivotCoreInstances = [];
-    for (const spr of this.vortexSprites) spr.destroy();
-    this.vortexSprites = [];
-    for (const vp of this.vfxParticles) {
-      vp.sprite.parent?.removeChild(vp.sprite);
-      vp.sprite.destroy();
-    }
-    this.vfxParticles = [];
-    this.orangeTrailSpawnAcc.fill(0);
-    this.arenaBehindContainer.removeChildren();
-    this.propsContainer.removeChildren();
-
-    const activeBgActors: Array<{
-      instance: ActorInstance;
-      transform: import('./actor-renderer.js').ActorTransformOptions;
-    }> = [];
-    for (const cfg of bgActorConfigs) {
-      const def = getActorDef(cfg.actor);
-      if (!def) continue;
-      const inst = new ActorInstance(def);
-      this.bgContainer.addChild(inst.container);
-      activeBgActors.push({ instance: inst, transform: cfg.transform });
-    }
-
-    if (activeBgActors.length > 0) {
-      this.bgActorInstances = activeBgActors;
-    } else {
+      const urlSet = new Set<string>();
       for (const layer of map.bgLayers) {
-        const tex = this.texturesCache.get(`/assets/textures/backgrounds/${layer.texture}.png`);
-        if (!tex) continue;
-        const spr = new Sprite(tex);
-        const scale = Math.max(VIEW_WIDTH / tex.width, VIEW_HEIGHT / tex.height);
-        spr.width = tex.width * scale;
-        spr.height = tex.height * scale;
-        spr.x = (VIEW_WIDTH - spr.width) * 0.5;
-        spr.y = (VIEW_HEIGHT - spr.height) * 0.5;
-        spr.alpha = layer.alpha ?? 1;
-        this.bgContainer.addChild(spr);
+        urlSet.add(`/assets/textures/backgrounds/${layer.texture}.png`);
+      }
+      const texIds = new Set<string>(collectActorTextureIds(neededActors));
+      if (map.vortices.length > 0) {
+        texIds.add('t_fx_wind00_c');
+      }
+      for (const texId of texIds) {
+        const url = this.textureUrlById.get(texId);
+        if (url) urlSet.add(url);
+        const anim = this.textureAnims.get(texId);
+        if (anim) {
+          for (const fUrl of anim.frameUrls) urlSet.add(fUrl);
+        }
+      }
+
+      await this.loadTextureUrls(urlSet);
+
+      // Bail out if another map load was started while awaiting
+      if (this.loadingBgMapId !== mapId) return;
+
+      this.bgContainer.removeChildren();
+      for (const entry of this.bgActorInstances) {
+        entry.instance.destroy();
+      }
+      this.bgActorInstances = [];
+
+      for (const inst of this.propActorInstances.values()) {
+        inst.destroy();
+      }
+      this.propActorInstances.clear();
+      for (const inst of this.pivotAuraInstances) inst.destroy();
+      for (const inst of this.pivotCoreInstances) inst.destroy();
+      this.pivotAuraInstances = [];
+      this.pivotCoreInstances = [];
+      for (const spr of this.vortexSprites) spr.destroy();
+      this.vortexSprites = [];
+      for (const vp of this.vfxParticles) {
+        vp.sprite.parent?.removeChild(vp.sprite);
+        vp.sprite.destroy();
+      }
+      this.vfxParticles = [];
+      this.orangeTrailSpawnAcc.fill(0);
+      this.arenaBehindContainer.removeChildren();
+      this.propsContainer.removeChildren();
+
+      const activeBgActors: Array<{
+        instance: ActorInstance;
+        transform: import('./actor-renderer.js').ActorTransformOptions;
+      }> = [];
+      for (const cfg of bgActorConfigs) {
+        const def = getActorDef(cfg.actor);
+        if (!def) continue;
+        const inst = new ActorInstance(def);
+        this.bgContainer.addChild(inst.container);
+        activeBgActors.push({ instance: inst, transform: cfg.transform });
+      }
+
+      if (activeBgActors.length > 0) {
+        this.bgActorInstances = activeBgActors;
+      } else {
+        for (const layer of map.bgLayers) {
+          const tex = this.texturesCache.get(`/assets/textures/backgrounds/${layer.texture}.png`);
+          if (!tex) continue;
+          const spr = new Sprite(tex);
+          const scale = Math.max(VIEW_WIDTH / tex.width, VIEW_HEIGHT / tex.height);
+          spr.width = tex.width * scale;
+          spr.height = tex.height * scale;
+          spr.x = (VIEW_WIDTH - spr.width) * 0.5;
+          spr.y = (VIEW_HEIGHT - spr.height) * 0.5;
+          spr.alpha = layer.alpha ?? 1;
+          this.bgContainer.addChild(spr);
+        }
+      }
+
+      this.loadedBgMapId = mapId;
+    })();
+
+    this.mapBgLoadingPromise = task;
+    try {
+      await task;
+    } finally {
+      if (this.mapBgLoadingPromise === task) {
+        this.mapBgLoadingPromise = null;
       }
     }
   }
@@ -1125,10 +1167,13 @@ export class RotasticWebClient {
           this.lobbyState.config.timeLimitSec
         );
       }
-      void this.ensureMapBackgrounds(this.lobbyState.config.mapId);
-
       if (this.lobbyState.sessionState === OnlineSessionState.LOADING_MAP) {
         void this.handleLoadingMapPhase(this.lobbyState.config.mapId);
+      } else if (
+        this.loadedBgMapId !== this.lobbyState.config.mapId &&
+        this.loadingBgMapId !== this.lobbyState.config.mapId
+      ) {
+        void this.ensureMapBackgrounds(this.lobbyState.config.mapId);
       }
 
       if (
@@ -1221,7 +1266,12 @@ export class RotasticWebClient {
         serverWorld.timeRemainingSec
       );
       this.predictor.reset();
-      void this.ensureMapBackgrounds(serverWorld.mapId);
+      if (
+        this.loadedBgMapId !== serverWorld.mapId &&
+        this.loadingBgMapId !== serverWorld.mapId
+      ) {
+        void this.ensureMapBackgrounds(serverWorld.mapId);
+      }
     }
 
     // Play audio & spawn floating text for simulation events
@@ -1683,7 +1733,10 @@ export class RotasticWebClient {
     const resolveActorTex = (texId: string, tMs: number): Texture =>
       this.resolveTextureById(texId, tMs) ?? Texture.EMPTY;
 
-    if (this.loadedBgMapId !== state.mapId) {
+    if (
+      this.loadedBgMapId !== state.mapId &&
+      this.loadingBgMapId !== state.mapId
+    ) {
       void this.ensureMapBackgrounds(state.mapId);
     }
 
@@ -2730,11 +2783,18 @@ export class RotasticWebClient {
   }
 
   private async ensureMatchAssetsLoaded(mapId: string): Promise<void> {
-    // 1. Ensure all map backgrounds and actor props are loaded
+    // 1. Ensure all map backgrounds and actor props are loaded and constructed
     await this.ensureMapBackgrounds(mapId);
 
-    // 2. Ensure all active players' character and color textures are loaded
-    const charUrls = new Set<string>();
+    const map = getMultiplayerMapById(mapId);
+    const criticalUrls = new Set<string>();
+
+    // 2. Explicitly load background layers
+    for (const layer of map.bgLayers) {
+      criticalUrls.add(`/assets/textures/backgrounds/${layer.texture}.png`);
+    }
+
+    // 3. Ensure all active players' character and color textures are loaded
     const allStates = ['idle', 'swing', 'fly', 'fall', 'hit', 'win', 'loose', 'dash', 'death', 'faint'];
     if (this.lobbyState) {
       for (const slot of this.lobbyState.slots) {
@@ -2742,20 +2802,52 @@ export class RotasticWebClient {
         const c = slot.colorId;
         const ch = slot.characterId;
         for (const st of allStates) {
-          charUrls.add(`/assets/textures/global/t_character_${c}_${ch}_${st}_c.png`);
+          criticalUrls.add(`/assets/textures/global/t_character_${c}_${ch}_${st}_c.png`);
         }
       }
     }
-    // Also include essential global textures
-    charUrls.add('/assets/textures/global/t_accroche01_c.png');
-    charUrls.add('/assets/textures/global/t_corde_c.png');
-    charUrls.add('/assets/textures/global/t_cordebeam_c.png');
-    charUrls.add('/assets/textures/global/t_cordeuberbeam_c.png');
-    charUrls.add('/assets/textures/arenas/t_guicouronne_c.png');
 
-    await this.loadTextureUrls(charUrls);
+    // 4. Essential global textures
+    criticalUrls.add('/assets/textures/global/t_accroche01_c.png');
+    criticalUrls.add('/assets/textures/global/t_corde_c.png');
+    criticalUrls.add('/assets/textures/global/t_cordebeam_c.png');
+    criticalUrls.add('/assets/textures/global/t_cordeuberbeam_c.png');
+    criticalUrls.add('/assets/textures/arenas/t_guicouronne_c.png');
 
-    // 3. Audio preload
+    // 5. Props and walls for this map (e.g. o_m04_cube in Ville Marron)
+    const neededActors = new Set<string>();
+    for (const w of map.walls) {
+      const resolved = resolveWallActorTransform(mapId, w);
+      if (resolved) neededActors.add(resolved.actorName);
+    }
+    if (mapId === 'w_multi_dm_lvl02') {
+      for (const n of LVL02_CUBE_NACELLES) neededActors.add(n.actor);
+    }
+    const propTexIds = collectActorTextureIds(neededActors);
+    for (const tid of propTexIds) {
+      const u = this.textureUrlById.get(tid);
+      if (u) criticalUrls.add(u);
+    }
+
+    await this.loadTextureUrls(criticalUrls);
+
+    // 6. Guarantee that bgContainer has its sprites attached
+    if (this.bgContainer.children.length === 0 && map.bgLayers.length > 0) {
+      for (const layer of map.bgLayers) {
+        const tex = this.texturesCache.get(`/assets/textures/backgrounds/${layer.texture}.png`);
+        if (!tex) continue;
+        const spr = new Sprite(tex);
+        const scale = Math.max(VIEW_WIDTH / tex.width, VIEW_HEIGHT / tex.height);
+        spr.width = tex.width * scale;
+        spr.height = tex.height * scale;
+        spr.x = (VIEW_WIDTH - spr.width) * 0.5;
+        spr.y = (VIEW_HEIGHT - spr.height) * 0.5;
+        spr.alpha = layer.alpha ?? 1;
+        this.bgContainer.addChild(spr);
+      }
+    }
+
+    // 7. Audio preload
     this.audio.preloadAll();
   }
 
