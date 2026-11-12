@@ -728,13 +728,27 @@ export class RotasticSimulation {
 
       if (p.status === PlayerStatus.DIZZY) {
         p.statusTimer -= dt;
+        let emergencyAttached = false;
         if (p.statusTimer <= 0) {
           p.status = PlayerStatus.FREE_FALL;
           p.statusTimer = 0;
+        } else if (
+          justPressed &&
+          p.regrappleTimer <= 0 &&
+          p.attachLockTimer <= 0 &&
+          (p.chargeGauge >= 1.0 || p.chargeGauge2 >= 1.0)
+        ) {
+          // 0x0056A5A0 (CanConsumeAttachCharge): full c1 or c2 allows emergency re-attach even while DIZZY after rope cut
+          emergencyAttached = this.tryAttachToNearestPivot(p);
         }
-        this.stepFreeFall(p, { seq: cmd.seq, actionHeld: false, axisX: 0, axisY: 0 }, dt);
+        if (emergencyAttached) {
+          this.stepSwinging(p, cmd, dt);
+        } else {
+          this.stepFreeFall(p, { seq: cmd.seq, actionHeld: false, axisX: 0, axisY: 0 }, dt);
+        }
         this.updateChargeGauge(p, dt);
         p.lastActionHeld = cmd.actionHeld;
+        p.lastReverseHeld = Boolean(cmd.reverseHeld);
         continue;
       }
 
@@ -1113,6 +1127,7 @@ export class RotasticSimulation {
     omega = clamp(omega, -maxOmega, maxOmega);
 
     p.status = PlayerStatus.SWINGING;
+    p.statusTimer = 0;
     p.attachedPivotId = nearest.id;
     p.ropeLength = r;
     p.ropeAngle = angle;

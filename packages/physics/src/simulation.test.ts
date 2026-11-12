@@ -1185,5 +1185,23 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     const riskyEvs = sim.step({});
     expect(riskyEvs.some((e) => e.type === 'trick' && e.points === 300 && e.label === 'Risky! +300')).toBe(true);
     expect(p.chargeGauge2).toBeCloseTo(0.25, 4);
+
+    // 4. Emergency attach while DIZZY (after rope cut) consuming full orange bar c2 >= 1.0 (0x0056A5A0)
+    p.status = PlayerStatus.DIZZY;
+    p.statusTimer = 0.8;
+    p.lastActionHeld = false;
+    p.regrappleTimer = 0;
+    p.attachLockTimer = 0;
+    p.chargeGauge = 0.2;
+    p.chargeGauge2 = 1.0;
+    p.x = aps[0].x;
+    p.y = aps[0].y - 180;
+    p.vx = 250;
+    p.vy = 0;
+    const dizzyAttachEvs = sim.step({ 0: { seq: 1, actionHeld: true, axisX: 0, axisY: 0 } });
+    expect(dizzyAttachEvs.some((e) => e.type === 'attach' && e.shieldType === 'orange')).toBe(true);
+    expect(p.status).toBe(PlayerStatus.SWINGING);
+    expect(p.statusTimer).toBe(0);
+    expect(p.chargeGauge2).toBe(0);
   });
 });
