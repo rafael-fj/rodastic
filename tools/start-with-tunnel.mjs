@@ -12,8 +12,10 @@ const rootDir = path.resolve(__dirname, '..');
 
 const serverPort = Number(process.env.PORT) || 3001;
 const targetUrl = `http://localhost:${serverPort}`;
+const serverIndexPath = path.join(rootDir, 'packages', 'server', 'dist', 'index.js');
+const clientIndexPath = path.join(rootDir, 'packages', 'client', 'dist', 'index.html');
 
-function checkPortOpen(port, host = '127.0.0.1', timeout = 1000) {
+function checkPortOpen(port, host = '127.0.0.1', timeout = 800) {
   return new Promise((resolve) => {
     const socket = new net.Socket();
     socket.setTimeout(timeout);
@@ -41,32 +43,17 @@ async function waitForPort(port, maxAttempts = 30, intervalMs = 400) {
   return false;
 }
 
-function ensureBuildExists() {
-  const clientIndex = path.join(rootDir, 'packages', 'client', 'dist', 'index.html');
-  const serverIndex = path.join(rootDir, 'packages', 'server', 'dist', 'index.js');
-  if (!fs.existsSync(clientIndex) || !fs.existsSync(serverIndex)) {
-    console.log('[start:tunnel] Build não encontrado. Executando pnpm build inicial...');
-    const isWindows = process.platform === 'win32';
-    const { execSync } = await import('node:child_process');
-    execSync(isWindows ? 'pnpm.cmd build' : 'pnpm build', {
-      cwd: rootDir,
-      stdio: 'inherit',
-    });
-  }
-}
-
 async function main() {
   console.log('[start:tunnel] Preparando para iniciar o jogo (pnpm start) com Cloudflare Tunnel...');
 
-  const clientIndex = path.join(rootDir, 'packages', 'client', 'dist', 'index.html');
-  const serverIndex = path.join(rootDir, 'packages', 'server', 'dist', 'index.js');
-  if (!fs.existsSync(clientIndex) || !fs.existsSync(serverIndex)) {
-    console.log('[start:tunnel] Dist não encontrado. Executando pnpm build...');
+  if (!fs.existsSync(clientIndexPath) || !fs.existsSync(serverIndexPath)) {
+    console.log('[start:tunnel] Build não encontrado. Executando build inicial...');
     const isWindows = process.platform === 'win32';
-    const child = spawn(isWindows ? 'pnpm.cmd' : 'pnpm', ['build'], {
+    const buildCmd = isWindows ? 'pnpm.cmd' : 'pnpm';
+    const child = spawn(buildCmd, ['build'], {
       cwd: rootDir,
       stdio: 'inherit',
-      shell: false,
+      shell: isWindows,
     });
     await new Promise((resolve, reject) => {
       child.on('close', (code) => (code === 0 ? resolve() : reject(new Error(`Build falhou: ${code}`))));
@@ -74,27 +61,34 @@ async function main() {
     });
   }
 
-  console.log(`[start:tunnel] Iniciando servidor autoritativo na porta ${serverPort}...`);
-  const isWindows = process.platform === 'win32';
-  const serverProcess = spawn(
-    isWindows ? 'pnpm.cmd' : 'pnpm',
-    ['start'],
-    {
+  const alreadyRunning = await checkPortOpen(serverPort);
+  let serverProcess = null;
+
+  if (alreadyRunning) {
+    console.log(`[start:tunnel] O servidor já está ativo na porta ${serverPort} (${targetUrl})!`);
+  } else {
+    console.log(`[start:tunnel] Iniciando servidor autoritativo na porta ${serverPort}...`);
+    serverProcess = spawn(process.execPath, [serverIndexPath], {
       cwd: rootDir,
       stdio: 'inherit',
-      shell: false,
+    });
+
+    serverProcess.on('error', (err) => {
+      console.error('[start:tunnel] Erro ao iniciar servidor:', err);
+    });
+
+    serverProcess.on('close', (code) => {
+      console.log(`[start:tunnel] Servidor encerrado com código ${code}.`);
+      if (tunnel) tunnel.stop();
+      process.exit(code ?? 0);
+    });
+
+    const ready = await waitForPort(serverPort);
+    if (ready) {
+      console.log(`[start:tunnel] Servidor online em ${targetUrl}! Abrindo túnel Cloudflare...`);
+    } else {
+      console.warn(`[start:tunnel] Servidor ainda iniciando... Abrindo túnel Cloudflare.`);
     }
-  );
-
-  serverProcess.on('error', (err) => {
-    console.error('[start:tunnel] Erro ao iniciar servidor:', err);
-  });
-
-  const ready = await waitForPort(serverPort);
-  if (ready) {
-    console.log(`[start:tunnel] Servidor online em ${targetUrl}! Abrindo túnel Cloudflare...`);
-  } else {
-    console.warn(`[start:tunnel] Servidor ainda conectando... Abrindo túnel Cloudflare.`);
   }
 
   const tunnel = Tunnel.quick(targetUrl);
@@ -114,7 +108,7 @@ async function main() {
     console.log('');
     console.log(` 📡 Servidor local: ${targetUrl} (pnpm start)`);
     console.log(` 🎮 Qualquer pessoa com o link acima pode entrar e jogar.`);
-    console.log(' Pressione Ctrl+C para encerrar o túnel e o servidor.');
+    console.log(' Pressione Ctrl+C para encerrar o túnel.');
     console.log('='.repeat(74));
     console.log('');
   });
@@ -133,12 +127,6 @@ async function main() {
 
   process.on('SIGINT', cleanup);
   process.on('SIGTERM', cleanup);
-
-  serverProcess.on('close', (code) => {
-    console.log(`[start:tunnel] Servidor encerrado com código ${code}.`);
-    tunnel.stop();
-    process.exit(code ?? 0);
-  });
 }
 
 main().catch((err) => {
