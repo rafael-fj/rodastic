@@ -161,6 +161,18 @@ interface TextureAnimMeta {
   frameUrls: string[];
 }
 
+interface VfxParticle {
+  sprite: Sprite;
+  vx: number;
+  vy: number;
+  rotSpeed: number;
+  startScale: number;
+  endScale: number;
+  startAlpha: number;
+  life: number;
+  maxLife: number;
+}
+
 export class RotasticWebClient {
   private app!: Application;
   private audio = new RotasticAudioManager();
@@ -238,6 +250,9 @@ export class RotasticWebClient {
   private playerSprites: Sprite[] = [];
   private playerLabels: Text[] = [];
   private floatingEffects: FloatingEffect[] = [];
+  private vfxParticles: VfxParticle[] = [];
+  private vfxAtlasFrames = new Map<string, Texture[]>();
+  private orangeTrailSpawnAcc = [0, 0, 0, 0];
   private texturesCache = new Map<string, Texture>();
   private textureAnims = new Map<string, TextureAnimMeta>();
   private textureUrlById = new Map<string, string>();
@@ -357,6 +372,12 @@ export class RotasticWebClient {
       '/assets/textures/global/t_guiaccrouge_c.png',
       '/assets/textures/global/t_guiaccvert_c.png',
       '/assets/textures/global/t_guiaccjaune_c.png',
+      '/assets/textures/arenas/t_fx_uberbeam_c.png',
+      '/assets/textures/arenas/t_ubeambreak.png',
+      '/assets/textures/arenas/t_beambreak.png',
+      '/assets/textures/arenas/t_guicutfx_c.png',
+      '/assets/textures/arenas/t_glissparticules_c.png',
+      '/assets/textures/arenas/t_beamcorona_white_c.png',
     ]);
 
     try {
@@ -422,6 +443,31 @@ export class RotasticWebClient {
           frame: new Rectangle(0, 2, 32, 28),
         });
         this.texturesCache.set(`${beamUrl}#cropped`, cropped);
+      }
+    }
+
+    // Slice 2x2 VFX sprite-sheet atlases into 4 individual sub-textures
+    for (const atlasUrl of [
+      '/assets/textures/arenas/t_ubeambreak.png',
+      '/assets/textures/arenas/t_beambreak.png',
+      '/assets/textures/arenas/t_glissparticules_c.png',
+    ]) {
+      const atlasTex = this.texturesCache.get(atlasUrl);
+      if (atlasTex && atlasTex.width >= 16 && atlasTex.height >= 16) {
+        const hw = Math.floor(atlasTex.width * 0.5);
+        const hh = Math.floor(atlasTex.height * 0.5);
+        const frames: Texture[] = [];
+        for (let row = 0; row < 2; row++) {
+          for (let col = 0; col < 2; col++) {
+            frames.push(
+              new Texture({
+                source: atlasTex.source,
+                frame: new Rectangle(col * hw, row * hh, hw, hh),
+              })
+            );
+          }
+        }
+        this.vfxAtlasFrames.set(atlasUrl, frames);
       }
     }
   }
@@ -607,6 +653,12 @@ export class RotasticWebClient {
     this.pivotCoreInstances = [];
     for (const spr of this.vortexSprites) spr.destroy();
     this.vortexSprites = [];
+    for (const vp of this.vfxParticles) {
+      this.fxContainer.removeChild(vp.sprite);
+      vp.sprite.destroy();
+    }
+    this.vfxParticles = [];
+    this.orangeTrailSpawnAcc.fill(0);
     this.arenaBehindContainer.removeChildren();
     this.propsContainer.removeChildren();
 
@@ -1124,6 +1176,7 @@ export class RotasticWebClient {
         break;
       case 'shieldbreak':
         this.audio.play('shieldbreak', 0.55, 0.05);
+        this.spawnShieldBreakParticles(sx, sy, ev.shieldType === 'orange');
         if (ev.slotIndex !== undefined) {
           this.hurtAnimTimer[ev.slotIndex] = 0.42;
           if (ev.shieldType === 'orange') {
@@ -1156,6 +1209,7 @@ export class RotasticWebClient {
         break;
       case 'ropecut': {
         this.audio.play('ropecut', 0.58, 0.05);
+        this.spawnCutImpactFx(sx, sy);
         if (ev.slotIndex !== undefined) {
           this.cutAnimTimer[ev.slotIndex] = 0.28;
         }
@@ -1170,6 +1224,7 @@ export class RotasticWebClient {
       }
       case 'slaughter':
         this.audio.play('slaughter', 0.65, 0.04);
+        this.spawnCutImpactFx(sx, sy);
         if (ev.slotIndex !== undefined) {
           this.killAnimTimer[ev.slotIndex] = 0.35;
         }
@@ -1179,10 +1234,12 @@ export class RotasticWebClient {
         break;
       case 'wallbreak':
         this.audio.play('wallbreak', 0.5, 0.05);
+        this.spawnBounceSparks(sx, sy);
         this.spawnFloatingText('CRASH!', sx, sy, 0xe2e8f0);
         break;
       case 'bounce':
         this.audio.play(ev.targetSlot !== undefined ? 'pvp_bump' : 'bounce', 0.34, 0.09);
+        this.spawnBounceSparks(sx, sy);
         if (ev.slotIndex !== undefined) {
           this.bounceAnimTimer[ev.slotIndex] = 0.24;
         }
@@ -1237,6 +1294,128 @@ export class RotasticWebClient {
       life: 0.9,
       maxLife: 0.9,
     });
+  }
+
+  private spawnVfxParticle(
+    tex: Texture | undefined,
+    x: number,
+    y: number,
+    opts: {
+      vx?: number;
+      vy?: number;
+      rotation?: number;
+      rotSpeed?: number;
+      startScale?: number;
+      endScale?: number;
+      startAlpha?: number;
+      life?: number;
+      blendMode?: 'normal' | 'add';
+    } = {}
+  ): void {
+    if (!tex) return;
+    if (this.vfxParticles.length >= 220) {
+      const oldest = this.vfxParticles.shift();
+      if (oldest) {
+        this.fxContainer.removeChild(oldest.sprite);
+        oldest.sprite.destroy();
+      }
+    }
+    const sprite = new Sprite(tex);
+    sprite.anchor.set(0.5);
+    sprite.x = x;
+    sprite.y = y;
+    sprite.rotation = opts.rotation ?? 0;
+    const startScale = opts.startScale ?? 0.6;
+    sprite.scale.set(startScale);
+    const startAlpha = opts.startAlpha ?? 0.95;
+    sprite.alpha = startAlpha;
+    sprite.blendMode = opts.blendMode ?? 'normal';
+    this.fxContainer.addChild(sprite);
+    const life = opts.life ?? 0.5;
+    this.vfxParticles.push({
+      sprite,
+      vx: opts.vx ?? 0,
+      vy: opts.vy ?? 0,
+      rotSpeed: opts.rotSpeed ?? 0,
+      startScale,
+      endScale: opts.endScale ?? startScale * 0.4,
+      startAlpha,
+      life,
+      maxLife: life,
+    });
+  }
+
+  private spawnShieldBreakParticles(sx: number, sy: number, isOrange: boolean): void {
+    const atlasKey = isOrange
+      ? '/assets/textures/arenas/t_ubeambreak.png'
+      : '/assets/textures/arenas/t_beambreak.png';
+    const frames = this.vfxAtlasFrames.get(atlasKey);
+    if (!frames || frames.length === 0) return;
+    const count = 6;
+    for (let k = 0; k < count; k++) {
+      const angle = (k / count) * Math.PI * 2 + (Math.random() - 0.5) * 0.45;
+      const speed = 170 + Math.random() * 140;
+      const tex = frames[k % frames.length];
+      this.spawnVfxParticle(tex, sx + Math.cos(angle) * 28, sy + Math.sin(angle) * 28, {
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        rotation: angle + Math.PI * 0.5,
+        rotSpeed: (Math.random() - 0.5) * 6,
+        startScale: isOrange ? 0.72 : 1.05,
+        endScale: isOrange ? 0.45 : 0.65,
+        startAlpha: 0.95,
+        life: 0.36,
+        blendMode: isOrange ? 'normal' : 'add',
+      });
+    }
+  }
+
+  private spawnCutImpactFx(sx: number, sy: number): void {
+    const cutTex = this.texturesCache.get('/assets/textures/arenas/t_guicutfx_c.png');
+    this.spawnVfxParticle(cutTex, sx, sy, {
+      rotation: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 2.5,
+      startScale: 0.45,
+      endScale: 1.05,
+      startAlpha: 0.95,
+      life: 0.22,
+      blendMode: 'add',
+    });
+    const starTex = this.texturesCache.get('/assets/textures/arenas/t_fx_uberbeam_c.png');
+    for (let k = 0; k < 4; k++) {
+      const a = Math.random() * Math.PI * 2;
+      const sp = 110 + Math.random() * 110;
+      this.spawnVfxParticle(starTex, sx, sy, {
+        vx: Math.cos(a) * sp,
+        vy: Math.sin(a) * sp,
+        rotation: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 6,
+        startScale: 0.65,
+        endScale: 0.2,
+        startAlpha: 0.95,
+        life: 0.42,
+      });
+    }
+  }
+
+  private spawnBounceSparks(sx: number, sy: number): void {
+    const frames = this.vfxAtlasFrames.get('/assets/textures/arenas/t_glissparticules_c.png');
+    if (!frames || frames.length === 0) return;
+    for (let k = 0; k < 2; k++) {
+      const a = Math.random() * Math.PI * 2;
+      const sp = 60 + Math.random() * 70;
+      this.spawnVfxParticle(frames[Math.floor(Math.random() * frames.length)], sx, sy, {
+        vx: Math.cos(a) * sp,
+        vy: Math.sin(a) * sp,
+        rotation: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 4,
+        startScale: 0.65,
+        endScale: 0.95,
+        startAlpha: 0.85,
+        life: 0.26,
+        blendMode: 'add',
+      });
+    }
   }
 
   private stepClientTick(): void {
@@ -1974,24 +2153,54 @@ export class RotasticWebClient {
           .stroke({ color: 0xf97316, width: 6 * (1 - prog * 0.6), alpha: (1 - prog) * 0.9 });
       }
 
-      // Inner Orange Trick/Mass Aura (c2): sits inside outer bubble (frame_000041_f000473.png)
+      // Inner Orange Trick/Mass Aura (c2) + continuous star particle trail (`CPlayerUberBeamFeedback2` @ 0x0053E311)
       if (p.chargeGauge2 >= 1.0) {
         this.ropesGraphics
           .circle(sx, sy, 64)
-          .fill({ color: 0xf97316, alpha: 0.22 })
-          .stroke({ color: 0xf97316, width: 7, alpha: 0.92 });
-      } else if (p.chargeGauge2 > 0.02) {
-        drawArc(
-          this.ropesGraphics,
-          sx,
-          sy,
-          64,
-          -Math.PI * 0.5,
-          -Math.PI * 0.5 + p.chargeGauge2 * Math.PI * 2,
-          0xf97316,
-          6,
-          0.92
-        );
+          .fill({ color: 0xf97316, alpha: 0.2 })
+          .stroke({ color: 0xf97316, width: 7, alpha: 0.95 });
+        this.ropesGraphics
+          .circle(sx, sy, 60)
+          .stroke({ color: 0xfde047, width: 3.5, alpha: 0.65 });
+
+        this.orangeTrailSpawnAcc[i] += dt;
+        const starTex = this.texturesCache.get('/assets/textures/arenas/t_fx_uberbeam_c.png');
+        while (this.orangeTrailSpawnAcc[i] >= 0.025) {
+          this.orangeTrailSpawnAcc[i] -= 0.025;
+          const jitterA = Math.random() * Math.PI * 2;
+          const jitterR = Math.random() * 28;
+          const scale = 0.45 + Math.random() * 0.3;
+          this.spawnVfxParticle(
+            starTex,
+            sx + Math.cos(jitterA) * jitterR,
+            sy + Math.sin(jitterA) * jitterR,
+            {
+              vx: -p.vx * 0.06 + (Math.random() - 0.5) * 52,
+              vy: -p.vy * 0.06 - 24 + (Math.random() - 0.5) * 44,
+              rotation: Math.random() * Math.PI * 2,
+              rotSpeed: (Math.random() - 0.5) * 5,
+              startScale: scale,
+              endScale: scale * 0.35,
+              startAlpha: 0.95,
+              life: 0.5 + Math.random() * 0.22,
+            }
+          );
+        }
+      } else {
+        this.orangeTrailSpawnAcc[i] = 0;
+        if (p.chargeGauge2 > 0.02) {
+          drawArc(
+            this.ropesGraphics,
+            sx,
+            sy,
+            64,
+            -Math.PI * 0.5,
+            -Math.PI * 0.5 + p.chargeGauge2 * Math.PI * 2,
+            0xf97316,
+            6,
+            0.92
+          );
+        }
       }
 
       // Outer Protection Shield / Cooldown Crescent (c1 @ +0xD48, CPlayerBeamFeedback @ 0x00535D30):
@@ -2027,7 +2236,25 @@ export class RotasticWebClient {
       lbl.y = sy - 88;
     }
 
-    // 4. Update Floating Score / Event Popups
+    // 4. Update VFX Sprite Particles (orange star trail, shield break shards, cut starbursts, bounce sparks)
+    for (let i = this.vfxParticles.length - 1; i >= 0; i--) {
+      const vp = this.vfxParticles[i];
+      vp.life -= dt;
+      if (vp.life <= 0) {
+        this.fxContainer.removeChild(vp.sprite);
+        vp.sprite.destroy();
+        this.vfxParticles.splice(i, 1);
+        continue;
+      }
+      const prog = 1 - vp.life / vp.maxLife;
+      vp.sprite.x += vp.vx * dt;
+      vp.sprite.y += vp.vy * dt;
+      vp.sprite.rotation += vp.rotSpeed * dt;
+      vp.sprite.scale.set(vp.startScale + (vp.endScale - vp.startScale) * prog);
+      vp.sprite.alpha = vp.startAlpha * Math.max(0, vp.life / vp.maxLife);
+    }
+
+    // 5. Update Floating Score / Event Popups
     for (let i = this.floatingEffects.length - 1; i >= 0; i--) {
       const fx = this.floatingEffects[i];
       fx.life -= dt;
