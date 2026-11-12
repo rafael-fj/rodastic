@@ -69,6 +69,8 @@ export class RoomSession {
   private nextSeq = 1;
   private countdownTimer = 0;
   private botInputSeq = 1;
+  private loadingMapTimeout: NodeJS.Timeout | null = null;
+  public matchStartDelay = 0;
 
   constructor(roomCode: string) {
     this.roomCode = roomCode;
@@ -460,7 +462,12 @@ export class RoomSession {
   }
 
   public startMatchSimulation(): void {
+    if (this.loadingMapTimeout) {
+      clearTimeout(this.loadingMapTimeout);
+      this.loadingMapTimeout = null;
+    }
     this.sessionState = OnlineSessionState.IN_GAME;
+    this.matchStartDelay = 2.4;
     this.readyMask1 = 0;
     this.readyMask2 = 0;
     this.readyMask3 = 0;
@@ -531,17 +538,24 @@ export class RoomSession {
           );
           this.sendBinary(c.ws, adv);
         }
-        // Also start match immediately after 0.25s if map assets are already cached
-        setTimeout(() => {
+        this.broadcastLobbyState();
+
+        // Safety fallback: if a client freezes or disconnects without socket event, start after 25s
+        if (this.loadingMapTimeout) clearTimeout(this.loadingMapTimeout);
+        this.loadingMapTimeout = setTimeout(() => {
           if (this.sessionState === OnlineSessionState.LOADING_MAP) {
             this.startMatchSimulation();
           }
-        }, 250);
+        }, 25000);
       }
       return;
     }
 
     if (this.sessionState !== OnlineSessionState.IN_GAME) return;
+
+    if (this.matchStartDelay > 0) {
+      this.matchStartDelay = Math.max(0, this.matchStartDelay - C.FIXED_DT);
+    }
 
     // Gather inputs for all 4 slots (consume 1 queued client input per tick to avoid burst drops)
     const inputs: Record<number, PlayerInputCommand> = {};
@@ -552,6 +566,12 @@ export class RoomSession {
     for (const p of this.sim.state.players) {
       if (p.active && p.isBot) {
         inputs[p.slotIndex] = this.sim.computeBotInput(p.slotIndex, this.botInputSeq);
+      }
+    }
+
+    if (this.matchStartDelay > 0) {
+      for (const slotIdx in inputs) {
+        inputs[slotIdx] = { ...inputs[slotIdx], actionHeld: false };
       }
     }
 

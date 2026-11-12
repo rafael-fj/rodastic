@@ -385,6 +385,14 @@ export class RotasticWebClient {
   private hostReturnMenuBtn = document.getElementById('btn-host-return-menu') as HTMLButtonElement | null;
   private modalOverlayEl = document.getElementById('modal-overlay')!;
   private loadingScreenEl = document.getElementById('loading-screen') as HTMLElement | null;
+  private matchCountdownOverlayEl = document.getElementById('match-countdown') as HTMLElement | null;
+  private matchCountdownTextEl = document.getElementById('match-countdown-text') as HTMLElement | null;
+
+  // Match asset loading & countdown
+  private mapLoadAckSent = false;
+  private isHandlingMapLoading = false;
+  private isMatchCountdownActive = false;
+  private countdownTimeouts: number[] = [];
 
   private roomCode: string;
   private playerName: string;
@@ -972,12 +980,13 @@ export class RotasticWebClient {
 
   private sampleLocalInput(): PlayerInputCommand {
     const actionHeld =
-      this.pointerDown ||
-      this.keysDown.has('Space') ||
-      this.keysDown.has('KeyW') ||
-      this.keysDown.has('ArrowUp') ||
-      this.keysDown.has('KeyJ') ||
-      this.keysDown.has('Enter');
+      !this.isMatchCountdownActive &&
+      (this.pointerDown ||
+        this.keysDown.has('Space') ||
+        this.keysDown.has('KeyW') ||
+        this.keysDown.has('ArrowUp') ||
+        this.keysDown.has('KeyJ') ||
+        this.keysDown.has('Enter'));
 
     const reverseHeld =
       this.rightPointerDown ||
@@ -1119,22 +1128,14 @@ export class RotasticWebClient {
       void this.ensureMapBackgrounds(this.lobbyState.config.mapId);
 
       if (this.lobbyState.sessionState === OnlineSessionState.LOADING_MAP) {
-        this.showLoadingScreen(true, 'Carregando arena e sincronizando jogadores...');
-        // Confirm Barrier 1 (Map Loaded)
-        const ack = encodeAppControlMessage(
-          this.nextSeq(),
-          this.peerId,
-          0,
-          AppMessageSubType.CLIENT_READY_PHASE_ACK,
-          { phaseCode: BarrierPhaseCode.MAP_LOADED, ready: true }
-        );
-        this.ws?.send(ack);
+        void this.handleLoadingMapPhase(this.lobbyState.config.mapId);
       }
 
       if (
         this.lobbyState.sessionState === OnlineSessionState.IN_GAME &&
         prevState !== OnlineSessionState.IN_GAME
       ) {
+        this.mapLoadAckSent = false;
         this.showLoadingScreen(false);
         this.standings = [];
         this.showLobbyOverlay = false;
@@ -1143,14 +1144,14 @@ export class RotasticWebClient {
         this.halfTimeAnnounced = false;
         this.nearEndAnnounced = false;
         this.lastGapAnnouncedScore = -1;
-        this.audio.play('gong', 0.55, 0.02);
-        this.audio.playAnnouncer('match_start', 0);
-        this.audio.setBgm(getMultiplayerMapById(this.lobbyState.config.mapId).bgmTrack);
+        this.startMatchCountdown();
       } else if (
         this.lobbyState.sessionState === OnlineSessionState.LOBBY_OPEN &&
         (prevState === OnlineSessionState.POST_MATCH_STANDINGS ||
           prevState === OnlineSessionState.IN_GAME)
       ) {
+        this.mapLoadAckSent = false;
+        this.clearMatchCountdown();
         this.showLoadingScreen(false);
         this.standings = [];
         this.showLobbyOverlay = true;
@@ -1158,6 +1159,8 @@ export class RotasticWebClient {
       }
 
       if (this.lobbyState.sessionState === OnlineSessionState.POST_MATCH_STANDINGS) {
+        this.mapLoadAckSent = false;
+        this.clearMatchCountdown();
         this.showLoadingScreen(false);
         this.audio.setBgm('bgm_syl_menu');
       }
@@ -1170,16 +1173,7 @@ export class RotasticWebClient {
     if (subType === AppMessageSubType.HOST_PHASE_ADVANCE_CMD) {
       const targetPhase = Number(payload.targetPhase ?? 0) as BarrierPhaseCode;
       if (targetPhase === BarrierPhaseCode.LOBBY_READY) {
-        this.showLoadingScreen(true, 'Sincronizando arena com todos os jogadores...');
-        // Server transitioned to LOADING_MAP; reply immediately with MAP_LOADED ack
-        const ack = encodeAppControlMessage(
-          this.nextSeq(),
-          this.peerId,
-          0,
-          AppMessageSubType.CLIENT_READY_PHASE_ACK,
-          { phaseCode: BarrierPhaseCode.MAP_LOADED, ready: true }
-        );
-        this.ws?.send(ack);
+        void this.handleLoadingMapPhase(this.lobbyState?.config.mapId ?? 'w_multi_dm_lvl09');
       } else if (targetPhase === BarrierPhaseCode.MAP_LOADED) {
         this.showLobbyOverlay = false;
         this.renderModalOverlay();
@@ -1187,6 +1181,8 @@ export class RotasticWebClient {
         targetPhase === BarrierPhaseCode.POST_MATCH_ACK &&
         Number(payload.sessionState ?? 0) === OnlineSessionState.LOBBY_OPEN
       ) {
+        this.mapLoadAckSent = false;
+        this.clearMatchCountdown();
         this.showLoadingScreen(false);
         this.standings = [];
         this.showLobbyOverlay = true;
@@ -1205,6 +1201,7 @@ export class RotasticWebClient {
 
   private sendHostReturnToLobby(): void {
     if (!this.lobbyState || this.peerId !== this.lobbyState.leaderPeerId) return;
+    this.clearMatchCountdown();
     this.audio.play('confirm');
     const pkt = encodeAppControlMessage(
       this.nextSeq(),
@@ -2730,6 +2727,152 @@ export class RotasticWebClient {
         }
       }, 250);
     }
+  }
+
+  private async ensureMatchAssetsLoaded(mapId: string): Promise<void> {
+    // 1. Ensure all map backgrounds and actor props are loaded
+    await this.ensureMapBackgrounds(mapId);
+
+    // 2. Ensure all active players' character and color textures are loaded
+    const charUrls = new Set<string>();
+    const allStates = ['idle', 'swing', 'fly', 'fall', 'hit', 'win', 'loose', 'dash', 'death', 'faint'];
+    if (this.lobbyState) {
+      for (const slot of this.lobbyState.slots) {
+        if (!slot.occupied) continue;
+        const c = slot.colorId;
+        const ch = slot.characterId;
+        for (const st of allStates) {
+          charUrls.add(`/assets/textures/global/t_character_${c}_${ch}_${st}_c.png`);
+        }
+      }
+    }
+    // Also include essential global textures
+    charUrls.add('/assets/textures/global/t_accroche01_c.png');
+    charUrls.add('/assets/textures/global/t_corde_c.png');
+    charUrls.add('/assets/textures/global/t_cordebeam_c.png');
+    charUrls.add('/assets/textures/global/t_cordeuberbeam_c.png');
+    charUrls.add('/assets/textures/arenas/t_guicouronne_c.png');
+
+    await this.loadTextureUrls(charUrls);
+
+    // 3. Audio preload
+    this.audio.preloadAll();
+  }
+
+  private async handleLoadingMapPhase(mapId: string): Promise<void> {
+    if (this.mapLoadAckSent || this.isHandlingMapLoading) return;
+    this.isHandlingMapLoading = true;
+    this.showLoadingScreen(true, 'Carregando arena e personagens...');
+    try {
+      await this.ensureMatchAssetsLoaded(mapId);
+      this.showLoadingScreen(true, 'Pronto! Sincronizando jogadores...');
+      this.mapLoadAckSent = true;
+      const ack = encodeAppControlMessage(
+        this.nextSeq(),
+        this.peerId,
+        0,
+        AppMessageSubType.CLIENT_READY_PHASE_ACK,
+        { phaseCode: BarrierPhaseCode.MAP_LOADED, ready: true }
+      );
+      this.ws?.send(ack);
+    } catch (err) {
+      console.error('Error preloading match assets:', err);
+      this.mapLoadAckSent = true;
+      const ack = encodeAppControlMessage(
+        this.nextSeq(),
+        this.peerId,
+        0,
+        AppMessageSubType.CLIENT_READY_PHASE_ACK,
+        { phaseCode: BarrierPhaseCode.MAP_LOADED, ready: true }
+      );
+      this.ws?.send(ack);
+    } finally {
+      this.isHandlingMapLoading = false;
+    }
+  }
+
+  private clearMatchCountdown(): void {
+    for (const t of this.countdownTimeouts) {
+      window.clearTimeout(t);
+    }
+    this.countdownTimeouts = [];
+    this.isMatchCountdownActive = false;
+    if (!this.matchCountdownOverlayEl) {
+      this.matchCountdownOverlayEl = document.getElementById('match-countdown') as HTMLElement | null;
+    }
+    if (this.matchCountdownOverlayEl) {
+      this.matchCountdownOverlayEl.style.display = 'none';
+    }
+  }
+
+  private startMatchCountdown(): void {
+    this.clearMatchCountdown();
+    this.isMatchCountdownActive = true;
+    if (!this.matchCountdownOverlayEl) {
+      this.matchCountdownOverlayEl = document.getElementById('match-countdown') as HTMLElement | null;
+    }
+    if (!this.matchCountdownTextEl) {
+      this.matchCountdownTextEl = document.getElementById('match-countdown-text') as HTMLElement | null;
+    }
+    if (!this.matchCountdownOverlayEl || !this.matchCountdownTextEl) return;
+
+    const overlay = this.matchCountdownOverlayEl;
+    const textEl = this.matchCountdownTextEl;
+    overlay.style.display = 'flex';
+
+    // Start background music immediately to build anticipation
+    if (this.lobbyState) {
+      this.audio.setBgm(getMultiplayerMapById(this.lobbyState.config.mapId).bgmTrack);
+    }
+
+    const triggerStep = (label: string, isGo: boolean) => {
+      textEl.textContent = label;
+      textEl.classList.toggle('go', isGo);
+      textEl.style.animation = 'none';
+      void textEl.offsetWidth; // Force reflow
+      textEl.style.animation = isGo
+        ? 'countdownPopGo 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+        : 'countdownPop 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+
+      if (!isGo) {
+        this.audio.play('confirm', 0.85);
+      } else {
+        this.audio.play('gong', 0.65);
+        this.audio.playAnnouncer('match_start', 0);
+      }
+    };
+
+    // "3"
+    triggerStep('3', false);
+
+    // "2" at 0.75s
+    this.countdownTimeouts.push(
+      window.setTimeout(() => {
+        triggerStep('2', false);
+      }, 750)
+    );
+
+    // "1" at 1.5s
+    this.countdownTimeouts.push(
+      window.setTimeout(() => {
+        triggerStep('1', false);
+      }, 1500)
+    );
+
+    // "GO!" at 2.25s
+    this.countdownTimeouts.push(
+      window.setTimeout(() => {
+        this.isMatchCountdownActive = false; // Drop action unlocked!
+        triggerStep('GO!', true);
+      }, 2250)
+    );
+
+    // Dismiss overlay at 3.1s
+    this.countdownTimeouts.push(
+      window.setTimeout(() => {
+        overlay.style.display = 'none';
+      }, 3100)
+    );
   }
 
   private renderModalOverlay(): void {
