@@ -201,6 +201,7 @@ export class RotasticWebClient {
   private ropesGraphics = new Graphics();
   private pickupsContainer = new Container();
   private pivotsContainer = new Container();
+  private pivotFeedbackGraphics = new Graphics();
   private playersContainer = new Container();
   private fxContainer = new Container();
 
@@ -265,6 +266,9 @@ export class RotasticWebClient {
     this.bgContainer.sortableChildren = true;
     this.arenaBehindContainer.sortableChildren = true;
     this.propsContainer.sortableChildren = true;
+    this.pivotsContainer.sortableChildren = true;
+    this.pivotFeedbackGraphics.zIndex = 0;
+    this.pivotsContainer.addChild(this.pivotFeedbackGraphics);
     this.app.stage.addChild(this.rootContainer);
     this.rootContainer.addChild(
       this.bgContainer,
@@ -1489,6 +1493,7 @@ export class RotasticWebClient {
 
     // 2. Dynamic Attach Points (Pivots) with animated ACTR aura/core & 90-deg target sector
     this.ropesGraphics.clear();
+    this.pivotFeedbackGraphics.clear();
     this.pivotsContainer.sortableChildren = true;
 
     const auraDef = getActorDef('o_accrocheaura');
@@ -1498,9 +1503,8 @@ export class RotasticWebClient {
 
     if (usePivotActors) {
       while (this.pivotAuraInstances.length < state.attachPoints.length) {
-        const k = this.pivotAuraInstances.length;
-        const apDef = map.attachPoints[k];
-        const coreActorDef = (apDef?.motion ? mobileCoreDef : staticCoreDef) ?? staticCoreDef!;
+        // Every Deathmatch package (including lvl13 sliding anchors) uses o_accroche (t_accroche01_c)
+        const coreActorDef = staticCoreDef ?? mobileCoreDef!;
         const aInst = new ActorInstance(auraDef!);
         aInst.container.zIndex = 1;
         const cInst = new ActorInstance(coreActorDef);
@@ -1573,7 +1577,7 @@ export class RotasticWebClient {
             y: ap.y,
             coordSpace: 'blitz',
             perspective: false,
-            alpha: 0.85,
+            alpha: 1.0,
           },
           resolveActorTex
         );
@@ -1605,7 +1609,8 @@ export class RotasticWebClient {
       }
 
       // Per-slot 90-deg quadrant wedge on pivot (`CAttachPointFeedback` @ 0x0052FD43 / 0x0056C61D):
-      // colored when player has grapple charge ready (c1>=1, c2>=1 or invuln), dimmed grey while on cooldown
+      // colored when player has grapple charge ready (c1>=1, c2>=1 or invuln), dimmed grey while on cooldown,
+      // rendered behind o_accrocheaura (zIndex=1) and o_accroche (zIndex=2)
       for (const [slotIdx, pid] of pivotTargetByPlayer.entries()) {
         if (pid !== ap.id) continue;
         const tp = state.players[slotIdx];
@@ -1613,10 +1618,10 @@ export class RotasticWebClient {
         const colHex = (PLAYER_COLORS[tp.colorId] ?? PLAYER_COLORS[0]).hex;
         const [startA, endA] = SLOT_QUADRANT_ANGLES[slotIdx % 4];
         const innerR = 16;
-        const outerR = canAttach ? 38 : 28;
+        const outerR = canAttach ? 44 : 30;
         const wedgeColor = canAttach ? colHex : 0x94a3b8;
-        const wedgeAlpha = canAttach ? 0.92 : 0.62;
-        this.ropesGraphics
+        const wedgeAlpha = canAttach ? 0.68 : 0.45;
+        this.pivotFeedbackGraphics
           .moveTo(px + Math.cos(startA) * outerR, py + Math.sin(startA) * outerR)
           .arc(px, py, outerR, startA, endA, false)
           .lineTo(px + Math.cos(endA) * innerR, py + Math.sin(endA) * innerR)
@@ -1624,7 +1629,7 @@ export class RotasticWebClient {
           .closePath()
           .fill({ color: wedgeColor, alpha: wedgeAlpha });
         if (!canAttach) {
-          this.ropesGraphics
+          this.pivotFeedbackGraphics
             .moveTo(px + Math.cos(startA) * (outerR - 3), py + Math.sin(startA) * (outerR - 3))
             .arc(px, py, outerR - 3, startA, endA, false)
             .lineTo(px + Math.cos(endA) * innerR, py + Math.sin(endA) * innerR)
