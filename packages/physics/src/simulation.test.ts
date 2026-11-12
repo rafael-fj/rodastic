@@ -1280,4 +1280,41 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     const events = sim.step({});
     expect(events.some((e) => e.type === 'bounce')).toBe(false);
   });
+
+  it('bounces reliably off Pillars (w_multi_dm_lvl11) on short ropes even at high omega (#47)', () => {
+    // 1. Center pivot short-rope high-omega spin into Prop006
+    const sim = new RotasticSimulation('w_multi_dm_lvl11');
+    sim.configurePlayerSlot(0, { active: true, name: 'P1' });
+    const p = sim.state.players[0];
+    const centerPivot = sim.state.attachPoints[0]; // (960, 540)
+    p.status = PlayerStatus.SWINGING;
+    p.invulnTimer = 0;
+    p.attachedPivotId = centerPivot.id;
+    p.ropeLength = 250; // hits Prop006 right edge (672.35 + 44 = 716.35 > 710)
+    p.ropeAngle = Math.PI * 0.5;
+    p.omega = 20.0;
+    p.x = centerPivot.x + Math.cos(p.ropeAngle) * p.ropeLength;
+    p.y = centerPivot.y + Math.sin(p.ropeAngle) * p.ropeLength;
+
+    let bounced = false;
+    for (let t = 1; t <= 60; t++) {
+      const evs = sim.step({ 0: { seq: t, actionHeld: true, axisX: 0, axisY: 0 } });
+      if (evs.some((e) => e.type === 'bounce' && e.slotIndex === 0)) {
+        bounced = true;
+        break;
+      }
+    }
+    expect(bounced).toBe(true);
+    expect(p.omega).toBeLessThan(0);
+
+    // 2. Overlap recovery (!startClear) at r=260 pushes cleanly outside Prop006 clearance
+    p.ropeLength = 260;
+    p.ropeAngle = Math.PI - 0.12;
+    p.omega = 6.0;
+    p.x = centerPivot.x + Math.cos(p.ropeAngle) * p.ropeLength; // ~701.9, overlapping 716.35 while moving left
+    p.y = centerPivot.y + Math.sin(p.ropeAngle) * p.ropeLength;
+    const evs2 = sim.step({ 0: { seq: 61, actionHeld: true, axisX: 0, axisY: 0 } });
+    expect(evs2.some((e) => e.type === 'bounce' && e.slotIndex === 0)).toBe(true);
+    expect(p.x).toBeGreaterThanOrEqual(653.6 + 18.75 + C.PLAYER_RADIUS - 0.1);
+  });
 });

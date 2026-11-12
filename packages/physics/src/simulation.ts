@@ -1494,7 +1494,7 @@ export class RotasticSimulation {
             const tx = -Math.sin(candAngle);
             const ty = Math.cos(candAngle);
             const outDir = tx * bestHit.nx + ty * bestHit.ny >= 0 ? 1 : -1;
-            for (let s = 0; s < 16; s++) {
+            for (let s = 0; s < 32; s++) {
               const testAng = candAngle + outDir * s * 0.02;
               const testX = pivot.x + Math.cos(testAng) * r;
               const testY = pivot.y + Math.sin(testAng) * r;
