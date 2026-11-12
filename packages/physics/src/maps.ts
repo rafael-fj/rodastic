@@ -504,8 +504,8 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
     ],
     switchDef: {
       name: 'PST_MecaSwitch',
-      x: 1838,
-      y: 585,
+      x: 1920,
+      y: 540,
       radius: 110,
     },
     vortices: [],
