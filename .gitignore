@@ -24,11 +24,7 @@ __pycache__/
 Thumbs.db
 Desktop.ini
 
-# Capturas locais de runtime e screenshots frame-a-frame
-reference/captures/*
-!reference/captures/.gitkeep
-
-# Pacote global >300MB (hidratado via Steam local ou GitHub Release privada pelo bootstrap)
-reference/game-files/packages/w_global.pc
-reference/game-files/packages/w_global.pc.7z
+# Arquivos locais de engenharia reversa, capturas e arquivo morto (nao versionados)
+reference/
+archive/
 
