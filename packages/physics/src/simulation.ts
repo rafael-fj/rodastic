@@ -10,6 +10,7 @@ import {
 import {
   evaluateWaypointMotion,
   getMultiplayerMapById,
+  getWaypointMotionDuration,
   MultiplayerMapDef,
 } from './maps.js';
 
@@ -135,6 +136,8 @@ export interface WorldSimState {
   activeWaveGroup: number;
   switchReversed: boolean;
   switchCooldownSec: number;
+  activeSwitchWallId: number;
+  activeSwitchElapsedSec: number;
   players: PlayerSimState[];
   attachPoints: AttachPointSimState[];
   pickups: PickupSimState[];
@@ -528,6 +531,8 @@ export class RotasticSimulation {
       activeWaveGroup: 0,
       switchReversed: false,
       switchCooldownSec: 0,
+      activeSwitchWallId: -1,
+      activeSwitchElapsedSec: 0,
       players,
       attachPoints,
       pickups,
@@ -631,6 +636,7 @@ export class RotasticSimulation {
     let best: { id: number; x: number; y: number; dist: number } | null = null;
     let bestDistSq = maxRange * maxRange;
     for (const ap of this.state.attachPoints) {
+      if (ap.x < 0 || ap.x > C.ARENA_WIDTH || ap.y < 0 || ap.y > C.TOP_CEILING_Y) continue;
       const dx = x - ap.x;
       const dy = y - ap.y;
       const dSq = dx * dx + dy * dy;
@@ -769,6 +775,19 @@ export class RotasticSimulation {
       this.state.switchCooldownSec = Math.max(0, this.state.switchCooldownSec - dt);
     }
 
+    if (this.state.activeSwitchWallId !== -1) {
+      this.state.activeSwitchElapsedSec += dt;
+      const activeDef = this.map.walls.find((w) => w.id === this.state.activeSwitchWallId);
+      const totalDur =
+        activeDef?.motion?.kind === 'waypoints' ? getWaypointMotionDuration(activeDef.motion) : 0;
+      if (!activeDef || this.state.activeSwitchElapsedSec >= totalDur) {
+        this.state.activeSwitchWallId = -1;
+        this.state.activeSwitchElapsedSec = 0;
+        this.state.switchReversed = false;
+        this.state.switchCooldownSec = 0;
+      }
+    }
+
     for (let i = 0; i < this.map.attachPoints.length; i++) {
       const def = this.map.attachPoints[i];
       const st = this.state.attachPoints[i];
@@ -795,10 +814,20 @@ export class RotasticSimulation {
         if (def.motion.kind === 'rotate') {
           st.rotRad = ((def.rotDeg + def.motion.degPerSec * this.state.elapsedSec) * Math.PI) / 180;
         } else if (def.motion.kind === 'waypoints') {
-          const reverse = Boolean(def.motion.switchControlled && this.state.switchReversed);
-          const pos = evaluateWaypointMotion(def.motion, this.state.elapsedSec, reverse);
-          st.cx = pos.x;
-          st.cy = pos.y;
+          if (def.motion.switchControlled) {
+            if (st.id === this.state.activeSwitchWallId) {
+              const pos = evaluateWaypointMotion(def.motion, this.state.activeSwitchElapsedSec, false);
+              st.cx = pos.x;
+              st.cy = pos.y;
+            } else {
+              st.cx = def.motion.points[0]?.x ?? def.cx;
+              st.cy = def.motion.points[0]?.y ?? def.cy;
+            }
+          } else {
+            const pos = evaluateWaypointMotion(def.motion, this.state.elapsedSec, false);
+            st.cx = pos.x;
+            st.cy = pos.y;
+          }
         }
       }
     }
@@ -1177,13 +1206,26 @@ export class RotasticSimulation {
 
   private checkWallsAndBounds(p: PlayerSimState, prevX: number, prevY: number): void {
     // 1. Optional arena frog lever switch (PST_MecaSwitch in w_multi_dm_lvl04)
-    if (this.map.switchDef && this.state.switchCooldownSec <= 0) {
+    if (this.map.switchDef && this.state.switchCooldownSec <= 0 && this.state.activeSwitchWallId === -1) {
       const sw = this.map.switchDef;
       const distSq = (p.x - sw.x) ** 2 + (p.y - sw.y) ** 2;
       const hitR = sw.radius + C.PLAYER_RADIUS;
       if (distSq <= hitR * hitR) {
-        this.state.switchReversed = !this.state.switchReversed;
-        this.state.switchCooldownSec = 2.0;
+        const switchWalls = this.map.walls.filter(
+          (w) => w.motion?.kind === 'waypoints' && w.motion.switchControlled
+        );
+        if (switchWalls.length > 0) {
+          const seed = ((this.state.tick * 1103515245 + 12345 + p.slotIndex * 2654435761) >>> 16) >>> 0;
+          const chosen = switchWalls[seed % switchWalls.length];
+          this.state.activeSwitchWallId = chosen.id;
+          this.state.activeSwitchElapsedSec = 0;
+          this.state.switchReversed = true;
+          this.state.switchCooldownSec =
+            chosen.motion?.kind === 'waypoints' ? getWaypointMotionDuration(chosen.motion) : 2.0;
+        } else {
+          this.state.switchReversed = !this.state.switchReversed;
+          this.state.switchCooldownSec = 2.0;
+        }
         this.awardOrangeTrick(p, C.ORANGE_CHARGE_STEP, 'Switch!', sw.x, sw.y);
         this.events.push({ type: 'switchtoggle', slotIndex: p.slotIndex, x: sw.x, y: sw.y });
       }

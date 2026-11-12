@@ -976,4 +976,93 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
       lastX = nextX;
     }
   });
+
+  it('triggers only 1 of 4 saws per switch press in lvl04 and runs FlowGraph exit/return schedule in lvl13 (#33)', () => {
+    // 1. w_multi_dm_lvl04: All 4 saws stay parked off-screen until switch is hit, then 1 sweeps once & re-arms
+    const sim04 = new RotasticSimulation('w_multi_dm_lvl04');
+    sim04.configurePlayerSlot(0, { active: true, name: 'P1' });
+    const p04 = sim04.state.players[0];
+    p04.status = PlayerStatus.FREE_FALL;
+    p04.x = 960;
+    p04.y = 540;
+
+    for (let i = 1; i <= 300; i++) {
+      sim04.step({ 0: { seq: i, actionHeld: false, axisX: 0, axisY: 0 } }, C.FIXED_DT);
+    }
+    const sawsBefore = sim04.state.walls.filter((w) => w.name.startsWith('Scie'));
+    expect(sawsBefore.length).toBe(4);
+    for (const saw of sawsBefore) {
+      expect(saw.cx < 0 || saw.cx > C.ARENA_WIDTH).toBe(true);
+    }
+    expect(sim04.state.activeSwitchWallId).toBe(-1);
+
+    // Hit PST_MecaSwitch at (1890, 540)
+    p04.status = PlayerStatus.FREE_FALL;
+    p04.invulnTimer = 0;
+    p04.x = 1885;
+    p04.y = 540;
+    p04.vx = 0;
+    p04.vy = 0;
+    const hitEvents = sim04.step({ 0: { seq: 301, actionHeld: false, axisX: 0, axisY: 0 } }, C.FIXED_DT);
+    expect(hitEvents.some((e) => e.type === 'switchtoggle')).toBe(true);
+    const activeId = sim04.state.activeSwitchWallId;
+    expect(activeId).toBeGreaterThanOrEqual(3);
+
+    // Step 4s into sweep: ONLY the 1 chosen saw enters the arena; other 3 remain parked off-screen
+    for (let i = 302; i <= 541; i++) {
+      p04.x = 1885; // Keep touching switch: must NOT spawn a 2nd saw while active
+      p04.y = 540;
+      p04.vx = 0;
+      p04.vy = 0;
+      sim04.step({ 0: { seq: i, actionHeld: false, axisX: 0, axisY: 0 } }, C.FIXED_DT);
+    }
+    const activeSawMid = sim04.state.walls.find((w) => w.id === activeId)!;
+    expect(activeSawMid.cx).toBeGreaterThan(0);
+    expect(activeSawMid.cx).toBeLessThan(C.ARENA_WIDTH);
+    for (const w of sim04.state.walls) {
+      if (w.name.startsWith('Scie') && w.id !== activeId) {
+        expect(w.cx < 0 || w.cx > C.ARENA_WIDTH).toBe(true);
+      }
+    }
+
+    // Complete remaining 20.5s of 24.2s sweep -> saw parks off-screen and switch resets
+    for (let i = 542; i <= 1780; i++) {
+      sim04.step({ 0: { seq: i, actionHeld: false, axisX: 0, axisY: 0 } }, C.FIXED_DT);
+    }
+    expect(sim04.state.activeSwitchWallId).toBe(-1);
+    expect(sim04.state.switchReversed).toBe(false);
+    expect(activeSawMid.cx < 0 || activeSawMid.cx > C.ARENA_WIDTH).toBe(true);
+
+    // 2. w_multi_dm_lvl13: Anchors stay stationary for 5.0s, A1/A2 exit off-screen at 7.5s, return at 14.5s
+    const sim13 = new RotasticSimulation('w_multi_dm_lvl13');
+    sim13.configurePlayerSlot(0, { active: true, name: 'P1' });
+
+    // At 4.5s (270 ticks): all 4 sliding anchors stationary at home positions
+    for (let i = 1; i <= 270; i++) {
+      sim13.step({ 0: { seq: i, actionHeld: false, axisX: 0, axisY: 0 } }, C.FIXED_DT);
+    }
+    expect(sim13.state.attachPoints[0].x).toBeCloseTo(1620, 1);
+    expect(sim13.state.attachPoints[1].x).toBeCloseTo(500, 1);
+    expect(sim13.state.attachPoints[2].x).toBeCloseTo(1420, 1);
+    expect(sim13.state.attachPoints[3].x).toBeCloseTo(300, 1);
+
+    // At 8.0s (480 ticks): A1 (2220) & A2 (-100) are off-screen & ungrappleable; A3 & A4 still home
+    for (let i = 271; i <= 480; i++) {
+      sim13.step({ 0: { seq: i, actionHeld: false, axisX: 0, axisY: 0 } }, C.FIXED_DT);
+    }
+    expect(sim13.state.attachPoints[0].x).toBeCloseTo(2220, 1);
+    expect(sim13.state.attachPoints[1].x).toBeCloseTo(-100, 1);
+    expect(sim13.state.attachPoints[2].x).toBeCloseTo(1420, 1);
+    expect(sim13.state.attachPoints[3].x).toBeCloseTo(300, 1);
+    expect(sim13.findNearestAttachPoint(1880, 780, 400)).toBeNull();
+    expect(sim13.findNearestAttachPoint(1880, 780, C.ROPE_ATTACH_RANGE)?.id).not.toBe(0);
+
+    // At 15.0s (900 ticks): A1 & A2 have returned to home positions
+    for (let i = 481; i <= 900; i++) {
+      sim13.step({ 0: { seq: i, actionHeld: false, axisX: 0, axisY: 0 } }, C.FIXED_DT);
+    }
+    expect(sim13.state.attachPoints[0].x).toBeCloseTo(1620, 1);
+    expect(sim13.state.attachPoints[1].x).toBeCloseTo(500, 1);
+    expect(sim13.findNearestAttachPoint(1620, 780, C.ROPE_ATTACH_RANGE)?.id).toBe(0);
+  });
 });

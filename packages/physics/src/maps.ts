@@ -1,9 +1,19 @@
 import { GameModeId, GemType, WallType } from './constants.js';
 
+export interface WaypointPoint {
+  x: number;
+  y: number;
+  durationSec: number;
+  /** Optional 8Hz warning shake amplitude (px) while parked at this waypoint (lvl13 FlowGraph). */
+  shakeAmpPx?: number;
+}
+
 export interface WaypointMotion {
   kind: 'waypoints';
-  points: Array<{ x: number; y: number; durationSec: number }>;
+  points: WaypointPoint[];
   switchControlled?: boolean;
+  /** Runs once from points[0]..last->points[0] and parks at points[0] instead of looping. */
+  oneShot?: boolean;
 }
 
 export interface RotateMotion {
@@ -123,8 +133,16 @@ const DEFAULT_TOP_SPAWNS = [
   { x: 1536, y: 1080 },
 ];
 
+export function getWaypointMotionDuration(motion: WaypointMotion): number {
+  let totalDur = 0;
+  for (let i = 0; i < motion.points.length; i++) {
+    totalDur += Math.max(0.05, motion.points[i].durationSec);
+  }
+  return totalDur;
+}
+
 /**
- * Evaluate looping waypoint interpolation at time `tSec`.
+ * Evaluate looping or one-shot waypoint interpolation at time `tSec`.
  */
 export function evaluateWaypointMotion(
   motion: WaypointMotion,
@@ -135,13 +153,18 @@ export function evaluateWaypointMotion(
   if (pts.length === 0) return { x: 0, y: 0 };
   if (pts.length === 1) return { x: pts[0].x, y: pts[0].y };
 
-  let totalDur = 0;
-  for (let i = 0; i < pts.length; i++) {
-    totalDur += Math.max(0.05, pts[i].durationSec);
-  }
-  let elapsed = ((tSec % totalDur) + totalDur) % totalDur;
-  if (reverse) {
-    elapsed = (totalDur - elapsed) % totalDur;
+  const totalDur = getWaypointMotionDuration(motion);
+  let elapsed: number;
+  if (motion.oneShot) {
+    if (tSec <= 0 || tSec >= totalDur) {
+      return { x: pts[0].x, y: pts[0].y };
+    }
+    elapsed = reverse ? totalDur - tSec : tSec;
+  } else {
+    elapsed = ((tSec % totalDur) + totalDur) % totalDur;
+    if (reverse) {
+      elapsed = (totalDur - elapsed) % totalDur;
+    }
   }
 
   for (let i = 0; i < pts.length; i++) {
@@ -150,10 +173,12 @@ export function evaluateWaypointMotion(
     const segDur = Math.max(0.05, a.durationSec);
     if (elapsed <= segDur) {
       const alpha = elapsed / segDur;
-      return {
-        x: a.x + (b.x - a.x) * alpha,
-        y: a.y + (b.y - a.y) * alpha,
-      };
+      let x = a.x + (b.x - a.x) * alpha;
+      const y = a.y + (b.y - a.y) * alpha;
+      if (a.shakeAmpPx && a.x === b.x && a.y === b.y) {
+        x += Math.sin(tSec * 2 * Math.PI * 8) * a.shakeAmpPx;
+      }
+      return { x, y };
     }
     elapsed -= segDur;
   }
@@ -336,7 +361,7 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
   {
     id: 'w_multi_dm_lvl04',
     name: 'Cemitério — Serras & Sapo Switch',
-    subtitle: '4 serras circulares letais + alavanca do sapo na borda direita',
+    subtitle: 'Alavanca do sapo dispara 1 de 4 serras circulares aleatórias por acionamento',
     mode: 'deathmatch',
     bgmTrack: 'bgm_syl_foret',
     defaultScoreLimit: 10,
@@ -369,6 +394,7 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
         motion: {
           kind: 'waypoints',
           switchControlled: true,
+          oneShot: true,
           points: [
             { x: -200, y: 860, durationSec: 8.9 },
             { x: 1580, y: 860, durationSec: 3.2 },
@@ -391,6 +417,7 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
         motion: {
           kind: 'waypoints',
           switchControlled: true,
+          oneShot: true,
           points: [
             { x: 2120, y: 860, durationSec: 8.9 },
             { x: 340, y: 860, durationSec: 3.2 },
@@ -413,6 +440,7 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
         motion: {
           kind: 'waypoints',
           switchControlled: true,
+          oneShot: true,
           points: [
             { x: 2120, y: 220, durationSec: 8.9 },
             { x: 340, y: 220, durationSec: 3.2 },
@@ -435,6 +463,7 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
         motion: {
           kind: 'waypoints',
           switchControlled: true,
+          oneShot: true,
           points: [
             { x: -200, y: 220, durationSec: 8.9 },
             { x: 1580, y: 220, durationSec: 3.2 },
@@ -578,7 +607,7 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
   {
     id: 'w_multi_dm_lvl13',
     name: 'Porto Noturno — Âncoras Deslizantes',
-    subtitle: '4 âncoras externas cruzando horizontalmente em ciclos de 2s',
+    subtitle: '4 âncoras externas saem e retornam em eventos temporizados do FlowGraph',
     mode: 'deathmatch',
     bgmTrack: 'bgm_syl_cimetiere_alt',
     defaultScoreLimit: 10,
@@ -590,6 +619,8 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
       { texture: 't_bgport203_c' },
     ],
     spawns: DEFAULT_TOP_SPAWNS,
+    // Exact 74.5s FlowGraph timeline decoded from w_multi_dm_lvl13_fetm.pc (0x18a08..0x1a9fd):
+    // pairs + individual anchors shake for 0.5s, slide +/-600px off-screen in 2.0s, hold, then slide back in.
     attachPoints: [
       {
         id: 0,
@@ -599,8 +630,17 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
         motion: {
           kind: 'waypoints',
           points: [
-            { x: 1620, y: 780, durationSec: 2 },
-            { x: 1020, y: 780, durationSec: 2 },
+            { x: 1620, y: 780, durationSec: 5.0 },
+            { x: 1620, y: 780, durationSec: 0.5, shakeAmpPx: 8 },
+            { x: 1620, y: 780, durationSec: 2.0 },
+            { x: 2220, y: 780, durationSec: 5.0 },
+            { x: 2220, y: 780, durationSec: 2.0 },
+            { x: 1620, y: 780, durationSec: 19.5 },
+            { x: 1620, y: 780, durationSec: 0.5, shakeAmpPx: 8 },
+            { x: 1620, y: 780, durationSec: 2.0 },
+            { x: 2220, y: 780, durationSec: 10.0 },
+            { x: 2220, y: 780, durationSec: 2.0 },
+            { x: 1620, y: 780, durationSec: 26.0 },
           ],
         },
       },
@@ -612,8 +652,17 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
         motion: {
           kind: 'waypoints',
           points: [
-            { x: 500, y: 300, durationSec: 2 },
-            { x: 1100, y: 300, durationSec: 2 },
+            { x: 500, y: 300, durationSec: 5.0 },
+            { x: 500, y: 300, durationSec: 0.5, shakeAmpPx: 8 },
+            { x: 500, y: 300, durationSec: 2.0 },
+            { x: -100, y: 300, durationSec: 5.0 },
+            { x: -100, y: 300, durationSec: 2.0 },
+            { x: 500, y: 300, durationSec: 27.0 },
+            { x: 500, y: 300, durationSec: 0.5, shakeAmpPx: 8 },
+            { x: 500, y: 300, durationSec: 2.0 },
+            { x: -100, y: 300, durationSec: 12.0 },
+            { x: -100, y: 300, durationSec: 2.0 },
+            { x: 500, y: 300, durationSec: 16.5 },
           ],
         },
       },
@@ -625,8 +674,17 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
         motion: {
           kind: 'waypoints',
           points: [
-            { x: 1420, y: 300, durationSec: 2 },
-            { x: 820, y: 300, durationSec: 2 },
+            { x: 1420, y: 300, durationSec: 19.5 },
+            { x: 1420, y: 300, durationSec: 0.5, shakeAmpPx: 8 },
+            { x: 1420, y: 300, durationSec: 2.0 },
+            { x: 2020, y: 300, durationSec: 5.0 },
+            { x: 2020, y: 300, durationSec: 2.0 },
+            { x: 1420, y: 300, durationSec: 22.0 },
+            { x: 1420, y: 300, durationSec: 0.5, shakeAmpPx: 8 },
+            { x: 1420, y: 300, durationSec: 2.0 },
+            { x: 2020, y: 300, durationSec: 12.0 },
+            { x: 2020, y: 300, durationSec: 2.0 },
+            { x: 1420, y: 300, durationSec: 7.0 },
           ],
         },
       },
@@ -638,8 +696,16 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
         motion: {
           kind: 'waypoints',
           points: [
-            { x: 300, y: 780, durationSec: 2 },
-            { x: 900, y: 780, durationSec: 2 },
+            { x: 300, y: 780, durationSec: 19.5 },
+            { x: 300, y: 780, durationSec: 0.5, shakeAmpPx: 8 },
+            { x: 300, y: 780, durationSec: 2.0 },
+            { x: -300, y: 780, durationSec: 5.0 },
+            { x: -300, y: 780, durationSec: 2.0 },
+            { x: 300, y: 780, durationSec: 31.5 },
+            { x: 300, y: 780, durationSec: 0.5, shakeAmpPx: 8 },
+            { x: 300, y: 780, durationSec: 2.0 },
+            { x: -300, y: 780, durationSec: 9.5 },
+            { x: -300, y: 780, durationSec: 2.0 },
           ],
         },
       },
