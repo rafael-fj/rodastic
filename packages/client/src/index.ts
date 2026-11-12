@@ -384,6 +384,7 @@ export class RotasticWebClient {
   private hudNetInfoEl = document.getElementById('hud-net-info')!;
   private hostReturnMenuBtn = document.getElementById('btn-host-return-menu') as HTMLButtonElement | null;
   private modalOverlayEl = document.getElementById('modal-overlay')!;
+  private loadingScreenEl = document.getElementById('loading-screen') as HTMLElement | null;
 
   private roomCode: string;
   private playerName: string;
@@ -1118,6 +1119,7 @@ export class RotasticWebClient {
       void this.ensureMapBackgrounds(this.lobbyState.config.mapId);
 
       if (this.lobbyState.sessionState === OnlineSessionState.LOADING_MAP) {
+        this.showLoadingScreen(true, 'Carregando arena e sincronizando jogadores...');
         // Confirm Barrier 1 (Map Loaded)
         const ack = encodeAppControlMessage(
           this.nextSeq(),
@@ -1133,6 +1135,7 @@ export class RotasticWebClient {
         this.lobbyState.sessionState === OnlineSessionState.IN_GAME &&
         prevState !== OnlineSessionState.IN_GAME
       ) {
+        this.showLoadingScreen(false);
         this.standings = [];
         this.showLobbyOverlay = false;
         this.predictor.reset();
@@ -1148,12 +1151,14 @@ export class RotasticWebClient {
         (prevState === OnlineSessionState.POST_MATCH_STANDINGS ||
           prevState === OnlineSessionState.IN_GAME)
       ) {
+        this.showLoadingScreen(false);
         this.standings = [];
         this.showLobbyOverlay = true;
         this.audio.setBgm('bgm_syl_menu');
       }
 
       if (this.lobbyState.sessionState === OnlineSessionState.POST_MATCH_STANDINGS) {
+        this.showLoadingScreen(false);
         this.audio.setBgm('bgm_syl_menu');
       }
 
@@ -1165,6 +1170,7 @@ export class RotasticWebClient {
     if (subType === AppMessageSubType.HOST_PHASE_ADVANCE_CMD) {
       const targetPhase = Number(payload.targetPhase ?? 0) as BarrierPhaseCode;
       if (targetPhase === BarrierPhaseCode.LOBBY_READY) {
+        this.showLoadingScreen(true, 'Sincronizando arena com todos os jogadores...');
         // Server transitioned to LOADING_MAP; reply immediately with MAP_LOADED ack
         const ack = encodeAppControlMessage(
           this.nextSeq(),
@@ -1181,6 +1187,7 @@ export class RotasticWebClient {
         targetPhase === BarrierPhaseCode.POST_MATCH_ACK &&
         Number(payload.sessionState ?? 0) === OnlineSessionState.LOBBY_OPEN
       ) {
+        this.showLoadingScreen(false);
         this.standings = [];
         this.showLobbyOverlay = true;
         this.renderModalOverlay();
@@ -2701,6 +2708,30 @@ export class RotasticWebClient {
     }
   }
 
+  private showLoadingScreen(show: boolean, subtitle?: string): void {
+    if (!this.loadingScreenEl) {
+      this.loadingScreenEl = document.getElementById('loading-screen') as HTMLElement | null;
+    }
+    if (!this.loadingScreenEl) return;
+
+    if (show) {
+      this.loadingScreenEl.style.display = 'flex';
+      void this.loadingScreenEl.offsetWidth;
+      this.loadingScreenEl.classList.add('active');
+      if (subtitle) {
+        const subEl = this.loadingScreenEl.querySelector('.loading-subtitle');
+        if (subEl) subEl.textContent = subtitle;
+      }
+    } else {
+      this.loadingScreenEl.classList.remove('active');
+      setTimeout(() => {
+        if (this.loadingScreenEl && !this.loadingScreenEl.classList.contains('active')) {
+          this.loadingScreenEl.style.display = 'none';
+        }
+      }, 250);
+    }
+  }
+
   private renderModalOverlay(): void {
     if (!this.showLobbyOverlay || !this.lobbyState) {
       this.modalOverlayEl.style.display = 'none';
@@ -2980,6 +3011,7 @@ export class RotasticWebClient {
 
     document.getElementById('btn-start-match')?.addEventListener('click', () => {
       this.audio.play('confirm');
+      this.showLoadingScreen(true, 'Iniciando partida...');
       sendSlotUpdate(true);
       sendConfigUpdate();
       const pkt = encodeAppControlMessage(

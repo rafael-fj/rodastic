@@ -292,6 +292,108 @@
         border: 1px solid #334155;
         pointer-events: auto;
       }
+
+      /* Authentic Rotastic Loading Screen */
+      .loading-overlay {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at center, rgba(15, 23, 42, 0.94) 0%, rgba(3, 7, 18, 0.98) 100%);
+        backdrop-filter: blur(8px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        pointer-events: auto;
+        opacity: 0;
+        transition: opacity 0.25s ease-out;
+      }
+      .loading-overlay.active {
+        opacity: 1;
+      }
+      .loading-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        user-select: none;
+      }
+      .loading-title {
+        font-family: 'Impact', 'Arial Black', system-ui, sans-serif;
+        font-size: 58px;
+        font-weight: 900;
+        letter-spacing: 8px;
+        text-transform: uppercase;
+        background: linear-gradient(90deg, #d97706 0%, #fbbf24 35%, #ffffff 50%, #fbbf24 65%, #d97706 100%);
+        background-size: 250% auto;
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        animation: loadingShine 2.4s ease-in-out infinite;
+        filter: drop-shadow(0 0 25px rgba(245, 158, 11, 0.65)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8));
+      }
+      @keyframes loadingShine {
+        0% { background-position: 150% center; }
+        50% { background-position: 0% center; }
+        100% { background-position: -150% center; }
+      }
+      .loading-subtitle {
+        font-size: 13px;
+        font-weight: 700;
+        color: #cbd5e1;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+      }
+      .loading-stage {
+        position: relative;
+        width: 240px;
+        height: 240px;
+        margin-top: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .loading-pivot {
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        background: url('/assets/textures/global/t_accroche01_c.png') no-repeat center / contain;
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.9));
+        z-index: 2;
+      }
+      .loading-orbit {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        animation: loadingSpin 1.4s linear infinite;
+        pointer-events: none;
+      }
+      @keyframes loadingSpin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .loading-rope {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 78px;
+        height: 4px;
+        background: linear-gradient(90deg, #f59e0b, #fde047);
+        border-radius: 2px;
+        box-shadow: 0 0 8px rgba(245, 158, 11, 0.8);
+        transform-origin: 0 50%;
+      }
+      .loading-boar {
+        position: absolute;
+        top: calc(50% - 28px);
+        left: calc(50% + 72px);
+        width: 56px;
+        height: 56px;
+        background: url('/assets/textures/global/t_character_y_pig_fly_c.png') no-repeat center / contain;
+        filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.6)) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8));
+        transform: rotate(90deg);
+      }
     </style>
   </head>
   <body>
@@ -315,6 +417,19 @@
         </div>
       </div>
       <div class="modal-backdrop" id="modal-overlay"></div>
+      <div id="loading-screen" class="loading-overlay" style="display: none;">
+        <div class="loading-content">
+          <div class="loading-title">LOADING</div>
+          <div class="loading-subtitle">Sincronizando arena e jogadores...</div>
+          <div class="loading-stage">
+            <div class="loading-pivot"></div>
+            <div class="loading-orbit">
+              <div class="loading-rope"></div>
+              <div class="loading-boar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script type="module" src="/src/index.ts"></script>
   </body>
