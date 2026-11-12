@@ -182,7 +182,11 @@ function updateSingleBandRingMesh(
   rOut: number,
   minThick: number,
   maxThick: number,
-  taperPower: number
+  taperPower: number,
+  uInner = 0.2,
+  uOuter = 0.98,
+  vStart = 0.04,
+  vSpan = 0.36
 ): void {
   const { pos, uvs } = entry;
   for (let s = 0; s <= segments; s++) {
@@ -197,10 +201,10 @@ function updateSingleBandRingMesh(
     pos[vi + 1] = cy + sinA * rIn;
     pos[vi + 2] = cx + cosA * rOut;
     pos[vi + 3] = cy + sinA * rOut;
-    const vCoord = 0.04 + t * 0.36;
-    uvs[vi] = 0.05;
+    const vCoord = vStart + t * vSpan;
+    uvs[vi] = uInner;
     uvs[vi + 1] = vCoord;
-    uvs[vi + 2] = 0.98;
+    uvs[vi + 2] = uOuter;
     uvs[vi + 3] = vCoord;
   }
   entry.mesh.geometry.getBuffer('aPosition').update();
@@ -820,7 +824,7 @@ export class RotasticWebClient {
       this.ropesContainer.addChild(ropeBeam);
       this.ropeBeamSprites.push(ropeBeam);
 
-      const orangeRing = createRingMesh(60, true);
+      const orangeRing = createRingMesh(60, false);
       this.ropesContainer.addChild(orangeRing.mesh);
       this.orangeShieldMeshes.push(orangeRing);
 
@@ -2088,14 +2092,16 @@ export class RotasticWebClient {
       const sx = worldToScreenX(interpX);
       const sy = worldToScreenY(interpY);
 
-      // Motion Trail
-      for (let t = 0; t < disp.trails.length - 1; t++) {
-        const pt = disp.trails[t];
-        const alpha = (1 - t / disp.trails.length) * 0.32;
-        const r = (1 - t / disp.trails.length) * 22;
-        this.ropesGraphics
-          .circle(worldToScreenX(pt.x), worldToScreenY(pt.y), r)
-          .fill({ color: colorMeta.hex, alpha });
+      // Motion Trail (suppressed while orange star trail is active)
+      if (p.chargeGauge2 < 1.0) {
+        for (let t = 0; t < disp.trails.length - 1; t++) {
+          const pt = disp.trails[t];
+          const alpha = (1 - t / disp.trails.length) * 0.32;
+          const r = (1 - t / disp.trails.length) * 22;
+          this.ropesGraphics
+            .circle(worldToScreenX(pt.x), worldToScreenY(pt.y), r)
+            .fill({ color: colorMeta.hex, alpha });
+        }
       }
 
       // Off-screen bottom dip indicator (player allowed down to y=-300 before TriggerPlanePlayerDeath)
@@ -2292,9 +2298,10 @@ export class RotasticWebClient {
         if (orangeRing && uberBeamTex) {
           if (orangeRing.mesh.texture !== uberBeamTex) orangeRing.mesh.texture = uberBeamTex;
           orangeRing.mesh.tint = 0xffffff;
-          orangeRing.mesh.alpha = 0.98;
+          orangeRing.mesh.alpha = 1.0;
           orangeRing.mesh.visible = true;
-          updateDoubleBandRingMesh(orangeRing, 60, sx, sy, 0, Math.PI * 2, 38, 52, 66);
+          // Single-band outward gradient: soft transparent orange inside (U=0.54) -> bright yellow-white outer rim (U=0.98)
+          updateSingleBandRingMesh(orangeRing, 60, sx, sy, 0, Math.PI * 2, 66, 26, 26, 1, 0.54, 0.98, 0.02, 0.24);
         } else {
           if (orangeRing) orangeRing.mesh.visible = false;
           this.ropesGraphics
@@ -2331,19 +2338,24 @@ export class RotasticWebClient {
         if (p.chargeGauge2 > 0.02 && orangeRing && uberBeamTex) {
           if (orangeRing.mesh.texture !== uberBeamTex) orangeRing.mesh.texture = uberBeamTex;
           orangeRing.mesh.tint = 0xffffff;
-          orangeRing.mesh.alpha = 0.94;
+          orangeRing.mesh.alpha = 0.96;
           orangeRing.mesh.visible = true;
           const span = Math.min(0.999, p.chargeGauge2) * Math.PI * 2;
-          updateDoubleBandRingMesh(
+          updateSingleBandRingMesh(
             orangeRing,
             60,
             sx,
             sy,
             Math.PI - span * 0.5,
             span,
-            42,
-            52,
-            62
+            64,
+            22,
+            22,
+            1,
+            0.54,
+            0.98,
+            0.55,
+            0.2
           );
         } else {
           if (orangeRing) orangeRing.mesh.visible = false;
@@ -2372,9 +2384,9 @@ export class RotasticWebClient {
         if (outerRing && beam2Tex) {
           if (outerRing.mesh.texture !== beam2Tex) outerRing.mesh.texture = beam2Tex;
           outerRing.mesh.tint = 0xffffff;
-          outerRing.mesh.alpha = 0.95;
+          outerRing.mesh.alpha = 1.0;
           outerRing.mesh.visible = true;
-          updateSingleBandRingMesh(outerRing, 60, sx, sy, 0, Math.PI * 2, visualBubbleRadius, 22, 22, 1);
+          updateSingleBandRingMesh(outerRing, 60, sx, sy, 0, Math.PI * 2, visualBubbleRadius + 2, 22, 22, 1, 0.22, 0.98);
         } else if (outerRing) {
           outerRing.mesh.visible = false;
         }
@@ -2386,7 +2398,7 @@ export class RotasticWebClient {
         if (outerRing && beam2Tex) {
           if (outerRing.mesh.texture !== beam2Tex) outerRing.mesh.texture = beam2Tex;
           outerRing.mesh.tint = this.attachDenyFlashTimer[i] > 0 ? 0xffffff : colorMeta.hex;
-          outerRing.mesh.alpha = 0.96;
+          outerRing.mesh.alpha = 1.0;
           outerRing.mesh.visible = true;
           const clamped = Math.max(0.02, Math.min(0.999, arcProgress));
           const span = clamped * Math.PI * 2;
@@ -2397,10 +2409,12 @@ export class RotasticWebClient {
             sy,
             Math.PI - span * 0.5,
             span,
-            visualBubbleRadius,
-            6,
-            24,
-            0.55
+            visualBubbleRadius + 2,
+            22,
+            22,
+            1,
+            0.22,
+            0.98
           );
         } else {
           if (outerRing) outerRing.mesh.visible = false;
