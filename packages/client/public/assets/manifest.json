@@ -2,11 +2,11 @@
   "schemaVersion": "1.2.0",
   "generatedBy": "tools/assets/build-web-assets.mjs",
   "stats": {
-    "sourceDdsCount": 708,
-    "uniqueTextureCount": 437,
-    "totalFramePngCount": 636,
+    "sourceDdsCount": 709,
+    "uniqueTextureCount": 438,
+    "totalFramePngCount": 637,
     "multiFrameTextureCount": 132,
-    "totalPngBytes": 17228200,
+    "totalPngBytes": 17230062,
     "totalPngMB": 16.43,
     "audioSfxCount": 172,
     "totalWavBytes": 14990528,
@@ -287,7 +287,8 @@
     "t_trailcolorneo_c": "/assets/textures/global/t_trailcolorneo_c.png",
     "t_trailcolorpig_c": "/assets/textures/global/t_trailcolorpig_c.png",
     "t_trailcolorskull_c": "/assets/textures/global/t_trailcolorskull_c.png",
-    "t_trailgradient_c": "/assets/textures/global/t_trailgradient_c.png"
+    "t_trailgradient_c": "/assets/textures/global/t_trailgradient_c.png",
+    "t_uberbeam2_c": "/assets/textures/global/t_uberbeam2_c.png"
   },
   "backgroundTextures": {
     "t_bgcampagne00_c": "/assets/textures/backgrounds/t_bgcampagne00_c.png",
@@ -9826,6 +9827,26 @@
         "multiplayer/w_ps3_deathmatch_2/t_trailgradient_c.dds",
         "multiplayer/w_ps3_deathmatch_3/t_trailgradient_c.dds",
         "multiplayer/w_ps3_deathmatch_4/t_trailgradient_c.dds"
+      ]
+    },
+    "23f3adfda93c5ad8": {
+      "id": "t_uberbeam2_c",
+      "url": "/assets/textures/global/t_uberbeam2_c.png",
+      "width": 32,
+      "height": 256,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_uberbeam2_c.png"
+      ],
+      "sha256": "23f3adfda93c5ad8",
+      "pngBytes": 1862,
+      "sources": [
+        "global/t_uberbeam2_c.dds"
       ]
     },
     "7ee332419444b640": {

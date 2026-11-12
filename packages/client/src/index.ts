@@ -4,6 +4,8 @@ import {
   Container,
   Graphics,
   ImageSource,
+  Mesh,
+  MeshGeometry,
   Rectangle,
   Sprite,
   Text,
@@ -146,6 +148,101 @@ function drawTaperedCooldownCrescent(
   g.stroke({ color: flashWhite ? 0xffffff : activeColor, width: 2.5, alpha: 0.96, cap: 'butt' });
 }
 
+function createRingMesh(segments: number, doubleBand: boolean): { mesh: Mesh; pos: Float32Array; uvs: Float32Array } {
+  const vertsPerStep = doubleBand ? 3 : 2;
+  const numVerts = (segments + 1) * vertsPerStep;
+  const pos = new Float32Array(numVerts * 2);
+  const uvs = new Float32Array(numVerts * 2);
+  const indices: number[] = [];
+  for (let s = 0; s < segments; s++) {
+    const a = s * vertsPerStep;
+    const b = (s + 1) * vertsPerStep;
+    indices.push(a, b, a + 1, b, b + 1, a + 1);
+    if (doubleBand) {
+      indices.push(a + 1, b + 1, a + 2, b + 1, b + 2, a + 2);
+    }
+  }
+  const geometry = new MeshGeometry({
+    positions: pos,
+    uvs,
+    indices: new Uint32Array(indices),
+  });
+  const mesh = new Mesh({ geometry, texture: Texture.WHITE });
+  mesh.visible = false;
+  return { mesh, pos, uvs };
+}
+
+function updateSingleBandRingMesh(
+  entry: { mesh: Mesh; pos: Float32Array; uvs: Float32Array },
+  segments: number,
+  cx: number,
+  cy: number,
+  startAng: number,
+  span: number,
+  rOut: number,
+  minThick: number,
+  maxThick: number,
+  taperPower: number
+): void {
+  const { pos, uvs } = entry;
+  for (let s = 0; s <= segments; s++) {
+    const t = s / segments;
+    const ang = startAng + span * t;
+    const cosA = Math.cos(ang);
+    const sinA = Math.sin(ang);
+    const thick = minThick + (maxThick - minThick) * Math.pow(t, taperPower);
+    const rIn = rOut - thick;
+    const vi = s * 4;
+    pos[vi] = cx + cosA * rIn;
+    pos[vi + 1] = cy + sinA * rIn;
+    pos[vi + 2] = cx + cosA * rOut;
+    pos[vi + 3] = cy + sinA * rOut;
+    const vCoord = 0.04 + t * 0.36;
+    uvs[vi] = 0.05;
+    uvs[vi + 1] = vCoord;
+    uvs[vi + 2] = 0.98;
+    uvs[vi + 3] = vCoord;
+  }
+  entry.mesh.geometry.getBuffer('aPosition').update();
+  entry.mesh.geometry.getBuffer('aUV').update();
+}
+
+function updateDoubleBandRingMesh(
+  entry: { mesh: Mesh; pos: Float32Array; uvs: Float32Array },
+  segments: number,
+  cx: number,
+  cy: number,
+  startAng: number,
+  span: number,
+  rIn: number,
+  rMid: number,
+  rOut: number
+): void {
+  const { pos, uvs } = entry;
+  for (let s = 0; s <= segments; s++) {
+    const t = s / segments;
+    const ang = startAng + span * t;
+    const cosA = Math.cos(ang);
+    const sinA = Math.sin(ang);
+    const vi = s * 6;
+    pos[vi] = cx + cosA * rIn;
+    pos[vi + 1] = cy + sinA * rIn;
+    pos[vi + 2] = cx + cosA * rMid;
+    pos[vi + 3] = cy + sinA * rMid;
+    pos[vi + 4] = cx + cosA * rOut;
+    pos[vi + 5] = cy + sinA * rOut;
+    const vCoord = 0.55 + t * 0.2;
+    uvs[vi] = 0.54;
+    uvs[vi + 1] = vCoord;
+    uvs[vi + 2] = 0.98;
+    uvs[vi + 3] = vCoord;
+    uvs[vi + 4] = 0.54;
+    uvs[vi + 5] = vCoord;
+  }
+  entry.mesh.geometry.getBuffer('aPosition').update();
+  entry.mesh.geometry.getBuffer('aUV').update();
+}
+
 interface FloatingEffect {
   text: Text;
   vx: number;
@@ -208,6 +305,7 @@ export class RotasticWebClient {
   private stateAnimElapsedMs: number[] = [0, 0, 0, 0];
   private facingDir: number[] = [1, -1, 1, -1];
   private bounceAnimTimer: number[] = [0, 0, 0, 0];
+  private pvpImpactAnimTimer: number[] = [0, 0, 0, 0];
   private hurtAnimTimer: number[] = [0, 0, 0, 0];
   private cutAnimTimer: number[] = [0, 0, 0, 0];
   private killAnimTimer: number[] = [0, 0, 0, 0];
@@ -249,6 +347,8 @@ export class RotasticWebClient {
   private vortexSprites: Sprite[] = [];
   private ropeBaseSprites: TilingSprite[] = [];
   private ropeBeamSprites: Sprite[] = [];
+  private outerShieldMeshes: Array<{ mesh: Mesh; pos: Float32Array; uvs: Float32Array }> = [];
+  private orangeShieldMeshes: Array<{ mesh: Mesh; pos: Float32Array; uvs: Float32Array }> = [];
   private playerSprites: Sprite[] = [];
   private playerLabels: Text[] = [];
   private floatingEffects: FloatingEffect[] = [];
@@ -362,6 +462,8 @@ export class RotasticWebClient {
       '/assets/textures/global/t_corde_c.png',
       '/assets/textures/global/t_cordebeam_c.png',
       '/assets/textures/global/t_cordeuberbeam_c.png',
+      '/assets/textures/global/t_beam2_c.png',
+      '/assets/textures/global/t_uberbeam2_c.png',
       '/assets/textures/global/t_accroche01_c.png',
       '/assets/textures/global/t_accroche02_c.png',
       '/assets/textures/global/t_accrocheaura_c.png',
@@ -717,6 +819,14 @@ export class RotasticWebClient {
       ropeBeam.visible = false;
       this.ropesContainer.addChild(ropeBeam);
       this.ropeBeamSprites.push(ropeBeam);
+
+      const orangeRing = createRingMesh(60, true);
+      this.ropesContainer.addChild(orangeRing.mesh);
+      this.orangeShieldMeshes.push(orangeRing);
+
+      const outerRing = createRingMesh(60, false);
+      this.ropesContainer.addChild(outerRing.mesh);
+      this.outerShieldMeshes.push(outerRing);
 
       const spr = new Sprite(Texture.WHITE);
       spr.anchor.set(0.5);
@@ -1207,6 +1317,7 @@ export class RotasticWebClient {
           this.dropAnimTimer[ev.slotIndex] = 0.45;
           this.hurtAnimTimer[ev.slotIndex] = 0;
           this.bounceAnimTimer[ev.slotIndex] = 0;
+          this.pvpImpactAnimTimer[ev.slotIndex] = 0;
           this.cutAnimTimer[ev.slotIndex] = 0;
           this.killAnimTimer[ev.slotIndex] = 0;
           this.attachDenyFlashTimer[ev.slotIndex] = 0;
@@ -1252,6 +1363,10 @@ export class RotasticWebClient {
         }
         if (ev.targetSlot !== undefined) {
           this.bounceAnimTimer[ev.targetSlot] = 0.24;
+          this.pvpImpactAnimTimer[ev.targetSlot] = 0.24;
+          if (ev.slotIndex !== undefined) {
+            this.pvpImpactAnimTimer[ev.slotIndex] = 0.24;
+          }
           const pA = ev.slotIndex !== undefined ? this.localSim.state.players[ev.slotIndex] : undefined;
           const pB = this.localSim.state.players[ev.targetSlot];
           if ((pA && pA.chargeGauge2 >= 1.0) || (pB && pB.chargeGauge2 >= 1.0)) {
@@ -1878,6 +1993,7 @@ export class RotasticWebClient {
 
     for (let i = 0; i < 4; i++) {
       this.bounceAnimTimer[i] = Math.max(0, this.bounceAnimTimer[i] - dt);
+      this.pvpImpactAnimTimer[i] = Math.max(0, this.pvpImpactAnimTimer[i] - dt);
       this.hurtAnimTimer[i] = Math.max(0, this.hurtAnimTimer[i] - dt);
       this.cutAnimTimer[i] = Math.max(0, this.cutAnimTimer[i] - dt);
       this.killAnimTimer[i] = Math.max(0, this.killAnimTimer[i] - dt);
@@ -1891,6 +2007,8 @@ export class RotasticWebClient {
       const lbl = this.playerLabels[i];
       const ropeBase = this.ropeBaseSprites[i];
       const ropeBeam = this.ropeBeamSprites[i];
+      const orangeRing = this.orangeShieldMeshes[i];
+      const outerRing = this.outerShieldMeshes[i];
       const disp = this.displayPos[i];
 
       if (!p || !p.active || p.status === PlayerStatus.DEAD) {
@@ -1898,6 +2016,8 @@ export class RotasticWebClient {
         lbl.visible = false;
         ropeBase.visible = false;
         ropeBeam.visible = false;
+        if (orangeRing) orangeRing.mesh.visible = false;
+        if (outerRing) outerRing.mesh.visible = false;
         continue;
       }
 
@@ -1910,6 +2030,8 @@ export class RotasticWebClient {
         lbl.visible = true;
         ropeBase.visible = false;
         ropeBeam.visible = false;
+        if (orangeRing) orangeRing.mesh.visible = false;
+        if (outerRing) outerRing.mesh.visible = false;
         const cx = worldToScreenX(p.spawnCursorX);
         const cy = 62;
         const bob = Math.sin(nowSec * 8) * 4;
@@ -2070,11 +2192,7 @@ export class RotasticWebClient {
           stateSuffix = 'hurt';
         } else if (this.cutAnimTimer[i] > 0) {
           stateSuffix = 'cut';
-        } else if (
-          p.chargeGauge2 >= 1.0 &&
-          (this.bounceAnimTimer[i] > 0 ||
-            (p.status === PlayerStatus.FREE_FALL && Math.hypot(p.vx, p.vy) >= 480))
-        ) {
+        } else if (p.chargeGauge2 >= 1.0 && this.pvpImpactAnimTimer[i] > 0) {
           stateSuffix = 'ubeam';
         } else if (this.bounceAnimTimer[i] > 0) {
           stateSuffix = 'bounce';
@@ -2169,21 +2287,20 @@ export class RotasticWebClient {
       }
 
       // Inner Orange Trick/Mass Aura (c2) + continuous star particle trail (`CPlayerUberBeamFeedback2` @ 0x0053E311)
+      const uberBeamTex = this.texturesCache.get('/assets/textures/global/t_uberbeam2_c.png');
       if (p.chargeGauge2 >= 1.0) {
-        const orangeRingR = 56;
-        this.ropesGraphics
-          .circle(sx, sy, orangeRingR)
-          .fill({ color: 0xfacc15, alpha: 0.14 })
-          .stroke({ color: 0xf97316, width: 24, alpha: 0.24 });
-        this.ropesGraphics
-          .circle(sx, sy, orangeRingR)
-          .stroke({ color: 0xfb923c, width: 17, alpha: 0.55 });
-        this.ropesGraphics
-          .circle(sx, sy, orangeRingR)
-          .stroke({ color: 0xfacc15, width: 11, alpha: 0.92 });
-        this.ropesGraphics
-          .circle(sx, sy, orangeRingR)
-          .stroke({ color: 0xfef08a, width: 5, alpha: 0.78 });
+        if (orangeRing && uberBeamTex) {
+          if (orangeRing.mesh.texture !== uberBeamTex) orangeRing.mesh.texture = uberBeamTex;
+          orangeRing.mesh.tint = 0xffffff;
+          orangeRing.mesh.alpha = 0.98;
+          orangeRing.mesh.visible = true;
+          updateDoubleBandRingMesh(orangeRing, 60, sx, sy, 0, Math.PI * 2, 38, 52, 66);
+        } else {
+          if (orangeRing) orangeRing.mesh.visible = false;
+          this.ropesGraphics
+            .circle(sx, sy, 56)
+            .stroke({ color: 0xfacc15, width: 12, alpha: 0.9 });
+        }
 
         this.orangeTrailSpawnAcc[i] += dt;
         const starTex = this.texturesCache.get('/assets/textures/arenas/t_fx_uberbeam_c.png');
@@ -2211,27 +2328,25 @@ export class RotasticWebClient {
         }
       } else {
         this.orangeTrailSpawnAcc[i] = 0;
-        if (p.chargeGauge2 > 0.02) {
-          drawTaperedCooldownCrescent(
-            this.ropesGraphics,
+        if (p.chargeGauge2 > 0.02 && orangeRing && uberBeamTex) {
+          if (orangeRing.mesh.texture !== uberBeamTex) orangeRing.mesh.texture = uberBeamTex;
+          orangeRing.mesh.tint = 0xffffff;
+          orangeRing.mesh.alpha = 0.94;
+          orangeRing.mesh.visible = true;
+          const span = Math.min(0.999, p.chargeGauge2) * Math.PI * 2;
+          updateDoubleBandRingMesh(
+            orangeRing,
+            60,
             sx,
             sy,
-            54,
-            p.chargeGauge2,
-            0xf97316,
-            false
-          );
-          drawArc(
-            this.ropesGraphics,
-            sx,
-            sy,
+            Math.PI - span * 0.5,
+            span,
+            42,
             52,
-            Math.PI - p.chargeGauge2 * Math.PI,
-            Math.PI + p.chargeGauge2 * Math.PI,
-            0xfde047,
-            3,
-            0.55
+            62
           );
+        } else {
+          if (orangeRing) orangeRing.mesh.visible = false;
         }
       }
 
@@ -2251,35 +2366,56 @@ export class RotasticWebClient {
       }
 
       // Outer Protection Shield / Cooldown Crescent (c1 @ +0xD48, CPlayerBeamFeedback @ 0x00535D30):
-      // white shield bubble at 1.0, colored tapered crescent while recharging (flashes white on denied input)
+      // uses native t_beam2_c.png radial gradient texture for both full white bubble and colored recharging crescent
+      const beam2Tex = this.texturesCache.get('/assets/textures/global/t_beam2_c.png');
       if (p.chargeGauge >= 1.0) {
-        this.ropesGraphics
-          .circle(sx, sy, visualBubbleRadius)
-          .fill({ color: 0xffffff, alpha: 0.1 })
-          .stroke({ color: 0xffffff, width: 14, alpha: 0.22 });
-        this.ropesGraphics
-          .circle(sx, sy, visualBubbleRadius)
-          .stroke({ color: 0xffffff, width: 9, alpha: 0.42 });
-        this.ropesGraphics
-          .circle(sx, sy, visualBubbleRadius)
-          .stroke({ color: 0xf8fafc, width: 4.5, alpha: 0.88 });
-        this.ropesGraphics
-          .circle(sx, sy, visualBubbleRadius - 6)
-          .stroke({ color: 0xffffff, width: 10, alpha: 0.14 });
+        if (outerRing && beam2Tex) {
+          if (outerRing.mesh.texture !== beam2Tex) outerRing.mesh.texture = beam2Tex;
+          outerRing.mesh.tint = 0xffffff;
+          outerRing.mesh.alpha = 0.95;
+          outerRing.mesh.visible = true;
+          updateSingleBandRingMesh(outerRing, 60, sx, sy, 0, Math.PI * 2, visualBubbleRadius, 22, 22, 1);
+        } else if (outerRing) {
+          outerRing.mesh.visible = false;
+        }
       } else if (p.chargeGauge > 0.015 || this.attachDenyFlashTimer[i] > 0) {
         const arcProgress =
           this.attachDenyFlashTimer[i] > 0
             ? Math.max(0.12, p.chargeGauge)
             : p.chargeGauge;
-        drawTaperedCooldownCrescent(
-          this.ropesGraphics,
-          sx,
-          sy,
-          visualBubbleRadius,
-          arcProgress,
-          colorMeta.hex,
-          this.attachDenyFlashTimer[i] > 0
-        );
+        if (outerRing && beam2Tex) {
+          if (outerRing.mesh.texture !== beam2Tex) outerRing.mesh.texture = beam2Tex;
+          outerRing.mesh.tint = this.attachDenyFlashTimer[i] > 0 ? 0xffffff : colorMeta.hex;
+          outerRing.mesh.alpha = 0.96;
+          outerRing.mesh.visible = true;
+          const clamped = Math.max(0.02, Math.min(0.999, arcProgress));
+          const span = clamped * Math.PI * 2;
+          updateSingleBandRingMesh(
+            outerRing,
+            60,
+            sx,
+            sy,
+            Math.PI - span * 0.5,
+            span,
+            visualBubbleRadius,
+            6,
+            24,
+            0.55
+          );
+        } else {
+          if (outerRing) outerRing.mesh.visible = false;
+          drawTaperedCooldownCrescent(
+            this.ropesGraphics,
+            sx,
+            sy,
+            visualBubbleRadius,
+            arcProgress,
+            colorMeta.hex,
+            this.attachDenyFlashTimer[i] > 0
+          );
+        }
+      } else if (outerRing) {
+        outerRing.mesh.visible = false;
       }
 
       const crownPrefix = p.slotIndex === leaderSlot ? '👑 ' : '';
