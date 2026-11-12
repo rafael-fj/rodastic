@@ -214,6 +214,8 @@ export class RotasticWebClient {
   private dropAnimTimer: number[] = [0, 0, 0, 0];
   private attachDenyFlashTimer: number[] = [0, 0, 0, 0];
   private orangeBurstTimer: number[] = [0, 0, 0, 0];
+  private whiteBubbleShrinkTimer: number[] = [0, 0, 0, 0];
+  private prevChargeGauge: number[] = [1, 1, 1, 1];
   private dizzyWasRopeCut: boolean[] = [false, false, false, false];
 
   // Input state
@@ -1245,6 +1247,12 @@ export class RotasticWebClient {
         }
         if (ev.targetSlot !== undefined) {
           this.bounceAnimTimer[ev.targetSlot] = 0.24;
+          const pA = ev.slotIndex !== undefined ? this.localSim.state.players[ev.slotIndex] : undefined;
+          const pB = this.localSim.state.players[ev.targetSlot];
+          if ((pA && pA.chargeGauge2 >= 1.0) || (pB && pB.chargeGauge2 >= 1.0)) {
+            this.spawnCutImpactFx(sx, sy);
+            this.spawnShieldBreakParticles(sx, sy, true);
+          }
         }
         break;
       case 'death':
@@ -1869,6 +1877,7 @@ export class RotasticWebClient {
       this.dropAnimTimer[i] = Math.max(0, this.dropAnimTimer[i] - dt);
       this.attachDenyFlashTimer[i] = Math.max(0, this.attachDenyFlashTimer[i] - dt);
       this.orangeBurstTimer[i] = Math.max(0, this.orangeBurstTimer[i] - dt);
+      this.whiteBubbleShrinkTimer[i] = Math.max(0, this.whiteBubbleShrinkTimer[i] - dt);
 
       const p = state.players[i];
       const spr = this.playerSprites[i];
@@ -2054,6 +2063,12 @@ export class RotasticWebClient {
           stateSuffix = 'hurt';
         } else if (this.cutAnimTimer[i] > 0) {
           stateSuffix = 'cut';
+        } else if (
+          p.chargeGauge2 >= 1.0 &&
+          (this.bounceAnimTimer[i] > 0 ||
+            (p.status === PlayerStatus.FREE_FALL && Math.hypot(p.vx, p.vy) >= 480))
+        ) {
+          stateSuffix = 'ubeam';
         } else if (this.bounceAnimTimer[i] > 0) {
           stateSuffix = 'bounce';
         } else if (p.status === PlayerStatus.SWINGING) {
@@ -2189,18 +2204,42 @@ export class RotasticWebClient {
       } else {
         this.orangeTrailSpawnAcc[i] = 0;
         if (p.chargeGauge2 > 0.02) {
+          drawTaperedCooldownCrescent(
+            this.ropesGraphics,
+            sx,
+            sy,
+            54,
+            p.chargeGauge2,
+            0xf97316,
+            false
+          );
           drawArc(
             this.ropesGraphics,
             sx,
             sy,
-            64,
-            -Math.PI * 0.5,
-            -Math.PI * 0.5 + p.chargeGauge2 * Math.PI * 2,
-            0xf97316,
-            6,
-            0.92
+            52,
+            Math.PI - p.chargeGauge2 * Math.PI,
+            Math.PI + p.chargeGauge2 * Math.PI,
+            0xfde047,
+            3,
+            0.55
           );
         }
+      }
+
+      // Detect white bubble trigger (c1 dropping from >= 1.0 -> < 1.0) to play shrink collapse
+      if (this.prevChargeGauge[i] >= 1.0 && p.chargeGauge < 1.0) {
+        this.whiteBubbleShrinkTimer[i] = 0.18;
+      }
+      this.prevChargeGauge[i] = p.chargeGauge;
+
+      if (this.whiteBubbleShrinkTimer[i] > 0) {
+        const shrinkProg = 1 - Math.min(1, this.whiteBubbleShrinkTimer[i] / 0.18);
+        const shrinkR = visualBubbleRadius - shrinkProg * 44;
+        this.ropesGraphics
+          .circle(sx, sy, shrinkR)
+          .fill({ color: 0xffffff, alpha: (1 - shrinkProg) * 0.16 })
+          .stroke({ color: 0xf8fafc, width: 5.5 * (1 - shrinkProg * 0.4), alpha: (1 - shrinkProg) * 0.92 });
       }
 
       // Outer Protection Shield / Cooldown Crescent (c1 @ +0xD48, CPlayerBeamFeedback @ 0x00535D30):
