@@ -1259,4 +1259,25 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     }
     expect(p.chargeGauge2).toBe(0.0); // Single-pivot spinning does not grant combo points!
   });
+
+  it('calibrates Ville Marron rotating cube hitbox to 440x440 (halfW=220, halfH=220) matching visible wood sprite (#43)', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl02');
+    const cube = sim.map.walls.find((w) => w.name === 'Mur001');
+    expect(cube).toBeDefined();
+    expect(cube?.halfW).toBe(220);
+    expect(cube?.halfH).toBe(220);
+    expect(cube?.cx).toBe(960);
+    expect(cube?.cy).toBe(540);
+
+    // Player outside the calibrated 440x440 box (at x = 960 + 220 + PLAYER_RADIUS + 5) does not collide
+    const p = sim.state.players[0];
+    sim.configurePlayerSlot(0, { active: true });
+    p.status = PlayerStatus.FREE_FALL;
+    p.x = 960 + 220 + C.PLAYER_RADIUS + 5;
+    p.y = 540;
+    p.vx = 0;
+    p.vy = 0;
+    const events = sim.step({});
+    expect(events.some((e) => e.type === 'bounce')).toBe(false);
+  });
 });
