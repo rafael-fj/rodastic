@@ -175,23 +175,28 @@ export function getSwitchActorConfigs(
   triggered: boolean,
   leverFlipped = triggered
 ): Array<{ id: string; actor: string; transform: ActorTransformOptions }> {
-  // Mounted flush on right wall (x=1920, y=switchY), rotated +90 deg CCW in Y-up so local +Y faces LEFT into arena
-  const baseX = switchX >= 1800 ? 1920 : switchX;
-  const rotDeg = switchX >= 1800 ? 90 : -90;
-  const dirX = switchX >= 1800 ? -1 : 1;
+  // Mounted flush on right wall (x=1920, y=switchY), rotated 180 deg so local +X/-X faces LEFT into arena
+  const baseX = switchX >= 1700 ? 1920 : switchX;
+  const baseRotDeg = switchX >= 1700 ? 180 : 0;
+  // Lever +Y points along 60 deg (UP-LEFT, -30 deg from -X) when idle, flips to 120 deg (DOWN-LEFT, +30 deg) when active
+  const leverAngleDeg = switchX >= 1700 ? (leverFlipped ? 120 : 60) : (leverFlipped ? -120 : -60);
+  const leverRad = (leverAngleDeg * Math.PI) / 180;
+  // Local +Y rotated by leverAngleDeg in Y-up: (-sin(a), cos(a))
+  const leverDirX = -Math.sin(leverRad);
+  const leverDirY = Math.cos(leverRad);
   return [
     {
       id: 'switch_back',
       actor: 'o_levierbase_back',
-      transform: { x: baseX, y: switchY, rotDegZ: rotDeg, coordSpace: 'blitz', perspective: false, zOrderBias: 10 },
+      transform: { x: baseX, y: switchY, rotDegZ: baseRotDeg, coordSpace: 'blitz', perspective: false, zOrderBias: 10 },
     },
     {
       id: 'switch_lever',
       actor: 'o_levierbois',
       transform: {
-        x: baseX + dirX * 82,
-        y: switchY + (leverFlipped ? -45 : 45),
-        rotDegZ: rotDeg + (leverFlipped ? -30 : 30),
+        x: baseX + leverDirX * 100,
+        y: switchY + leverDirY * 100,
+        rotDegZ: leverAngleDeg,
         coordSpace: 'blitz',
         perspective: false,
         zOrderBias: 20,
@@ -200,12 +205,12 @@ export function getSwitchActorConfigs(
     {
       id: 'switch_base',
       actor: triggered ? 'o_levierbase_on' : 'o_levierbase_off',
-      transform: { x: baseX, y: switchY, rotDegZ: rotDeg, coordSpace: 'blitz', perspective: false, zOrderBias: 30 },
+      transform: { x: baseX, y: switchY, rotDegZ: baseRotDeg, coordSpace: 'blitz', perspective: false, zOrderBias: 30 },
     },
     {
       id: 'switch_frog',
       actor: triggered ? 'o_leviercrapeaudead' : 'o_leviercrapeau',
-      transform: { x: baseX, y: switchY, rotDegZ: rotDeg, coordSpace: 'blitz', perspective: false, zOrderBias: 40 },
+      transform: { x: baseX, y: switchY, rotDegZ: leverAngleDeg, coordSpace: 'blitz', perspective: false, zOrderBias: 40 },
     },
   ];
 }

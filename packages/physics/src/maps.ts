@@ -494,8 +494,8 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
       {
         id: 7,
         name: 'PST_MecaSwitch_Collider',
-        cx: 1838,
-        cy: 585,
+        cx: 1833,
+        cy: 590,
         halfW: 95,
         halfH: 18,
         rotDeg: -30,
