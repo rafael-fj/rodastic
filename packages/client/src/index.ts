@@ -403,6 +403,11 @@ export class RotasticWebClient {
           }
         };
         registerTexMap(manifest.globalTextures);
+        if (manifest.globalTextures) {
+          for (const [texId, u] of Object.entries(manifest.globalTextures)) {
+            if (texId.startsWith('t_character_')) urlSet.add(u);
+          }
+        }
         registerTexMap(manifest.backgroundTextures);
         if (manifest.mapTextures) {
           for (const mapTbl of Object.values(manifest.mapTextures)) {
@@ -656,7 +661,7 @@ export class RotasticWebClient {
     for (const spr of this.vortexSprites) spr.destroy();
     this.vortexSprites = [];
     for (const vp of this.vfxParticles) {
-      this.fxContainer.removeChild(vp.sprite);
+      vp.sprite.parent?.removeChild(vp.sprite);
       vp.sprite.destroy();
     }
     this.vfxParticles = [];
@@ -1318,13 +1323,14 @@ export class RotasticWebClient {
       startAlpha?: number;
       life?: number;
       blendMode?: 'normal' | 'add';
+      behindPlayer?: boolean;
     } = {}
   ): void {
     if (!tex) return;
     if (this.vfxParticles.length >= 220) {
       const oldest = this.vfxParticles.shift();
       if (oldest) {
-        this.fxContainer.removeChild(oldest.sprite);
+        oldest.sprite.parent?.removeChild(oldest.sprite);
         oldest.sprite.destroy();
       }
     }
@@ -1338,7 +1344,8 @@ export class RotasticWebClient {
     const startAlpha = opts.startAlpha ?? 0.95;
     sprite.alpha = startAlpha;
     sprite.blendMode = opts.blendMode ?? 'normal';
-    this.fxContainer.addChild(sprite);
+    const parent = opts.behindPlayer ? this.ropesContainer : this.fxContainer;
+    parent.addChild(sprite);
     const life = opts.life ?? 0.5;
     this.vfxParticles.push({
       sprite,
@@ -2137,13 +2144,6 @@ export class RotasticWebClient {
 
       // Subtle inner hitbox ring + bright translucent invulnerability veil (frame_000110 / 325 / 326)
       const visualBubbleRadius = C.SHIELD_BUBBLE_RADIUS; // Measured 161px diameter in Rotastic.exe screenshots
-      this.ropesGraphics
-        .circle(sx, sy, C.PLAYER_RADIUS)
-        .stroke({
-          color: p.status === PlayerStatus.DIZZY ? 0xf97316 : colorMeta.hex,
-          width: i === this.mySlotIndex ? 2.5 : 1.5,
-          alpha: 0.45,
-        });
 
       if (p.invulnTimer > 0) {
         const pulseGlow = 0.5 + 0.5 * Math.sin(p.invulnTimer * Math.PI * 10);
@@ -2170,34 +2170,42 @@ export class RotasticWebClient {
 
       // Inner Orange Trick/Mass Aura (c2) + continuous star particle trail (`CPlayerUberBeamFeedback2` @ 0x0053E311)
       if (p.chargeGauge2 >= 1.0) {
+        const orangeRingR = 56;
         this.ropesGraphics
-          .circle(sx, sy, 64)
-          .fill({ color: 0xf97316, alpha: 0.2 })
-          .stroke({ color: 0xf97316, width: 7, alpha: 0.95 });
+          .circle(sx, sy, orangeRingR)
+          .fill({ color: 0xfacc15, alpha: 0.14 })
+          .stroke({ color: 0xf97316, width: 24, alpha: 0.24 });
         this.ropesGraphics
-          .circle(sx, sy, 60)
-          .stroke({ color: 0xfde047, width: 3.5, alpha: 0.65 });
+          .circle(sx, sy, orangeRingR)
+          .stroke({ color: 0xfb923c, width: 17, alpha: 0.55 });
+        this.ropesGraphics
+          .circle(sx, sy, orangeRingR)
+          .stroke({ color: 0xfacc15, width: 11, alpha: 0.92 });
+        this.ropesGraphics
+          .circle(sx, sy, orangeRingR)
+          .stroke({ color: 0xfef08a, width: 5, alpha: 0.78 });
 
         this.orangeTrailSpawnAcc[i] += dt;
         const starTex = this.texturesCache.get('/assets/textures/arenas/t_fx_uberbeam_c.png');
         while (this.orangeTrailSpawnAcc[i] >= 0.025) {
           this.orangeTrailSpawnAcc[i] -= 0.025;
           const jitterA = Math.random() * Math.PI * 2;
-          const jitterR = Math.random() * 28;
-          const scale = 0.45 + Math.random() * 0.3;
+          const jitterR = Math.random() * 18;
+          const scale = 0.55 + Math.random() * 0.3;
           this.spawnVfxParticle(
             starTex,
             sx + Math.cos(jitterA) * jitterR,
             sy + Math.sin(jitterA) * jitterR,
             {
-              vx: -p.vx * 0.06 + (Math.random() - 0.5) * 52,
-              vy: -p.vy * 0.06 - 24 + (Math.random() - 0.5) * 44,
+              vx: (Math.random() - 0.5) * 18,
+              vy: (Math.random() - 0.5) * 18,
               rotation: Math.random() * Math.PI * 2,
-              rotSpeed: (Math.random() - 0.5) * 5,
+              rotSpeed: (Math.random() - 0.5) * 4,
               startScale: scale,
               endScale: scale * 0.35,
-              startAlpha: 0.95,
-              life: 0.5 + Math.random() * 0.22,
+              startAlpha: 1.0,
+              life: 0.52 + Math.random() * 0.2,
+              behindPlayer: true,
             }
           );
         }
@@ -2247,11 +2255,17 @@ export class RotasticWebClient {
       if (p.chargeGauge >= 1.0) {
         this.ropesGraphics
           .circle(sx, sy, visualBubbleRadius)
-          .fill({ color: 0xffffff, alpha: 0.14 })
-          .stroke({ color: 0xf8fafc, width: 5.5, alpha: 0.96 });
+          .fill({ color: 0xffffff, alpha: 0.1 })
+          .stroke({ color: 0xffffff, width: 14, alpha: 0.22 });
         this.ropesGraphics
-          .circle(sx, sy, visualBubbleRadius - 5)
-          .stroke({ color: 0xffffff, width: 8, alpha: 0.14 });
+          .circle(sx, sy, visualBubbleRadius)
+          .stroke({ color: 0xffffff, width: 9, alpha: 0.42 });
+        this.ropesGraphics
+          .circle(sx, sy, visualBubbleRadius)
+          .stroke({ color: 0xf8fafc, width: 4.5, alpha: 0.88 });
+        this.ropesGraphics
+          .circle(sx, sy, visualBubbleRadius - 6)
+          .stroke({ color: 0xffffff, width: 10, alpha: 0.14 });
       } else if (p.chargeGauge > 0.015 || this.attachDenyFlashTimer[i] > 0) {
         const arcProgress =
           this.attachDenyFlashTimer[i] > 0
@@ -2280,7 +2294,7 @@ export class RotasticWebClient {
       const vp = this.vfxParticles[i];
       vp.life -= dt;
       if (vp.life <= 0) {
-        this.fxContainer.removeChild(vp.sprite);
+        vp.sprite.parent?.removeChild(vp.sprite);
         vp.sprite.destroy();
         this.vfxParticles.splice(i, 1);
         continue;
