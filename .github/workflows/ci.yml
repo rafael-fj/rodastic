@@ -71,10 +71,10 @@ jobs:
         if: steps.check_pkg.outputs.has_pkg == 'true'
         run: pnpm run -r --if-present typecheck && pnpm run -r --if-present lint
 
-      - name: Run Unit & Determinism Tests
-        if: steps.check_pkg.outputs.has_pkg == 'true'
-        run: pnpm test
-
       - name: Build Packages
         if: steps.check_pkg.outputs.has_pkg == 'true'
         run: pnpm build
+
+      - name: Run Unit & Determinism Tests
+        if: steps.check_pkg.outputs.has_pkg == 'true'
+        run: pnpm test
