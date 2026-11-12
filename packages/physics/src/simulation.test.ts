@@ -999,8 +999,8 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     // Moving downward onto top of lever collider must bounce WITHOUT triggering switch
     p04.status = PlayerStatus.FREE_FALL;
     p04.invulnTimer = 0;
-    p04.x = 1838;
-    p04.y = 660;
+    p04.x = 1833;
+    p04.y = 560;
     p04.vx = 0;
     p04.vy = -800;
     const missDown = sim04.step({ 0: { seq: 301, actionHeld: false, axisX: 0, axisY: 0 } }, C.FIXED_DT);
@@ -1009,9 +1009,9 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
 
     // Hit PST_MecaSwitch_Collider from below (de baixo pra cima: ny < -0.2)
     p04.status = PlayerStatus.FREE_FALL;
-    p04.x = 1838;
-    p04.y = 515;
-    p04.vx = 120;
+    p04.x = 1833;
+    p04.y = 420;
+    p04.vx = -120;
     p04.vy = 850;
     const hitEvents = sim04.step({ 0: { seq: 302, actionHeld: false, axisX: 0, axisY: 0 } }, C.FIXED_DT);
     expect(hitEvents.some((e) => e.type === 'switchtoggle')).toBe(true);

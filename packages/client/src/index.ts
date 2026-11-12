@@ -1416,7 +1416,7 @@ export class RotasticWebClient {
         }
       }
 
-      if (wallActorRendered || w.name === 'WallTop') {
+      if (wallActorRendered || w.name === 'WallTop' || w.name === 'PST_MecaSwitch_Collider') {
         continue;
       }
 

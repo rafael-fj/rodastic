@@ -811,16 +811,16 @@ export class RotasticSimulation {
         }
       }
       if (st.name === 'PST_MecaSwitch_Collider' && this.map.switchDef) {
-        // Keep switch collider aligned with the rotating lever sprite (UP-LEFT -30° idle, DOWN-LEFT +30° active)
+        // Keep switch collider aligned with the rotating lever sprite (DOWN-LEFT +30° idle/OFF, UP-LEFT -30° active/ON)
         const sy = this.map.switchDef.y;
         if (this.state.switchReversed) {
           st.cx = 1833;
-          st.cy = sy - 50;
-          st.rotRad = (30 * Math.PI) / 180;
-        } else {
-          st.cx = 1833;
           st.cy = sy + 50;
           st.rotRad = (-30 * Math.PI) / 180;
+        } else {
+          st.cx = 1833;
+          st.cy = sy - 50;
+          st.rotRad = (30 * Math.PI) / 180;
         }
       }
       if (def.motion) {

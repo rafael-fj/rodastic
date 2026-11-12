@@ -178,8 +178,8 @@ export function getSwitchActorConfigs(
   // Mounted flush on right wall (x=1920, y=switchY), rotated 180 deg so local +X/-X faces LEFT into arena
   const baseX = switchX >= 1700 ? 1920 : switchX;
   const baseRotDeg = switchX >= 1700 ? 180 : 0;
-  // Lever +Y points along 60 deg (UP-LEFT, -30 deg from -X) when idle, flips to 120 deg (DOWN-LEFT, +30 deg) when active
-  const leverAngleDeg = switchX >= 1700 ? (leverFlipped ? 120 : 60) : (leverFlipped ? -120 : -60);
+  // Lever +Y points along 120 deg (DOWN-LEFT, +30 deg from -X) when idle (OFF), flips UP-LEFT to 60 deg when active (ON)
+  const leverAngleDeg = switchX >= 1700 ? (leverFlipped ? 60 : 120) : (leverFlipped ? -60 : -120);
   const leverRad = (leverAngleDeg * Math.PI) / 180;
   // Local +Y rotated by leverAngleDeg in Y-up: (-sin(a), cos(a))
   const leverDirX = -Math.sin(leverRad);
