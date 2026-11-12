@@ -44,10 +44,11 @@ export const ROTASTIC_PHYSICS_CONSTANTS = {
   RELEASE_BOOST_WINDOW_SEC: 0.4, // simRef[0x30] = 0.4
   RELEASE_BOOST_FACTOR: 1.2, // simRef[0x40] = 1.2 (observed 900 -> 1079 u/s)
 
-  // Rope Cutting & Collisions
+  // Rope Cutting & Collisions (CRotasticRope::vfunc_44 @ 0x005435D0, OnCutEnemyRope @ 0x00578A90)
   ROPE_CUT_GRACE_SEC: 0.08, // Responsive close-quarters rope cutting while avoiding frame-0 self-attach snags
-  ROPE_CUT_MIN_SPEED: 160.0, // Minimum speed when not swinging fast on a tight radius
-  PLAYER_RADIUS: 44.0, // Matches 82.8px PvP contact distance & 161px visual shield scale in 1920x1080
+  ROPE_CAPSULE_RADIUS: 5.0, // Verified rope physics capsule radius [edx+0x20] = 5.0f @ 0x00543838
+  PLAYER_RADIUS: 44.0, // Matches 82.8px PvP contact distance in 1920x1080
+  SHIELD_BUBBLE_RADIUS: 78.0, // Full white bubble radius when c1 >= 1.0 (measured ~161px diameter in Rotastic.exe)
   WALL_BOUNCE_RESTITUTION: 1.0, // simRef[0x44] = 1.0
   PLAYER_RESTITUTION: 1.0, // Verified exact in 4/4 PVP_BOUNCE_SOLVER events
   PVP_MIN_COLLISION_SPEED: 450.0, // Verified speed floor @ 0x005782C6, 0x005783B8, 0x0057717F

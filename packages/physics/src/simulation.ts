@@ -1103,8 +1103,16 @@ export class RotasticSimulation {
    * awarding +0.2 orange charge + dizzying victim. Uses both capsule distance and
    * swept tick motion so short-radius inner spins and fast dashes never miss.
    */
+  /**
+   * Native rope cutting (`CRotasticRope::vfunc_44 @ 0x005435D0` + `OnCutEnemyRope @ 0x00578A90`):
+   * - No minimum speed or angular velocity threshold (`0x00578A90` checks only different team + victim attached).
+   * - Rope capsule has radius 5.0 (`0x00543838`) and length `max(1.0, L - PLAYER_RADIUS)` (`0x00543880`),
+   *   ending before the victim's body; when sharing a pivot, cutter must swing on a shorter rope (`L_c < L_v`).
+   * - Colliding with the victim's body (`2 * PLAYER_RADIUS`) or complete white bubble (`c1 >= 1.0`,
+   *   `PLAYER_RADIUS + SHIELD_BUBBLE_RADIUS`) protects the victim's rope and prevents a clean cut.
+   */
   private checkRopeCuts(dt: number): void {
-    const cutRadius = C.PLAYER_RADIUS + 4;
+    const cutRadius = C.PLAYER_RADIUS + C.ROPE_CAPSULE_RADIUS;
     const cutRadiusSq = cutRadius * cutRadius;
 
     for (const victim of this.state.players) {
@@ -1119,6 +1127,20 @@ export class RotasticSimulation {
       const pivot = this.state.attachPoints.find((ap) => ap.id === victim.attachedPivotId);
       if (!pivot) continue;
 
+      const ropeDx = victim.x - pivot.x;
+      const ropeDy = victim.y - pivot.y;
+      const victimDist = Math.hypot(ropeDx, ropeDy);
+      if (victimDist <= C.PLAYER_RADIUS + 1.0) continue;
+
+      const invVictimDist = 1 / victimDist;
+      const capsuleLen = Math.max(1.0, victimDist - C.PLAYER_RADIUS);
+      const ropeEndX = pivot.x + ropeDx * invVictimDist * capsuleLen;
+      const ropeEndY = pivot.y + ropeDy * invVictimDist * capsuleLen;
+
+      const victimProtectRadius =
+        C.PLAYER_RADIUS + (victim.chargeGauge >= 1.0 ? C.SHIELD_BUBBLE_RADIUS : C.PLAYER_RADIUS);
+      const victimProtectRadiusSq = victimProtectRadius * victimProtectRadius;
+
       for (const cutter of this.state.players) {
         if (
           !cutter.active ||
@@ -1130,23 +1152,41 @@ export class RotasticSimulation {
           continue;
         }
 
-        const cutterSpeed = Math.hypot(cutter.vx, cutter.vy);
-        const isSpinningCut =
-          cutter.status === PlayerStatus.SWINGING && Math.abs(cutter.omega) >= 1.8;
-        if (cutterSpeed < C.ROPE_CUT_MIN_SPEED && !isSpinningCut) continue;
+        // Swinging on the same pivot requires a shorter rope than the victim
+        if (
+          cutter.status === PlayerStatus.SWINGING &&
+          cutter.attachedPivotId === victim.attachedPivotId &&
+          cutter.ropeLength >= victim.ropeLength
+        ) {
+          continue;
+        }
+
+        const prevCutterX = cutter.x - cutter.vx * dt;
+        const prevCutterY = cutter.y - cutter.vy * dt;
+
+        // Block cut if cutter collides with the victim's body or full white bubble (c1 >= 1.0)
+        const currVictimDistSq = (cutter.x - victim.x) ** 2 + (cutter.y - victim.y) ** 2;
+        if (currVictimDistSq <= victimProtectRadiusSq) continue;
+        const sweptVictim = closestPointOnSegment2D(
+          victim.x,
+          victim.y,
+          prevCutterX,
+          prevCutterY,
+          cutter.x,
+          cutter.y
+        );
+        if (sweptVictim.distSq <= victimProtectRadiusSq) continue;
 
         const seg = closestPointOnSegment2D(
           cutter.x,
           cutter.y,
           pivot.x,
           pivot.y,
-          victim.x,
-          victim.y
+          ropeEndX,
+          ropeEndY
         );
 
-        const prevCutterX = cutter.x - cutter.vx * dt;
-        const prevCutterY = cutter.y - cutter.vy * dt;
-        const hitCurrent = seg.t >= 0.02 && seg.t <= 0.98 && seg.distSq <= cutRadiusSq;
+        const hitCurrent = seg.t >= 0.02 && seg.t <= 1.0 && seg.distSq <= cutRadiusSq;
         const sweptCross = segmentsIntersect2D(
           prevCutterX,
           prevCutterY,
@@ -1154,8 +1194,8 @@ export class RotasticSimulation {
           cutter.y,
           pivot.x,
           pivot.y,
-          victim.x,
-          victim.y
+          ropeEndX,
+          ropeEndY
         );
 
         if (hitCurrent || sweptCross) {

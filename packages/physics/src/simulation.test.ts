@@ -72,8 +72,9 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     const swinger = sim.state.players[0];
     const cutter = sim.state.players[1];
 
-    // Pivot #0 on lvl02 is (340, 880)
+    // Pivot #0 on lvl02 is (340, 880) — attach outside spawn invuln so c1 is consumed to 0.0
     swinger.status = PlayerStatus.FREE_FALL;
+    swinger.invulnTimer = 0;
     swinger.regrappleTimer = 0;
     swinger.x = 340;
     swinger.y = 660;
@@ -268,13 +269,14 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     const victim = sim.state.players[0];
     const cutter = sim.state.players[1];
 
-    // Pivot #0 on lvl02 is (340, 880). Outer victim swings at r = 180; inner cutter swings at r = 70
+    // Pivot #0 on lvl02 is (340, 880). Outer victim swings at r = 180 (c1=0); inner cutter swings at r = 70
     victim.status = PlayerStatus.SWINGING;
     victim.attachedPivotId = 0;
     victim.ropeLength = 180;
     victim.ropeAngle = 0;
     victim.omega = 2.0;
     victim.attachTimer = 0.4;
+    victim.chargeGauge = 0;
     victim.x = 340 + 180;
     victim.y = 880;
     victim.vx = 0;
@@ -576,6 +578,7 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     attacker.ropeLength = 220;
     attacker.attachTimer = 0.5;
     attacker.invulnTimer = 0;
+    attacker.chargeGauge = 0;
     attacker.x = 350;
     attacker.y = 80;
     victim.status = PlayerStatus.FREE_FALL;
@@ -671,5 +674,119 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     const dropEvs = sim.step({ 0: { seq: 124, actionHeld: true, axisX: 0, axisY: 0 } });
     expect(dropEvs.some((e) => e.type === 'spawndrop')).toBe(true);
     expect(p.chargeGauge2).toBe(0.0);
+  });
+
+  it('cuts enemy ropes without minimum speed, enforces shorter-rope on shared pivot, and respects full white bubble protection (#31)', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl02');
+    sim.configurePlayerSlot(0, { active: true, name: 'SwingingVictim' });
+    sim.configurePlayerSlot(1, { active: true, name: 'Cutter' });
+    const victim = sim.state.players[0];
+    const cutter = sim.state.players[1];
+
+    // Pivot #0 on lvl02 is (340, 880)
+    const setupVictim = (ropeLen: number, charge1: number) => {
+      victim.status = PlayerStatus.SWINGING;
+      victim.attachedPivotId = 0;
+      victim.ropeLength = ropeLen;
+      victim.ropeAngle = -Math.PI * 0.5; // straight down: (340, 880 - ropeLen)
+      victim.omega = 0;
+      victim.attachTimer = 0.5;
+      victim.chargeGauge = charge1;
+      victim.x = 340;
+      victim.y = 880 - ropeLen;
+      victim.vx = 0;
+      victim.vy = 0;
+    };
+
+    // 1. Slow free-fall cutter (speed = 25 u/s << old 160 threshold) cleanly cuts incomplete-bubble victim
+    setupVictim(260, 0.4);
+    cutter.status = PlayerStatus.FREE_FALL;
+    cutter.invulnTimer = 0;
+    cutter.x = 340;
+    cutter.y = 880 - 120; // dist to victim = 140 > 88
+    cutter.vx = 25;
+    cutter.vy = 0;
+    const slowFreeCut = sim.step({
+      0: { seq: 1, actionHeld: true, axisX: 0, axisY: 0 },
+      1: { seq: 1, actionHeld: false, axisX: 0, axisY: 0 },
+    });
+    expect(slowFreeCut.some((e) => e.type === 'ropecut' && e.slotIndex === 1)).toBe(true);
+    expect(victim.status).toBe(PlayerStatus.DIZZY);
+
+    // 2. Slow inner swinger (|omega| = 0.5 < old 1.8, linear speed = 35 < 160) cuts outer swinger
+    setupVictim(260, 0.2);
+    cutter.status = PlayerStatus.SWINGING;
+    cutter.attachedPivotId = 0;
+    cutter.ropeLength = 70;
+    cutter.ropeAngle = -Math.PI * 0.5;
+    cutter.omega = 0.5;
+    cutter.attachTimer = 0.5;
+    cutter.x = 340;
+    cutter.y = 880 - 70; // dist to victim = 190 > 88
+    cutter.vx = 35;
+    cutter.vy = 0;
+    const slowSwingCut = sim.step({
+      0: { seq: 2, actionHeld: true, axisX: 0, axisY: 0 },
+      1: { seq: 2, actionHeld: true, axisX: 0, axisY: 0 },
+    });
+    expect(slowSwingCut.some((e) => e.type === 'ropecut' && e.slotIndex === 1)).toBe(true);
+    expect(victim.status).toBe(PlayerStatus.DIZZY);
+
+    // 3. Shared-pivot longer/equal rope (cutter >= victim) cannot cut victim
+    setupVictim(200, 0.0);
+    cutter.status = PlayerStatus.SWINGING;
+    cutter.attachedPivotId = 0;
+    cutter.ropeLength = 210; // >= 200
+    cutter.ropeAngle = -Math.PI * 0.5;
+    cutter.omega = 2.5;
+    cutter.attachTimer = 0.5;
+    cutter.x = 340;
+    cutter.y = 880 - 210;
+    const longerSamePivot = sim.step({
+      0: { seq: 3, actionHeld: true, axisX: 0, axisY: 0 },
+      1: { seq: 3, actionHeld: true, axisX: 0, axisY: 0 },
+    });
+    expect(longerSamePivot.some((e) => e.type === 'ropecut')).toBe(false);
+
+    // 4. Full white bubble (c1 >= 1.0) blocks cut when cutter collides with the bubble (dist = 110 <= 44 + 78 = 122)
+    setupVictim(220, 1.0);
+    cutter.status = PlayerStatus.FREE_FALL;
+    cutter.x = 340;
+    cutter.y = 880 - 110; // dist to victim = 110 <= 122
+    cutter.vx = 400;
+    cutter.vy = 0;
+    const fullBubbleBlocked = sim.step({
+      0: { seq: 4, actionHeld: true, axisX: 0, axisY: 0 },
+      1: { seq: 4, actionHeld: false, axisX: 0, axisY: 0 },
+    });
+    expect(fullBubbleBlocked.some((e) => e.type === 'ropecut')).toBe(false);
+    expect(victim.status).toBe(PlayerStatus.SWINGING);
+
+    // 5. Same distance (dist = 110) DOES cut when victim's white bubble is incomplete (c1 = 0.85 < 1.0)
+    setupVictim(220, 0.85);
+    cutter.status = PlayerStatus.FREE_FALL;
+    cutter.x = 340;
+    cutter.y = 880 - 110;
+    cutter.vx = 400;
+    cutter.vy = 0;
+    const incompleteBubbleCut = sim.step({
+      0: { seq: 5, actionHeld: true, axisX: 0, axisY: 0 },
+      1: { seq: 5, actionHeld: false, axisX: 0, axisY: 0 },
+    });
+    expect(incompleteBubbleCut.some((e) => e.type === 'ropecut' && e.slotIndex === 1)).toBe(true);
+
+    // 6. Full white bubble (c1 >= 1.0) STILL allows cut when crossing cleanly outside the bubble (dist > 122)
+    setupVictim(260, 1.0);
+    cutter.status = PlayerStatus.FREE_FALL;
+    cutter.x = 340;
+    cutter.y = 880 - 100; // dist to victim = 160 > 122
+    cutter.vx = 120;
+    cutter.vy = 0;
+    const clearBubbleCut = sim.step({
+      0: { seq: 6, actionHeld: true, axisX: 0, axisY: 0 },
+      1: { seq: 6, actionHeld: false, axisX: 0, axisY: 0 },
+    });
+    expect(clearBubbleCut.some((e) => e.type === 'ropecut' && e.slotIndex === 1)).toBe(true);
+    expect(victim.status).toBe(PlayerStatus.DIZZY);
   });
 });

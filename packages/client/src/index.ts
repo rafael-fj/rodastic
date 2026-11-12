@@ -1917,7 +1917,7 @@ export class RotasticWebClient {
       }
 
       // Subtle inner hitbox ring + bright translucent invulnerability veil (frame_000110 / 325 / 326)
-      const visualBubbleRadius = 78; // Measured 161px diameter in Rotastic.exe screenshots
+      const visualBubbleRadius = C.SHIELD_BUBBLE_RADIUS; // Measured 161px diameter in Rotastic.exe screenshots
       this.ropesGraphics
         .circle(sx, sy, C.PLAYER_RADIUS)
         .stroke({
