@@ -1258,7 +1258,7 @@ export class RotasticSimulation {
         const pivot = this.state.attachPoints.find((ap) => ap.id === p.attachedPivotId);
         if (pivot && p.ropeLength > 1) {
           const r = p.ropeLength;
-          const clearanceSq = (C.PLAYER_RADIUS + 1.0) ** 2;
+          const clearanceSq = (C.PLAYER_RADIUS + 0.05) ** 2;
           const startAngle = Math.atan2(sweepPrevY - pivot.y, sweepPrevX - pivot.x);
           let dTheta = p.ropeAngle - startAngle;
           while (dTheta > Math.PI) dTheta -= Math.PI * 2;

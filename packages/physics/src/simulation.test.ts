@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  ClientPredictionController,
   PlayerStatus,
   ROTASTIC_PHYSICS_CONSTANTS as C,
   RotasticSimulation,
@@ -902,5 +903,77 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
       }
     }
     expect(swingBounceTick).toBeGreaterThan(0);
+  });
+
+  it('prevents horizontal wall bounce zigzag (----> / <- / -> / <-----) under lagged 30Hz server snapshots (#32)', () => {
+    const serverSim = new RotasticSimulation('w_multi_dm_lvl09');
+    serverSim.configurePlayerSlot(0, { active: true, name: 'P1' });
+    const sp = serverSim.state.players[0];
+    sp.status = PlayerStatus.FREE_FALL;
+    sp.invulnTimer = 0;
+    sp.x = 1760;
+    sp.y = 600;
+    sp.vx = 1400; // +23.33 px/tick right toward PRP_wallRight (inner face x=1890)
+    sp.vy = 120;
+
+    const clientSim = new RotasticSimulation('w_multi_dm_lvl09');
+    clientSim.restoreState(serverSim.cloneState());
+
+    const predictor = new ClientPredictionController();
+    const sentInputs: Array<{ seq: number; actionHeld: boolean; axisX: number; axisY: number }> = [];
+
+    let bouncedClientTick = -1;
+    let prevRenderXAfterBounce = Infinity;
+    let sawPreBounceServerSnapshotAfterClientBounce = false;
+
+    for (let tick = 1; tick <= 18; tick++) {
+      const cmd = { seq: tick, actionHeld: false, axisX: 0, axisY: 0 };
+      sentInputs.push(cmd);
+      predictor.stepPredictedTick(clientSim, 0, cmd, C.FIXED_DT);
+
+      const cp = clientSim.state.players[0];
+      if (bouncedClientTick === -1 && cp.vx < 0) {
+        bouncedClientTick = tick;
+        prevRenderXAfterBounce = predictor.getRenderPosition(cp, true).x;
+      } else if (bouncedClientTick !== -1) {
+        expect(cp.vx).toBeLessThan(0);
+        const rx = predictor.getRenderPosition(cp, true).x;
+        expect(rx).toBeLessThan(prevRenderXAfterBounce);
+        prevRenderXAfterBounce = rx;
+      }
+
+      // Server lags by 3 ticks (50ms RTT) and broadcasts at 30 Hz (every 2 ticks)
+      if (tick > 3) {
+        const serverInput = sentInputs[tick - 4];
+        serverSim.step({ 0: serverInput }, C.FIXED_DT);
+        if (tick % 2 === 0) {
+          const snapshot = serverSim.cloneState();
+          if (bouncedClientTick !== -1 && snapshot.players[0].vx > 0) {
+            sawPreBounceServerSnapshotAfterClientBounce = true;
+          }
+          predictor.reconcileSnapshot(clientSim, snapshot, 0, C.FIXED_DT);
+          if (bouncedClientTick !== -1) {
+            // Stale pre-bounce snapshot (vx > 0) must NEVER reverse post-bounce vx < 0!
+            expect(clientSim.state.players[0].vx).toBeLessThan(0);
+          }
+        }
+      }
+    }
+
+    expect(bouncedClientTick).toBeGreaterThan(0);
+    expect(sawPreBounceServerSnapshotAfterClientBounce).toBe(true);
+
+    // Also verify anti-reversal visual decay even under ±1 tick server clock drift mismatch
+    const driftySnapshot = serverSim.cloneState();
+    driftySnapshot.players[0].vx = -1400;
+    driftySnapshot.players[0].x = clientSim.state.players[0].x + 35; // 1.5 ticks behind client
+    predictor.reconcileSnapshot(clientSim, driftySnapshot, 0, C.FIXED_DT);
+    let lastX = predictor.getRenderPosition(clientSim.state.players[0], true).x;
+    for (let t = 19; t <= 24; t++) {
+      predictor.stepPredictedTick(clientSim, 0, { seq: t, actionHeld: false, axisX: 0, axisY: 0 }, C.FIXED_DT);
+      const nextX = predictor.getRenderPosition(clientSim.state.players[0], true).x;
+      expect(nextX).toBeLessThan(lastX);
+      lastX = nextX;
+    }
   });
 });

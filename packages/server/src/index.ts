@@ -46,6 +46,7 @@ interface ConnectedClient {
   rttMs: number;
   outSeq: number;
   latestInput: PlayerInputCommand;
+  pendingInputs: PlayerInputCommand[];
 }
 
 const BOT_NAMES = ['Botagnar', 'Botlind', 'Porkchop-AI', 'Bonehead-AI'];
@@ -123,6 +124,7 @@ export class RoomSession {
       rttMs: 12,
       outSeq: 1,
       latestInput: { seq: 0, actionHeld: false, axisX: 0, axisY: 0 },
+      pendingInputs: [],
     };
 
     this.clients.set(peerId, client);
@@ -293,7 +295,13 @@ export class RoomSession {
 
     if (hdr.packetType === PacketType.CLIENT_INPUT_CMD) {
       const decoded = decodeClientInputCmd(u8);
-      client.latestInput = decoded.cmd;
+      if (decoded.cmd.seq > client.latestInput.seq) {
+        client.pendingInputs.push(decoded.cmd);
+        if (client.pendingInputs.length > 12) {
+          client.pendingInputs.splice(0, client.pendingInputs.length - 12);
+        }
+        client.latestInput = decoded.cmd;
+      }
       return;
     }
 
@@ -470,6 +478,7 @@ export class RoomSession {
 
     for (const c of this.clients.values()) {
       c.ready = false;
+      c.pendingInputs = [];
       const adv = encodeAppControlMessage(
         this.allocSeq(),
         0,
@@ -489,6 +498,7 @@ export class RoomSession {
     this.readyMask3 = 0;
     for (const c of this.clients.values()) {
       c.ready = false;
+      c.pendingInputs = [];
       const adv = encodeAppControlMessage(
         this.allocSeq(),
         0,
@@ -532,10 +542,10 @@ export class RoomSession {
 
     if (this.sessionState !== OnlineSessionState.IN_GAME) return;
 
-    // Gather inputs for all 4 slots (humans + AI bots)
+    // Gather inputs for all 4 slots (consume 1 queued client input per tick to avoid burst drops)
     const inputs: Record<number, PlayerInputCommand> = {};
     for (const c of this.clients.values()) {
-      inputs[c.slotIndex] = c.latestInput;
+      inputs[c.slotIndex] = c.pendingInputs.length > 0 ? c.pendingInputs.shift()! : c.latestInput;
     }
     this.botInputSeq++;
     for (const p of this.sim.state.players) {
@@ -868,17 +878,26 @@ export function createRotasticServer(port = Number(process.env.PORT) || 3001) {
     });
   });
 
-  // Authoritative 60 Hz physics loop & 30 Hz network snapshot loop
+  // Authoritative 60.0 Hz fixed-dt accumulator & 30.0 Hz network snapshot loop
   let tickCounter = 0;
+  let lastStepMs = performance.now();
+  let accumulatorSec = 0;
   const simInterval = setInterval(() => {
-    tickCounter++;
-    for (const room of rooms.values()) {
-      room.stepFixed60Hz();
-      if (tickCounter % 2 === 0) {
-        room.broadcastWorldSnapshot();
+    const nowMs = performance.now();
+    const elapsedSec = Math.min(0.1, Math.max(0, (nowMs - lastStepMs) / 1000));
+    lastStepMs = nowMs;
+    accumulatorSec += elapsedSec;
+    while (accumulatorSec >= C.FIXED_DT) {
+      accumulatorSec -= C.FIXED_DT;
+      tickCounter++;
+      for (const room of rooms.values()) {
+        room.stepFixed60Hz();
+        if (tickCounter % 2 === 0) {
+          room.broadcastWorldSnapshot();
+        }
       }
     }
-  }, 1000 / C.TICK_RATE_HZ);
+  }, 8);
 
   const start = (): Promise<number> =>
     new Promise((resolve) => {

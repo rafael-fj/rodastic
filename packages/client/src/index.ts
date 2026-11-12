@@ -15,6 +15,7 @@ import {
 import {
   CHARACTER_NAMES,
   CharacterId,
+  ClientPredictionController,
   GEM_POINTS,
   getMultiplayerMapById,
   MULTIPLAYER_MAPS,
@@ -159,6 +160,7 @@ export class RotasticWebClient {
 
   // Local predictive simulation + interpolated display positions
   public localSim = new RotasticSimulation('w_multi_dm_lvl09');
+  private predictor = new ClientPredictionController();
   private simAccumulator = 0;
   private displayPos: Array<{
     x: number;
@@ -883,6 +885,7 @@ export class RotasticWebClient {
       ) {
         this.standings = [];
         this.showLobbyOverlay = false;
+        this.predictor.reset();
         this.currentLeaderSlot = -1;
         this.halfTimeAnnounced = false;
         this.nearEndAnnounced = false;
@@ -963,6 +966,7 @@ export class RotasticWebClient {
         serverWorld.scoreLimit,
         serverWorld.timeRemainingSec
       );
+      this.predictor.reset();
       void this.ensureMapBackgrounds(serverWorld.mapId);
     }
 
@@ -971,24 +975,24 @@ export class RotasticWebClient {
       this.triggerSimEventFeedback(ev);
     }
 
-    // Update authoritative state while preserving smooth client prediction on local player
-    const localPlayerBefore = { ...this.localSim.state.players[this.mySlotIndex] };
-    this.localSim.restoreState(serverWorld);
+    // Rewind to authoritative state and replay unacknowledged local inputs without
+    // overwriting post-bounce velocity with stale pre-bounce snapshot velocity (#32)
+    const { snapped } = this.predictor.reconcileSnapshot(
+      this.localSim,
+      serverWorld,
+      this.mySlotIndex,
+      C.FIXED_DT
+    );
 
-    const authLocal = this.localSim.state.players[this.mySlotIndex];
-    if (
-      authLocal &&
-      authLocal.active &&
-      authLocal.status === localPlayerBefore.status &&
-      authLocal.status !== PlayerStatus.DEAD &&
-      authLocal.status !== PlayerStatus.SPAWN_CURSOR
-    ) {
-      const errDist = Math.hypot(authLocal.x - localPlayerBefore.x, authLocal.y - localPlayerBefore.y);
-      if (errDist < 120) {
-        // Gentle error decay toward server authority (avoids 20Hz rubberband flicker!)
-        const correctionAlpha = errDist > 14 ? 0.16 : 0.06;
-        authLocal.x = localPlayerBefore.x + (authLocal.x - localPlayerBefore.x) * correctionAlpha;
-        authLocal.y = localPlayerBefore.y + (authLocal.y - localPlayerBefore.y) * correctionAlpha;
+    if (snapped) {
+      const localP = this.localSim.state.players[this.mySlotIndex];
+      const disp = this.displayPos[this.mySlotIndex];
+      if (localP && localP.active && disp) {
+        const pos = this.predictor.getRenderPosition(localP, true);
+        disp.x = pos.x;
+        disp.y = pos.y;
+        disp.prevX = pos.x;
+        disp.prevY = pos.y;
       }
     }
 
@@ -1215,20 +1219,8 @@ export class RotasticWebClient {
       this.ws.send(pkt);
     }
 
-    // Preserve continuity for swinging remote players/bots between 20Hz snapshots so they don't snap-drop
-    const stepInputs: Record<number, PlayerInputCommand> = {
-      [this.mySlotIndex]: cmd,
-    };
-    for (let i = 0; i < 4; i++) {
-      if (i === this.mySlotIndex) continue;
-      const rp = this.localSim.state.players[i];
-      if (rp && rp.active && rp.status === PlayerStatus.SWINGING) {
-        stepInputs[i] = { seq: 0, actionHeld: true, reverseHeld: false, axisX: 0, axisY: 0 };
-      }
-    }
-
-    // Step local prediction
-    this.localSim.step(stepInputs, C.FIXED_DT);
+    // Step local prediction & record input for authoritative snapshot replay
+    this.predictor.stepPredictedTick(this.localSim, this.mySlotIndex, cmd, C.FIXED_DT);
 
     // Smoothly interpolate display positions & trails (1920x1080 space)
     for (let i = 0; i < 4; i++) {
@@ -1248,18 +1240,19 @@ export class RotasticWebClient {
       }
       disp.prevX = disp.x;
       disp.prevY = disp.y;
-      const dist = Math.hypot(p.x - disp.x, p.y - disp.y);
-      if (dist > 180 || (i === this.mySlotIndex && dist > 120)) {
-        disp.x = p.x;
-        disp.y = p.y;
-        disp.prevX = p.x;
-        disp.prevY = p.y;
+      const targetPos = this.predictor.getRenderPosition(p, i === this.mySlotIndex);
+      const dist = Math.hypot(targetPos.x - disp.x, targetPos.y - disp.y);
+      if (dist > 180 || (i === this.mySlotIndex && dist > 160)) {
+        disp.x = targetPos.x;
+        disp.y = targetPos.y;
+        disp.prevX = targetPos.x;
+        disp.prevY = targetPos.y;
       } else if (i === this.mySlotIndex) {
-        disp.x = p.x;
-        disp.y = p.y;
+        disp.x = targetPos.x;
+        disp.y = targetPos.y;
       } else {
-        disp.x += (p.x - disp.x) * 0.42;
-        disp.y += (p.y - disp.y) * 0.42;
+        disp.x += (targetPos.x - disp.x) * 0.42;
+        disp.y += (targetPos.y - disp.y) * 0.42;
       }
       disp.trails.unshift({ x: disp.x, y: disp.y });
       if (disp.trails.length > 14) disp.trails.pop();
