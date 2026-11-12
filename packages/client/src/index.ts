@@ -355,6 +355,7 @@ export class RotasticWebClient {
   private orangeShieldMeshes: Array<{ mesh: Mesh; pos: Float32Array; uvs: Float32Array }> = [];
   private playerSprites: Sprite[] = [];
   private playerLabels: Text[] = [];
+  private crownSprite = new Sprite();
   private floatingEffects: FloatingEffect[] = [];
   private vfxParticles: VfxParticle[] = [];
   private vfxAtlasFrames = new Map<string, Texture[]>();
@@ -492,6 +493,7 @@ export class RotasticWebClient {
       '/assets/textures/arenas/t_guicutfx_c.png',
       '/assets/textures/arenas/t_glissparticules_c.png',
       '/assets/textures/arenas/t_beamcorona_white_c.png',
+      '/assets/textures/arenas/t_guicouronne_c.png',
     ]);
 
     try {
@@ -552,6 +554,11 @@ export class RotasticWebClient {
     }
 
     await this.loadTextureUrls(urlSet);
+
+    const crownTex = this.texturesCache.get('/assets/textures/arenas/t_guicouronne_c.png');
+    if (crownTex) {
+      this.crownSprite.texture = crownTex;
+    }
 
     // Crop t_cordebeam_c / t_cordeuberbeam_c top opaque half (32x30 inside 32x64) for clean full-span overlays
     for (const beamUrl of ['/assets/textures/global/t_cordebeam_c.png', '/assets/textures/global/t_cordeuberbeam_c.png']) {
@@ -859,6 +866,10 @@ export class RotasticWebClient {
       this.playersContainer.addChild(lbl);
       this.playerLabels.push(lbl);
     }
+
+    this.crownSprite.anchor.set(0.5, 0.9);
+    this.crownSprite.visible = false;
+    this.playersContainer.addChild(this.crownSprite);
   }
 
   private setupInputListeners(): void {
@@ -1219,7 +1230,9 @@ export class RotasticWebClient {
       const second = sorted[1];
       const soleLeader = top.score > 0 && top.score > second.score;
 
-      if (soleLeader && top.slotIndex !== this.currentLeaderSlot) {
+      if (!soleLeader) {
+        this.currentLeaderSlot = -1;
+      } else if (top.slotIndex !== this.currentLeaderSlot) {
         this.currentLeaderSlot = top.slotIndex;
         const leaderKey = (`leader_${top.characterId}`) as `leader_${CharacterId}`;
         this.audio.playAnnouncer(leaderKey, 2500);
@@ -2006,20 +2019,27 @@ export class RotasticWebClient {
       }
     }
 
-    // Identify leader (highest score > 0) for Golden Crown
+    // Identify sole leader (highest score > 0 without tie) for Golden Crown
     let leaderSlot = -1;
-    let bestScore = 0;
-    for (const p of state.players) {
-      if (p.active && p.score > bestScore) {
-        bestScore = p.score;
-        leaderSlot = p.slotIndex;
+    const activeLeaderCandidates = state.players.filter((p) => p.active);
+    if (activeLeaderCandidates.length >= 2) {
+      const sorted = [...activeLeaderCandidates].sort((a, b) => b.score - a.score || b.kills - a.kills);
+      const top = sorted[0];
+      const second = sorted[1];
+      if (top.score > 0 && top.score > second.score) {
+        leaderSlot = top.slotIndex;
       }
+    } else if (activeLeaderCandidates.length === 1 && activeLeaderCandidates[0].score > 0) {
+      leaderSlot = activeLeaderCandidates[0].slotIndex;
     }
 
     // 3. Ropes, Dual Shield Gauges, Spawn Cursor & Players
     const cordeTex = this.texturesCache.get('/assets/textures/global/t_corde_c.png');
     const ropeBeamTex = this.texturesCache.get('/assets/textures/global/t_cordebeam_c.png#cropped');
     const ATTACH_BEAM_DURATION_SEC = 0.72;
+    let leaderScreenX = 0;
+    let leaderScreenY = 0;
+    let leaderAlive = false;
 
     for (let i = 0; i < 4; i++) {
       this.bounceAnimTimer[i] = Math.max(0, this.bounceAnimTimer[i] - dt);
@@ -2119,6 +2139,12 @@ export class RotasticWebClient {
       const interpY = disp.prevY + (disp.y - disp.prevY) * renderAlpha;
       const sx = worldToScreenX(interpX);
       const sy = worldToScreenY(interpY);
+
+      if (i === leaderSlot) {
+        leaderScreenX = sx;
+        leaderScreenY = sy;
+        leaderAlive = true;
+      }
 
       // Motion Trail (suppressed while orange star trail is active)
       if (p.chargeGauge2 < 1.0) {
@@ -2461,11 +2487,26 @@ export class RotasticWebClient {
         outerRing.mesh.visible = false;
       }
 
-      const crownPrefix = p.slotIndex === leaderSlot ? '👑 ' : '';
       const dizzyPrefix = p.status === PlayerStatus.DIZZY ? '💫 ' : '';
-      lbl.text = `${crownPrefix}${dizzyPrefix}${p.name}`;
+      lbl.text = `${dizzyPrefix}${p.name}`;
       lbl.x = sx;
-      lbl.y = sy - 88;
+      lbl.y = p.slotIndex === leaderSlot ? sy - 96 : sy - 68;
+    }
+
+    // Leader Golden Crown (t_guicouronne_c.png) positioned smoothly over leader's head
+    if (leaderAlive) {
+      if (this.crownSprite.texture === Texture.WHITE || this.crownSprite.texture === Texture.EMPTY) {
+        const crownTex = this.texturesCache.get('/assets/textures/arenas/t_guicouronne_c.png');
+        if (crownTex) this.crownSprite.texture = crownTex;
+      }
+      const crownBob = Math.sin(nowSec * 5.0) * 3;
+      this.crownSprite.x = leaderScreenX;
+      this.crownSprite.y = leaderScreenY - 50 + crownBob;
+      this.crownSprite.scale.set(48 / 64);
+      this.crownSprite.rotation = 0;
+      this.crownSprite.visible = true;
+    } else {
+      this.crownSprite.visible = false;
     }
 
     // 4. Update VFX Sprite Particles (orange star trail, shield break shards, cut starbursts, bounce sparks)
