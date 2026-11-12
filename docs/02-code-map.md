@@ -1,7 +1,7 @@
 # Fase 1 — Mapa de Código e Arquitetura de Classes (`02-code-map.md`)
 
-> Gerado automaticamente por [`tools/extract/extract-code-map.mjs`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/tools/extract/extract-code-map.mjs) a partir de `reference/game-files/Rotastic.exe`.
-> Dump completo em JSON disponível em [`reference/decompiled/rotastic-code-map.json`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/rotastic-code-map.json).
+> Gerado automaticamente por [`tools/extract/extract-code-map.mjs`](tools/extract/extract-code-map.mjs) a partir de `reference/game-files/Rotastic.exe`.
+> Dump completo em JSON disponível em [`reference/decompiled/rotastic-code-map.json`](reference/decompiled/rotastic-code-map.json).
 
 ## 1. Visão Geral dos Símbolos Extraídos
 

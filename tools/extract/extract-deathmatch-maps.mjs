@@ -24,8 +24,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "../..");
 const PKG_DIR = path.join(REPO_ROOT, "reference/game-files/packages");
 const FETM_JSON_DIR = path.join(REPO_ROOT, "reference/decompiled/fetm");
-const STEAM_GLOBAL_PC =
-  "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Rotastic\\packages\\w_global.pc";
+const SOURCE_GLOBAL_PC = process.env.ROTASTIC_GLOBAL_PC || path.join(PKG_DIR, "w_global.pc");
 
 const OUT_TEX_BG_DIR = path.join(REPO_ROOT, "assets-original/textures/backgrounds");
 const OUT_TEX_GLOBAL_DIR = path.join(REPO_ROOT, "assets-original/textures/global");
@@ -403,8 +402,8 @@ function main() {
   let globalEntries = [];
   const globalByHash = new Map();
   const globalByName = new Map();
-  if (fs.existsSync(STEAM_GLOBAL_PC)) {
-    globalEntries = parsePackageEntries(STEAM_GLOBAL_PC);
+  if (fs.existsSync(SOURCE_GLOBAL_PC)) {
+    globalEntries = parsePackageEntries(SOURCE_GLOBAL_PC);
     for (const e of globalEntries) {
       globalByHash.set(e.hash, e);
       globalByName.set(`${e.fourCC}:${e.name.toLowerCase()}`, e);
@@ -751,8 +750,8 @@ function main() {
 
   // Write human-readable specification document
   let md = `# Catálogo Completo de Objetos e Mecânicas — 8 Mapas Multiplayer Deathmatch\n\n`;
-  md += `> Gerado automaticamente por [\`tools/extract/extract-deathmatch-maps.mjs\`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/tools/extract/extract-deathmatch-maps.mjs) a partir dos pacotes \`w_multi_dm_lvl*_fetm.pc\`, \`w_multi_dm_lvl*.pc\` e \`w_global.pc\`.\n`;
-  md += `> JSON completo em [\`reference/decompiled/deathmatch-maps-spec.json\`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/deathmatch-maps-spec.json).\n\n`;
+  md += `> Gerado automaticamente por [\`tools/extract/extract-deathmatch-maps.mjs\`](tools/extract/extract-deathmatch-maps.mjs) a partir dos pacotes \`w_multi_dm_lvl*_fetm.pc\`, \`w_multi_dm_lvl*.pc\` e \`w_global.pc\`.\n`;
+  md += `> JSON completo em [\`reference/decompiled/deathmatch-maps-spec.json\`](reference/decompiled/deathmatch-maps-spec.json).\n\n`;
   md += `> **Escopo:** Conforme verificado em \`Lobby MapList DataTable\` (\`w_menurotastic_fetm.pc\`), existem **8 arenas oficiais de Multiplayer Deathmatch** (\`w_multi_dm_lvl01, 02, 04, 07, 09, 10, 11, 13\`). Os mapas do modo **Collect** (\`*coll*\`) foram arquivados em \`archive/collect-mode/\`, e os mapas \`w_ps3_deathmatch_*\` pertencem à lista de campanha Solo.\n\n`;
 
   md += `## Resumo Geral dos 8 Mapas Deathmatch\n\n`;

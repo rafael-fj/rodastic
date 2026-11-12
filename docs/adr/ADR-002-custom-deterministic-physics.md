@@ -2,13 +2,13 @@
 
 - **Status:** Aceito
 - **Data:** 2026-11-10
-- **Contexto:** Evidências da Fase 2 ([`docs/spec/physics.md`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/docs/spec/physics.md))
+- **Contexto:** Evidências da Fase 2 ([`docs/spec/physics.md`](docs/spec/physics.md))
 
 ## Contexto e Problema
 
 No plano preliminar antes da engenharia reversa, cogitou-se o uso de `Rapier` (WASM) ou `Planck.js` (Box2D) caso o jogo original utilizasse um motor de corpos rígidos tradicional com juntas de distância (`b2DistanceJoint`).
 
-Porém, a desmontagem completa de [`CRotasticPhysicPlayer.asm`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/disasm/CRotasticPhysicPlayer.asm) (`0x00690560..0x00693200`) na **Fase 2** provou que **Rotastic não utiliza Box2D, PhysX nem Havok**. A engine **BlitzTech** executa um integrador analítico 2D próprio (`RotasticSimulation`) com características muito específicas que definem a sensação ("game feel") do jogo:
+Porém, a desmontagem completa de [`CRotasticPhysicPlayer.asm`](reference/decompiled/disasm/CRotasticPhysicPlayer.asm) (`0x00690560..0x00693200`) na **Fase 2** provou que **Rotastic não utiliza Box2D, PhysX nem Havok**. A engine **BlitzTech** executa um integrador analítico 2D próprio (`RotasticSimulation`) com características muito específicas que definem a sensação ("game feel") do jogo:
 
 1. **Órbita Pendular Analítica (`StepSwinging`, `0x00690FE0`):**
    - Enquanto preso a um pivô (`CAttachPoint`), o jogador **não** é simulado por restrição de junta iterativa: sua posição é calculada diretamente em coordenadas polares $(r, \theta)$ com conservação de energia mecânica ajustada por um fator de ganho de embalo no topo da órbita (`swingPumpFactor = 0.05` em `0x0095AD54`) e velocidade angular mínima (`omegaMin = 1.0471976 rad/s` = $60^\circ/\text{s}$ em `0x0095AD80`).

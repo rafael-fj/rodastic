@@ -1,7 +1,7 @@
 # Fase 0 — Reconhecimento Técnico (`00-recon.md`)
 
 - **Alvo:** Rotastic (Steam PC Release — Focus Home Interactive / Dancing Dots)
-- **Diretório original inspecionado:** `C:\Program Files (x86)\Steam\steamapps\common\Rotastic`
+- **Diretório original inspecionado:** `<rotastic-install-dir>` (Rotastic PC Release)
 - **Data da compilação do executável (`TimeDateStamp`):** `2012-10-09 08:18:09 UTC`
 - **Tamanho total da instalação:** `944.66 MB` (`484` arquivos)
 
@@ -100,7 +100,7 @@ A análise de `packages/envvars.PC` e `.rdata` revelou flags nativas de debug do
 ## 4. Árvore de Arquivos da Instalação e Categorização de Tamanho
 
 ```text
-C:\Program Files (x86)\Steam\steamapps\common\Rotastic (944.66 MB total)
+<rotastic-install-dir> (944.66 MB total)
 ├── Rotastic.exe                  (  7.09 MB) — Executável nativo x86 (BlitzTech)
 ├── steam_api.dll                 (  0.12 MB) — Cliente Steamworks SDK x86
 ├── installscript.vdf             (  0.00 MB) — Script de instalação Steam

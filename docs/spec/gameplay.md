@@ -1,6 +1,6 @@
 # Especificação de Gameplay — Rotastic Multiplayer
 
-Este documento descreve as regras completas de partida, modos multiplayer, sistema de pontuação, itens/joias, ciclo de vida do jogador (spawn/morte/respawn), condição de vitória, *Sudden Death* e o catálogo detalhado dos **19 mapas multiplayer** extraídos de [`Rotastic.exe`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/game-files/Rotastic.exe) e [`reference/decompiled/multiplayer-maps-spec.json`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/multiplayer-maps-spec.json).
+Este documento descreve as regras completas de partida, modos multiplayer, sistema de pontuação, itens/joias, ciclo de vida do jogador (spawn/morte/respawn), condição de vitória, *Sudden Death* e o catálogo detalhado dos **19 mapas multiplayer** extraídos de [`Rotastic.exe`](reference/game-files/Rotastic.exe) e [`reference/decompiled/multiplayer-maps-spec.json`](reference/decompiled/multiplayer-maps-spec.json).
 
 ---
 
@@ -19,7 +19,7 @@ Este documento descreve as regras completas de partida, modos multiplayer, siste
 
 ## 2. Modos de Jogo Multiplayer
 
-O jogo possui dois modos multiplayer competitivos implementados pelas classes nativas [`CModeMultiDeathMatch`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/disasm/CModeMultiDeathMatch.asm) (`0x00531C70..0x00532BA0`) e [`CModeMultiCollecte`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/disasm/CModeMultiCollecte.asm) (`0x005315E0..0x00531C60`), herdando de `CRotasticGameModeMulti`.
+O jogo possui dois modos multiplayer competitivos implementados pelas classes nativas [`CModeMultiDeathMatch`](reference/decompiled/disasm/CModeMultiDeathMatch.asm) (`0x00531C70..0x00532BA0`) e [`CModeMultiCollecte`](reference/decompiled/disasm/CModeMultiCollecte.asm) (`0x005315E0..0x00531C60`), herdando de `CRotasticGameModeMulti`.
 
 ```mermaid
 flowchart TD
@@ -63,7 +63,7 @@ flowchart TD
 
 - **Objetivo:** Coletar o maior valor total em joias antes que o cronômetro de $120\text{ s}$ zere ou que todas as joias do mapa sejam coletadas.
 - **Tabela de Joias e Itens (`CPickUp::OnCollect`, `0x00537B80`):**
-  Cada entidade `CPickUp` possui um enumerador em `[pickup + 0x1E8]` (`pickupEnum` em [`multiplayer-maps-spec.json`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/multiplayer-maps-spec.json)):
+  Cada entidade `CPickUp` possui um enumerador em `[pickup + 0x1E8]` (`pickupEnum` em [`multiplayer-maps-spec.json`](reference/decompiled/multiplayer-maps-spec.json)):
 
 | `pickupEnum` (`[+0x1E8]`) | Categoria Simbólica | Malha 3D (`meshName`) | Pontos (`CPlayerData::AddScore`) | Endereço ASM (`CPickUp.asm`) | Efeito Especial |
 | :---: | :--- | :--- | :---: | :--- | :--- |
@@ -87,7 +87,7 @@ Em todos os mapas multiplayer, os 4 jogadores nascem no topo da tela ($Y = 1080.
   - `Player 2`: $X = 618.0,\; Y = 1080.0$
   - `Player 3`: $X = 1002.0,\; Y = 1080.0$
   - `Player 4`: $X = 1386.0,\; Y = 1080.0$
-  *(Alguns mapas ajustam o espaçamento horizontal conforme a geometria de paredes do topo; todos os valores exatos por mapa estão em [`reference/decompiled/multiplayer-maps-spec.json`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/multiplayer-maps-spec.json).)*
+  *(Alguns mapas ajustam o espaçamento horizontal conforme a geometria de paredes do topo; todos os valores exatos por mapa estão em [`reference/decompiled/multiplayer-maps-spec.json`](reference/decompiled/multiplayer-maps-spec.json).)*
 - **Tempo de Respawn após Morte:** $3.0\text{ segundos}$ (`respawnDelay = 3.0 s`).
 
 ### 3.2 Carga de Escudo e *UberBeam* (`CRotasticRopeUberBeam`)
@@ -109,7 +109,7 @@ Em todos os mapas multiplayer, os 4 jogadores nascem no topo da tela ($Y = 1080.
 
 ## 4. Catálogo Completo dos 19 Mapas Multiplayer
 
-Todos os 19 pacotes de nível multiplayer foram extraídos e estruturados em [`reference/decompiled/multiplayer-maps-spec.json`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/multiplayer-maps-spec.json). A tabela abaixo resume cada mapa:
+Todos os 19 pacotes de nível multiplayer foram extraídos e estruturados em [`reference/decompiled/multiplayer-maps-spec.json`](reference/decompiled/multiplayer-maps-spec.json). A tabela abaixo resume cada mapa:
 
 | ID do Mapa (`mapId`) | Modo | Timer | Pivôs (`CAttachPoint`) | Paredes (`CWall`) | Joias (`CPickUp`) | Vórtices (`CGravityVortex`) | Características de Level Design |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- |

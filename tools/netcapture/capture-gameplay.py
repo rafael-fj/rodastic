@@ -39,7 +39,7 @@ from pathlib import Path
 import frida
 from PIL import ImageGrab
 
-DEFAULT_EXE = r"C:\Program Files (x86)\Steam\steamapps\common\Rotastic\Rotastic.exe"
+DEFAULT_EXE = os.environ.get("ROTASTIC_EXE", str(Path(__file__).resolve().parent.parent.parent / "reference" / "game-files" / "Rotastic.exe"))
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent.parent
 DEFAULT_CAPTURES_DIR = REPO_ROOT / "reference" / "captures"

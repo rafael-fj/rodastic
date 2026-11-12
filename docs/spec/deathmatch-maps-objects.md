@@ -1,7 +1,7 @@
 # Catálogo Completo de Objetos e Mecânicas — 8 Mapas Multiplayer Deathmatch
 
-> Gerado automaticamente por [`tools/extract/extract-deathmatch-maps.mjs`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/tools/extract/extract-deathmatch-maps.mjs) a partir dos pacotes `w_multi_dm_lvl*_fetm.pc`, `w_multi_dm_lvl*.pc` e `w_global.pc`.
-> JSON completo em [`reference/decompiled/deathmatch-maps-spec.json`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/deathmatch-maps-spec.json).
+> Gerado automaticamente por [`tools/extract/extract-deathmatch-maps.mjs`](tools/extract/extract-deathmatch-maps.mjs) a partir dos pacotes `w_multi_dm_lvl*_fetm.pc`, `w_multi_dm_lvl*.pc` e `w_global.pc`.
+> JSON completo em [`reference/decompiled/deathmatch-maps-spec.json`](reference/decompiled/deathmatch-maps-spec.json).
 
 > **Escopo:** Conforme verificado em `Lobby MapList DataTable` (`w_menurotastic_fetm.pc`), existem **8 arenas oficiais de Multiplayer Deathmatch** (`w_multi_dm_lvl01, 02, 04, 07, 09, 10, 11, 13`). Os mapas do modo **Collect** (`*coll*`) foram arquivados em `archive/collect-mode/`, e os mapas `w_ps3_deathmatch_*` pertencem à lista de campanha Solo.
 

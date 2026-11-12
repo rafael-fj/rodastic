@@ -1,6 +1,6 @@
 # Máquina de Estados de Sessão, Lobby e Partida — Rotastic (`Rotastic.exe`)
 
-> **Fonte primária:** Engenharia reversa da máquina de estados online principal em [`Netcode_Steamworks.asm`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/disasm/Netcode_Steamworks.asm) (`0x006BA4E0..0x006BC070`), handlers de mensagens de aplicação (`0x006B8030..0x006B8B70`), e FlowActions de ciclo de vida online em [`Netcode_LobbyAndModes.asm`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/disasm/Netcode_LobbyAndModes.asm) (`0x004F4500..0x004FC500`).
+> **Fonte primária:** Engenharia reversa da máquina de estados online principal em [`Netcode_Steamworks.asm`](reference/decompiled/disasm/Netcode_Steamworks.asm) (`0x006BA4E0..0x006BC070`), handlers de mensagens de aplicação (`0x006B8030..0x006B8B70`), e FlowActions de ciclo de vida online em [`Netcode_LobbyAndModes.asm`](reference/decompiled/disasm/Netcode_LobbyAndModes.asm) (`0x004F4500..0x004FC500`).
 
 ---
 
@@ -175,7 +175,7 @@ Extraídos das constantes IEEE-754 em `.rdata` referenciadas por `0x006BA4E0..0x
 
 ## 6. Catálogo de FlowActions de Rede e Lobby (`0x004F4500..0x004FC500`)
 
-As cenas de interface (FEUI / FUI) do jogo controlam a máquina de estados acima invocando **19 FlowActions dedicadas** registradas no grafo do BlitzTech (extraídas em [`Netcode_LobbyAndModes.asm`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/disasm/Netcode_LobbyAndModes.asm)):
+As cenas de interface (FEUI / FUI) do jogo controlam a máquina de estados acima invocando **19 FlowActions dedicadas** registradas no grafo do BlitzTech (extraídas em [`Netcode_LobbyAndModes.asm`](reference/decompiled/disasm/Netcode_LobbyAndModes.asm)):
 
 | FlowAction | Execute VA | Papel na Máquina de Estados |
 | :--- | :--- | :--- |

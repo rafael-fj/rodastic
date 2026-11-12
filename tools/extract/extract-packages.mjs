@@ -18,7 +18,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "../..");
 const PKG_DIR = path.join(REPO_ROOT, "reference/game-files/packages");
-const STEAM_GLOBAL_PC = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Rotastic\\packages\\w_global.pc";
+const SOURCE_GLOBAL_PC = process.env.ROTASTIC_GLOBAL_PC || path.join(PKG_DIR, "w_global.pc");
 
 const OUT_DECOMPILED = path.join(REPO_ROOT, "reference/decompiled");
 const OUT_REFM_DIR = path.join(OUT_DECOMPILED, "refm");
@@ -494,8 +494,8 @@ for (const pcPath of pcFiles) {
 
 // Process w_global.pc (from reference/game-files or Steam installation)
 let globalPcSource = path.join(PKG_DIR, "w_global.pc");
-if (!fs.existsSync(globalPcSource) && fs.existsSync(STEAM_GLOBAL_PC)) {
-  globalPcSource = STEAM_GLOBAL_PC;
+if (!fs.existsSync(globalPcSource) && fs.existsSync(SOURCE_GLOBAL_PC)) {
+  globalPcSource = SOURCE_GLOBAL_PC;
 }
 
 let extractedAudioCount = 0;
@@ -581,8 +581,8 @@ fs.writeFileSync(OUT_CATALOG_JSON, JSON.stringify(fullCatalog, null, 2), "utf8")
 
 // Generate docs/01-assets-catalog.md
 let md = `# Fase 1 — Catálogo de Pacotes e Assets Extraídos (\`01-assets-catalog.md\`)\n\n`;
-md += `> Gerado automaticamente por [\`tools/extract/extract-packages.mjs\`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/tools/extract/extract-packages.mjs).\n`;
-md += `> Catálogo JSON completo em [\`reference/decompiled/packages-catalog.json\`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/packages-catalog.json).\n\n`;
+md += `> Gerado automaticamente por [\`tools/extract/extract-packages.mjs\`](tools/extract/extract-packages.mjs).\n`;
+md += `> Catálogo JSON completo em [\`reference/decompiled/packages-catalog.json\`](reference/decompiled/packages-catalog.json).\n\n`;
 
 md += `## 1. Formato Binário dos Pacotes BlitzTech (\`.pc\`, \`_fetm.pc\`, \`_refm.pc\`)\n\n`;
 md += `A engenharia reversa dos cabeçalhos confirmou a especificação exata dos contêineres da BlitzTech:\n\n`;

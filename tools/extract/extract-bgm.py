@@ -21,8 +21,9 @@ except ImportError as exc:
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 PKG_CANDIDATES = [
     os.path.join(REPO_ROOT, "reference", "game-files", "packages", "w_global.pc"),
-    r"C:\Program Files (x86)\Steam\steamapps\common\Rotastic\packages\w_global.pc",
 ]
+if os.environ.get("ROTASTIC_GLOBAL_PC"):
+    PKG_CANDIDATES.insert(0, os.environ["ROTASTIC_GLOBAL_PC"])
 OUT_BGM_DIR = os.path.join(REPO_ROOT, "packages", "client", "public", "assets", "audio", "bgm")
 
 # Tabelas exatamente como em Rotastic.exe @ 0x00B03488 / 0x00B0348C

@@ -14,7 +14,7 @@ Manter **dois caminhos de execução de primeira classe**, ambos testados e docu
 
 1. **Caminho 1 — Execução Direta Sem Docker (Padrão para Desenvolvimento e Máquinas Restritas):**
    - **Pré-requisitos únicos:** `Node.js LTS (>= 20)`, `pnpm`, `Git` e `Git LFS`.
-   - **Bootstrap automatizado:** [`scripts/bootstrap.ps1`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/scripts/bootstrap.ps1) (Windows) e [`scripts/bootstrap.sh`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/scripts/bootstrap.sh) (Linux/macOS) executam `git lfs pull`, validam os diretórios de assets e rodam `pnpm install`.
+   - **Bootstrap automatizado:** [`scripts/bootstrap.ps1`](scripts/bootstrap.ps1) (Windows) e [`scripts/bootstrap.sh`](scripts/bootstrap.sh) (Linux/macOS) executam `git lfs pull`, validam os diretórios de assets e rodam `pnpm install`.
    - **Execução com 1 comando:**
      - `pnpm dev`: Sobe em paralelo o servidor autoritativo (`http://localhost:3001` / `ws://localhost:3001/ws`) e o cliente Vite (`http://localhost:5173`, com proxy automático de `/ws` e `/api` para a porta `3001`).
      - `pnpm start`: Em modo produção sem Docker, o próprio `@rotastic/server` serve os arquivos estáticos compilados de `packages/client/dist` na mesma porta (`http://localhost:3001`), permitindo jogar em múltiplas abas ou na rede local usando um único processo Node.js!

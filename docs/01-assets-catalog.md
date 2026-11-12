@@ -1,7 +1,7 @@
 # Fase 1 — Catálogo de Pacotes e Assets Extraídos (`01-assets-catalog.md`)
 
-> Gerado automaticamente por [`tools/extract/extract-packages.mjs`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/tools/extract/extract-packages.mjs).
-> Catálogo JSON completo em [`reference/decompiled/packages-catalog.json`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/packages-catalog.json).
+> Gerado automaticamente por [`tools/extract/extract-packages.mjs`](tools/extract/extract-packages.mjs).
+> Catálogo JSON completo em [`reference/decompiled/packages-catalog.json`](reference/decompiled/packages-catalog.json).
 
 ## 1. Formato Binário dos Pacotes BlitzTech (`.pc`, `_fetm.pc`, `_refm.pc`)
 

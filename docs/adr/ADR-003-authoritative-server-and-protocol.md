@@ -2,7 +2,7 @@
 
 - **Status:** Aceito
 - **Data:** 2026-11-10
-- **Contexto:** Evidências da Fase 3 ([`docs/spec/protocol.md`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/docs/spec/protocol.md) e [`docs/spec/state-machine.md`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/docs/spec/state-machine.md))
+- **Contexto:** Evidências da Fase 3 ([`docs/spec/protocol.md`](docs/spec/protocol.md) e [`docs/spec/state-machine.md`](docs/spec/state-machine.md))
 
 ## Contexto e Problema
 

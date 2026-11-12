@@ -1,13 +1,13 @@
 # Especificação de Física — Rotastic Multiplayer
 
-Este documento especifica a matemática exata, constantes numéricas, máquina de estados física, modelo de colisão e integração temporal do motor de física de **Rotastic**, extraídos diretamente do binário nativo x86 ([`Rotastic.exe`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/game-files/Rotastic.exe)) e dos pacotes de nível ([`reference/decompiled/multiplayer-maps-spec.json`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/multiplayer-maps-spec.json)).
+Este documento especifica a matemática exata, constantes numéricas, máquina de estados física, modelo de colisão e integração temporal do motor de física de **Rotastic**, extraídos diretamente do binário nativo x86 ([`Rotastic.exe`](reference/game-files/Rotastic.exe)) e dos pacotes de nível ([`reference/decompiled/multiplayer-maps-spec.json`](reference/decompiled/multiplayer-maps-spec.json)).
 
 ---
 
 ## 1. Arquitetura do Motor Físico e Determinismo
 
 ### 1.1 Física Própria Customizada (`CRotasticPhysicPlayer`) vs. PhysX
-Conforme comprovado na [Fase 1 (`docs/02-code-map.md`)](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/docs/02-code-map.md), o executável **não utiliza Box2D, Havok ou PhysX para a mecânica de jogo**. Embora a engine base Focus Home / BlitzTech ("FEngine") possua wrappers `SimBodySphere` / `SimBodyBox` para detecção broadphase de sobreposição (`Overlap`), **100% da cinemática do jogador, pendular na corda, lançamento com filtro Gaussiano, ricochete em paredes, vórtice gravitacional e choque elástico PvP** é resolvida analiticamente em C++ puro na classe **`CRotasticPhysicPlayer`** ([`CRotasticPhysicPlayer.asm`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/disasm/CRotasticPhysicPlayer.asm), `0x0056A300..0x00577200`).
+Conforme comprovado na [Fase 1 (`docs/02-code-map.md`)](docs/02-code-map.md), o executável **não utiliza Box2D, Havok ou PhysX para a mecânica de jogo**. Embora a engine base Focus Home / BlitzTech ("FEngine") possua wrappers `SimBodySphere` / `SimBodyBox` para detecção broadphase de sobreposição (`Overlap`), **100% da cinemática do jogador, pendular na corda, lançamento com filtro Gaussiano, ricochete em paredes, vórtice gravitacional e choque elástico PvP** é resolvida analiticamente em C++ puro na classe **`CRotasticPhysicPlayer`** ([`CRotasticPhysicPlayer.asm`](reference/decompiled/disasm/CRotasticPhysicPlayer.asm), `0x0056A300..0x00577200`).
 
 ### 1.2 Sistema de Coordenadas e Viewport de Referência
 - **Plano de Jogo:** 2D estrito no plano $(X, Y)$, com $Z = 0$ para todas as entidades de gameplay.
@@ -253,7 +253,7 @@ Quando dois jogadores $A$ e $B$ colidem (distância $\|\vec{p}_B - \vec{p}_A\| \
    - **Caso 2 (Ambos com `shieldReady == 1` ou ambos `0`):** Ambos sofrem o ricochete elástico simétrico e registram mutuamente `lastAttacker` por $5.0\text{ s}$.
 
 ### 7.2 Corte de Corda (`CRotasticRope::CheckIntersection`, `0x005471E0`)
-- A corda de um jogador $B$ em `STATE_SWINGING` é um segmento de reta entre $\vec{p}_{\text{pivot}}$ e $\vec{p}_B$, com caixa de colisão transversal de largura $48\text{ u}$ (`[-24, +24]` em [`CRotasticRope`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/fetm/w_multi_dm_lvl01_fetm.json)).
+- A corda de um jogador $B$ em `STATE_SWINGING` é um segmento de reta entre $\vec{p}_{\text{pivot}}$ e $\vec{p}_B$, com caixa de colisão transversal de largura $48\text{ u}$ (`[-24, +24]` em [`CRotasticRope`](reference/decompiled/fetm/w_multi_dm_lvl01_fetm.json)).
 - Se um jogador adversário $A$ (vivo e não atordoado) cruza o segmento da corda de $B$:
   - A corda de $B$ é cortada instantaneamente (`CRotasticPlayer::OnRopeCutByPlayer`, `0x005421F0`).
   - $B$ passa para `STATE_FREE_FALL` mantendo apenas sua velocidade instantânea (sem o multiplicador de $1.20\times$ do lançamento voluntário).

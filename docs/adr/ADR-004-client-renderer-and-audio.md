@@ -2,7 +2,7 @@
 
 - **Status:** Aceito
 - **Data:** 2026-11-10
-- **Contexto:** Evidências da Fase 1 ([`docs/01-assets-catalog.md`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/docs/01-assets-catalog.md)) e Fase 2 ([`docs/spec/gameplay.md`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/docs/spec/gameplay.md))
+- **Contexto:** Evidências da Fase 1 ([`docs/01-assets-catalog.md`](docs/01-assets-catalog.md)) e Fase 2 ([`docs/spec/gameplay.md`](docs/spec/gameplay.md))
 
 ## Contexto e Problema
 
@@ -11,7 +11,7 @@ A engenharia reversa dos pacotes `.pc` na Fase 1 e dos mapas multiplayer na Fase
 2. Todos os recursos visuais e sonoros já foram extraídos em `assets-original/`:
    - **934 texturas `.dds`** (264 globais de UI/personagens/itens/cordas + 670 de mapas multiplayer);
    - **172 efeitos sonoros `.wav`** (`PCM` / `MS-ADPCM` em `assets-original/audio/sfx/`).
-3. Como já possuímos nosso próprio motor de física determinístico (`@rotastic/physics`, ver [`ADR-002`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/docs/adr/ADR-002-custom-deterministic-physics.md)), não precisamos de uma engine pesada que embuta física acoplada.
+3. Como já possuímos nosso próprio motor de física determinístico (`@rotastic/physics`, ver [`ADR-002`](docs/adr/ADR-002-custom-deterministic-physics.md)), não precisamos de uma engine pesada que embuta física acoplada.
 
 ## Decisão
 

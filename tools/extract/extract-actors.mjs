@@ -18,8 +18,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "../..");
 const PKG_DIR = path.join(REPO_ROOT, "reference/game-files/packages");
-const STEAM_GLOBAL_PC =
-  "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Rotastic\\packages\\w_global.pc";
+const SOURCE_GLOBAL_PC = process.env.ROTASTIC_GLOBAL_PC || path.join(PKG_DIR, "w_global.pc");
 const OUT_ACTORS_JSON = path.join(
   REPO_ROOT,
   "packages/client/public/assets/actors.json"
@@ -478,8 +477,8 @@ function extractActor(entry, assetByHash) {
 }
 
 function main() {
-  const globalPc = fs.existsSync(STEAM_GLOBAL_PC)
-    ? STEAM_GLOBAL_PC
+  const globalPc = fs.existsSync(SOURCE_GLOBAL_PC)
+    ? SOURCE_GLOBAL_PC
     : path.join(PKG_DIR, "w_global.pc");
   if (!fs.existsSync(globalPc)) {
     throw new Error(`Missing w_global.pc at ${globalPc}`);

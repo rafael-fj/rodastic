@@ -1,12 +1,12 @@
 # Ferramentas de Captura, Telemetria e Auditoria (`tools/netcapture/`)
 
 Este diretorio contem os scripts Frida e Python para inspecao em tempo real de:
-1. **Fisica & gameplay frame-a-frame** ([`hook-physics-telemetry.js`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/tools/netcapture/hook-physics-telemetry.js) + [`capture-gameplay.py`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/tools/netcapture/capture-gameplay.py))
-2. **Pilha de rede BlitzTech / Steamworks P2P** ([`hook-steam-net.js`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/tools/netcapture/hook-steam-net.js) + [`capture-packets.ps1`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/tools/netcapture/capture-packets.ps1))
+1. **Fisica & gameplay frame-a-frame** ([`hook-physics-telemetry.js`](tools/netcapture/hook-physics-telemetry.js) + [`capture-gameplay.py`](tools/netcapture/capture-gameplay.py))
+2. **Pilha de rede BlitzTech / Steamworks P2P** ([`hook-steam-net.js`](tools/netcapture/hook-steam-net.js) + [`capture-packets.ps1`](tools/netcapture/capture-packets.ps1))
 
 ## 1. Telemetria de Fisica + Screenshots Sincronizados (Deathmatch)
 
-### O que e capturado por [`hook-physics-telemetry.js`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/tools/netcapture/hook-physics-telemetry.js)
+### O que e capturado por [`hook-physics-telemetry.js`](tools/netcapture/hook-physics-telemetry.js)
 
 Todos os enderecos e offsets sao relativos ao ImageBase `0x00400000` de `Rotastic.exe` (x86 32-bit):
 

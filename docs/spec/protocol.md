@@ -1,6 +1,6 @@
 # Especificação do Protocolo de Rede e Replicação — Rotastic (`Rotastic.exe`)
 
-> **Fonte primária:** Engenharia reversa estática completa dos subsistemas de transporte e rede da engine **BlitzTech (`FEngine`)** em [`Rotastic.exe`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/game-files/Rotastic.exe), extraída em [`Netcode_Steamworks.asm`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/disasm/Netcode_Steamworks.asm), [`Netcode_TransportCore.asm`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/disasm/Netcode_TransportCore.asm), [`Netcode_UDPSocket.asm`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/disasm/Netcode_UDPSocket.asm), [`Netcode_Replication.asm`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/disasm/Netcode_Replication.asm), [`Netcode_LobbyAndModes.asm`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/disasm/Netcode_LobbyAndModes.asm) e catalogada em [`netcode-replication-spec.json`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/netcode-replication-spec.json).
+> **Fonte primária:** Engenharia reversa estática completa dos subsistemas de transporte e rede da engine **BlitzTech (`FEngine`)** em [`Rotastic.exe`](reference/game-files/Rotastic.exe), extraída em [`Netcode_Steamworks.asm`](reference/decompiled/disasm/Netcode_Steamworks.asm), [`Netcode_TransportCore.asm`](reference/decompiled/disasm/Netcode_TransportCore.asm), [`Netcode_UDPSocket.asm`](reference/decompiled/disasm/Netcode_UDPSocket.asm), [`Netcode_Replication.asm`](reference/decompiled/disasm/Netcode_Replication.asm), [`Netcode_LobbyAndModes.asm`](reference/decompiled/disasm/Netcode_LobbyAndModes.asm) e catalogada em [`netcode-replication-spec.json`](reference/decompiled/netcode-replication-spec.json).
 
 ---
 
@@ -42,7 +42,7 @@ flowchart TD
 
 ## 2. Camada 1 — Adaptador de Socket Virtual (`UDP 52048` vs. `CSteamP2PSocket`)
 
-A camada de transporte do BlitzTech (`0x00593E00..0x00594600` em [`Netcode_UDPSocket.asm`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/reference/decompiled/disasm/Netcode_UDPSocket.asm)) suporta três modos de operação configurados nos campos da estrutura de sessão (`session` em `esi`):
+A camada de transporte do BlitzTech (`0x00593E00..0x00594600` em [`Netcode_UDPSocket.asm`](reference/decompiled/disasm/Netcode_UDPSocket.asm)) suporta três modos de operação configurados nos campos da estrutura de sessão (`session` em `esi`):
 
 1. **TCP (`[session + 0x04] == 0`):** Usa `socket(AF_INET, SOCK_STREAM, 0)`, `listen`, `accept`, `recv`, `send`. Não é usado em partidas do Rotastic.
 2. **UDP Nativo LAN (`[session + 0x04] == 1`, sem bit `0x200` em `[session + 0x14]`):**

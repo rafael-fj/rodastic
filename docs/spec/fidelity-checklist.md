@@ -1,7 +1,7 @@
 # Checklist de Fidelidade: Original (`Rotastic.exe`) vs. Implementação Web (`@rotastic/*`)
 
 > [!IMPORTANT]
-> **Aviso de Auditoria (11/11/2026):** Este checklist inicial refletia a meta planejada nas Fases 0–6, antes da inspeção frame a frame contra capturas reais de `Rotastic.exe`. O status real e honesto de **quanto % de cada subsistema já foi efetivamente decompilado vs. inferido**, bem como as Issues abertas (`#24`–`#28`), está mantido em [**`docs/DECOMPILATION_PROGRESS.md`**](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/docs/DECOMPILATION_PROGRESS.md).
+> **Aviso de Auditoria (11/11/2026):** Este checklist inicial refletia a meta planejada nas Fases 0–6, antes da inspeção frame a frame contra capturas reais de `Rotastic.exe`. O status real e honesto de **quanto % de cada subsistema já foi efetivamente decompilado vs. inferido**, bem como as Issues abertas (`#24`–`#28`), está mantido em [**`docs/DECOMPILATION_PROGRESS.md`**](docs/DECOMPILATION_PROGRESS.md).
 
 Este documento valida a paridade técnica e comportamental entre o binário nativo x86 **BlitzTech (`Rotastic.exe`)** analisado nas Fases 0 a 3 e a reimplementação Web Multiplayer construída nas Fases 4 a 6.
 
@@ -9,7 +9,7 @@ Este documento valida a paridade técnica e comportamental entre o binário nati
 
 ## 1. Constantes Físicas e Temporais (IEEE-754 `.rdata` vs. `@rotastic/physics`)
 
-| Parâmetro | Endereço Nativo (`Rotastic.exe`) | Valor Extraído | Implementação Web ([`constants.ts`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/packages/physics/src/constants.ts)) | Status |
+| Parâmetro | Endereço Nativo (`Rotastic.exe`) | Valor Extraído | Implementação Web ([`constants.ts`](packages/physics/src/constants.ts)) | Status |
 | :--- | :--- | :--- | :--- | :--- |
 | Passo de Simulação (`dt`) | `0x0095AD24` | `0.016666668f` (`1/60 s`) | `FIXED_DT = 1 / 60` (`60 Hz`) | ✅ 100% Fiel |
 | Gravidade (`g`) | `0x0095AD94` | `9.81f` | `GRAVITY = 9.81` | ✅ 100% Fiel |
@@ -26,7 +26,7 @@ Este documento valida a paridade técnica e comportamental entre o binário nati
 
 ## 2. Mecânicas de Gameplay, Colisão e Modos (`0x00688000..0x00699600`)
 
-| Mecânica / Subsistema | Função Nativa (`Rotastic.exe`) | Implementação Web ([`simulation.ts`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/packages/physics/src/simulation.ts)) | Status |
+| Mecânica / Subsistema | Função Nativa (`Rotastic.exe`) | Implementação Web ([`simulation.ts`](packages/physics/src/simulation.ts)) | Status |
 | :--- | :--- | :--- | :--- |
 | **Órbita Pendular Analítica** | `CRotasticPhysicPlayer::StepSwinging` (`0x00690FE0`) | `RotasticSimulation.stepSwinging` — coordenadas polares $(r, \theta)$ com $\alpha = -(g/r)\cos\theta$ e limite inferior $\omega_{\min}$. | ✅ Validado (`simulation.test.ts`) |
 | **Queda Livre Balística + Vórtices** | `StepFreeFall` (`0x00690620`) + `CGravityVortex` (`0x006970F0`) | `RotasticSimulation.stepFreeFall` — gravidade, arrasto exponencial e atração/repulsão radial de vórtices. | ✅ Validado |
@@ -42,7 +42,7 @@ Este documento valida a paridade técnica e comportamental entre o binário nati
 
 ## 3. Protocolo de Rede e Máquina de Estados (`0x00583000..0x006C4600`)
 
-| Camada / Mensagem | Especificação Nativa ([`docs/spec/protocol.md`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/docs/spec/protocol.md)) | Implementação Web ([`@rotastic/protocol`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/packages/protocol/src/index.ts) & [`@rotastic/server`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/packages/server/src/index.ts)) | Status |
+| Camada / Mensagem | Especificação Nativa ([`docs/spec/protocol.md`](docs/spec/protocol.md)) | Implementação Web ([`@rotastic/protocol`](packages/protocol/src/index.ts) & [`@rotastic/server`](packages/server/src/index.ts)) | Status |
 | :--- | :--- | :--- | :--- |
 | **Cabeçalho BlitzTech de 8 Bytes** | `[pktType:u8][flags:u8][totalSize:u16][seqNum:u16][sender:u8][dest:u8]` | `writeBlitzHeader` / `readBlitzHeader` (`DataView` little-endian de 8 bytes). | ✅ Validado (`protocol.test.ts`) |
 | **Handshake de Transporte (`0x03` / `0x04`)** | `CONNECT_REQUEST` (`16 B`) → `CONNECT_ACCEPT` (`16 B`, atribui `peerId`) | `encodeConnectRequest` / `encodeConnectAccept` / `decodeConnectAccept`. | ✅ Validado (`server.test.ts`) |
@@ -58,6 +58,6 @@ Este documento valida a paridade técnica e comportamental entre o binário nati
 
 | Categoria de Asset | Origem (`reference/game-files/packages/`) | Conversão Web (`packages/client/public/assets/`) | Status |
 | :--- | :--- | :--- | :--- |
-| **Texturas de Personagens, UI e Arenas** | 934 arquivos `.dds` (`DXT1`, `DXT3`, `DXT5`, `BGRA8`) | 404 arquivos `.png` desduplicados por SHA-256 (`5.21 MB`) via [`build-web-assets.mjs`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/tools/assets/build-web-assets.mjs). | ✅ 100% Convertido e Versionado (LFS) |
-| **Efeitos Sonoros (SFX)** | 172 arquivos `.wav` (`WAVE_FORMAT_PCM` 44.1 kHz) | 172 arquivos `.wav` catalogados em [`manifest.json`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/packages/client/public/assets/manifest.json) e reproduzidos via [`RotasticAudioManager`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/packages/client/src/audio.ts). | ✅ 100% Convertido e Versionado (LFS) |
-| **19 Mapas Multiplayer** | 19 pacotes `w_multi*.pc` (`_refm.pc` + `_fetm.pc`) | Catalogados em [`maps.json`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/packages/client/public/assets/maps.json) e jogáveis em [`maps.ts`](file:///c:/Users/rafae/Documents/Coding/Vibecoding/Decompilation/rotastic/packages/physics/src/maps.ts). | ✅ 100% Disponível no Lobby |
+| **Texturas de Personagens, UI e Arenas** | 934 arquivos `.dds` (`DXT1`, `DXT3`, `DXT5`, `BGRA8`) | 404 arquivos `.png` desduplicados por SHA-256 (`5.21 MB`) via [`build-web-assets.mjs`](tools/assets/build-web-assets.mjs). | ✅ 100% Convertido e Versionado (LFS) |
+| **Efeitos Sonoros (SFX)** | 172 arquivos `.wav` (`WAVE_FORMAT_PCM` 44.1 kHz) | 172 arquivos `.wav` catalogados em [`manifest.json`](packages/client/public/assets/manifest.json) e reproduzidos via [`RotasticAudioManager`](packages/client/src/audio.ts). | ✅ 100% Convertido e Versionado (LFS) |
+| **19 Mapas Multiplayer** | 19 pacotes `w_multi*.pc` (`_refm.pc` + `_fetm.pc`) | Catalogados em [`maps.json`](packages/client/public/assets/maps.json) e jogáveis em [`maps.ts`](packages/physics/src/maps.ts). | ✅ 100% Disponível no Lobby |

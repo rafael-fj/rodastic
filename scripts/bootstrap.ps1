@@ -22,14 +22,14 @@ Write-Host "1. Sincronizando objetos Git LFS..." -ForegroundColor Cyan
 git lfs install --local | Out-Null
 git lfs pull
 
-# 2. Verificar/Restaurar w_global.pc (312.8 MB) via Steam local ou GitHub Release Privada
+# 2. Verificar/Restaurar w_global.pc (312.8 MB) via cache local ou GitHub Release Privada
 $GlobalPcPath = Join-Path $RepoRoot "reference\game-files\packages\w_global.pc"
-$SteamGlobalPc = "C:\Program Files (x86)\Steam\steamapps\common\Rotastic\packages\w_global.pc"
+$LocalSourceGlobalPc = if ($env:ROTASTIC_SOURCE_DIR) { Join-Path $env:ROTASTIC_SOURCE_DIR "packages\w_global.pc" } else { $null }
 
 if (-not (Test-Path $GlobalPcPath)) {
-    if (Test-Path $SteamGlobalPc) {
-        Write-Host "2. Copiando w_global.pc da instalacao local da Steam (nao rastreado no Git para poupar cota LFS)..." -ForegroundColor Yellow
-        # Nota: w_global.pc e mantido em cache local ignorado pelo Git ou baixado de Release Privada
+    if ($LocalSourceGlobalPc -and (Test-Path $LocalSourceGlobalPc)) {
+        Write-Host "2. Copiando w_global.pc de $LocalSourceGlobalPc..." -ForegroundColor Yellow
+        Copy-Item $LocalSourceGlobalPc -Destination $GlobalPcPath -Force
     } else {
         $ghCmd = Get-Command gh -ErrorAction SilentlyContinue
         if (-not $ghCmd -and (Test-Path "C:\Program Files\GitHub CLI\gh.exe")) {
