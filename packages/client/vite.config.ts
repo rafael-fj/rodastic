@@ -2,6 +2,8 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   server: {
+    host: true,
+    allowedHosts: true,
     port: Number(process.env.VITE_DEV_PORT) || 5173,
     proxy: {
       '/ws': {
