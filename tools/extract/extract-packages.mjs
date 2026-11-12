@@ -531,7 +531,7 @@ if (fs.existsSync(globalPcSource)) {
       }
     } else if (
       e.fourCC === "TEXR" &&
-      /^(t_character|t_pickup|t_gui|t_rope|t_beam|t_fx|t_trail|t_attach|t_wall|t_canon|t_tueur|t_breakable|t_switch|t_warp|t_vortex|t_accroche|t_porteentre|t_bgport2wateruv_c)/.test(
+      /^(t_character|t_head|t_kill$|t_pickup|t_gui|t_rope|t_beam|t_fx|t_trail|t_attach|t_wall|t_canon|t_tueur|t_breakable|t_switch|t_warp|t_vortex|t_accroche|t_porteentre|t_bgport2wateruv_c)/.test(
         e.name
       )
     ) {

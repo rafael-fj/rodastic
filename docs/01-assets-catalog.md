@@ -35,7 +35,7 @@ A engenharia reversa dos cabeçalhos confirmou a especificação exata dos cont�
 - **Arquivos `_refm.pc` decodificados para JSON (`reference/decompiled/refm/`):** `21`
 - **Arquivos `_fetm.pc` decodificados para JSON (`reference/decompiled/fetm/`):** `21`
 - **Efeitos Sonoros Multiplayer/Core extraídos em WAV (`assets-original/audio/sfx/`):** `172` arquivos
-- **Texturas Globais de Personagens/Cordas/Joias/HUD em DDS (`assets-original/textures/global/`):** `271` arquivos
+- **Texturas Globais de Personagens/Cordas/Joias/HUD em DDS (`assets-original/textures/global/`):** `287` arquivos
 - **Texturas dos 19 Mapas Multiplayer em DDS (`assets-original/textures/multiplayer/`):** `360` arquivos
 
 ---

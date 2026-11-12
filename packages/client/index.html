@@ -33,65 +33,155 @@
         position: absolute;
         inset: 0;
         pointer-events: none;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 14px 20px;
+        overflow: hidden;
       }
-      .hud-bar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
+      /* Top-Center Match Timer HUD */
+      .hud-center-timer {
+        position: absolute;
+        top: 14px;
+        left: 50%;
+        transform: translateX(-50%);
         pointer-events: auto;
-      }
-      .hud-cards {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .player-hud-card {
-        background: rgba(15, 23, 42, 0.85);
-        border: 2px solid #334155;
-        border-radius: 10px;
-        padding: 6px 12px;
-        min-width: 145px;
-        backdrop-filter: blur(6px);
-      }
-      .player-hud-card .p-name {
-        font-size: 13px;
-        font-weight: 700;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .player-hud-card .p-score {
-        font-size: 20px;
-        font-weight: 900;
-        letter-spacing: 0.5px;
-      }
-      .player-hud-card .p-sub {
-        font-size: 11px;
-        color: #94a3b8;
-      }
-      .match-timer-box {
-        background: rgba(15, 23, 42, 0.9);
-        border: 2px solid #f59e0b;
-        border-radius: 12px;
-        padding: 6px 18px;
         text-align: center;
-        min-width: 170px;
+        z-index: 10;
       }
-      .match-timer-box .mode-label {
+      .hud-center-timer .timer-val {
+        font-size: 34px;
+        font-weight: 900;
+        color: #ffffff;
+        text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 3px 6px rgba(0,0,0,0.85);
+        letter-spacing: 1.5px;
+        font-family: 'Impact', 'Arial Black', system-ui, sans-serif;
+      }
+      .hud-center-timer .mode-sub {
         font-size: 11px;
+        font-weight: 700;
+        color: #fde047;
+        text-shadow: 1px 1px 2px #000;
         text-transform: uppercase;
         letter-spacing: 1px;
-        color: #fbbf24;
-        font-weight: 700;
+        margin-top: -2px;
       }
-      .match-timer-box .timer-val {
-        font-size: 24px;
+
+      /* 4 Corners Character HUD (Top-Left P1, Top-Right P2, Bottom-Left P3, Bottom-Right P4) */
+      .hud-corner {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        pointer-events: none;
+        z-index: 10;
+        transition: transform 0.15s ease-out;
+      }
+      .hud-corner.corner-p1 {
+        top: 14px;
+        left: 20px;
+        flex-direction: row;
+      }
+      .hud-corner.corner-p2 {
+        top: 14px;
+        right: 20px;
+        flex-direction: row-reverse;
+      }
+      .hud-corner.corner-p3 {
+        bottom: 54px;
+        left: 20px;
+        flex-direction: row;
+      }
+      .hud-corner.corner-p4 {
+        bottom: 54px;
+        right: 20px;
+        flex-direction: row-reverse;
+      }
+
+      .hud-portrait-wrap {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .hud-head-img {
+        width: 68px;
+        height: 68px;
+        object-fit: contain;
+        filter: drop-shadow(0 4px 6px rgba(0,0,0,0.7));
+        transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .hud-corner.corner-p2 .hud-head-img,
+      .hud-corner.corner-p4 .hud-head-img {
+        transform: scaleX(-1);
+      }
+      .hud-head-img.hurt {
+        animation: hudHeadHurt 0.22s ease-in-out infinite alternate;
+      }
+      .hud-head-img.kill-pop {
+        transform: scale(1.22);
+      }
+      .hud-corner.corner-p2 .hud-head-img.kill-pop,
+      .hud-corner.corner-p4 .hud-head-img.kill-pop {
+        transform: scaleX(-1) scale(1.22);
+      }
+      @keyframes hudHeadHurt {
+        0% { transform: translate(-2px, 1px) rotate(-3deg); }
+        100% { transform: translate(2px, -1px) rotate(3deg); }
+      }
+      .hud-combo-label {
+        font-size: 13px;
         font-weight: 900;
+        color: #ffffff;
+        text-shadow: -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000;
+        font-family: 'Impact', 'Arial Black', sans-serif;
+        margin-top: -6px;
+        letter-spacing: 0.5px;
+      }
+
+      .hud-stats-wrap {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .hud-corner.corner-p2 .hud-stats-wrap,
+      .hud-corner.corner-p4 .hud-stats-wrap {
+        flex-direction: row-reverse;
+      }
+      .hud-score-text {
+        font-size: 26px;
+        font-weight: 900;
+        color: #ffffff;
+        text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+        font-family: 'Impact', 'Arial Black', sans-serif;
+        letter-spacing: 1px;
+      }
+      .hud-skull-icon {
+        font-size: 20px;
+        line-height: 1;
+        filter: drop-shadow(1px 1px 2px #000);
+      }
+      .hud-badges-wrap {
+        display: flex;
+        gap: 3px;
+        align-items: center;
+      }
+      .hud-victim-badge {
+        width: 26px;
+        height: 26px;
+        border: 2px solid #ffffff;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+        background: #0f172a;
+        object-fit: contain;
+      }
+
+      /* Bottom Bar for Controls Hint & Actions */
+      .hud-bottom-bar {
+        position: absolute;
+        bottom: 12px;
+        left: 20px;
+        right: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        pointer-events: auto;
       }
       .modal-backdrop {
         position: absolute;
@@ -207,15 +297,13 @@
   <body>
     <div id="app">
       <div id="ui-layer">
-        <div class="hud-bar">
-          <div class="hud-cards" id="hud-players"></div>
-          <div class="match-timer-box" id="hud-timer-box">
-            <div class="mode-label" id="hud-mode-label">DEATHMATCH</div>
-            <div class="timer-val" id="hud-timer-val">01:30</div>
-            <div style="font-size: 11px; color: #94a3b8" id="hud-net-info">RTT: -- ms</div>
-          </div>
+        <div id="hud-players"></div>
+        <div class="hud-center-timer" id="hud-timer-box">
+          <div class="timer-val" id="hud-timer-val">01:30</div>
+          <div class="mode-sub" id="hud-mode-label">DEATHMATCH</div>
+          <div style="font-size: 10px; color: rgba(255,255,255,0.65); text-shadow: 1px 1px 2px #000" id="hud-net-info">RTT: -- ms</div>
         </div>
-        <div class="hud-bar">
+        <div class="hud-bottom-bar">
           <div class="controls-hint">
             <b>Controles:</b> No topo, aperte <code>Espaço / Clique Esq.</code> para cair • Segure para engatar e girar (até colado ao pivô) • <code>Shift / S / ↓ / Clique Dir.</code> para <b>inverter giro</b> • Solte para lançar!
           </div>

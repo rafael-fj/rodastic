@@ -2,12 +2,12 @@
   "schemaVersion": "1.2.0",
   "generatedBy": "tools/assets/build-web-assets.mjs",
   "stats": {
-    "sourceDdsCount": 709,
-    "uniqueTextureCount": 438,
-    "totalFramePngCount": 637,
+    "sourceDdsCount": 725,
+    "uniqueTextureCount": 454,
+    "totalFramePngCount": 653,
     "multiFrameTextureCount": 132,
-    "totalPngBytes": 17230062,
-    "totalPngMB": 16.43,
+    "totalPngBytes": 17389082,
+    "totalPngMB": 16.58,
     "audioSfxCount": 172,
     "totalWavBytes": 14990528,
     "totalWavMB": 14.3,
@@ -271,6 +271,22 @@
     "t_guimortvikgreen": "/assets/textures/global/t_guimortvikgreen.png",
     "t_guimortvikred": "/assets/textures/global/t_guimortvikred.png",
     "t_guimortvikyellow": "/assets/textures/global/t_guimortvikyellow.png",
+    "t_headelfeblue": "/assets/textures/global/t_headelfeblue.png",
+    "t_headelfegreen": "/assets/textures/global/t_headelfegreen.png",
+    "t_headelfered": "/assets/textures/global/t_headelfered.png",
+    "t_headelfeyellow": "/assets/textures/global/t_headelfeyellow.png",
+    "t_headpigblue": "/assets/textures/global/t_headpigblue.png",
+    "t_headpiggreen": "/assets/textures/global/t_headpiggreen.png",
+    "t_headpigred": "/assets/textures/global/t_headpigred.png",
+    "t_headpigyellow": "/assets/textures/global/t_headpigyellow.png",
+    "t_headsquelblue": "/assets/textures/global/t_headsquelblue.png",
+    "t_headsquelgreen": "/assets/textures/global/t_headsquelgreen.png",
+    "t_headsquelred": "/assets/textures/global/t_headsquelred.png",
+    "t_headsquelyellow": "/assets/textures/global/t_headsquelyellow.png",
+    "t_headvikblue_c": "/assets/textures/global/t_headvikblue_c.png",
+    "t_headvikgreen_c": "/assets/textures/global/t_headvikgreen_c.png",
+    "t_headvikred_c": "/assets/textures/global/t_headvikred_c.png",
+    "t_headvikyellow_c": "/assets/textures/global/t_headvikyellow_c.png",
     "t_pickupetoile_c": "/assets/textures/global/t_pickupetoile_c.png",
     "t_pickupglowblue_c": "/assets/textures/global/t_pickupglowblue_c.png",
     "t_pickupglowgreen_c": "/assets/textures/global/t_pickupglowgreen_c.png",
@@ -9452,6 +9468,326 @@
       "pngBytes": 10221,
       "sources": [
         "global/t_guimortvikyellow.dds"
+      ]
+    },
+    "a3ac5c645e2d92c0": {
+      "id": "t_headelfeblue",
+      "url": "/assets/textures/global/t_headelfeblue.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headelfeblue.png"
+      ],
+      "sha256": "a3ac5c645e2d92c0",
+      "pngBytes": 10666,
+      "sources": [
+        "global/t_headelfeblue.dds"
+      ]
+    },
+    "253517564a886189": {
+      "id": "t_headelfegreen",
+      "url": "/assets/textures/global/t_headelfegreen.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headelfegreen.png"
+      ],
+      "sha256": "253517564a886189",
+      "pngBytes": 10712,
+      "sources": [
+        "global/t_headelfegreen.dds"
+      ]
+    },
+    "409c9a56e04eedc2": {
+      "id": "t_headelfered",
+      "url": "/assets/textures/global/t_headelfered.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headelfered.png"
+      ],
+      "sha256": "409c9a56e04eedc2",
+      "pngBytes": 10463,
+      "sources": [
+        "global/t_headelfered.dds"
+      ]
+    },
+    "eed3d66aff0d60c3": {
+      "id": "t_headelfeyellow",
+      "url": "/assets/textures/global/t_headelfeyellow.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headelfeyellow.png"
+      ],
+      "sha256": "eed3d66aff0d60c3",
+      "pngBytes": 10403,
+      "sources": [
+        "global/t_headelfeyellow.dds"
+      ]
+    },
+    "7769fc9843ae7597": {
+      "id": "t_headpigblue",
+      "url": "/assets/textures/global/t_headpigblue.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headpigblue.png"
+      ],
+      "sha256": "7769fc9843ae7597",
+      "pngBytes": 9951,
+      "sources": [
+        "global/t_headpigblue.dds"
+      ]
+    },
+    "e2ba69854d324a38": {
+      "id": "t_headpiggreen",
+      "url": "/assets/textures/global/t_headpiggreen.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headpiggreen.png"
+      ],
+      "sha256": "e2ba69854d324a38",
+      "pngBytes": 10081,
+      "sources": [
+        "global/t_headpiggreen.dds"
+      ]
+    },
+    "0e516f2b985afbc2": {
+      "id": "t_headpigred",
+      "url": "/assets/textures/global/t_headpigred.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headpigred.png"
+      ],
+      "sha256": "0e516f2b985afbc2",
+      "pngBytes": 10150,
+      "sources": [
+        "global/t_headpigred.dds"
+      ]
+    },
+    "9d5f3cbedafd7d9b": {
+      "id": "t_headpigyellow",
+      "url": "/assets/textures/global/t_headpigyellow.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headpigyellow.png"
+      ],
+      "sha256": "9d5f3cbedafd7d9b",
+      "pngBytes": 9782,
+      "sources": [
+        "global/t_headpigyellow.dds"
+      ]
+    },
+    "70d7b73cc07d1012": {
+      "id": "t_headsquelblue",
+      "url": "/assets/textures/global/t_headsquelblue.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headsquelblue.png"
+      ],
+      "sha256": "70d7b73cc07d1012",
+      "pngBytes": 9898,
+      "sources": [
+        "global/t_headsquelblue.dds"
+      ]
+    },
+    "bc6ce892d10d7b83": {
+      "id": "t_headsquelgreen",
+      "url": "/assets/textures/global/t_headsquelgreen.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headsquelgreen.png"
+      ],
+      "sha256": "bc6ce892d10d7b83",
+      "pngBytes": 9977,
+      "sources": [
+        "global/t_headsquelgreen.dds"
+      ]
+    },
+    "25fb1700329e44d6": {
+      "id": "t_headsquelred",
+      "url": "/assets/textures/global/t_headsquelred.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headsquelred.png"
+      ],
+      "sha256": "25fb1700329e44d6",
+      "pngBytes": 9654,
+      "sources": [
+        "global/t_headsquelred.dds"
+      ]
+    },
+    "766fd121f9fe50fc": {
+      "id": "t_headsquelyellow",
+      "url": "/assets/textures/global/t_headsquelyellow.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headsquelyellow.png"
+      ],
+      "sha256": "766fd121f9fe50fc",
+      "pngBytes": 9813,
+      "sources": [
+        "global/t_headsquelyellow.dds"
+      ]
+    },
+    "a47ce148143f2b80": {
+      "id": "t_headvikblue_c",
+      "url": "/assets/textures/global/t_headvikblue_c.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headvikblue_c.png"
+      ],
+      "sha256": "a47ce148143f2b80",
+      "pngBytes": 9500,
+      "sources": [
+        "global/t_headvikblue_c.dds"
+      ]
+    },
+    "2861bc3e24fcb148": {
+      "id": "t_headvikgreen_c",
+      "url": "/assets/textures/global/t_headvikgreen_c.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headvikgreen_c.png"
+      ],
+      "sha256": "2861bc3e24fcb148",
+      "pngBytes": 9631,
+      "sources": [
+        "global/t_headvikgreen_c.dds"
+      ]
+    },
+    "890e118aa9d601e2": {
+      "id": "t_headvikred_c",
+      "url": "/assets/textures/global/t_headvikred_c.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headvikred_c.png"
+      ],
+      "sha256": "890e118aa9d601e2",
+      "pngBytes": 9180,
+      "sources": [
+        "global/t_headvikred_c.dds"
+      ]
+    },
+    "e2d70c5740349fb6": {
+      "id": "t_headvikyellow_c",
+      "url": "/assets/textures/global/t_headvikyellow_c.png",
+      "width": 128,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_headvikyellow_c.png"
+      ],
+      "sha256": "e2d70c5740349fb6",
+      "pngBytes": 9159,
+      "sources": [
+        "global/t_headvikyellow_c.dds"
       ]
     },
     "2440e8eada4fd156": {

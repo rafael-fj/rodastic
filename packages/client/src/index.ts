@@ -370,6 +370,12 @@ export class RotasticWebClient {
   private nearEndAnnounced = false;
   private lastGapAnnouncedScore = -1;
 
+  // Corner HUD reactive expression & kill-badge state
+  private hudHurtTimer: number[] = [0, 0, 0, 0];
+  private hudKillPopTimer: number[] = [0, 0, 0, 0];
+  private hudKillVictims: Array<Array<{ charId: CharacterId; colorId: PlayerColorId }>> = [[], [], [], []];
+  private lastHudPlayersHtml = '';
+
   // DOM References
   private hudPlayersEl = document.getElementById('hud-players')!;
   private hudModeLabelEl = document.getElementById('hud-mode-label')!;
@@ -1300,6 +1306,7 @@ export class RotasticWebClient {
         this.spawnShieldBreakParticles(sx, sy, ev.shieldType === 'orange');
         if (ev.slotIndex !== undefined) {
           this.hurtAnimTimer[ev.slotIndex] = 0.42;
+          this.hudHurtTimer[ev.slotIndex] = 0.75;
           if (ev.shieldType === 'orange') {
             this.orangeBurstTimer[ev.slotIndex] = 0.34;
           }
@@ -1337,6 +1344,7 @@ export class RotasticWebClient {
         }
         if (ev.targetSlot !== undefined) {
           this.dizzyWasRopeCut[ev.targetSlot] = true;
+          this.hudHurtTimer[ev.targetSlot] = 1.0;
           const cutVictim = this.localSim.state.players[ev.targetSlot];
           if (cutVictim) this.audio.playCharacterVoice(cutVictim.characterId, 'hurt', 0.5);
         }
@@ -1349,6 +1357,7 @@ export class RotasticWebClient {
         this.spawnCutImpactFx(sx, sy);
         if (ev.slotIndex !== undefined) {
           this.killAnimTimer[ev.slotIndex] = 0.35;
+          this.hudKillPopTimer[ev.slotIndex] = 0.45;
         }
         if (actor) this.audio.playCharacterVoice(actor.characterId, 'kill', 0.55);
         this.audio.playAnnouncer('kill_streak', 4500);
@@ -1382,6 +1391,23 @@ export class RotasticWebClient {
       case 'death':
         this.audio.play('death', 0.52, 0.05);
         if (actor) this.audio.playCharacterVoice(actor.characterId, 'death', 0.55);
+        if (ev.slotIndex !== undefined) {
+          this.hudHurtTimer[ev.slotIndex] = 1.2;
+        }
+        if (ev.targetSlot !== undefined && ev.targetSlot !== ev.slotIndex) {
+          this.hudKillPopTimer[ev.targetSlot] = 0.45;
+          const victim = ev.slotIndex !== undefined ? this.localSim.state.players[ev.slotIndex] : undefined;
+          if (victim) {
+            this.hudKillVictims[ev.targetSlot].push({
+              charId: victim.characterId,
+              colorId: victim.colorId,
+            });
+            // Keep at most 4 recent victim badges in HUD
+            if (this.hudKillVictims[ev.targetSlot].length > 4) {
+              this.hudKillVictims[ev.targetSlot].shift();
+            }
+          }
+        }
         if (ev.targetSlot === undefined || ev.targetSlot === ev.slotIndex) {
           this.audio.playAnnouncer('suicide', 4500);
         }
@@ -2005,6 +2031,8 @@ export class RotasticWebClient {
       this.attachDenyFlashTimer[i] = Math.max(0, this.attachDenyFlashTimer[i] - dt);
       this.orangeBurstTimer[i] = Math.max(0, this.orangeBurstTimer[i] - dt);
       this.whiteBubbleShrinkTimer[i] = Math.max(0, this.whiteBubbleShrinkTimer[i] - dt);
+      this.hudHurtTimer[i] = Math.max(0, this.hudHurtTimer[i] - dt);
+      this.hudKillPopTimer[i] = Math.max(0, this.hudKillPopTimer[i] - dt);
 
       const p = state.players[i];
       const spr = this.playerSprites[i];
@@ -2471,6 +2499,40 @@ export class RotasticWebClient {
         this.floatingEffects.splice(i, 1);
       }
     }
+
+    this.updateHudDom();
+  }
+
+  private getHudHeadUrl(charId: CharacterId, colorId: PlayerColorId, isHurt: boolean): string {
+    const colorNames: Record<PlayerColorId, 'blue' | 'red' | 'green' | 'yellow'> = {
+      0: 'blue',
+      1: 'red',
+      2: 'green',
+      3: 'yellow',
+    };
+    const c = colorNames[colorId] ?? 'blue';
+    if (isHurt) {
+      switch (charId) {
+        case 0:
+          return `/assets/textures/global/t_guimortvik${c}.png`;
+        case 1:
+          return `/assets/textures/global/t_guimortelfe${c}.png`;
+        case 2:
+          return `/assets/textures/global/t_guimortpig${c}_c.png`;
+        case 3:
+          return `/assets/textures/global/t_guimortsquel${c}.png`;
+      }
+    }
+    switch (charId) {
+      case 0:
+        return `/assets/textures/global/t_headvik${c}_c.png`;
+      case 1:
+        return `/assets/textures/global/t_headelfe${c}.png`;
+      case 2:
+        return `/assets/textures/global/t_headpig${c}.png`;
+      case 3:
+        return `/assets/textures/global/t_headsquel${c}.png`;
+    }
   }
 
   private updateHudDom(): void {
@@ -2492,27 +2554,81 @@ export class RotasticWebClient {
       this.hostReturnMenuBtn.style.display = isHostInGame ? 'inline-block' : 'none';
     }
 
-    const cardsHtml = state.players
+    // Clear recent victim badges if a new match started (all players at 0 kills & 0 deaths)
+    const anyKd = state.players.some((p) => p.active && (p.kills > 0 || p.deaths > 0));
+    if (!anyKd) {
+      for (let s = 0; s < 4; s++) {
+        if (this.hudKillVictims[s].length > 0) this.hudKillVictims[s].length = 0;
+      }
+    }
+
+    const cornerClasses = ['corner-p1', 'corner-p2', 'corner-p3', 'corner-p4'];
+    const cornersHtml = state.players
       .filter((p) => p.active)
       .map((p) => {
+        const cornerClass = cornerClasses[p.slotIndex] ?? 'corner-p1';
+        const isHurt =
+          p.status === PlayerStatus.DEAD ||
+          p.status === PlayerStatus.DIZZY ||
+          this.hudHurtTimer[p.slotIndex] > 0 ||
+          this.hurtAnimTimer[p.slotIndex] > 0;
+        const isKillPop = !isHurt && this.hudKillPopTimer[p.slotIndex] > 0;
+        const headUrl = this.getHudHeadUrl(p.characterId, p.colorId, isHurt);
         const col = PLAYER_COLORS[p.colorId] ?? PLAYER_COLORS[0];
-        const ch = CHARACTER_NAMES[p.characterId] ?? CHARACTER_NAMES[0];
+
+        const scoreLabel =
+          state.mode === 'deathmatch' ? `x${p.kills}` : `${p.score}`;
+        const skullHtml =
+          state.mode === 'deathmatch' ? `<span class="hud-skull-icon">💀</span>` : '';
+        const comboText =
+          p.chargeGauge2 >= 1.0
+            ? 'COMBO!'
+            : p.chargeGauge2 > 0
+              ? `Combo ${Math.round(p.chargeGauge2 * 100)}%`
+              : 'Combo';
+        const comboStyle =
+          p.chargeGauge2 >= 1.0
+            ? 'color: #f97316;'
+            : p.chargeGauge2 > 0
+              ? 'color: #fde047;'
+              : '';
+
+        const victims = this.hudKillVictims[p.slotIndex] ?? [];
+        const badgesHtml =
+          state.mode === 'deathmatch' && victims.length > 0
+            ? `<div class="hud-badges-wrap">${victims
+                .map((v) => {
+                  const vCol = PLAYER_COLORS[v.colorId] ?? PLAYER_COLORS[0];
+                  const vUrl = this.getHudHeadUrl(v.charId, v.colorId, false);
+                  return `<img class="hud-victim-badge" src="${vUrl}" style="border-color: ${vCol.css}" alt="" />`;
+                })
+                .join('')}</div>`
+            : '';
+
         const isMe = p.slotIndex === this.mySlotIndex;
-        const shieldBadge = p.chargeGauge >= 1.0 ? ' 🫧' : '';
-        const orangeBadge = p.chargeGauge2 > 0 ? ` 🟠${Math.round(p.chargeGauge2 * 100)}%` : '';
+        const meTag = isMe ? `<span style="color:${col.css};font-size:10px;font-weight:800;text-shadow:1px 1px 1px #000">VOCÊ</span>` : '';
+
         return `
-          <div class="player-hud-card" style="border-color: ${col.css}">
-            <div class="p-name">
-              <span style="color: ${col.css}">${p.name}${isMe ? ' (Você)' : ''}</span>
-              <span>${p.isBot ? '🤖' : '🎮'}</span>
+          <div class="hud-corner ${cornerClass}">
+            <div class="hud-portrait-wrap">
+              <img class="hud-head-img${isHurt ? ' hurt' : ''}${isKillPop ? ' kill-pop' : ''}" src="${headUrl}" alt="${p.name}" />
+              <div class="hud-combo-label" style="${comboStyle}">${comboText}</div>
+              ${meTag}
             </div>
-            <div class="p-score">${p.score}</div>
-            <div class="p-sub">${ch.label} • K:${p.kills} D:${p.deaths}${shieldBadge}${orangeBadge}</div>
+            <div class="hud-stats-wrap">
+              ${skullHtml}
+              <span class="hud-score-text">${scoreLabel}</span>
+              ${badgesHtml}
+            </div>
           </div>
         `;
       })
       .join('');
-    this.hudPlayersEl.innerHTML = cardsHtml;
+
+    if (cornersHtml !== this.lastHudPlayersHtml) {
+      this.lastHudPlayersHtml = cornersHtml;
+      this.hudPlayersEl.innerHTML = cornersHtml;
+    }
   }
 
   private renderModalOverlay(): void {
