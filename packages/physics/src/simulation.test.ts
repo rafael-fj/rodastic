@@ -792,15 +792,15 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
   });
 
   it('bounces smoothly without stutter or wrong normal on fast upward impacts (#32)', () => {
-    // 1. Fast upward FREE_FALL strike into narrow pillar underside (Prop006: halfW=36, bottom y=365)
+    // 1. Fast upward FREE_FALL strike into narrow pillar underside (Prop006: halfW=18.75, bottom y=452.5)
     //    and overhead WallTop (y=1455) must reflect straight downward with no sideways/upward stutter.
     const sim11 = new RotasticSimulation('w_multi_dm_lvl11');
     sim11.configurePlayerSlot(0, { active: true, name: 'P1' });
     const p1 = sim11.state.players[0];
     p1.status = PlayerStatus.FREE_FALL;
     p1.invulnTimer = 0;
-    p1.x = 670; // inside [617.6, 689.6] and closer to right edge (penX < penY)
-    p1.y = 310; // 310 + 44 = 354 < 365 (strictly below underside)
+    p1.x = 665; // inside [634.85, 672.35] and closer to right edge (penX < penY)
+    p1.y = 398; // 398 + 44 = 442 < 452.5 (strictly below underside)
     p1.vx = 0;
     p1.vy = 2200; // sweeps +36.7 px/tick straight into Prop006 underside
 
@@ -813,7 +813,7 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
       if (sawBounce) {
         expect(p1.vy).toBeLessThan(0);
         expect(Math.abs(p1.vx)).toBeLessThan(1e-3);
-        expect(p1.y).toBeLessThanOrEqual(365 - C.PLAYER_RADIUS + 0.01);
+        expect(p1.y).toBeLessThanOrEqual(452.5 - C.PLAYER_RADIUS + 0.01);
       }
     }
     expect(sawBounce).toBe(true);
@@ -996,14 +996,23 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     }
     expect(sim04.state.activeSwitchWallId).toBe(-1);
 
-    // Hit PST_MecaSwitch at (1890, 540)
+    // Moving downward (vy <= 80) or swinging must NOT trigger switch
     p04.status = PlayerStatus.FREE_FALL;
     p04.invulnTimer = 0;
-    p04.x = 1885;
+    p04.x = 1860;
     p04.y = 540;
     p04.vx = 0;
-    p04.vy = 0;
-    const hitEvents = sim04.step({ 0: { seq: 301, actionHeld: false, axisX: 0, axisY: 0 } }, C.FIXED_DT);
+    p04.vy = -200;
+    const missDown = sim04.step({ 0: { seq: 301, actionHeld: false, axisX: 0, axisY: 0 } }, C.FIXED_DT);
+    expect(missDown.some((e) => e.type === 'switchtoggle')).toBe(false);
+
+    // Hit PST_MecaSwitch moving upward from below (de baixo pra cima: vy > 80)
+    p04.status = PlayerStatus.FREE_FALL;
+    p04.x = 1860;
+    p04.y = 530;
+    p04.vx = 0;
+    p04.vy = 500;
+    const hitEvents = sim04.step({ 0: { seq: 302, actionHeld: false, axisX: 0, axisY: 0 } }, C.FIXED_DT);
     expect(hitEvents.some((e) => e.type === 'switchtoggle')).toBe(true);
     const activeId = sim04.state.activeSwitchWallId;
     expect(activeId).toBeGreaterThanOrEqual(3);

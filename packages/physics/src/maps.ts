@@ -1,11 +1,15 @@
 import { GameModeId, GemType, WallType } from './constants.js';
 
+export type MotionEasing = 'linear' | 'easeIn' | 'easeOut' | 'easeInOut';
+
 export interface WaypointPoint {
   x: number;
   y: number;
   durationSec: number;
   /** Optional 8Hz warning shake amplitude (px) while parked at this waypoint (lvl13 FlowGraph). */
   shakeAmpPx?: number;
+  /** Exact Rotastic.exe CRotasticMovement easing (`0x00569B62`: 0=easeIn, 1=easeOut, 2=easeInOut, 3=linear). */
+  easing?: MotionEasing;
 }
 
 export interface WaypointMotion {
@@ -172,7 +176,21 @@ export function evaluateWaypointMotion(
     const b = pts[(i + 1) % pts.length];
     const segDur = Math.max(0.05, a.durationSec);
     if (elapsed <= segDur) {
-      const alpha = elapsed / segDur;
+      const rawAlpha = elapsed / segDur;
+      let alpha = rawAlpha;
+      switch (a.easing) {
+        case 'easeIn': // 0x00569B7D: 1 - cos(t * PI/2)
+          alpha = 1 - Math.cos(rawAlpha * Math.PI * 0.5);
+          break;
+        case 'easeOut': // 0x00569BA6: sin(t * PI/2)
+          alpha = Math.sin(rawAlpha * Math.PI * 0.5);
+          break;
+        case 'easeInOut': // 0x00569BCB: 0.5 * (1 - cos(t * PI))
+          alpha = 0.5 * (1 - Math.cos(rawAlpha * Math.PI));
+          break;
+        default:
+          break;
+      }
       let x = a.x + (b.x - a.x) * alpha;
       const y = a.y + (b.y - a.y) * alpha;
       if (a.shakeAmpPx && a.x === b.x && a.y === b.y) {
@@ -396,7 +414,7 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
           switchControlled: true,
           oneShot: true,
           points: [
-            { x: -200, y: 860, durationSec: 8.9 },
+            { x: -200, y: 860, durationSec: 8.9, easing: 'easeIn' },
             { x: 1580, y: 860, durationSec: 3.2 },
             { x: 1580, y: 220, durationSec: 6.9 },
             { x: 340, y: 220, durationSec: 3.2 },
@@ -419,7 +437,7 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
           switchControlled: true,
           oneShot: true,
           points: [
-            { x: 2120, y: 860, durationSec: 8.9 },
+            { x: 2120, y: 860, durationSec: 8.9, easing: 'easeIn' },
             { x: 340, y: 860, durationSec: 3.2 },
             { x: 340, y: 220, durationSec: 6.9 },
             { x: 1580, y: 220, durationSec: 3.2 },
@@ -442,7 +460,7 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
           switchControlled: true,
           oneShot: true,
           points: [
-            { x: 2120, y: 220, durationSec: 8.9 },
+            { x: 2120, y: 220, durationSec: 8.9, easing: 'easeIn' },
             { x: 340, y: 220, durationSec: 3.2 },
             { x: 340, y: 860, durationSec: 6.9 },
             { x: 1580, y: 860, durationSec: 3.2 },
@@ -465,7 +483,7 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
           switchControlled: true,
           oneShot: true,
           points: [
-            { x: -200, y: 220, durationSec: 8.9 },
+            { x: -200, y: 220, durationSec: 8.9, easing: 'easeIn' },
             { x: 1580, y: 220, durationSec: 3.2 },
             { x: 1580, y: 860, durationSec: 6.9 },
             { x: 340, y: 860, durationSec: 3.2 },
@@ -476,9 +494,9 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
     ],
     switchDef: {
       name: 'PST_MecaSwitch',
-      x: 1890,
+      x: 1860,
       y: 540,
-      radius: 56,
+      radius: 40,
     },
     vortices: [],
     pickups: [],
@@ -583,8 +601,8 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
         name: 'Prop006',
         cx: 653.6,
         cy: 540,
-        halfW: 36,
-        halfH: 175,
+        halfW: 18.75,
+        halfH: 87.5,
         rotDeg: 0,
         type: 'bouncy',
         meshActor: 'o_RebonMetal01_MD09',
@@ -594,8 +612,8 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
         name: 'Prop009',
         cx: 1269.3,
         cy: 540,
-        halfW: 36,
-        halfH: 175,
+        halfW: 18.75,
+        halfH: 87.5,
         rotDeg: 0,
         type: 'bouncy',
         meshActor: 'o_RebonMetal02_MD09',
@@ -620,7 +638,7 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
     ],
     spawns: DEFAULT_TOP_SPAWNS,
     // Exact 74.5s FlowGraph timeline decoded from w_multi_dm_lvl13_fetm.pc (0x18a08..0x1a9fd):
-    // pairs + individual anchors shake for 0.5s, slide +/-600px off-screen in 2.0s, hold, then slide back in.
+    // pairs + individual anchors shake for 0.5s, slide +/-600px off-screen in 2.0s (easeOut), hold, then return (easeInOut).
     attachPoints: [
       {
         id: 0,
@@ -632,14 +650,14 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
           points: [
             { x: 1620, y: 780, durationSec: 5.0 },
             { x: 1620, y: 780, durationSec: 0.5, shakeAmpPx: 8 },
-            { x: 1620, y: 780, durationSec: 2.0 },
+            { x: 1620, y: 780, durationSec: 2.0, easing: 'easeOut' },
             { x: 2220, y: 780, durationSec: 5.0 },
-            { x: 2220, y: 780, durationSec: 2.0 },
+            { x: 2220, y: 780, durationSec: 2.0, easing: 'easeInOut' },
             { x: 1620, y: 780, durationSec: 19.5 },
             { x: 1620, y: 780, durationSec: 0.5, shakeAmpPx: 8 },
-            { x: 1620, y: 780, durationSec: 2.0 },
+            { x: 1620, y: 780, durationSec: 2.0, easing: 'easeOut' },
             { x: 2220, y: 780, durationSec: 10.0 },
-            { x: 2220, y: 780, durationSec: 2.0 },
+            { x: 2220, y: 780, durationSec: 2.0, easing: 'easeInOut' },
             { x: 1620, y: 780, durationSec: 26.0 },
           ],
         },
@@ -654,14 +672,14 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
           points: [
             { x: 500, y: 300, durationSec: 5.0 },
             { x: 500, y: 300, durationSec: 0.5, shakeAmpPx: 8 },
-            { x: 500, y: 300, durationSec: 2.0 },
+            { x: 500, y: 300, durationSec: 2.0, easing: 'easeOut' },
             { x: -100, y: 300, durationSec: 5.0 },
-            { x: -100, y: 300, durationSec: 2.0 },
+            { x: -100, y: 300, durationSec: 2.0, easing: 'easeInOut' },
             { x: 500, y: 300, durationSec: 27.0 },
             { x: 500, y: 300, durationSec: 0.5, shakeAmpPx: 8 },
-            { x: 500, y: 300, durationSec: 2.0 },
+            { x: 500, y: 300, durationSec: 2.0, easing: 'easeOut' },
             { x: -100, y: 300, durationSec: 12.0 },
-            { x: -100, y: 300, durationSec: 2.0 },
+            { x: -100, y: 300, durationSec: 2.0, easing: 'easeInOut' },
             { x: 500, y: 300, durationSec: 16.5 },
           ],
         },
@@ -676,14 +694,14 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
           points: [
             { x: 1420, y: 300, durationSec: 19.5 },
             { x: 1420, y: 300, durationSec: 0.5, shakeAmpPx: 8 },
-            { x: 1420, y: 300, durationSec: 2.0 },
+            { x: 1420, y: 300, durationSec: 2.0, easing: 'easeOut' },
             { x: 2020, y: 300, durationSec: 5.0 },
-            { x: 2020, y: 300, durationSec: 2.0 },
+            { x: 2020, y: 300, durationSec: 2.0, easing: 'easeInOut' },
             { x: 1420, y: 300, durationSec: 22.0 },
             { x: 1420, y: 300, durationSec: 0.5, shakeAmpPx: 8 },
-            { x: 1420, y: 300, durationSec: 2.0 },
+            { x: 1420, y: 300, durationSec: 2.0, easing: 'easeOut' },
             { x: 2020, y: 300, durationSec: 12.0 },
-            { x: 2020, y: 300, durationSec: 2.0 },
+            { x: 2020, y: 300, durationSec: 2.0, easing: 'easeInOut' },
             { x: 1420, y: 300, durationSec: 7.0 },
           ],
         },
@@ -698,14 +716,14 @@ export const MULTIPLAYER_MAPS: MultiplayerMapDef[] = [
           points: [
             { x: 300, y: 780, durationSec: 19.5 },
             { x: 300, y: 780, durationSec: 0.5, shakeAmpPx: 8 },
-            { x: 300, y: 780, durationSec: 2.0 },
+            { x: 300, y: 780, durationSec: 2.0, easing: 'easeOut' },
             { x: -300, y: 780, durationSec: 5.0 },
-            { x: -300, y: 780, durationSec: 2.0 },
+            { x: -300, y: 780, durationSec: 2.0, easing: 'easeInOut' },
             { x: 300, y: 780, durationSec: 31.5 },
             { x: 300, y: 780, durationSec: 0.5, shakeAmpPx: 8 },
-            { x: 300, y: 780, durationSec: 2.0 },
+            { x: 300, y: 780, durationSec: 2.0, easing: 'easeOut' },
             { x: -300, y: 780, durationSec: 9.5 },
-            { x: -300, y: 780, durationSec: 2.0 },
+            { x: -300, y: 780, durationSec: 2.0, easing: 'easeInOut' },
           ],
         },
       },

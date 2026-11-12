@@ -1205,8 +1205,15 @@ export class RotasticSimulation {
   }
 
   private checkWallsAndBounds(p: PlayerSimState, prevX: number, prevY: number): void {
-    // 1. Optional arena frog lever switch (PST_MecaSwitch in w_multi_dm_lvl04)
-    if (this.map.switchDef && this.state.switchCooldownSec <= 0 && this.state.activeSwitchWallId === -1) {
+    // 1. Optional arena frog lever switch (PST_MecaSwitch in w_multi_dm_lvl04):
+    // Only triggers when player launches upward (FREE_FALL & vy > 80) from below into the lever.
+    if (
+      this.map.switchDef &&
+      this.state.switchCooldownSec <= 0 &&
+      this.state.activeSwitchWallId === -1 &&
+      p.status === PlayerStatus.FREE_FALL &&
+      p.vy > 80
+    ) {
       const sw = this.map.switchDef;
       const distSq = (p.x - sw.x) ** 2 + (p.y - sw.y) ** 2;
       const hitR = sw.radius + C.PLAYER_RADIUS;
