@@ -2974,7 +2974,7 @@ export class RotasticWebClient {
       if (!isGo) {
         this.audio.play('countdown_tick', 0.75, 0, pitchRate);
       } else {
-        this.audio.play('gong', 0.65, 0, 1.0);
+        this.audio.play('countdown_go', 0.55, 0, 1.0);
         this.audio.playAnnouncer('match_start', 0);
       }
     };
