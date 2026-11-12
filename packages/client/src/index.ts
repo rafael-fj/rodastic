@@ -1,4 +1,20 @@
-import { Application, Assets, Container, Graphics, Rectangle, Sprite, Text, Texture, TilingSprite } from 'pixi.js';
+import {
+  Application,
+  Assets,
+  Container,
+  Graphics,
+  Rectangle,
+  Sprite,
+  Text,
+  Texture,
+  TextureSource,
+  TextureStyle,
+  TilingSprite,
+} from 'pixi.js';
+
+TextureSource.defaultOptions.autoGenerateMipmaps = true;
+TextureStyle.defaultOptions.scaleMode = 'linear';
+TextureStyle.defaultOptions.mipmapFilter = 'linear';
 import {
   ActorInstance,
   collectActorTextureIds,
@@ -423,7 +439,9 @@ export class RotasticWebClient {
           const tex = await Assets.load<Texture>(u);
           if (tex?.source) {
             tex.source.autoGenerateMipmaps = true;
-            tex.source.scaleMode = 'linear';
+            tex.source.style.scaleMode = 'linear';
+            tex.source.style.mipmapFilter = 'linear';
+            tex.source.style.update();
             tex.source.update();
           }
           this.texturesCache.set(u, tex);
