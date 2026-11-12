@@ -219,13 +219,13 @@ export function resolveWallActorTransform(
   mapId: string,
   wall: { name: string; cx: number; cy: number; rotDeg: number; meshActor?: string }
 ): { actorName: string; transform: ActorTransformOptions } | null {
-  if (wall.name === 'PRP_wallLeft') {
+  if (wall.name === 'PRP_wallLeft' || wall.name === 'PRP_wallLeft000') {
     return {
       actorName: getMapBorderActorName(mapId, 'left'),
       transform: { x: 0, y: 540, coordSpace: 'blitz', perspective: false },
     };
   }
-  if (wall.name === 'PRP_background001') {
+  if (wall.name === 'PRP_background001' || wall.name === 'PRP_wallRight') {
     return {
       actorName: getMapBorderActorName(mapId, 'right'),
       transform: { x: 1920, y: 540, coordSpace: 'blitz', perspective: false },

@@ -427,9 +427,9 @@ export class RotasticWebClient {
     this.pivotsContainer.sortableChildren = true;
     this.pivotFeedbackGraphics.zIndex = 0;
     this.pivotsContainer.addChild(this.pivotFeedbackGraphics);
+    this.app.stage.addChild(this.bgContainer);
     this.app.stage.addChild(this.rootContainer);
     this.rootContainer.addChild(
-      this.bgContainer,
       this.arenaBehindContainer,
       this.arenaGraphics,
       this.propsContainer,
@@ -477,7 +477,28 @@ export class RotasticWebClient {
     const w = window.innerWidth;
     const h = window.innerHeight;
     this.app.renderer.resize(w, h);
-    const scale = Math.min(w / VIEW_WIDTH, h / VIEW_HEIGHT);
+
+    // 1. O fundo (bgContainer) sempre preenche 100% da tela (cover / full-bleed sem barras vazias)
+    const bgScale = Math.max(w / VIEW_WIDTH, h / VIEW_HEIGHT);
+    this.bgContainer.scale.set(bgScale);
+    this.bgContainer.x = (w - VIEW_WIDTH * bgScale) * 0.5;
+    this.bgContainer.y = (h - VIEW_HEIGHT * bgScale) * 0.5;
+
+    // 2. A arena de jogo (rootContainer):
+    // Em telas widescreen normais (ex: 16:9 ou janelas com abas de aspect ratio 1.77 a 2.18):
+    // Ajusta a escala para cobrir 100% da largura útil da tela (paredes esquerda e direita encostando nas bordas).
+    // Para telas ultrawide (aspect ratio > 2.18) ou verticais, mantém margem de segurança vertical para que nenhum pivô seja cortado.
+    const aspect = w / Math.max(1, h);
+    const targetAspect = VIEW_WIDTH / VIEW_HEIGHT; // 1.7777...
+    let scale: number;
+    if (aspect >= targetAspect && aspect <= 2.18) {
+      scale = w / VIEW_WIDTH;
+    } else if (aspect > 2.18) {
+      scale = (h * 2.18) / VIEW_WIDTH;
+    } else {
+      scale = w / VIEW_WIDTH;
+    }
+
     this.rootContainer.scale.set(scale);
     this.rootContainer.x = (w - VIEW_WIDTH * scale) * 0.5;
     this.rootContainer.y = (h - VIEW_HEIGHT * scale) * 0.5;
@@ -953,6 +974,14 @@ export class RotasticWebClient {
   }
 
   private setupInputListeners(): void {
+    const toggleFullscreen = () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.().catch(() => {});
+      } else {
+        document.exitFullscreen?.().catch(() => {});
+      }
+    };
+
     const resumeAudioOnGesture = () => {
       this.audio.unlockAndResume();
     };
@@ -962,6 +991,10 @@ export class RotasticWebClient {
 
     window.addEventListener('keydown', (e) => {
       if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'SELECT') {
+        return;
+      }
+      if (e.code === 'KeyF' && !e.ctrlKey && !e.altKey && !e.metaKey) {
+        toggleFullscreen();
         return;
       }
       this.keysDown.add(e.code);
@@ -1017,6 +1050,18 @@ export class RotasticWebClient {
       if (muteBtn) {
         muteBtn.textContent = this.audio.muted ? '🔇 Mudo' : '🔊 Áudio';
       }
+    });
+
+    const fullscreenBtn = document.getElementById('btn-toggle-fullscreen');
+    fullscreenBtn?.addEventListener('click', () => {
+      toggleFullscreen();
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      if (fullscreenBtn) {
+        fullscreenBtn.textContent = document.fullscreenElement ? '🗗 Janela' : '⛶ Tela Cheia';
+      }
+      this.handleResize();
     });
   }
 
