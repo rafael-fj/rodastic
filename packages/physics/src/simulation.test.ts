@@ -1085,4 +1085,48 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     expect(sim13.state.attachPoints[1].x).toBeCloseTo(500, 1);
     expect(sim13.findNearestAttachPoint(1620, 780, C.ROPE_ATTACH_RANGE)?.id).toBe(0);
   });
+
+  it('detaches swinging opponent on heavy full-orange PvP hit (> 450 u/s) without mid-air instant death (#36)', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl01');
+    sim.configurePlayerSlot(0, { active: true, name: 'OrangeHeavy' });
+    sim.configurePlayerSlot(1, { active: true, name: 'SwingingVictim' });
+    const heavy = sim.state.players[0];
+    const victim = sim.state.players[1];
+    const ap0 = sim.state.attachPoints[0];
+
+    // Victim is swinging straight below pivot 0
+    victim.status = PlayerStatus.SWINGING;
+    victim.attachedPivotId = ap0.id;
+    victim.ropeLength = 200;
+    victim.ropeAngle = -Math.PI * 0.5;
+    victim.omega = 0;
+    victim.invulnTimer = 0;
+    victim.chargeGauge = 0.2;
+    victim.chargeGauge2 = 0.0; // mB = 1.0
+    victim.x = ap0.x;
+    victim.y = ap0.y - 200;
+    victim.vx = 0;
+    victim.vy = 0;
+
+    heavy.status = PlayerStatus.FREE_FALL;
+    heavy.invulnTimer = 0;
+    heavy.chargeGauge2 = 1.0; // mA = 11.0
+    heavy.x = ap0.x - 55;
+    heavy.y = ap0.y - 200;
+    heavy.vx = 480;
+    heavy.vy = 0;
+
+    const evs = sim.step({
+      0: { seq: 1, actionHeld: false, axisX: 0, axisY: 0 },
+      1: { seq: 1, actionHeld: true, axisX: 0, axisY: 0 },
+    });
+
+    expect(evs.some((e) => e.type === 'slaughter')).toBe(false);
+    expect(evs.some((e) => e.type === 'bounce')).toBe(true);
+    // Heavy orange hit (~880 u/s > 450 u/s) detaches the swinging rival instead of keeping them glued to the pivot
+    expect(victim.status).toBe(PlayerStatus.FREE_FALL);
+    expect(victim.attachedPivotId).toBe(-1);
+    expect(victim.vx).toBeGreaterThan(750);
+    expect(victim.lastAttackerSlot).toBe(heavy.slotIndex);
+  });
 });

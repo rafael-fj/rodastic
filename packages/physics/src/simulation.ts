@@ -1650,7 +1650,7 @@ export class RotasticSimulation {
           const otherMass = p === a ? mB : mA;
           const selfMass = p === a ? mA : mB;
           if (p.status === PlayerStatus.SWINGING) {
-            if (p.invulnTimer <= 0 && otherMass > selfMass * 1.5 && Math.hypot(p.vx, p.vy) > 850) {
+            if (p.invulnTimer <= 0 && otherMass > selfMass * 1.5 && Math.hypot(p.vx, p.vy) > C.PVP_MIN_COLLISION_SPEED) {
               p.status = PlayerStatus.FREE_FALL;
               p.attachedPivotId = -1;
               p.regrappleTimer = C.REGRAPPLE_COOLDOWN_SEC;
