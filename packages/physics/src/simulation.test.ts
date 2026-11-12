@@ -1008,12 +1008,22 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
 
     // Hit PST_MecaSwitch moving upward from below (de baixo pra cima: vy > 80)
     p04.status = PlayerStatus.FREE_FALL;
-    p04.x = 1860;
-    p04.y = 530;
+    p04.x = 1840;
+    p04.y = 525;
     p04.vx = 0;
     p04.vy = 500;
     const hitEvents = sim04.step({ 0: { seq: 302, actionHeld: false, axisX: 0, axisY: 0 } }, C.FIXED_DT);
     expect(hitEvents.some((e) => e.type === 'switchtoggle')).toBe(true);
+    // Physical collider on PST_MecaSwitch bounces player away on impact
+    expect(hitEvents.some((e) => e.type === 'bounce')).toBe(true);
+    expect(p04.vx).toBeLessThan(0);
+
+    // Top-left pivot (340,860) must NOT be reachable from near switch (dist=1543 > ROPE_ATTACH_RANGE=680)
+    expect(sim04.findNearestAttachPoint(1840, 540, C.ROPE_ATTACH_RANGE)?.id).not.toBe(0);
+    // Bottom-right pivot (1270,220) IS nearest within 680px range from (1850, 200) (dist=580 <= 680)
+    expect(sim04.findNearestAttachPoint(1850, 200, C.ROPE_ATTACH_RANGE)?.id).toBe(2);
+    // Out-of-range (>680px from all pivots) returns null
+    expect(sim04.findNearestAttachPoint(1880, -250, C.ROPE_ATTACH_RANGE)).toBeNull();
     const activeId = sim04.state.activeSwitchWallId;
     expect(activeId).toBeGreaterThanOrEqual(3);
 

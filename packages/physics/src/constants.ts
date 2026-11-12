@@ -38,8 +38,8 @@ export const ROTASTIC_PHYSICS_CONSTANTS = {
   ROPE_MIN_RADIUS: 150.0, // Nominal target radius minRopeRadius = 150 (unwinds toward 150 after delay)
   ROPE_UNWIND_DELAY_SEC: 0.22, // Small delay after close attach before expanding toward 150
   ROPE_ADJUST_SPEED: 50.0, // Verified 50 u/s unwind speed on short ropes (f=716..795)
-  ROPE_MAX_RADIUS: 2200.0, // Matches 4000 clamp @ 0x0056BDB8 & 668.2px attach observed in telemetry
-  ROPE_ATTACH_RANGE: 2200.0, // Always allows connecting to nearest indicated pivot across 1920x1080 arena
+  ROPE_MAX_RADIUS: 680.0, // Verified 668.2px (115315) and 650.4px (083952) max attach radius in telemetry
+  ROPE_ATTACH_RANGE: 680.0, // Matches native max grapple distance (~668px) instead of full-arena 2200px
   REGRAPPLE_COOLDOWN_SEC: 0.08,
   RELEASE_BOOST_WINDOW_SEC: 0.4, // simRef[0x30] = 0.4
   RELEASE_BOOST_FACTOR: 1.2, // simRef[0x40] = 1.2 (observed 900 -> 1079 u/s)

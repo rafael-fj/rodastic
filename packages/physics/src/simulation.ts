@@ -1206,12 +1206,11 @@ export class RotasticSimulation {
 
   private checkWallsAndBounds(p: PlayerSimState, prevX: number, prevY: number): void {
     // 1. Optional arena frog lever switch (PST_MecaSwitch in w_multi_dm_lvl04):
-    // Only triggers when player launches upward (FREE_FALL & vy > 80) from below into the lever.
+    // Triggers on upward hit (vy > 80, de baixo pra cima) either via launch (FREE_FALL) or rope swing (SWINGING).
     if (
       this.map.switchDef &&
       this.state.switchCooldownSec <= 0 &&
       this.state.activeSwitchWallId === -1 &&
-      p.status === PlayerStatus.FREE_FALL &&
       p.vy > 80
     ) {
       const sw = this.map.switchDef;
