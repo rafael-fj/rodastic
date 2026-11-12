@@ -2301,8 +2301,8 @@ export class RotasticWebClient {
           orangeRing.mesh.alpha = 1.0;
           orangeRing.mesh.visible = true;
           // Single-band outward gradient: soft transparent orange inside (U=0.54) -> bright yellow-white outer rim (U=0.98)
-          // Keep V strictly inside [0.03..0.23] so the circle closes 100% without hitting the transparent gap at V=0.26
-          updateSingleBandRingMesh(orangeRing, 60, sx, sy, 0, Math.PI * 2, 68, 26, 26, 1, 0.54, 0.98, 0.03, 0.2);
+          // Use the uniform bottom strip [0.56..0.74] of t_uberbeam2_c.png so thickness & brightness are 100% symmetric
+          updateSingleBandRingMesh(orangeRing, 60, sx, sy, 0, Math.PI * 2, 68, 26, 26, 1, 0.54, 0.98, 0.56, 0.18);
         } else {
           if (orangeRing) orangeRing.mesh.visible = false;
           this.ropesGraphics
