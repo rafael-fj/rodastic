@@ -173,7 +173,8 @@ describe('@rotastic/server — 2-Client End-to-End Authoritative Match Lifecycle
   it('serves .mp3 BGM files with audio/mpeg MIME, Accept-Ranges, HEAD, 206 Partial Content and 416 handling', async () => {
     const mp3Path = path.resolve(__dirname, '..', '..', 'client', 'public', 'assets', 'audio', 'bgm', 'bgm_syl_menu.mp3');
     const expectedSize = fs.statSync(mp3Path).size;
-    expect(expectedSize).toBeGreaterThan(1_500_000);
+    const isLfsPointer = expectedSize < 512 && fs.readFileSync(mp3Path, 'utf8').startsWith('version https://git-lfs.github.com/spec/v1');
+    expect(expectedSize).toBeGreaterThan(isLfsPointer ? 100 : 1_500_000);
 
     const url = `http://127.0.0.1:${port}/assets/audio/bgm/bgm_syl_menu.mp3?v=2`;
 
@@ -198,15 +199,17 @@ describe('@rotastic/server — 2-Client End-to-End Authoritative Match Lifecycle
     expect(Number(headRes.headers.get('content-length'))).toBe(expectedSize);
     expect((await headRes.arrayBuffer()).byteLength).toBe(0);
 
-    const rangeRes = await fetch(url, { headers: { Range: 'bytes=0-1023' } });
+    const rangeEnd = Math.min(1023, expectedSize - 1);
+    const rangeLen = rangeEnd + 1;
+    const rangeRes = await fetch(url, { headers: { Range: `bytes=0-${rangeEnd}` } });
     expect(rangeRes.status).toBe(206);
     expect(rangeRes.headers.get('content-type')).toBe('audio/mpeg');
-    expect(rangeRes.headers.get('content-range')).toBe(`bytes 0-1023/${expectedSize}`);
-    expect(Number(rangeRes.headers.get('content-length'))).toBe(1024);
+    expect(rangeRes.headers.get('content-range')).toBe(`bytes 0-${rangeEnd}/${expectedSize}`);
+    expect(Number(rangeRes.headers.get('content-length'))).toBe(rangeLen);
     const slice = new Uint8Array(await rangeRes.arrayBuffer());
-    expect(slice.length).toBe(1024);
+    expect(slice.length).toBe(rangeLen);
     expect(slice[0]).toBe(fullBytes[0]);
-    expect(slice[1023]).toBe(fullBytes[1023]);
+    expect(slice[rangeEnd]).toBe(fullBytes[rangeEnd]);
 
     const badRangeRes = await fetch(url, { headers: { Range: 'bytes=99999999-' } });
     expect(badRangeRes.status).toBe(416);
