@@ -3,6 +3,7 @@ import {
   Assets,
   Container,
   Graphics,
+  ImageSource,
   Rectangle,
   Sprite,
   Text,
@@ -12,6 +13,7 @@ import {
   TilingSprite,
 } from 'pixi.js';
 
+ImageSource.defaultOptions.autoGenerateMipmaps = true;
 TextureSource.defaultOptions.autoGenerateMipmaps = true;
 TextureStyle.defaultOptions.scaleMode = 'linear';
 TextureStyle.defaultOptions.mipmapFilter = 'linear';
@@ -436,7 +438,14 @@ export class RotasticWebClient {
     await Promise.all(
       pending.map(async (u) => {
         try {
-          const tex = await Assets.load<Texture>(u);
+          const tex = await Assets.load<Texture>({
+            src: u,
+            data: {
+              autoGenerateMipmaps: true,
+              scaleMode: 'linear',
+              mipmapFilter: 'linear',
+            },
+          });
           if (tex?.source) {
             tex.source.autoGenerateMipmaps = true;
             tex.source.style.scaleMode = 'linear';
