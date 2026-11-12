@@ -59,9 +59,24 @@ export const ROTASTIC_PHYSICS_CONSTANTS = {
   CHARGE_RATE_BASE: 0.58, // simRef[0x4C] = 0.58
   CHARGE_SPEED_NORM: 450.0, // simRef[0x54] = 450
   CHARGE_STUN_FACTOR: 0.55, // simRef[0x5C] = 0.55
-  ORANGE_CHARGE_STEP: 0.2, // 5 tricks (+150) fill 0.0 -> 1.0
+  ORANGE_CHARGE_STEP: 0.2, // Default trick charge step (Bounce/GetIt)
   ORANGE_TRICK_POINTS: 150,
   PVP_MASS_ORANGE_COEF: 10.0, // mass = 1.0 + 10.0 * c2^2 (1.0 / 1.4 / 2.6 / ... / 11.0)
+
+  // Native TricksParameters DataTable (w_global_fetm.pc + 0x0094e210)
+  TRICKS: {
+    HIT: { id: 0x18, name: 'Hit!', points: 50, charge: 0.1 },
+    CUT: { id: 0x17, name: 'Cut!', points: 150, charge: 0.1 },
+    GET_IT: { id: 0x04, name: 'Get It!', points: 150, charge: 0.2 },
+    BOUNCE: { id: 0x02, name: 'Bounce!', points: 150, charge: 0.2 },
+    RISKY: { id: 0x07, name: 'Risky!', points: 300, charge: 0.25 },
+    TRIANGLE: { id: 0x0c, name: 'Triangle!', points: 300, charge: 0.25 },
+    BIG_O: { id: 0x00, name: 'The Big O!', points: 700, charge: 0.66 },
+    ROTASTIC: { id: 0x01, name: 'Rotastic!', points: 700, charge: 0.66 },
+    PANCAKE: { id: 0x06, name: 'Pancake!', points: 700, charge: 0.66 },
+    SQUARE: { id: 0x0b, name: 'Square!', points: 2000, charge: 1.0 },
+    ROPE_BRIDGE: { id: 0x08, name: 'Rope Bridge!', points: 3000, charge: 1.0 },
+  },
 
   // Timers & Respawn (CRotasticPlayer.asm + live captures)
   DIZZY_DURATION_SEC: 1.0, // simRef[0x58] = 1.0

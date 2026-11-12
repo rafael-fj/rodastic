@@ -108,7 +108,7 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     expect(events.some((e) => e.type === 'ropecut')).toBe(true);
     expect(swinger.status).toBe(PlayerStatus.DIZZY);
     expect(swinger.lastAttackerSlot).toBe(1);
-    expect(cutter.chargeGauge2).toBeCloseTo(C.ORANGE_CHARGE_STEP, 5);
+    expect(cutter.chargeGauge2).toBeCloseTo(C.TRICKS.CUT.charge, 5);
   });
 
   it('consumes white bubble (c1) or full orange bar (c2) to absorb deadly hazard hit with 0.5s invuln and 1.0s dizzy (0x00579458)', () => {
@@ -1128,5 +1128,62 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     expect(victim.attachedPivotId).toBe(-1);
     expect(victim.vx).toBeGreaterThan(750);
     expect(victim.lastAttackerSlot).toBe(heavy.slotIndex);
+  });
+
+  it('awards exact native TricksParameters points and +0xD4C orange charge for Hit, Cut, Triangle, Rotastic and Risky (#37)', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl01');
+    sim.configurePlayerSlot(0, { active: true, name: 'Tricker' });
+    sim.configurePlayerSlot(1, { active: true, name: 'Rival' });
+    const p = sim.state.players[0];
+    const rival = sim.state.players[1];
+
+    // 1. Hit (+0.10, 50 pts) on PvP bump
+    p.status = PlayerStatus.FREE_FALL;
+    p.invulnTimer = 0;
+    p.chargeGauge2 = 0;
+    p.x = 500;
+    p.y = 500;
+    p.vx = 500;
+    p.vy = 0;
+    rival.status = PlayerStatus.FREE_FALL;
+    rival.invulnTimer = 0;
+    rival.x = 550;
+    rival.y = 500;
+    rival.vx = 0;
+    rival.vy = 0;
+    const hitEvs = sim.step({});
+    expect(hitEvs.some((e) => e.type === 'trick' && e.points === 50 && e.label === 'Hit! +50')).toBe(true);
+    expect(p.chargeGauge2).toBeCloseTo(0.1, 4);
+
+    // 2. Triangle (+0.25, 300 pts) on closed 3-pivot cycle A -> B -> C -> A
+    p.chargeGauge2 = 0;
+    p.pivotHistory = [];
+    const aps = sim.state.attachPoints;
+    for (const ap of [aps[0], aps[1], aps[2], aps[0]]) {
+      p.status = PlayerStatus.FREE_FALL;
+      p.lastActionHeld = false;
+      p.chargeGauge = 1.0;
+      p.regrappleTimer = 0;
+      p.x = ap.x;
+      p.y = ap.y - 60;
+      p.vx = 300;
+      p.vy = 0;
+      sim.step({ 0: { seq: 1, actionHeld: true, axisX: 0, axisY: 0 } });
+    }
+    expect(p.chargeGauge2).toBeCloseTo(0.25, 4);
+
+    // 3. Risky (+0.25, 300 pts) when dipping <= 150 and climbing back >= 260
+    p.chargeGauge2 = 0;
+    p.status = PlayerStatus.FREE_FALL;
+    p.x = 500;
+    p.y = 140;
+    p.vx = 0;
+    p.vy = 0;
+    sim.step({});
+    expect(p.riskyArmed).toBe(true);
+    p.y = 270;
+    const riskyEvs = sim.step({});
+    expect(riskyEvs.some((e) => e.type === 'trick' && e.points === 300 && e.label === 'Risky! +300')).toBe(true);
+    expect(p.chargeGauge2).toBeCloseTo(0.25, 4);
   });
 });

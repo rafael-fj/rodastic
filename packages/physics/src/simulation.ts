@@ -50,7 +50,11 @@ export interface PlayerSimState {
   spawnCursorDir: number; // +1 right, -1 left
   spawnAllowDelay: number; // small delay before drop signal is accepted
   wallTrickCooldown: number;
+  hitTrickCooldown: number;
+  riskyArmed: boolean;
   swingLoopAccumRad: number;
+  swingNetRad: number;
+  pivotHistory: Array<{ id: number; x: number; y: number; netRad: number }>;
   turnBoostCount: number; // 0..5 reverse spin boost stacks
   swingBoostTimer: number; // 0..0.4s (+0xC4C) apex/reverse tangential acceleration timer
   lastActionHeld: boolean;
@@ -477,7 +481,11 @@ export class RotasticSimulation {
         spawnCursorDir: i % 2 === 0 ? 1 : -1,
         spawnAllowDelay: C.SPAWN_ALLOW_DELAY_SEC,
         wallTrickCooldown: 0,
+        hitTrickCooldown: 0,
+        riskyArmed: false,
         swingLoopAccumRad: 0,
+        swingNetRad: 0,
+        pivotHistory: [],
         turnBoostCount: 0,
         swingBoostTimer: 0,
         lastActionHeld: false,
@@ -576,6 +584,12 @@ export class RotasticSimulation {
       p.chargeGauge = 1.0;
       p.chargeGauge2 = 0.0;
       p.chargeMultiplier = 0;
+      p.wallTrickCooldown = 0;
+      p.hitTrickCooldown = 0;
+      p.riskyArmed = false;
+      p.swingLoopAccumRad = 0;
+      p.swingNetRad = 0;
+      p.pivotHistory = [];
       p.turnBoostCount = 0;
       p.swingBoostTimer = 0;
       p.lastReverseHeld = false;
@@ -686,6 +700,7 @@ export class RotasticSimulation {
       if (p.regrappleTimer > 0) p.regrappleTimer = Math.max(0, p.regrappleTimer - dt);
       if (p.attachLockTimer > 0) p.attachLockTimer = Math.max(0, p.attachLockTimer - dt);
       if (p.wallTrickCooldown > 0) p.wallTrickCooldown = Math.max(0, p.wallTrickCooldown - dt);
+      if (p.hitTrickCooldown > 0) p.hitTrickCooldown = Math.max(0, p.hitTrickCooldown - dt);
       if (p.lastAttackTimer > 0) {
         p.lastAttackTimer = Math.max(0, p.lastAttackTimer - dt);
         if (p.lastAttackTimer === 0) {
@@ -900,7 +915,11 @@ export class RotasticSimulation {
       p.regrappleTimer = 0.12;
       p.attachLockTimer = 0;
       p.wallTrickCooldown = 0;
+      p.hitTrickCooldown = 0;
+      p.riskyArmed = false;
       p.swingLoopAccumRad = 0;
+      p.swingNetRad = 0;
+      p.pivotHistory = [];
       p.swingBoostTimer = 0;
       this.events.push({ type: 'spawndrop', slotIndex: p.slotIndex, x: p.x, y: p.y });
     }
@@ -918,20 +937,79 @@ export class RotasticSimulation {
     p.chargeGauge = clamp(p.chargeGauge + rate * dt, 0, 1);
   }
 
-  private awardOrangeTrick(p: PlayerSimState, amount: number, label: string, x: number, y: number): void {
+  private awardOrangeTrick(
+    p: PlayerSimState,
+    amount: number,
+    label: string,
+    x: number,
+    y: number,
+    points: number = C.ORANGE_TRICK_POINTS
+  ): void {
     // 0x0056AFF5: block c2 (+0xD4C) gain while invulnerable (+0xD54 > 0)
     if (p.invulnTimer <= 0) {
       p.chargeGauge2 = clamp(p.chargeGauge2 + amount, 0, 1);
     }
-    const pts = amount >= 1.0 ? 300 : C.ORANGE_TRICK_POINTS;
     this.events.push({
       type: 'trick',
       slotIndex: p.slotIndex,
-      points: pts,
+      points,
       label,
       x,
       y,
     });
+  }
+
+  private recordPivotAttachForTricks(p: PlayerSimState, pivot: { id: number; x: number; y: number }): void {
+    const prevIdx = p.pivotHistory.findIndex((h) => h.id === pivot.id);
+    if (prevIdx !== -1 && p.pivotHistory.length - prevIdx >= 3) {
+      const cycle = p.pivotHistory.slice(prevIdx);
+      const distinctIds = new Set(cycle.map((h) => h.id));
+      if (distinctIds.size === 3) {
+        this.awardOrangeTrick(
+          p,
+          C.TRICKS.TRIANGLE.charge,
+          `${C.TRICKS.TRIANGLE.name} +${C.TRICKS.TRIANGLE.points}`,
+          p.x,
+          p.y,
+          C.TRICKS.TRIANGLE.points
+        );
+        p.pivotHistory = [{ id: pivot.id, x: pivot.x, y: pivot.y, netRad: 0 }];
+        return;
+      }
+      if (distinctIds.size >= 4) {
+        let maxSpanSq = 0;
+        for (let i = 0; i < cycle.length; i++) {
+          for (let j = i + 1; j < cycle.length; j++) {
+            const dx = cycle[i].x - cycle[j].x;
+            const dy = cycle[i].y - cycle[j].y;
+            const dSq = dx * dx + dy * dy;
+            if (dSq > maxSpanSq) maxSpanSq = dSq;
+          }
+        }
+        // Big0 threshold 90000.0 (0x56f007): 4-pivot tight loop -> Square (2000/+1.0), wide loop -> Big0 (700/+0.66)
+        const trick = distinctIds.size === 4 && maxSpanSq < 90000 ? C.TRICKS.SQUARE : C.TRICKS.BIG_O;
+        this.awardOrangeTrick(p, trick.charge, `${trick.name} +${trick.points}`, p.x, p.y, trick.points);
+        p.pivotHistory = [{ id: pivot.id, x: pivot.x, y: pivot.y, netRad: 0 }];
+        return;
+      }
+    }
+
+    p.pivotHistory.push({ id: pivot.id, x: pivot.x, y: pivot.y, netRad: 0 });
+    if (p.pivotHistory.length > 8) {
+      p.pivotHistory.shift();
+    }
+    const distinctChain = new Set(p.pivotHistory.map((h) => h.id)).size;
+    if (distinctChain >= 6) {
+      this.awardOrangeTrick(
+        p,
+        C.TRICKS.ROPE_BRIDGE.charge,
+        `${C.TRICKS.ROPE_BRIDGE.name} +${C.TRICKS.ROPE_BRIDGE.points}`,
+        p.x,
+        p.y,
+        C.TRICKS.ROPE_BRIDGE.points
+      );
+      p.pivotHistory = [{ id: pivot.id, x: pivot.x, y: pivot.y, netRad: 0 }];
+    }
   }
 
   private tryConsumeShield(
@@ -1040,6 +1118,8 @@ export class RotasticSimulation {
     p.ropeAngle = angle;
     p.omega = omega;
     p.attachTimer = 0;
+    p.swingNetRad = 0;
+    this.recordPivotAttachForTricks(p, nearest);
     p.swingLoopAccumRad = 0;
     p.turnBoostCount = 0;
     p.swingBoostTimer = 0;
@@ -1179,15 +1259,64 @@ export class RotasticSimulation {
       }
     }
 
-    // Award "Get It" (+0.2 orange gauge) for completing a fast full revolution
+    // Track net angular travel for Rotastic (Figure-8) and GetIt (360° revolution)
+    p.swingNetRad += dAngle;
+    const curPivotEntry = p.pivotHistory[p.pivotHistory.length - 1];
+    if (curPivotEntry && curPivotEntry.id === p.attachedPivotId) {
+      curPivotEntry.netRad = p.swingNetRad;
+      if (p.pivotHistory.length >= 2) {
+        const prevEntry = p.pivotHistory[p.pivotHistory.length - 2];
+        if (
+          prevEntry.id !== curPivotEntry.id &&
+          Math.abs(prevEntry.netRad) >= Math.PI &&
+          Math.abs(curPivotEntry.netRad) >= Math.PI &&
+          prevEntry.netRad * curPivotEntry.netRad < 0
+        ) {
+          this.awardOrangeTrick(
+            p,
+            C.TRICKS.ROTASTIC.charge,
+            `${C.TRICKS.ROTASTIC.name} +${C.TRICKS.ROTASTIC.points}`,
+            p.x,
+            p.y,
+            C.TRICKS.ROTASTIC.points
+          );
+          prevEntry.netRad = 0;
+          curPivotEntry.netRad = 0;
+        }
+      }
+    }
+
+    // Award "Get It" (+0.20, 150 pts) for completing a fast full revolution
     if (Math.abs(p.omega) * r >= 680) {
       p.swingLoopAccumRad += Math.abs(dAngle);
       if (p.swingLoopAccumRad >= Math.PI * 2) {
         p.swingLoopAccumRad -= Math.PI * 2;
-        this.awardOrangeTrick(p, C.ORANGE_CHARGE_STEP, 'Get It!', p.x, p.y);
+        this.awardOrangeTrick(
+          p,
+          C.TRICKS.GET_IT.charge,
+          `${C.TRICKS.GET_IT.name} +${C.TRICKS.GET_IT.points}`,
+          p.x,
+          p.y,
+          C.TRICKS.GET_IT.points
+        );
       }
     } else {
       p.swingLoopAccumRad = 0;
+    }
+
+    // Risky (0x56e16c: 150.0 -> 200.0): dipping near bottom death zone and recovering upward
+    if (p.y <= 150) {
+      p.riskyArmed = true;
+    } else if (p.riskyArmed && p.y >= 260) {
+      p.riskyArmed = false;
+      this.awardOrangeTrick(
+        p,
+        C.TRICKS.RISKY.charge,
+        `${C.TRICKS.RISKY.name} +${C.TRICKS.RISKY.points}`,
+        p.x,
+        p.y,
+        C.TRICKS.RISKY.points
+      );
     }
 
     p.x = pivot.x + Math.cos(p.ropeAngle) * r;
@@ -1427,14 +1556,39 @@ export class RotasticSimulation {
       sweepPrevY = p.y;
 
       if (vn < 0) {
-        // High-speed bounce tricks charge orange bar (+0.2 / +150, observed on wall bounces!)
-        if (p.wallTrickCooldown <= 0 && Math.hypot(p.vx, p.vy) >= 420) {
+        // High-speed bounce tricks charge orange bar: Pancake (|vn|/speed >= 0.9 @ >= 900 u/s -> +0.66/700) or Bounce (+0.20/150)
+        const postSpeed = Math.hypot(p.vx, p.vy);
+        if (p.wallTrickCooldown <= 0 && postSpeed >= 420) {
           p.wallTrickCooldown = 1.4;
-          this.awardOrangeTrick(p, C.ORANGE_CHARGE_STEP, '+150', bestHit.contactX, bestHit.contactY);
+          const isPancake = postSpeed >= 900 && Math.abs(vn) / Math.max(1, postSpeed) >= 0.9;
+          const trick = isPancake ? C.TRICKS.PANCAKE : C.TRICKS.BOUNCE;
+          this.awardOrangeTrick(
+            p,
+            trick.charge,
+            `${trick.name} +${trick.points}`,
+            bestHit.contactX,
+            bestHit.contactY,
+            trick.points
+          );
         }
 
         this.events.push({ type: 'bounce', slotIndex: p.slotIndex, x: bestHit.contactX, y: bestHit.contactY });
       }
+    }
+
+    // Risky (0x56e16c: 150.0 -> 200.0): recovering upward after dipping near bottom hazard zone
+    if (p.y <= 150 && p.y > C.DEATH_BOTTOM_Y) {
+      p.riskyArmed = true;
+    } else if (p.riskyArmed && p.y >= 260) {
+      p.riskyArmed = false;
+      this.awardOrangeTrick(
+        p,
+        C.TRICKS.RISKY.charge,
+        `${C.TRICKS.RISKY.name} +${C.TRICKS.RISKY.points}`,
+        p.x,
+        p.y,
+        C.TRICKS.RISKY.points
+      );
     }
 
     // 3. Bottom fall death threshold (`TriggerPlanePlayerDeath @ y <= -300.0`, lethal even with full bubble)
@@ -1561,7 +1715,14 @@ export class RotasticSimulation {
           victim.lastAttackerSlot = cutter.slotIndex;
           victim.lastAttackTimer = C.KILL_ATTRIBUTION_WINDOW_SEC;
 
-          this.awardOrangeTrick(cutter, C.ORANGE_CHARGE_STEP, 'Cut!', seg.cx, seg.cy);
+          this.awardOrangeTrick(
+            cutter,
+            C.TRICKS.CUT.charge,
+            `${C.TRICKS.CUT.name} +${C.TRICKS.CUT.points}`,
+            seg.cx,
+            seg.cy,
+            C.TRICKS.CUT.points
+          );
           this.events.push({
             type: 'ropecut',
             slotIndex: cutter.slotIndex,
@@ -1669,6 +1830,28 @@ export class RotasticSimulation {
         a.lastAttackTimer = C.KILL_ATTRIBUTION_WINDOW_SEC;
         b.lastAttackerSlot = a.slotIndex;
         b.lastAttackTimer = C.KILL_ATTRIBUTION_WINDOW_SEC;
+
+        if (a.hitTrickCooldown <= 0 && speedA >= speedB) {
+          a.hitTrickCooldown = 0.6;
+          this.awardOrangeTrick(
+            a,
+            C.TRICKS.HIT.charge,
+            `${C.TRICKS.HIT.name} +${C.TRICKS.HIT.points}`,
+            midX,
+            midY,
+            C.TRICKS.HIT.points
+          );
+        } else if (b.hitTrickCooldown <= 0 && speedB > speedA) {
+          b.hitTrickCooldown = 0.6;
+          this.awardOrangeTrick(
+            b,
+            C.TRICKS.HIT.charge,
+            `${C.TRICKS.HIT.name} +${C.TRICKS.HIT.points}`,
+            midX,
+            midY,
+            C.TRICKS.HIT.points
+          );
+        }
 
         this.events.push({
           type: 'bounce',
