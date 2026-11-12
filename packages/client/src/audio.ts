@@ -10,7 +10,13 @@ import type { CharacterId } from '@rotastic/physics';
 
 const SFX_POOLS = {
   select: ['/assets/audio/sfx/sfx_gui_select001.wav', '/assets/audio/sfx/sfx_gui_select002.wav'],
-  confirm: ['/assets/audio/sfx/sfx_gui_valid001.wav', '/assets/audio/sfx/sfx_gui_valid002.wav'],
+  confirm: [
+    '/assets/audio/sfx/sfx_gui_valid001.wav',
+    '/assets/audio/sfx/sfx_gui_valid002.wav',
+    '/assets/audio/sfx/sfx_gui_valid003.wav',
+  ],
+  back: ['/assets/audio/sfx/sfx_gui_back001.wav'],
+  countdown_tick: ['/assets/audio/sfx/sfx_gui_select001.wav'],
   gong: ['/assets/audio/sfx/sfx_gui_gong.wav'],
   podium: ['/assets/audio/sfx/sfx_gui_podium.wav'],
   timenearend: ['/assets/audio/sfx/sfx_gui_timenearend.wav'],
@@ -149,6 +155,18 @@ const BGM_ASSET_REV = '2';
 function bgmUrl(trackName: string): string {
   return `/assets/audio/bgm/${trackName}.mp3?v=${BGM_ASSET_REV}`;
 }
+
+const GUI_SFX_KEYS = new Set<SfxKey>([
+  'select',
+  'confirm',
+  'back',
+  'countdown_tick',
+  'gong',
+  'podium',
+  'timenearend',
+  'multi_end',
+  'time_over',
+]);
 
 export class RotasticAudioManager {
   private ctx: AudioContext | null = null;
@@ -446,11 +464,19 @@ export class RotasticAudioManager {
     return promise;
   }
 
-  public play(key: SfxKey, volume = 0.48, pitchJitter = 0.06): void {
+  public play(
+    key: SfxKey,
+    volume = 0.48,
+    pitchJitter?: number,
+    playbackRate = 1.0
+  ): void {
     if (this.muted) return;
     const pool = SFX_POOLS[key];
+    if (!pool) return;
     const url = pool[Math.floor(Math.random() * pool.length)];
-    this.playUrl(url, volume, pitchJitter);
+    const effectiveJitter =
+      pitchJitter !== undefined ? pitchJitter : GUI_SFX_KEYS.has(key) ? 0 : 0.06;
+    this.playUrl(url, volume, effectiveJitter, playbackRate);
   }
 
   public playCharacterVoice(characterId: CharacterId, kind: 'hurt' | 'death' | 'kill', volume = 0.52): void {
@@ -458,7 +484,7 @@ export class RotasticAudioManager {
     const pool = CHAR_VOICE_POOLS[characterId]?.[kind];
     if (!pool || pool.length === 0) return;
     const url = pool[Math.floor(Math.random() * pool.length)];
-    this.playUrl(url, volume, 0.04);
+    this.playUrl(url, volume, 0.04, 1.0);
   }
 
   public playAnnouncer(key: AnnouncerKey, minIntervalMs = 2400, volume = 0.8): void {
@@ -519,30 +545,37 @@ export class RotasticAudioManager {
     }
   }
 
-  private playUrl(url: string, volume: number, pitchJitter: number): void {
+  private playUrl(
+    url: string,
+    volume: number,
+    pitchJitter: number,
+    playbackRate = 1.0
+  ): void {
     const ctx = this.ensureContext(true);
     if (!ctx) return;
     const cached = this.buffers.get(url);
     if (!cached) {
       void this.loadUrl(url).then((buf) => {
-        if (buf) this.playBuffer(ctx, buf, volume, pitchJitter);
+        if (buf) this.playBuffer(ctx, buf, volume, pitchJitter, playbackRate);
       });
       return;
     }
-    this.playBuffer(ctx, cached, volume, pitchJitter);
+    this.playBuffer(ctx, cached, volume, pitchJitter, playbackRate);
   }
 
   private playBuffer(
     ctx: AudioContext,
     buf: AudioBuffer,
     volume: number,
-    pitchJitter: number
+    pitchJitter: number,
+    playbackRate = 1.0
   ): void {
     if (this.muted) return;
     try {
       const source = ctx.createBufferSource();
       source.buffer = buf;
-      source.playbackRate.value = 1 + (Math.random() * 2 - 1) * pitchJitter;
+      const jitter = pitchJitter > 0 ? (Math.random() * 2 - 1) * pitchJitter : 0;
+      source.playbackRate.value = Math.max(0.25, Math.min(4.0, playbackRate * (1 + jitter)));
 
       const gain = ctx.createGain();
       gain.gain.value = Math.max(0, Math.min(1, volume));

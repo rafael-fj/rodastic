@@ -1002,7 +1002,7 @@ export class RotasticWebClient {
     });
 
     document.getElementById('btn-toggle-lobby')?.addEventListener('click', () => {
-      this.audio.play('select');
+      this.audio.play('select', 0.4, 0);
       this.showLobbyOverlay = !this.showLobbyOverlay;
       this.renderModalOverlay();
     });
@@ -1247,7 +1247,7 @@ export class RotasticWebClient {
   private sendHostReturnToLobby(): void {
     if (!this.lobbyState || this.peerId !== this.lobbyState.leaderPeerId) return;
     this.clearMatchCountdown();
-    this.audio.play('confirm');
+    this.audio.play('back', 0.55, 0);
     const pkt = encodeAppControlMessage(
       this.nextSeq(),
       this.peerId,
@@ -2917,7 +2917,7 @@ export class RotasticWebClient {
       this.audio.setBgm(getMultiplayerMapById(this.lobbyState.config.mapId).bgmTrack);
     }
 
-    const triggerStep = (label: string, isGo: boolean) => {
+    const triggerStep = (label: string, isGo: boolean, pitchRate = 1.0) => {
       textEl.textContent = label;
       textEl.classList.toggle('go', isGo);
       textEl.style.animation = 'none';
@@ -2927,27 +2927,27 @@ export class RotasticWebClient {
         : 'countdownPop 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards';
 
       if (!isGo) {
-        this.audio.play('confirm', 0.85);
+        this.audio.play('countdown_tick', 0.75, 0, pitchRate);
       } else {
-        this.audio.play('gong', 0.65);
+        this.audio.play('gong', 0.65, 0, 1.0);
         this.audio.playAnnouncer('match_start', 0);
       }
     };
 
     // "3"
-    triggerStep('3', false);
+    triggerStep('3', false, 1.0);
 
     // "2" at 0.75s
     this.countdownTimeouts.push(
       window.setTimeout(() => {
-        triggerStep('2', false);
+        triggerStep('2', false, 1.189);
       }, 750)
     );
 
     // "1" at 1.5s
     this.countdownTimeouts.push(
       window.setTimeout(() => {
-        triggerStep('1', false);
+        triggerStep('1', false, 1.414);
       }, 1500)
     );
 
@@ -2955,7 +2955,7 @@ export class RotasticWebClient {
     this.countdownTimeouts.push(
       window.setTimeout(() => {
         this.isMatchCountdownActive = false; // Drop action unlocked!
-        triggerStep('GO!', true);
+        triggerStep('GO!', true, 1.0);
       }, 2250)
     );
 
@@ -3009,7 +3009,7 @@ export class RotasticWebClient {
       `;
 
       document.getElementById('btn-rematch')?.addEventListener('click', () => {
-        this.audio.play('confirm');
+        this.audio.play('confirm', 0.6, 0);
         const pkt = encodeAppControlMessage(
           this.nextSeq(),
           this.peerId,
@@ -3209,19 +3209,19 @@ export class RotasticWebClient {
 
     document.getElementById('inp-player-name')?.addEventListener('change', () => sendSlotUpdate());
     document.getElementById('sel-char')?.addEventListener('change', () => {
-      this.audio.play('select');
+      this.audio.play('select', 0.4, 0);
       sendSlotUpdate();
     });
     document.getElementById('sel-color')?.addEventListener('change', () => {
-      this.audio.play('select');
+      this.audio.play('select', 0.4, 0);
       sendSlotUpdate();
     });
     document.getElementById('sel-map')?.addEventListener('change', () => {
-      this.audio.play('select');
+      this.audio.play('select', 0.4, 0);
       sendConfigUpdate();
     });
     document.getElementById('sel-bots')?.addEventListener('change', () => {
-      this.audio.play('select');
+      this.audio.play('select', 0.4, 0);
       sendConfigUpdate();
     });
     document.getElementById('inp-time')?.addEventListener('change', () => sendConfigUpdate());
@@ -3240,12 +3240,13 @@ export class RotasticWebClient {
     });
 
     document.getElementById('btn-ready-toggle')?.addEventListener('click', () => {
-      this.audio.play('confirm');
-      sendSlotUpdate(!mySlot.ready);
+      const willBeReady = !mySlot.ready;
+      this.audio.play(willBeReady ? 'confirm' : 'back', 0.55, 0);
+      sendSlotUpdate(willBeReady);
     });
 
     document.getElementById('btn-start-match')?.addEventListener('click', () => {
-      this.audio.play('confirm');
+      this.audio.play('confirm', 0.7, 0);
       this.showLoadingScreen(true, 'Iniciando partida...');
       sendSlotUpdate(true);
       sendConfigUpdate();
@@ -3264,6 +3265,7 @@ export class RotasticWebClient {
     });
 
     document.getElementById('btn-resume-game')?.addEventListener('click', () => {
+      this.audio.play('select', 0.4, 0);
       this.showLobbyOverlay = false;
       this.renderModalOverlay();
     });
