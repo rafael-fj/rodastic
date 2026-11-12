@@ -80,3 +80,4 @@ Para sair de inferências e atingir **100% de decompilação real**, estas class
 - ✅ **[#39](https://github.com/rafael-fj/rodastic/issues/39)** *(Encerrada em 315d497)* — physics(ropecut): corrigir corte de corda quando corda mais curta cruza corda maior (removido bloqueio indevido por raio de colisão corporal)
 - ✅ **[#40](https://github.com/rafael-fj/rodastic/issues/40)** *(Encerrada em 688a99a)* — client(vfx): renderizar coroa dourada nativa do líder (t_guicouronne_c.png) flutuando suavemente sobre a cabeça do personagem
 1. **[#41](https://github.com/rafael-fj/rodastic/issues/41)** *(Em Validação)* — gameplay(combo): calibrar taxa de acúmulo e condições da barra laranja de combo (removido +1.0 indevido em kill, switch e rotação contínua em pivô único)
+2. **[#42](https://github.com/rafael-fj/rodastic/issues/42)** *(Aberta)* — perf(network): otimizar tempo de carregamento inicial do jogo via Cloudflare Tunnel (lazy loading de BGMs/mapas e compressão HTTP)
