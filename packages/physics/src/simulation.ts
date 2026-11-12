@@ -1661,9 +1661,11 @@ export class RotasticSimulation {
       const ropeEndX = pivot.x + ropeDx * invVictimDist * capsuleLen;
       const ropeEndY = pivot.y + ropeDy * invVictimDist * capsuleLen;
 
-      const victimProtectRadius =
-        C.PLAYER_RADIUS + (victim.chargeGauge >= 1.0 ? C.SHIELD_BUBBLE_RADIUS : C.PLAYER_RADIUS);
-      const victimProtectRadiusSq = victimProtectRadius * victimProtectRadius;
+      // If victim has a full white bubble shield (c1 >= 1.0), the shield bubble (radius = 78)
+      // protects both the victim's body and adjacent rope from being cut.
+      const victimHasFullShield = victim.chargeGauge >= 1.0;
+      const victimShieldRadius = C.PLAYER_RADIUS + C.SHIELD_BUBBLE_RADIUS;
+      const victimShieldRadiusSq = victimShieldRadius * victimShieldRadius;
 
       for (const cutter of this.state.players) {
         if (
@@ -1688,18 +1690,20 @@ export class RotasticSimulation {
         const prevCutterX = cutter.x - cutter.vx * dt;
         const prevCutterY = cutter.y - cutter.vy * dt;
 
-        // Block cut if cutter collides with the victim's body or full white bubble (c1 >= 1.0)
-        const currVictimDistSq = (cutter.x - victim.x) ** 2 + (cutter.y - victim.y) ** 2;
-        if (currVictimDistSq <= victimProtectRadiusSq) continue;
-        const sweptVictim = closestPointOnSegment2D(
-          victim.x,
-          victim.y,
-          prevCutterX,
-          prevCutterY,
-          cutter.x,
-          cutter.y
-        );
-        if (sweptVictim.distSq <= victimProtectRadiusSq) continue;
+        // Full white bubble (c1 >= 1.0) protects against cuts within its bubble sphere
+        if (victimHasFullShield) {
+          const currVictimDistSq = (cutter.x - victim.x) ** 2 + (cutter.y - victim.y) ** 2;
+          if (currVictimDistSq <= victimShieldRadiusSq) continue;
+          const sweptVictim = closestPointOnSegment2D(
+            victim.x,
+            victim.y,
+            prevCutterX,
+            prevCutterY,
+            cutter.x,
+            cutter.y
+          );
+          if (sweptVictim.distSq <= victimShieldRadiusSq) continue;
+        }
 
         const seg = closestPointOnSegment2D(
           cutter.x,

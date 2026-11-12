@@ -789,6 +789,25 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     });
     expect(clearBubbleCut.some((e) => e.type === 'ropecut' && e.slotIndex === 1)).toBe(true);
     expect(victim.status).toBe(PlayerStatus.DIZZY);
+
+    // 7. Shorter rope crossing longer rope when players are close (< 88px apart, e.g. dist = 50px)
+    // cuts successfully without being blocked by body collision (#39)
+    setupVictim(220, 0.0);
+    cutter.status = PlayerStatus.SWINGING;
+    cutter.attachedPivotId = 0;
+    cutter.ropeLength = 170; // 170 < 220, delta = 50px (< 88px body collision distance)
+    cutter.ropeAngle = -Math.PI * 0.5 - 0.15;
+    cutter.omega = 4.0;
+    cutter.attachTimer = 0.5;
+    cutter.chargeGauge = 0;
+    cutter.x = 340 + Math.cos(cutter.ropeAngle) * 170;
+    cutter.y = 880 + Math.sin(cutter.ropeAngle) * 170;
+    const closeProximityCut = sim.step({
+      0: { seq: 7, actionHeld: true, axisX: 0, axisY: 0 },
+      1: { seq: 7, actionHeld: true, axisX: 0, axisY: 0 },
+    });
+    expect(closeProximityCut.some((e) => e.type === 'ropecut' && e.slotIndex === 1)).toBe(true);
+    expect(victim.status).toBe(PlayerStatus.DIZZY);
   });
 
   it('bounces smoothly without stutter or wrong normal on fast upward impacts (#32)', () => {
