@@ -433,12 +433,15 @@ export class RotasticWebClient {
     window.addEventListener('resize', () => this.handleResize());
 
     this.setupInputListeners();
+    this.audio.setBgm('bgm_syl_menu');
+
+    // Conecta WebSocket imediatamente para exibir o Lobby sem latência perceptível
+    this.connectWebSocket();
+
+    // Carrega texturas essenciais de UI e inicializa nós de renderização Pixi
     await this.preloadCoreSprites();
     await this.ensureMapBackgrounds(this.localSim.state.mapId);
     this.initPlayerNodes();
-    this.audio.setBgm('bgm_syl_menu');
-
-    this.connectWebSocket();
 
     // 60 Hz Fixed Client Prediction + Sub-Frame Interpolated Render Loop
     let lastTime = performance.now();
@@ -469,7 +472,7 @@ export class RotasticWebClient {
   }
 
   private async preloadCoreSprites(): Promise<void> {
-    const urlSet = new Set<string>([
+    const essentialUrls = new Set<string>([
       '/assets/textures/global/t_corde_c.png',
       '/assets/textures/global/t_cordebeam_c.png',
       '/assets/textures/global/t_cordeuberbeam_c.png',
@@ -496,11 +499,13 @@ export class RotasticWebClient {
       '/assets/textures/arenas/t_guicouronne_c.png',
     ]);
 
+    const deferredUrls = new Set<string>();
+
     try {
-      const [manifestResp] = await Promise.all([
-        fetch('/assets/manifest.json'),
-        loadActorsCatalog(),
-      ]);
+      // Inicia carga do catalogo de atores em background sem bloquear inicializacao do lobby
+      void loadActorsCatalog();
+
+      const manifestResp = await fetch('/assets/manifest.json');
       if (manifestResp.ok) {
         const manifest = (await manifestResp.json()) as {
           globalTextures?: Record<string, string>;
@@ -519,7 +524,13 @@ export class RotasticWebClient {
         registerTexMap(manifest.globalTextures);
         if (manifest.globalTextures) {
           for (const [texId, u] of Object.entries(manifest.globalTextures)) {
-            if (texId.startsWith('t_character_')) urlSet.add(u);
+            if (texId.startsWith('t_character_')) {
+              if (texId.includes('_fly_') || texId.includes('_attach_')) {
+                essentialUrls.add(u);
+              } else {
+                deferredUrls.add(u);
+              }
+            }
           }
         }
         registerTexMap(manifest.backgroundTextures);
@@ -532,7 +543,7 @@ export class RotasticWebClient {
           for (const [texId, meta] of Object.entries(manifest.textureAnimations)) {
             this.textureAnims.set(texId, meta);
             if (texId.startsWith('t_character_') || texId === 't_fx_wind00_c' || texId === 't_fx_smokew_c') {
-              for (const u of meta.frameUrls) urlSet.add(u);
+              for (const u of meta.frameUrls) deferredUrls.add(u);
             }
           }
         }
@@ -543,17 +554,25 @@ export class RotasticWebClient {
 
     const colors: Array<'b' | 'r' | 'g' | 'y'> = ['b', 'r', 'g', 'y'];
     const chars = ['neo', 'elf', 'pig', 'skull'];
-    const states = ['fly', 'attach', 'bounce', 'hurt', 'ropecut', 'cut', 'hitup', 'spawn', 'glue', 'slide'];
+    const coreStates = ['fly', 'attach'];
+    const otherStates = ['bounce', 'hurt', 'ropecut', 'cut', 'hitup', 'spawn', 'glue', 'slide'];
 
     for (const c of colors) {
       for (const ch of chars) {
-        for (const st of states) {
-          urlSet.add(`/assets/textures/global/t_character_${c}_${ch}_${st}_c.png`);
+        for (const st of coreStates) {
+          essentialUrls.add(`/assets/textures/global/t_character_${c}_${ch}_${st}_c.png`);
+        }
+        for (const st of otherStates) {
+          deferredUrls.add(`/assets/textures/global/t_character_${c}_${ch}_${st}_c.png`);
         }
       }
     }
 
-    await this.loadTextureUrls(urlSet);
+    // Carrega primeiro apenas as texturas prioritarias para liberar o lobby em <1s
+    await this.loadTextureUrls(essentialUrls);
+
+    // Carrega o restante dos estados em background enquanto os jogadores estao no lobby
+    void this.loadTextureUrls(deferredUrls);
 
     const crownTex = this.texturesCache.get('/assets/textures/arenas/t_guicouronne_c.png');
     if (crownTex) {
@@ -598,7 +617,7 @@ export class RotasticWebClient {
     }
   }
 
-  private async loadTextureUrls(urls: Iterable<string>): Promise<void> {
+  private async loadTextureUrls(urls: Iterable<string>, concurrency = 8): Promise<void> {
     const pending: string[] = [];
     for (const u of urls) {
       if (u && !this.texturesCache.has(u)) {
@@ -607,8 +626,11 @@ export class RotasticWebClient {
     }
     if (pending.length === 0) return;
 
-    await Promise.all(
-      pending.map(async (u) => {
+    let index = 0;
+    const worker = async () => {
+      while (index < pending.length) {
+        const u = pending[index++];
+        if (!u || this.texturesCache.has(u)) continue;
         try {
           const tex = await Assets.load<Texture>({
             src: u,
@@ -629,8 +651,15 @@ export class RotasticWebClient {
         } catch {
           // Fallback graphics will be used if any texture fails
         }
-      })
-    );
+      }
+    };
+
+    const workers: Promise<void>[] = [];
+    const numWorkers = Math.min(concurrency, pending.length);
+    for (let w = 0; w < numWorkers; w++) {
+      workers.push(worker());
+    }
+    await Promise.all(workers);
   }
 
   /**

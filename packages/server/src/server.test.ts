@@ -182,7 +182,7 @@ describe('@rotastic/server — 2-Client End-to-End Authoritative Match Lifecycle
     expect(fullRes.status).toBe(200);
     expect(fullRes.headers.get('content-type')).toBe('audio/mpeg');
     expect(fullRes.headers.get('accept-ranges')).toBe('bytes');
-    expect(fullRes.headers.get('cache-control')).toBe('no-cache');
+    expect(fullRes.headers.get('cache-control')).toMatch(/public, max-age=/);
     const etag = fullRes.headers.get('etag');
     expect(etag).toBeTruthy();
     const fullBytes = new Uint8Array(await fullRes.arrayBuffer());
@@ -214,5 +214,11 @@ describe('@rotastic/server — 2-Client End-to-End Authoritative Match Lifecycle
     const badRangeRes = await fetch(url, { headers: { Range: 'bytes=99999999-' } });
     expect(badRangeRes.status).toBe(416);
     expect(badRangeRes.headers.get('content-range')).toBe(`bytes */${expectedSize}`);
+
+    const manifestUrl = `http://127.0.0.1:${port}/assets/manifest.json`;
+    const gzRes = await fetch(manifestUrl, { headers: { 'Accept-Encoding': 'gzip' } });
+    expect(gzRes.status).toBe(200);
+    expect(gzRes.headers.get('content-encoding')).toBe('gzip');
+    expect(gzRes.headers.get('cache-control')).toMatch(/public, max-age=/);
   });
 });

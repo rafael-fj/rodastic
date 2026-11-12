@@ -1,6 +1,7 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import { WebSocket, WebSocketServer } from 'ws';
 import {
@@ -702,6 +703,38 @@ function parseByteRange(
   return { start, end: Math.min(end, totalSize - 1) };
 }
 
+const COMPRESSIBLE_EXTS = new Set([
+  '.html',
+  '.js',
+  '.mjs',
+  '.css',
+  '.json',
+  '.svg',
+  '.txt',
+]);
+
+interface GzipCacheEntry {
+  mtimeMs: number;
+  buffer: Buffer;
+}
+
+const gzipMemoryCache = new Map<string, GzipCacheEntry>();
+
+function getOrCreateGzipBuffer(filePath: string, stat: fs.Stats): Buffer | null {
+  const cached = gzipMemoryCache.get(filePath);
+  if (cached && cached.mtimeMs === stat.mtimeMs) {
+    return cached.buffer;
+  }
+  try {
+    const raw = fs.readFileSync(filePath);
+    const compressed = zlib.gzipSync(raw, { level: 6 });
+    gzipMemoryCache.set(filePath, { mtimeMs: stat.mtimeMs, buffer: compressed });
+    return compressed;
+  } catch {
+    return null;
+  }
+}
+
 function serveStaticFile(
   req: http.IncomingMessage,
   res: http.ServerResponse,
@@ -712,10 +745,24 @@ function serveStaticFile(
   const ext = path.extname(filePath).toLowerCase();
   const contentType = MIME_TYPES[ext] ?? 'application/octet-stream';
   const etag = `"${totalSize}-${Math.floor(stat.mtimeMs)}"`;
+
+  // Dynamic cache-control based on asset mutability
+  let cacheControl = 'no-cache';
+  if (filePath.includes(path.sep + 'assets' + path.sep) && (ext === '.js' || ext === '.css')) {
+    // Immutable hashed production bundles (Vite)
+    cacheControl = 'public, max-age=31536000, immutable';
+  } else if (['.png', '.jpg', '.jpeg', '.webp', '.dds', '.wav', '.mp3', '.ogg', '.woff', '.woff2'].includes(ext)) {
+    // Media and fonts: 7 days cache with revalidation
+    cacheControl = 'public, max-age=604800, stale-while-revalidate=86400';
+  } else if (ext === '.json') {
+    // Manifests and catalogs: 1 hour cache with revalidation
+    cacheControl = 'public, max-age=3600, stale-while-revalidate=600';
+  }
+
   const baseHeaders: http.OutgoingHttpHeaders = {
     'Content-Type': contentType,
     'Accept-Ranges': 'bytes',
-    'Cache-Control': 'no-cache',
+    'Cache-Control': cacheControl,
     ETag: etag,
   };
 
@@ -749,6 +796,26 @@ function serveStaticFile(
     }
     fs.createReadStream(filePath, { start: range.start, end: range.end }).pipe(res);
     return;
+  }
+
+  // Handle Gzip compression for compressible assets when requested
+  const acceptEncoding = (req.headers['accept-encoding'] as string) || '';
+  if (COMPRESSIBLE_EXTS.has(ext) && acceptEncoding.includes('gzip') && totalSize >= 256) {
+    const gzipBuf = getOrCreateGzipBuffer(filePath, stat);
+    if (gzipBuf) {
+      res.writeHead(200, {
+        ...baseHeaders,
+        'Content-Encoding': 'gzip',
+        'Content-Length': String(gzipBuf.length),
+        Vary: 'Accept-Encoding',
+      });
+      if (req.method === 'HEAD') {
+        res.end();
+        return;
+      }
+      res.end(gzipBuf);
+      return;
+    }
   }
 
   res.writeHead(200, {
@@ -839,8 +906,8 @@ export function createRotasticServer(port = Number(process.env.PORT) || 3001) {
     // SPA fallback to index.html if built
     const indexHtml = path.join(clientDistDir, 'index.html');
     if (fs.existsSync(indexHtml)) {
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-      fs.createReadStream(indexHtml).pipe(res);
+      const stat = fs.statSync(indexHtml);
+      serveStaticFile(req, res, indexHtml, stat);
       return;
     }
 
