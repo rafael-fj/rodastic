@@ -479,7 +479,7 @@ export class RotasticSimulation {
         chargeMultiplier: 0,
         spawnCursorX: sp.x,
         spawnCursorDir: i % 2 === 0 ? 1 : -1,
-        spawnAllowDelay: C.SPAWN_ALLOW_DELAY_SEC,
+        spawnAllowDelay: 0,
         wallTrickCooldown: 0,
         hitTrickCooldown: 0,
         riskyArmed: false,
@@ -573,7 +573,7 @@ export class RotasticSimulation {
       p.status = PlayerStatus.SPAWN_CURSOR;
       p.spawnCursorX = sp.x;
       p.spawnCursorDir = slotIndex % 2 === 0 ? 1 : -1;
-      p.spawnAllowDelay = C.SPAWN_ALLOW_DELAY_SEC;
+      p.spawnAllowDelay = 0;
       p.x = sp.x;
       p.y = C.SPAWN_DROP_Y;
       p.vx = 0;

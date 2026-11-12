@@ -356,9 +356,8 @@ export class RotasticWebClient {
   private playerSprites: Sprite[] = [];
   private playerLabels: Text[] = [];
   private indicatorContainers: Container[] = [];
-  private indicatorGraphics: Graphics[] = [];
+  private indicatorFrameSprites: Sprite[] = [];
   private indicatorHeadSprites: Sprite[] = [];
-  private indicatorLabels: Text[] = [];
   private crownSprite = new Sprite();
   private floatingEffects: FloatingEffect[] = [];
   private vfxParticles: VfxParticle[] = [];
@@ -534,6 +533,11 @@ export class RotasticWebClient {
       '/assets/textures/arenas/t_glissparticules_c.png',
       '/assets/textures/arenas/t_beamcorona_white_c.png',
       '/assets/textures/arenas/t_guicouronne_c.png',
+      // Out-of-screen / Spawn Cursor frames (PRP_headPlayer*_BG)
+      '/assets/textures/global/t_guilostbleu_c.png',
+      '/assets/textures/global/t_guilostrouge_c.png',
+      '/assets/textures/global/t_guilostvert_c.png',
+      '/assets/textures/global/t_guilostjaune_c.png',
       // Character Heads & Hurt Portraits for HUD & Off-screen/Spawn Indicators
       '/assets/textures/global/t_headvikblue_c.png',
       '/assets/textures/global/t_headvikred_c.png',
@@ -1004,35 +1008,25 @@ export class RotasticWebClient {
       this.playersContainer.addChild(lbl);
       this.playerLabels.push(lbl);
 
-      // Indicator container for Spawn Cursor & Off-screen Tracking
+      // Indicator container for Spawn Cursor & Off-screen Tracking (CPlayerInGameGuiOutOfScreen)
+      // PRP_headPlayer*_BG: 128x128 @ scale (1, 1); PRP_headPlayer*: 128x128 @ scale (0.75, 0.75) = 96x96
       const indCont = new Container();
       indCont.visible = false;
       indCont.zIndex = 40;
 
-      const indGfx = new Graphics();
-      indCont.addChild(indGfx);
-      this.indicatorGraphics.push(indGfx);
+      const indFrame = new Sprite(Texture.WHITE);
+      indFrame.anchor.set(0.5);
+      indFrame.width = 128;
+      indFrame.height = 128;
+      indCont.addChild(indFrame);
+      this.indicatorFrameSprites.push(indFrame);
 
       const indHead = new Sprite(Texture.WHITE);
       indHead.anchor.set(0.5);
-      indHead.width = 44;
-      indHead.height = 44;
+      indHead.width = 96;
+      indHead.height = 96;
       indCont.addChild(indHead);
       this.indicatorHeadSprites.push(indHead);
-
-      const indLbl = new Text({
-        text: '',
-        style: {
-          fontFamily: 'system-ui, sans-serif',
-          fontSize: 14,
-          fontWeight: '900',
-          fill: 0xffffff,
-          stroke: { color: 0x0f172a, width: 3.5 },
-        },
-      });
-      indLbl.anchor.set(0.5, 0);
-      indCont.addChild(indLbl);
-      this.indicatorLabels.push(indLbl);
 
       this.playersContainer.addChild(indCont);
       this.indicatorContainers.push(indCont);
@@ -2259,9 +2253,8 @@ export class RotasticWebClient {
       const spr = this.playerSprites[i];
       const lbl = this.playerLabels[i];
       const indCont = this.indicatorContainers[i];
-      const indGfx = this.indicatorGraphics[i];
+      const indFrame = this.indicatorFrameSprites[i];
       const indHead = this.indicatorHeadSprites[i];
-      const indLbl = this.indicatorLabels[i];
       const ropeBase = this.ropeBaseSprites[i];
       const ropeBeam = this.ropeBeamSprites[i];
       const orangeRing = this.orangeShieldMeshes[i];
@@ -2282,7 +2275,8 @@ export class RotasticWebClient {
       const colorMeta = PLAYER_COLORS[p.colorId] ?? PLAYER_COLORS[0];
       const charMeta = CHARACTER_NAMES[p.characterId] ?? CHARACTER_NAMES[0];
 
-      // SPAWN_CURSOR: top-of-screen sliding drop selector with portrait box
+      // SPAWN_CURSOR: CPlayerInGameGuiOutOfScreen waiting-respawn branch (0x0053BD21)
+      // Uses t_guilost<color>_c (128x128 @ 1.0x) + t_guimort/t_head (128x128 @ 0.75x = 96x96) at y=64
       if (p.status === PlayerStatus.SPAWN_CURSOR) {
         spr.visible = false;
         lbl.visible = false;
@@ -2291,54 +2285,26 @@ export class RotasticWebClient {
         if (orangeRing) orangeRing.mesh.visible = false;
         if (outerRing) outerRing.mesh.visible = false;
 
-        const cx = Math.max(48, Math.min(VIEW_WIDTH - 48, worldToScreenX(p.spawnCursorX)));
-        const cy = 48;
-        const bob = Math.sin(nowSec * 7) * 3;
-        const canDrop = p.spawnAllowDelay <= 0 && !this.isMatchCountdownActive;
-        const isLocal = i === this.mySlotIndex;
+        const cx = Math.max(64, Math.min(VIEW_WIDTH - 64, worldToScreenX(p.spawnCursorX)));
+        const cy = 64;
+        const isLockedHurt = p.spawnAllowDelay > 0;
 
-        if (indCont && indGfx && indHead && indLbl) {
+        if (indCont && indFrame && indHead) {
           indCont.x = cx;
           indCont.y = cy;
+          indCont.scale.set(1.0);
           indCont.visible = true;
 
-          const headUrl = this.getHudHeadUrl(p.characterId, p.colorId, !canDrop);
+          const frameTex = this.texturesCache.get(this.getGuiLostUrl(p.colorId));
+          if (frameTex && indFrame.texture !== frameTex) {
+            indFrame.texture = frameTex;
+          }
+          const headUrl = this.getHudHeadUrl(p.characterId, p.colorId, isLockedHurt);
           const headTex = this.texturesCache.get(headUrl);
           if (headTex && indHead.texture !== headTex) {
             indHead.texture = headTex;
           }
-          indHead.width = 46;
-          indHead.height = 46;
-          indHead.tint = canDrop ? 0xffffff : 0xb0b8c4;
-
-          indGfx.clear();
-          // Sombra suave
-          indGfx.roundRect(-29, -29, 58, 58, 14).fill({ color: 0x000000, alpha: 0.4 });
-          // Fundo da caixa
-          indGfx.roundRect(-27, -27, 54, 54, 12).fill({ color: 0x0f172a, alpha: 0.92 });
-          // Borda colorida (ou cinza enquanto bloqueado)
-          const borderCol = canDrop ? colorMeta.hex : 0x64748b;
-          indGfx.roundRect(-27, -27, 54, 54, 12).stroke({ color: borderCol, width: canDrop ? 3.5 : 2.5 });
-          // Seta apontando para baixo (em direção à arena)
-          const arrowY = 27;
-          indGfx.poly([-9, arrowY, 9, arrowY, 0, arrowY + 11 + bob]).fill({ color: borderCol });
-          // Linha guia vertical descendo para a arena
-          indGfx
-            .moveTo(0, arrowY + 14 + bob)
-            .lineTo(0, 110 + bob)
-            .stroke({ color: colorMeta.hex, width: 2.2, alpha: canDrop ? 0.6 : 0.25 });
-
-          // Texto informativo do jogador / ação
-          if (isLocal) {
-            indLbl.text = canDrop ? 'APERTE ESPAÇO!' : 'AGUARDE...';
-            indLbl.style.fill = canDrop ? 0x4ade80 : 0xf87171;
-          } else {
-            indLbl.text = p.name;
-            indLbl.style.fill = colorMeta.hex;
-          }
-          indLbl.x = 0;
-          indLbl.y = 44 + bob;
-          indLbl.visible = true;
+          indHead.tint = 0xffffff;
         }
         continue;
       }
@@ -2348,67 +2314,47 @@ export class RotasticWebClient {
       const sx = worldToScreenX(interpX);
       const sy = worldToScreenY(interpY);
 
-      // Verificação Off-Screen (acima do topo y > 1080 / sy < 15, ou abaixo do fundo y < 0 / sy > 1065)
-      const isOffScreenTop = sy < 15;
-      const isOffScreenBottom = sy > 1065 && interpY > C.DEATH_BOTTOM_Y;
+      // CPlayerInGameGuiOutOfScreen::vfunc_44 (0x0053B760): clamp to viewport margin 64 (0.5 * 128)
+      // and scale linearly from 1.0 down to 0.3 over 500px outside the screen
+      const isOffScreen =
+        (sy < 0 || sy > VIEW_HEIGHT || sx < 0 || sx > VIEW_WIDTH) && interpY > C.DEATH_BOTTOM_Y;
 
-      if (isOffScreenTop || isOffScreenBottom) {
-        // Personagem fora do campo de visão: exibe caixa com retrato nas margens
+      if (isOffScreen) {
         spr.visible = false;
         lbl.visible = false;
 
-        if (indCont && indGfx && indHead && indLbl) {
-          const clampX = Math.max(48, Math.min(VIEW_WIDTH - 48, sx));
-          const isTop = isOffScreenTop;
-          const indY = isTop ? 42 : VIEW_HEIGHT - 42;
+        if (indCont && indFrame && indHead) {
+          const distOutside = Math.max(0, -sy, sy - VIEW_HEIGHT, -sx, sx - VIEW_WIDTH);
+          const outScale = Math.max(0.3, Math.min(1.0, 1.0 - distOutside / 500.0));
+          const clampX = Math.max(64, Math.min(VIEW_WIDTH - 64, sx));
+          const clampY = Math.max(64, Math.min(VIEW_HEIGHT - 64, sy));
 
           indCont.x = clampX;
-          indCont.y = indY;
+          indCont.y = clampY;
+          indCont.scale.set(outScale);
           indCont.visible = true;
 
-          const isDizzyOrHurt = p.status === PlayerStatus.DIZZY || this.hudHurtTimer[i] > 0 || isOffScreenBottom;
+          const frameTex = this.texturesCache.get(this.getGuiLostUrl(p.colorId));
+          if (frameTex && indFrame.texture !== frameTex) {
+            indFrame.texture = frameTex;
+          }
+          const isDizzyOrHurt = p.status === PlayerStatus.DIZZY || this.hudHurtTimer[i] > 0;
           const headUrl = this.getHudHeadUrl(p.characterId, p.colorId, isDizzyOrHurt);
           const headTex = this.texturesCache.get(headUrl);
           if (headTex && indHead.texture !== headTex) {
             indHead.texture = headTex;
           }
-          indHead.width = 42;
-          indHead.height = 42;
           indHead.tint = 0xffffff;
-
-          indGfx.clear();
-          // Sombra
-          indGfx.roundRect(-27, -27, 54, 54, 14).fill({ color: 0x000000, alpha: 0.45 });
-          // Fundo da caixa
-          indGfx.roundRect(-25, -25, 50, 50, 12).fill({ color: 0x0f172a, alpha: 0.92 });
-          // Borda com a cor do jogador
-          indGfx.roundRect(-25, -25, 50, 50, 12).stroke({ color: colorMeta.hex, width: 3 });
-
-          if (isTop) {
-            // Seta para CIMA no topo da caixa (indicando jogador acima da tela)
-            indGfx.poly([-8, -25, 8, -25, 0, -35]).fill({ color: colorMeta.hex });
-            indLbl.y = 28;
-          } else {
-            // Seta para BAIXO na base da caixa (indicando jogador abaixo da arena)
-            indGfx.poly([-8, 25, 8, 25, 0, 35]).fill({ color: colorMeta.hex });
-            indLbl.y = -46;
-          }
-
-          indLbl.text = p.name;
-          indLbl.style.fill = colorMeta.hex;
-          indLbl.x = 0;
-          indLbl.visible = true;
         }
       } else {
-        // Dentro da tela: esconde indicador off-screen e exibe jogador normalmente
         if (indCont) indCont.visible = false;
         spr.visible = true;
         lbl.visible = true;
       }
 
       if (i === leaderSlot) {
-        leaderScreenX = isOffScreenTop || isOffScreenBottom ? (indCont ? indCont.x : sx) : sx;
-        leaderScreenY = isOffScreenTop ? (indCont ? indCont.y - 32 : sy) : isOffScreenBottom ? (indCont ? indCont.y - 32 : sy) : sy;
+        leaderScreenX = isOffScreen ? (indCont ? indCont.x : sx) : sx;
+        leaderScreenY = isOffScreen ? (indCont ? indCont.y - 32 : sy) : sy;
         leaderAlive = true;
       }
 
@@ -2801,6 +2747,21 @@ export class RotasticWebClient {
     }
 
     this.updateHudDom();
+  }
+
+  private getGuiLostUrl(colorId: PlayerColorId): string {
+    switch (colorId) {
+      case 0:
+        return '/assets/textures/global/t_guilostbleu_c.png';
+      case 1:
+        return '/assets/textures/global/t_guilostrouge_c.png';
+      case 2:
+        return '/assets/textures/global/t_guilostvert_c.png';
+      case 3:
+        return '/assets/textures/global/t_guilostjaune_c.png';
+      default:
+        return '/assets/textures/global/t_guilostbleu_c.png';
+    }
   }
 
   private getHudHeadUrl(charId: CharacterId, colorId: PlayerColorId, isHurt: boolean): string {
