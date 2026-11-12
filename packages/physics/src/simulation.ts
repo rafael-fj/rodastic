@@ -1576,9 +1576,10 @@ export class RotasticSimulation {
   }
 
   /**
-   * Exact PvP collision (`0x00578426` + `0x00576E30`):
-   * Effective mass `m_i = 1.0 + 10.0 * (c2_i)^2`.
-   * Checks shield consumption (`c1 >= 1.0` -> `c2 >= 1.0`) before Slaughter kill.
+   * Exact PvP collision (`0x005780C0`, `0x00578426` + `0x00576E30`):
+   * Effective mass `m_i = 1.0 + 10.0 * (c2_i)^2` (read-only).
+   * Never calls KillPlayer (`0x005409F0`) mid-air — launches the opponent with weighted
+   * elastic impulse and sets `lastAttackerSlot` so bottom/hazard deaths credit the attacker.
    */
   private checkPlayerCollisions(): void {
     const n = this.state.players.length;
@@ -1612,26 +1613,8 @@ export class RotasticSimulation {
         const speedB = Math.sqrt(vBSq);
         const mA = 1.0 + C.PVP_MASS_ORANGE_COEF * a.chargeGauge2 * a.chargeGauge2;
         const mB = 1.0 + C.PVP_MASS_ORANGE_COEF * b.chargeGauge2 * b.chargeGauge2;
-
-        // Weighted energy comparison (combines kinetic speed + orange bar mass)
-        const keA = mA * (vASq + 1);
-        const keB = mB * (vBSq + 1);
-        const keRatioAB = Math.pow(keA / keB, 1.5);
-        const keRatioBA = Math.pow(keB / keA, 1.5);
         const midX = (a.x + b.x) * 0.5;
         const midY = (a.y + b.y) * 0.5;
-
-        if (speedA >= C.SLAUGHTER_MIN_SPEED && keRatioAB >= C.SLAUGHTER_KE_RATIO_SQ && b.invulnTimer <= 0) {
-          if (!this.tryConsumeShield(b, nx, ny, midX, midY, false)) {
-            this.handleSlaughter(a, b, midX, midY);
-            continue;
-          }
-        } else if (speedB >= C.SLAUGHTER_MIN_SPEED && keRatioBA >= C.SLAUGHTER_KE_RATIO_SQ && a.invulnTimer <= 0) {
-          if (!this.tryConsumeShield(a, -nx, -ny, midX, midY, false)) {
-            this.handleSlaughter(b, a, midX, midY);
-            continue;
-          }
-        }
 
         // Weighted 2D elastic impulse exchange (`0x00578426` + `0x00576E30`):
         // Binary enforces minimum 450.0 speed floor (`0x005782C6`, `0x005783B8`) prior to impulse
@@ -1652,6 +1635,14 @@ export class RotasticSimulation {
           a.vy = effVyA - factorA * velAlongNormal * ny;
           b.vx = effVxB + factorB * velAlongNormal * nx;
           b.vy = effVyB + factorB * velAlongNormal * ny;
+          for (const p of [a, b]) {
+            const sp = Math.hypot(p.vx, p.vy);
+            if (sp > C.PLAYER_MAX_SPEED) {
+              const s = C.PLAYER_MAX_SPEED / sp;
+              p.vx *= s;
+              p.vy *= s;
+            }
+          }
         }
 
         // Update swung angular velocity or detach if hit hard by heavier rival (invuln prevents forced detach)
@@ -1688,22 +1679,6 @@ export class RotasticSimulation {
         });
       }
     }
-  }
-
-  private handleSlaughter(
-    attacker: PlayerSimState,
-    victim: PlayerSimState,
-    cx: number,
-    cy: number
-  ): void {
-    this.events.push({
-      type: 'slaughter',
-      slotIndex: attacker.slotIndex,
-      targetSlot: victim.slotIndex,
-      x: cx,
-      y: cy,
-    });
-    this.killPlayer(victim, attacker.slotIndex);
   }
 
   private killPlayer(victim: PlayerSimState, killerSlot: number): void {

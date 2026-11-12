@@ -51,7 +51,7 @@ describe('@rotastic/physics — Golden File Regression & Fidelity Validation', (
     expect(light.vx).toBeCloseTo(944.444, 1);
   });
 
-  it('triggers Slaughter instant kill in Deathmatch when unshielded victim is hit at high energy ratio', () => {
+  it('launches unshielded victim with weighted impulse without instant mid-air death and attributes bottom KO (#36)', () => {
     const sim = new RotasticSimulation('w_multi_dm_lvl01');
     sim.configurePlayerSlot(0, { active: true, name: 'Attacker' });
     sim.configurePlayerSlot(1, { active: true, name: 'Victim' });
@@ -76,11 +76,18 @@ describe('@rotastic/physics — Golden File Regression & Fidelity Validation', (
     victim.vy = 0;
 
     const events = sim.step({});
-    expect(events.some((e) => e.type === 'slaughter')).toBe(true);
+    expect(events.some((e) => e.type === 'slaughter')).toBe(false);
+    expect(events.some((e) => e.type === 'bounce')).toBe(true);
+    expect(victim.status).toBe(PlayerStatus.FREE_FALL);
+    expect(victim.vx).toBeGreaterThan(700);
+    expect(victim.lastAttackerSlot).toBe(attacker.slotIndex);
+
+    // Pushing victim down past DEATH_BOTTOM_Y credits the attacker
+    victim.y = C.DEATH_BOTTOM_Y - 5;
+    sim.step({});
     expect(victim.status).toBe(PlayerStatus.DEAD);
     expect(attacker.kills).toBe(1);
     expect(attacker.score).toBe(1);
-    expect(attacker.chargeGauge2).toBe(1.0);
   });
 
   it('activates Sudden Death on tied timer expiration and ends the match on the next frag', () => {
@@ -96,7 +103,7 @@ describe('@rotastic/physics — Golden File Regression & Fidelity Validation', (
     expect(sim.state.matchFinished).toBe(false);
     expect(ev1.some((e) => e.type === 'suddendeath')).toBe(true);
 
-    // P2 gets a kill via high-speed unshielded slaughter
+    // P2 knocks P1 down into the bottom death zone
     sim.state.players[0].status = PlayerStatus.FREE_FALL;
     sim.state.players[1].status = PlayerStatus.FREE_FALL;
     sim.state.players[0].invulnTimer = 0;
@@ -108,6 +115,9 @@ describe('@rotastic/physics — Golden File Regression & Fidelity Validation', (
     sim.state.players[1].y = 500;
     sim.state.players[1].vx = 950;
 
+    sim.step({});
+    expect(sim.state.players[0].status).toBe(PlayerStatus.FREE_FALL);
+    sim.state.players[0].y = C.DEATH_BOTTOM_Y - 5;
     const ev2 = sim.step({});
     expect(sim.state.matchFinished).toBe(true);
     expect(sim.state.winnerSlot).toBe(1);
