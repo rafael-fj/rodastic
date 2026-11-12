@@ -1,5 +1,18 @@
 import { Application, Assets, Container, Graphics, Rectangle, Sprite, Text, Texture, TilingSprite } from 'pixi.js';
 import {
+  ActorInstance,
+  collectActorTextureIds,
+  getActorDef,
+  loadActorsCatalog,
+} from './actor-renderer.js';
+import {
+  getMapBackgroundActorConfigs,
+  getMapStaticProps,
+  getSwitchActorConfigs,
+  LVL02_CUBE_NACELLES,
+  resolveWallActorTransform,
+} from './map-visuals.js';
+import {
   CHARACTER_NAMES,
   CharacterId,
   GEM_POINTS,
@@ -179,7 +192,9 @@ export class RotasticWebClient {
   // PixiJS Scene Graph Layers
   private rootContainer = new Container();
   private bgContainer = new Container();
+  private arenaBehindContainer = new Container();
   private arenaGraphics = new Graphics();
+  private propsContainer = new Container();
   private ropesContainer = new Container();
   private ropesGraphics = new Graphics();
   private pickupsContainer = new Container();
@@ -187,8 +202,16 @@ export class RotasticWebClient {
   private playersContainer = new Container();
   private fxContainer = new Container();
 
+  private bgActorInstances: Array<{
+    instance: ActorInstance;
+    transform: import('./actor-renderer.js').ActorTransformOptions;
+  }> = [];
+  private propActorInstances = new Map<string, ActorInstance>();
+  private pivotAuraInstances: ActorInstance[] = [];
+  private pivotCoreInstances: ActorInstance[] = [];
   private pivotAuraSprites: Sprite[] = [];
   private pivotCoreSprites: Sprite[] = [];
+  private vortexSprites: Sprite[] = [];
   private ropeBaseSprites: TilingSprite[] = [];
   private ropeBeamSprites: Sprite[] = [];
   private playerSprites: Sprite[] = [];
@@ -196,6 +219,7 @@ export class RotasticWebClient {
   private floatingEffects: FloatingEffect[] = [];
   private texturesCache = new Map<string, Texture>();
   private textureAnims = new Map<string, TextureAnimMeta>();
+  private textureUrlById = new Map<string, string>();
   private loadedBgMapId = '';
 
   // Match audio/announcer tracking
@@ -236,10 +260,15 @@ export class RotasticWebClient {
     const appRoot = document.getElementById('app')!;
     appRoot.insertBefore(this.app.canvas, appRoot.firstChild);
 
+    this.bgContainer.sortableChildren = true;
+    this.arenaBehindContainer.sortableChildren = true;
+    this.propsContainer.sortableChildren = true;
     this.app.stage.addChild(this.rootContainer);
     this.rootContainer.addChild(
       this.bgContainer,
+      this.arenaBehindContainer,
       this.arenaGraphics,
+      this.propsContainer,
       this.pickupsContainer,
       this.pivotsContainer,
       this.ropesContainer,
@@ -293,6 +322,7 @@ export class RotasticWebClient {
       '/assets/textures/global/t_cordebeam_c.png',
       '/assets/textures/global/t_cordeuberbeam_c.png',
       '/assets/textures/global/t_accroche01_c.png',
+      '/assets/textures/global/t_accroche02_c.png',
       '/assets/textures/global/t_accrocheaura_c.png',
       '/assets/textures/global/t_pickupetoile_c.png',
       '/assets/textures/global/t_pickupglowblue_c.png',
@@ -306,15 +336,36 @@ export class RotasticWebClient {
     ]);
 
     try {
-      const resp = await fetch('/assets/manifest.json');
-      if (resp.ok) {
-        const manifest = (await resp.json()) as {
+      const [manifestResp] = await Promise.all([
+        fetch('/assets/manifest.json'),
+        loadActorsCatalog(),
+      ]);
+      if (manifestResp.ok) {
+        const manifest = (await manifestResp.json()) as {
+          globalTextures?: Record<string, string>;
+          backgroundTextures?: Record<string, string>;
+          mapTextures?: Record<string, Record<string, string>>;
           textureAnimations?: Record<string, TextureAnimMeta>;
         };
+        const registerTexMap = (tbl?: Record<string, string>) => {
+          if (!tbl) return;
+          for (const [id, url] of Object.entries(tbl)) {
+            if (!this.textureUrlById.has(id)) {
+              this.textureUrlById.set(id, url);
+            }
+          }
+        };
+        registerTexMap(manifest.globalTextures);
+        registerTexMap(manifest.backgroundTextures);
+        if (manifest.mapTextures) {
+          for (const mapTbl of Object.values(manifest.mapTextures)) {
+            registerTexMap(mapTbl);
+          }
+        }
         if (manifest.textureAnimations) {
           for (const [texId, meta] of Object.entries(manifest.textureAnimations)) {
             this.textureAnims.set(texId, meta);
-            if (texId.startsWith('t_character_')) {
+            if (texId.startsWith('t_character_') || texId === 't_fx_wind00_c' || texId === 't_fx_smokew_c') {
               for (const u of meta.frameUrls) urlSet.add(u);
             }
           }
@@ -336,19 +387,7 @@ export class RotasticWebClient {
       }
     }
 
-    await Promise.all(
-      [...urlSet].map(async (u) => {
-        try {
-          const tex = await Assets.load<Texture>(u);
-          tex.source.autoGenerateMipmaps = true;
-          tex.source.scaleMode = 'linear';
-          tex.source.update();
-          this.texturesCache.set(u, tex);
-        } catch {
-          // Fallback graphics will be used if any texture fails
-        }
-      })
-    );
+    await this.loadTextureUrls(urlSet);
 
     // Crop t_cordebeam_c / t_cordeuberbeam_c top opaque half (32x30 inside 32x64) for clean full-span overlays
     for (const beamUrl of ['/assets/textures/global/t_cordebeam_c.png', '/assets/textures/global/t_cordeuberbeam_c.png']) {
@@ -363,19 +402,46 @@ export class RotasticWebClient {
     }
   }
 
+  private async loadTextureUrls(urls: Iterable<string>): Promise<void> {
+    const pending: string[] = [];
+    for (const u of urls) {
+      if (u && !this.texturesCache.has(u)) {
+        pending.push(u);
+      }
+    }
+    if (pending.length === 0) return;
+
+    await Promise.all(
+      pending.map(async (u) => {
+        try {
+          const tex = await Assets.load<Texture>(u);
+          if (tex?.source) {
+            tex.source.autoGenerateMipmaps = true;
+            tex.source.scaleMode = 'linear';
+            tex.source.update();
+          }
+          this.texturesCache.set(u, tex);
+        } catch {
+          // Fallback graphics will be used if any texture fails
+        }
+      })
+    );
+  }
+
   /**
    * Selects the active multi-frame TEXR sub-texture using native per-frame
    * durations (`0x00672B30` / `CPlayerAnimManager::Update` at `0x00548880`).
    */
-  private resolvePlayerFrameTexture(
-    colorCode: string,
-    charId: string,
-    stateSuffix: string,
+  private resolveTextureById(
+    texId: string,
     elapsedMs: number,
-    loop = true
+    loop = true,
+    fallbackUrl?: string
   ): Texture | undefined {
-    const texId = `t_character_${colorCode}_${charId}_${stateSuffix}_c`;
-    const baseUrl = `/assets/textures/global/${texId}.png`;
+    const baseUrl =
+      this.textureUrlById.get(texId) ??
+      fallbackUrl ??
+      `/assets/textures/global/${texId}.png`;
     const anim = this.textureAnims.get(texId);
     if (!anim || anim.frameCount <= 1 || anim.frameUrls.length <= 1) {
       return this.texturesCache.get(baseUrl);
@@ -405,46 +471,139 @@ export class RotasticWebClient {
     return this.texturesCache.get(anim.frameUrls[frameIdx]) ?? this.texturesCache.get(baseUrl);
   }
 
+  private resolvePlayerFrameTexture(
+    colorCode: string,
+    charId: string,
+    stateSuffix: string,
+    elapsedMs: number,
+    loop = true
+  ): Texture | undefined {
+    const texId = `t_character_${colorCode}_${charId}_${stateSuffix}_c`;
+    return this.resolveTextureById(texId, elapsedMs, loop, `/assets/textures/global/${texId}.png`);
+  }
+
+  private getOrCreatePropActor(
+    key: string,
+    actorName: string,
+    parent: Container
+  ): ActorInstance | null {
+    const existing = this.propActorInstances.get(key);
+    if (existing) {
+      if (existing.container.parent !== parent) {
+        parent.addChild(existing.container);
+      }
+      return existing;
+    }
+    const def = getActorDef(actorName);
+    if (!def) return null;
+    const inst = new ActorInstance(def);
+    parent.addChild(inst.container);
+    this.propActorInstances.set(key, inst);
+    return inst;
+  }
+
   private async ensureMapBackgrounds(mapId: string): Promise<void> {
     if (this.loadedBgMapId === mapId) return;
     this.loadedBgMapId = mapId;
     const map = getMultiplayerMapById(mapId);
 
-    const textures = await Promise.all(
-      map.bgLayers.map(async (layer) => {
-        const url = `/assets/textures/backgrounds/${layer.texture}.png`;
-        if (this.texturesCache.has(url)) {
-          return { tex: this.texturesCache.get(url)!, alpha: layer.alpha ?? 1 };
-        }
-        try {
-          const tex = await Assets.load<Texture>(url);
-          if (tex?.source) {
-            tex.source.autoGenerateMipmaps = true;
-            tex.source.scaleMode = 'linear';
-            tex.source.update();
-          }
-          this.texturesCache.set(url, tex);
-          return { tex, alpha: layer.alpha ?? 1 };
-        } catch {
-          return null;
-        }
-      })
-    );
+    const bgActorConfigs = getMapBackgroundActorConfigs(mapId);
+    const staticProps = getMapStaticProps(mapId);
+    const neededActors = new Set<string>([
+      'o_accroche',
+      'o_accroche_mobile',
+      'o_accrocheaura',
+      ...bgActorConfigs.map((c) => c.actor),
+      ...staticProps.map((p) => p.actor),
+    ]);
+    for (const w of map.walls) {
+      const resolved = resolveWallActorTransform(mapId, w);
+      if (resolved) neededActors.add(resolved.actorName);
+    }
+    if (mapId === 'w_multi_dm_lvl02') {
+      for (const n of LVL02_CUBE_NACELLES) neededActors.add(n.actor);
+    }
+    if (map.switchDef) {
+      for (const nm of [
+        'o_levierbase_back',
+        'o_levierbase_off',
+        'o_levierbase_on',
+        'o_levierbois',
+        'o_leviercrapeau',
+        'o_leviercrapeaudead',
+      ]) {
+        neededActors.add(nm);
+      }
+    }
+
+    const urlSet = new Set<string>();
+    for (const layer of map.bgLayers) {
+      urlSet.add(`/assets/textures/backgrounds/${layer.texture}.png`);
+    }
+    const texIds = new Set<string>(collectActorTextureIds(neededActors));
+    if (map.vortices.length > 0) {
+      texIds.add('t_fx_wind00_c');
+    }
+    for (const texId of texIds) {
+      const url = this.textureUrlById.get(texId);
+      if (url) urlSet.add(url);
+      const anim = this.textureAnims.get(texId);
+      if (anim) {
+        for (const fUrl of anim.frameUrls) urlSet.add(fUrl);
+      }
+    }
+
+    await this.loadTextureUrls(urlSet);
 
     // Bail out if user switched map again while awaiting load
     if (this.loadedBgMapId !== mapId) return;
 
     this.bgContainer.removeChildren();
-    for (const entry of textures) {
-      if (!entry) continue;
-      const spr = new Sprite(entry.tex);
-      const scale = Math.max(VIEW_WIDTH / entry.tex.width, VIEW_HEIGHT / entry.tex.height);
-      spr.width = entry.tex.width * scale;
-      spr.height = entry.tex.height * scale;
-      spr.x = (VIEW_WIDTH - spr.width) * 0.5;
-      spr.y = (VIEW_HEIGHT - spr.height) * 0.5;
-      spr.alpha = entry.alpha;
-      this.bgContainer.addChild(spr);
+    for (const entry of this.bgActorInstances) {
+      entry.instance.destroy();
+    }
+    this.bgActorInstances = [];
+
+    for (const inst of this.propActorInstances.values()) {
+      inst.destroy();
+    }
+    this.propActorInstances.clear();
+    for (const inst of this.pivotAuraInstances) inst.destroy();
+    for (const inst of this.pivotCoreInstances) inst.destroy();
+    this.pivotAuraInstances = [];
+    this.pivotCoreInstances = [];
+    for (const spr of this.vortexSprites) spr.destroy();
+    this.vortexSprites = [];
+    this.arenaBehindContainer.removeChildren();
+    this.propsContainer.removeChildren();
+
+    const activeBgActors: Array<{
+      instance: ActorInstance;
+      transform: import('./actor-renderer.js').ActorTransformOptions;
+    }> = [];
+    for (const cfg of bgActorConfigs) {
+      const def = getActorDef(cfg.actor);
+      if (!def) continue;
+      const inst = new ActorInstance(def);
+      this.bgContainer.addChild(inst.container);
+      activeBgActors.push({ instance: inst, transform: cfg.transform });
+    }
+
+    if (activeBgActors.length > 0) {
+      this.bgActorInstances = activeBgActors;
+    } else {
+      for (const layer of map.bgLayers) {
+        const tex = this.texturesCache.get(`/assets/textures/backgrounds/${layer.texture}.png`);
+        if (!tex) continue;
+        const spr = new Sprite(tex);
+        const scale = Math.max(VIEW_WIDTH / tex.width, VIEW_HEIGHT / tex.height);
+        spr.width = tex.width * scale;
+        spr.height = tex.height * scale;
+        spr.x = (VIEW_WIDTH - spr.width) * 0.5;
+        spr.y = (VIEW_HEIGHT - spr.height) * 0.5;
+        spr.alpha = layer.alpha ?? 1;
+        this.bgContainer.addChild(spr);
+      }
     }
   }
 
@@ -1111,52 +1270,162 @@ export class RotasticWebClient {
     const map = this.localSim.map;
     const state = this.localSim.state;
     const nowSec = performance.now() / 1000;
+    const nowMs = nowSec * 1000;
+    const resolveActorTex = (texId: string, tMs: number): Texture =>
+      this.resolveTextureById(texId, tMs) ?? Texture.EMPTY;
 
     if (this.loadedBgMapId !== state.mapId) {
       void this.ensureMapBackgrounds(state.mapId);
     }
 
+    for (const inst of this.propActorInstances.values()) {
+      inst.container.visible = false;
+    }
+
+    for (const bgEntry of this.bgActorInstances) {
+      bgEntry.instance.update(nowMs, bgEntry.transform, resolveActorTex);
+    }
+
     // 1. Arena Bounds, Switch & OBB Obstacles
     this.arenaGraphics.clear();
-
-    // Subtle arena border (bottom has generous -300px off-screen swing tolerance)
-    const left = worldToScreenX(0);
-    const right = worldToScreenX(C.ARENA_WIDTH);
-    const top = worldToScreenY(C.ARENA_HEIGHT);
-    const bottom = worldToScreenY(0);
-    this.arenaGraphics
-      .rect(left, top, right - left, bottom - top)
-      .stroke({ color: 0x334155, width: 2, alpha: 0.4 });
+    const staticProps = getMapStaticProps(map.id);
+    for (let i = 0; i < staticProps.length; i++) {
+      const sp = staticProps[i];
+      const parent = sp.layer === 'behind' ? this.arenaBehindContainer : this.propsContainer;
+      const inst = this.getOrCreatePropActor(`static:${map.id}:${i}:${sp.id}`, sp.actor, parent);
+      if (inst) {
+        inst.container.visible = true;
+        inst.update(nowMs, sp.transform, resolveActorTex);
+      }
+    }
 
     // Interactive Switch (e.g. w_multi_dm_lvl04 Frog Lever)
     if (map.switchDef) {
-      const sx = worldToScreenX(map.switchDef.x);
-      const sy = worldToScreenY(map.switchDef.y);
-      const sr = map.switchDef.radius;
-      const activeColor = state.switchReversed ? 0x22c55e : 0xf59e0b;
-      this.arenaGraphics
-        .circle(sx, sy, sr)
-        .fill({ color: activeColor, alpha: 0.25 })
-        .stroke({ color: activeColor, width: 4 });
-      this.arenaGraphics
-        .circle(sx, sy, sr * 0.42)
-        .fill({ color: activeColor, alpha: 0.9 });
+      let switchRendered = false;
+      const switchConfigs = getSwitchActorConfigs(
+        map.switchDef.x,
+        map.switchDef.y,
+        state.switchCooldownSec > 0,
+        state.switchReversed
+      );
+      for (const sc of switchConfigs) {
+        const inst = this.getOrCreatePropActor(
+          `${sc.id}:${sc.actor}`,
+          sc.actor,
+          this.propsContainer
+        );
+        if (inst) {
+          inst.container.visible = true;
+          inst.update(nowMs, sc.transform, resolveActorTex);
+          switchRendered = true;
+        }
+      }
+      if (!switchRendered) {
+        const sx = worldToScreenX(map.switchDef.x);
+        const sy = worldToScreenY(map.switchDef.y);
+        const sr = map.switchDef.radius;
+        const activeColor = state.switchReversed ? 0x22c55e : 0xf59e0b;
+        this.arenaGraphics
+          .circle(sx, sy, sr)
+          .fill({ color: activeColor, alpha: 0.25 })
+          .stroke({ color: activeColor, width: 4 });
+        this.arenaGraphics
+          .circle(sx, sy, sr * 0.42)
+          .fill({ color: activeColor, alpha: 0.9 });
+      }
     }
 
     // Gravity Vortices
-    for (const v of map.vortices) {
+    while (this.vortexSprites.length < map.vortices.length) {
+      const spr = new Sprite(Texture.EMPTY);
+      spr.anchor.set(0.5);
+      spr.blendMode = 'add';
+      this.propsContainer.addChild(spr);
+      this.vortexSprites.push(spr);
+    }
+    for (let vi = 0; vi < this.vortexSprites.length; vi++) {
+      this.vortexSprites[vi].visible = false;
+    }
+    for (let vi = 0; vi < map.vortices.length; vi++) {
+      const v = map.vortices[vi];
       const vx = worldToScreenX(v.x);
       const vy = worldToScreenY(v.y);
-      const col = v.strength >= 0 ? 0x8b5cf6 : 0xec4899;
-      this.arenaGraphics
-        .circle(vx, vy, v.radius)
-        .fill({ color: col, alpha: 0.12 })
-        .stroke({ color: col, width: 2, alpha: 0.55 });
+      const windTex = this.resolveTextureById('t_fx_wind00_c', nowMs + vi * 350);
+      const spr = this.vortexSprites[vi];
+      if (windTex && windTex !== Texture.EMPTY) {
+        spr.texture = windTex;
+        spr.x = vx;
+        spr.y = vy;
+        spr.width = v.radius * 2.15;
+        spr.height = v.radius * 2.15;
+        spr.rotation = (v.strength >= 0 ? -1 : 1) * (nowSec * 1.35 + vi);
+        spr.alpha = 0.72;
+        spr.visible = true;
+      } else {
+        const col = v.strength >= 0 ? 0x8b5cf6 : 0xec4899;
+        this.arenaGraphics
+          .circle(vx, vy, v.radius)
+          .fill({ color: col, alpha: 0.12 })
+          .stroke({ color: col, width: 2, alpha: 0.55 });
+      }
     }
 
     // OBB Walls & Saw/Cube/Beam Obstacles
-    for (const w of state.walls) {
+    for (let wi = 0; wi < state.walls.length; wi++) {
+      const w = state.walls[wi];
       if (!w.active) continue;
+
+      let wallActorRendered = false;
+      const resolvedWall = resolveWallActorTransform(map.id, {
+        name: w.name,
+        cx: w.cx,
+        cy: w.cy,
+        rotDeg: (w.rotRad * 180) / Math.PI,
+        meshActor: w.meshActor,
+      });
+      if (resolvedWall) {
+        const wallInst = this.getOrCreatePropActor(
+          `wall:${map.id}:${wi}:${w.name}:${resolvedWall.actorName}`,
+          resolvedWall.actorName,
+          this.propsContainer
+        );
+        if (wallInst) {
+          wallInst.container.visible = true;
+          wallInst.update(nowMs, resolvedWall.transform, resolveActorTex);
+          wallActorRendered = true;
+        }
+      }
+
+      if (map.id === 'w_multi_dm_lvl02' && w.name === 'Mur001') {
+        const cos = Math.cos(w.rotRad);
+        const sin = Math.sin(w.rotRad);
+        for (const n of LVL02_CUBE_NACELLES) {
+          const nacelleInst = this.getOrCreatePropActor(
+            `nacelle:${n.id}`,
+            n.actor,
+            this.propsContainer
+          );
+          if (nacelleInst) {
+            nacelleInst.container.visible = true;
+            nacelleInst.update(
+              nowMs,
+              {
+                x: w.cx + n.localDx * cos - n.localDy * sin,
+                y: w.cy + n.localDx * sin + n.localDy * cos,
+                rotDegZ: 0,
+                coordSpace: 'blitz',
+                perspective: false,
+                zOrderBias: 5,
+              },
+              resolveActorTex
+            );
+          }
+        }
+      }
+
+      if (wallActorRendered || w.name === 'WallTop') {
+        continue;
+      }
 
       const isSawDisc =
         w.type === 'deadly' &&
@@ -1225,26 +1494,54 @@ export class RotasticWebClient {
         .stroke({ color: strokeColor, width: 3 });
     }
 
-    // 2. Dynamic Attach Points (Pivots) with authentic textures & 90-deg target sector
+    // 2. Dynamic Attach Points (Pivots) with animated ACTR aura/core & 90-deg target sector
     this.ropesGraphics.clear();
+    this.pivotsContainer.sortableChildren = true;
+
+    const auraDef = getActorDef('o_accrocheaura');
+    const staticCoreDef = getActorDef('o_accroche');
+    const mobileCoreDef = getActorDef('o_accroche_mobile');
+    const usePivotActors = Boolean(auraDef && (staticCoreDef || mobileCoreDef));
+
+    if (usePivotActors) {
+      while (this.pivotAuraInstances.length < state.attachPoints.length) {
+        const k = this.pivotAuraInstances.length;
+        const apDef = map.attachPoints[k];
+        const coreActorDef = (apDef?.motion ? mobileCoreDef : staticCoreDef) ?? staticCoreDef!;
+        const aInst = new ActorInstance(auraDef!);
+        aInst.container.zIndex = 1;
+        const cInst = new ActorInstance(coreActorDef);
+        cInst.container.zIndex = 2;
+        this.pivotsContainer.addChild(aInst.container, cInst.container);
+        this.pivotAuraInstances.push(aInst);
+        this.pivotCoreInstances.push(cInst);
+      }
+      for (let k = 0; k < this.pivotAuraInstances.length; k++) {
+        const vis = k < state.attachPoints.length;
+        this.pivotAuraInstances[k].container.visible = vis;
+        this.pivotCoreInstances[k].container.visible = vis;
+      }
+    }
 
     const auraTex = this.texturesCache.get('/assets/textures/global/t_accrocheaura_c.png');
     const coreTex = this.texturesCache.get('/assets/textures/global/t_accroche01_c.png');
-    while (this.pivotAuraSprites.length < state.attachPoints.length) {
-      const aSpr = new Sprite(auraTex ?? Texture.EMPTY);
-      aSpr.anchor.set(0.5);
-      aSpr.width = 92;
-      aSpr.height = 92;
-      const cSpr = new Sprite(coreTex ?? Texture.EMPTY);
-      cSpr.anchor.set(0.5);
-      cSpr.width = 46;
-      cSpr.height = 46;
-      this.pivotsContainer.addChild(aSpr, cSpr);
-      this.pivotAuraSprites.push(aSpr);
-      this.pivotCoreSprites.push(cSpr);
+    if (!usePivotActors) {
+      while (this.pivotAuraSprites.length < state.attachPoints.length) {
+        const aSpr = new Sprite(auraTex ?? Texture.EMPTY);
+        aSpr.anchor.set(0.5);
+        aSpr.width = 92;
+        aSpr.height = 92;
+        const cSpr = new Sprite(coreTex ?? Texture.EMPTY);
+        cSpr.anchor.set(0.5);
+        cSpr.width = 46;
+        cSpr.height = 46;
+        this.pivotsContainer.addChild(aSpr, cSpr);
+        this.pivotAuraSprites.push(aSpr);
+        this.pivotCoreSprites.push(cSpr);
+      }
     }
     for (let k = 0; k < this.pivotAuraSprites.length; k++) {
-      const vis = k < state.attachPoints.length && Boolean(coreTex);
+      const vis = !usePivotActors && k < state.attachPoints.length && Boolean(coreTex);
       this.pivotAuraSprites[k].visible = vis;
       this.pivotCoreSprites[k].visible = vis;
     }
@@ -1273,7 +1570,31 @@ export class RotasticWebClient {
       const px = worldToScreenX(ap.x);
       const py = worldToScreenY(ap.y);
 
-      if (auraTex && coreTex) {
+      if (usePivotActors) {
+        const auraInst = this.pivotAuraInstances[k];
+        const coreInst = this.pivotCoreInstances[k];
+        auraInst.update(
+          nowMs + k * 450,
+          {
+            x: ap.x,
+            y: ap.y,
+            coordSpace: 'blitz',
+            perspective: false,
+            alpha: 0.85,
+          },
+          resolveActorTex
+        );
+        coreInst.update(
+          nowMs,
+          {
+            x: ap.x,
+            y: ap.y,
+            coordSpace: 'blitz',
+            perspective: false,
+          },
+          resolveActorTex
+        );
+      } else if (auraTex && coreTex) {
         const aSpr = this.pivotAuraSprites[k];
         const cSpr = this.pivotCoreSprites[k];
         aSpr.texture = auraTex;

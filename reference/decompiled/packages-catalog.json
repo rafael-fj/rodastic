@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-11T22:25:28.876Z",
+  "generatedAt": "2026-11-12T00:28:19.180Z",
   "summary": {
     "packagesIndexed": 75,
     "decodedRefmFiles": 21,
     "decodedFetmFiles": 21,
     "extractedMultiplayerAudioWav": 172,
-    "extractedGlobalTexturesDds": 264,
+    "extractedGlobalTexturesDds": 271,
     "extractedMultiplayerMapTexturesDds": 360
   },
   "packages": [

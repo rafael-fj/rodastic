@@ -2,12 +2,12 @@
   "schemaVersion": "1.2.0",
   "generatedBy": "tools/assets/build-web-assets.mjs",
   "stats": {
-    "sourceDdsCount": 703,
-    "uniqueTextureCount": 432,
-    "totalFramePngCount": 619,
-    "multiFrameTextureCount": 129,
-    "totalPngBytes": 16847438,
-    "totalPngMB": 16.07,
+    "sourceDdsCount": 708,
+    "uniqueTextureCount": 437,
+    "totalFramePngCount": 636,
+    "multiFrameTextureCount": 132,
+    "totalPngBytes": 17228200,
+    "totalPngMB": 16.43,
     "audioSfxCount": 172,
     "totalWavBytes": 14990528,
     "totalWavMB": 14.3,
@@ -15,8 +15,10 @@
   },
   "globalTextures": {
     "t_accroche01_c": "/assets/textures/global/t_accroche01_c.png",
+    "t_accroche02_c": "/assets/textures/global/t_accroche02_c.png",
     "t_accrocheaura_c": "/assets/textures/global/t_accrocheaura_c.png",
     "t_beam2_c": "/assets/textures/global/t_beam2_c.png",
+    "t_bgport2wateruv_c": "/assets/textures/global/t_bgport2wateruv_c.png",
     "t_character_b_elf_attach_c": "/assets/textures/global/t_character_b_elf_attach_c.png",
     "t_character_b_elf_bounce_c": "/assets/textures/global/t_character_b_elf_bounce_c.png",
     "t_character_b_elf_cut_c": "/assets/textures/global/t_character_b_elf_cut_c.png",
@@ -274,6 +276,9 @@
     "t_pickupglowgreen_c": "/assets/textures/global/t_pickupglowgreen_c.png",
     "t_pickupglowpink_c": "/assets/textures/global/t_pickupglowpink_c.png",
     "t_pickupglowyellow_c": "/assets/textures/global/t_pickupglowyellow_c.png",
+    "t_porteentre01a_c": "/assets/textures/global/t_porteentre01a_c.png",
+    "t_porteentre02a_c": "/assets/textures/global/t_porteentre02a_c.png",
+    "t_porteentre03a_c": "/assets/textures/global/t_porteentre03a_c.png",
     "t_trailalphaelf_c": "/assets/textures/global/t_trailalphaelf_c.png",
     "t_trailalphaneo_c": "/assets/textures/global/t_trailalphaneo_c.png",
     "t_trailalphapig_c": "/assets/textures/global/t_trailalphapig_c.png",
@@ -2345,6 +2350,60 @@
         "/assets/textures/global/t_character_y_skull_spawn_c_f1.png"
       ]
     },
+    "t_porteentre01a_c": {
+      "frameCount": 3,
+      "totalDurationMs": 600,
+      "frameDurationsMs": [
+        200,
+        200,
+        200
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_porteentre01a_c.png",
+        "/assets/textures/global/t_porteentre01a_c_f1.png",
+        "/assets/textures/global/t_porteentre01a_c_f2.png"
+      ]
+    },
+    "t_porteentre02a_c": {
+      "frameCount": 8,
+      "totalDurationMs": 1328,
+      "frameDurationsMs": [
+        166,
+        166,
+        166,
+        166,
+        166,
+        166,
+        166,
+        166
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_porteentre02a_c.png",
+        "/assets/textures/global/t_porteentre02a_c_f1.png",
+        "/assets/textures/global/t_porteentre02a_c_f2.png",
+        "/assets/textures/global/t_porteentre02a_c_f3.png",
+        "/assets/textures/global/t_porteentre02a_c_f4.png",
+        "/assets/textures/global/t_porteentre02a_c_f5.png",
+        "/assets/textures/global/t_porteentre02a_c_f6.png",
+        "/assets/textures/global/t_porteentre02a_c_f7.png"
+      ]
+    },
+    "t_porteentre03a_c": {
+      "frameCount": 4,
+      "totalDurationMs": 568,
+      "frameDurationsMs": [
+        142,
+        142,
+        142,
+        142
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_porteentre03a_c.png",
+        "/assets/textures/global/t_porteentre03a_c_f1.png",
+        "/assets/textures/global/t_porteentre03a_c_f2.png",
+        "/assets/textures/global/t_porteentre03a_c_f3.png"
+      ]
+    },
     "t_fx_wind00_c": {
       "frameCount": 4,
       "totalDurationMs": 132,
@@ -3911,6 +3970,26 @@
         "global/t_accroche01_c.dds"
       ]
     },
+    "daf3ce6c40b59f9e": {
+      "id": "t_accroche02_c",
+      "url": "/assets/textures/global/t_accroche02_c.png",
+      "width": 64,
+      "height": 64,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_accroche02_c.png"
+      ],
+      "sha256": "daf3ce6c40b59f9e",
+      "pngBytes": 3198,
+      "sources": [
+        "global/t_accroche02_c.dds"
+      ]
+    },
     "343a97d4135f52c4": {
       "id": "t_accrocheaura_c",
       "url": "/assets/textures/global/t_accrocheaura_c.png",
@@ -3949,6 +4028,26 @@
       "pngBytes": 238,
       "sources": [
         "global/t_beam2_c.dds"
+      ]
+    },
+    "70b10e4dcaa6c3a6": {
+      "id": "t_bgport2wateruv_c",
+      "url": "/assets/textures/global/t_bgport2wateruv_c.png",
+      "width": 1024,
+      "height": 128,
+      "originalFormat": "DXT3",
+      "frameCount": 1,
+      "totalDurationMs": 0,
+      "frameDurationsMs": [
+        0
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_bgport2wateruv_c.png"
+      ],
+      "sha256": "70b10e4dcaa6c3a6",
+      "pngBytes": 26870,
+      "sources": [
+        "global/t_bgport2wateruv_c.dds"
       ]
     },
     "8e676aef13bb3444": {
@@ -9452,6 +9551,90 @@
       "pngBytes": 1912,
       "sources": [
         "global/t_pickupglowyellow_c.dds"
+      ]
+    },
+    "a3a5795a43a6b40b": {
+      "id": "t_porteentre01a_c",
+      "url": "/assets/textures/global/t_porteentre01a_c.png",
+      "width": 256,
+      "height": 256,
+      "originalFormat": "DXT1",
+      "frameCount": 3,
+      "totalDurationMs": 600,
+      "frameDurationsMs": [
+        200,
+        200,
+        200
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_porteentre01a_c.png",
+        "/assets/textures/global/t_porteentre01a_c_f1.png",
+        "/assets/textures/global/t_porteentre01a_c_f2.png"
+      ],
+      "sha256": "a3a5795a43a6b40b",
+      "pngBytes": 75540,
+      "sources": [
+        "global/t_porteentre01a_c.dds"
+      ]
+    },
+    "7241eb17c789faab": {
+      "id": "t_porteentre02a_c",
+      "url": "/assets/textures/global/t_porteentre02a_c.png",
+      "width": 256,
+      "height": 256,
+      "originalFormat": "DXT1",
+      "frameCount": 8,
+      "totalDurationMs": 1328,
+      "frameDurationsMs": [
+        166,
+        166,
+        166,
+        166,
+        166,
+        166,
+        166,
+        166
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_porteentre02a_c.png",
+        "/assets/textures/global/t_porteentre02a_c_f1.png",
+        "/assets/textures/global/t_porteentre02a_c_f2.png",
+        "/assets/textures/global/t_porteentre02a_c_f3.png",
+        "/assets/textures/global/t_porteentre02a_c_f4.png",
+        "/assets/textures/global/t_porteentre02a_c_f5.png",
+        "/assets/textures/global/t_porteentre02a_c_f6.png",
+        "/assets/textures/global/t_porteentre02a_c_f7.png"
+      ],
+      "sha256": "7241eb17c789faab",
+      "pngBytes": 126568,
+      "sources": [
+        "global/t_porteentre02a_c.dds"
+      ]
+    },
+    "97b04fc509350170": {
+      "id": "t_porteentre03a_c",
+      "url": "/assets/textures/global/t_porteentre03a_c.png",
+      "width": 256,
+      "height": 256,
+      "originalFormat": "DXT3",
+      "frameCount": 4,
+      "totalDurationMs": 568,
+      "frameDurationsMs": [
+        142,
+        142,
+        142,
+        142
+      ],
+      "frameUrls": [
+        "/assets/textures/global/t_porteentre03a_c.png",
+        "/assets/textures/global/t_porteentre03a_c_f1.png",
+        "/assets/textures/global/t_porteentre03a_c_f2.png",
+        "/assets/textures/global/t_porteentre03a_c_f3.png"
+      ],
+      "sha256": "97b04fc509350170",
+      "pngBytes": 148586,
+      "sources": [
+        "global/t_porteentre03a_c.dds"
       ]
     },
     "6d935e01f9793ebc": {

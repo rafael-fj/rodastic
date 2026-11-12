@@ -1,0 +1,21 @@
+{
+  "format": "DXT1",
+  "fmtCode": 18,
+  "flags": 0,
+  "width": 256,
+  "height": 256,
+  "mipCount": 1,
+  "frameCount": 8,
+  "frameBytes": 32768,
+  "totalDurationMs": 1328,
+  "frameDurationsMs": [
+    166,
+    166,
+    166,
+    166,
+    166,
+    166,
+    166,
+    166
+  ]
+}
