@@ -3241,12 +3241,12 @@ export class RotasticWebClient {
 
     document.getElementById('btn-ready-toggle')?.addEventListener('click', () => {
       const willBeReady = !mySlot.ready;
-      this.audio.play(willBeReady ? 'confirm' : 'back', 0.55, 0);
+      this.audio.play(willBeReady ? 'ready_on' : 'ready_off', 0.5, 0);
       sendSlotUpdate(willBeReady);
     });
 
     document.getElementById('btn-start-match')?.addEventListener('click', () => {
-      this.audio.play('confirm', 0.7, 0);
+      this.audio.play('gong', 0.7, 0);
       this.showLoadingScreen(true, 'Iniciando partida...');
       sendSlotUpdate(true);
       sendConfigUpdate();
