@@ -355,6 +355,10 @@ export class RotasticWebClient {
   private orangeShieldMeshes: Array<{ mesh: Mesh; pos: Float32Array; uvs: Float32Array }> = [];
   private playerSprites: Sprite[] = [];
   private playerLabels: Text[] = [];
+  private indicatorContainers: Container[] = [];
+  private indicatorGraphics: Graphics[] = [];
+  private indicatorHeadSprites: Sprite[] = [];
+  private indicatorLabels: Text[] = [];
   private crownSprite = new Sprite();
   private floatingEffects: FloatingEffect[] = [];
   private vfxParticles: VfxParticle[] = [];
@@ -530,6 +534,39 @@ export class RotasticWebClient {
       '/assets/textures/arenas/t_glissparticules_c.png',
       '/assets/textures/arenas/t_beamcorona_white_c.png',
       '/assets/textures/arenas/t_guicouronne_c.png',
+      // Character Heads & Hurt Portraits for HUD & Off-screen/Spawn Indicators
+      '/assets/textures/global/t_headvikblue_c.png',
+      '/assets/textures/global/t_headvikred_c.png',
+      '/assets/textures/global/t_headvikgreen_c.png',
+      '/assets/textures/global/t_headvikyellow_c.png',
+      '/assets/textures/global/t_headelfeblue.png',
+      '/assets/textures/global/t_headelfered.png',
+      '/assets/textures/global/t_headelfegreen.png',
+      '/assets/textures/global/t_headelfeyellow.png',
+      '/assets/textures/global/t_headpigblue.png',
+      '/assets/textures/global/t_headpigred.png',
+      '/assets/textures/global/t_headpiggreen.png',
+      '/assets/textures/global/t_headpigyellow.png',
+      '/assets/textures/global/t_headsquelblue.png',
+      '/assets/textures/global/t_headsquelred.png',
+      '/assets/textures/global/t_headsquelgreen.png',
+      '/assets/textures/global/t_headsquelyellow.png',
+      '/assets/textures/global/t_guimortvikblue.png',
+      '/assets/textures/global/t_guimortvikred.png',
+      '/assets/textures/global/t_guimortvikgreen.png',
+      '/assets/textures/global/t_guimortvikyellow.png',
+      '/assets/textures/global/t_guimortelfeblue.png',
+      '/assets/textures/global/t_guimortelfered.png',
+      '/assets/textures/global/t_guimortelfegreen.png',
+      '/assets/textures/global/t_guimortelfeyellow.png',
+      '/assets/textures/global/t_guimortpigblue_c.png',
+      '/assets/textures/global/t_guimortpigred_c.png',
+      '/assets/textures/global/t_guimortpiggreen_c.png',
+      '/assets/textures/global/t_guimortpigyellow_c.png',
+      '/assets/textures/global/t_guimortsquelblue.png',
+      '/assets/textures/global/t_guimortsquelred.png',
+      '/assets/textures/global/t_guimortsquelgreen.png',
+      '/assets/textures/global/t_guimortsquelyellow.png',
     ]);
 
     const deferredUrls = new Set<string>();
@@ -966,6 +1003,39 @@ export class RotasticWebClient {
       lbl.anchor.set(0.5, 1.0);
       this.playersContainer.addChild(lbl);
       this.playerLabels.push(lbl);
+
+      // Indicator container for Spawn Cursor & Off-screen Tracking
+      const indCont = new Container();
+      indCont.visible = false;
+      indCont.zIndex = 40;
+
+      const indGfx = new Graphics();
+      indCont.addChild(indGfx);
+      this.indicatorGraphics.push(indGfx);
+
+      const indHead = new Sprite(Texture.WHITE);
+      indHead.anchor.set(0.5);
+      indHead.width = 44;
+      indHead.height = 44;
+      indCont.addChild(indHead);
+      this.indicatorHeadSprites.push(indHead);
+
+      const indLbl = new Text({
+        text: '',
+        style: {
+          fontFamily: 'system-ui, sans-serif',
+          fontSize: 14,
+          fontWeight: '900',
+          fill: 0xffffff,
+          stroke: { color: 0x0f172a, width: 3.5 },
+        },
+      });
+      indLbl.anchor.set(0.5, 0);
+      indCont.addChild(indLbl);
+      this.indicatorLabels.push(indLbl);
+
+      this.playersContainer.addChild(indCont);
+      this.indicatorContainers.push(indCont);
     }
 
     this.crownSprite.anchor.set(0.5, 0.9);
@@ -2188,6 +2258,10 @@ export class RotasticWebClient {
       const p = state.players[i];
       const spr = this.playerSprites[i];
       const lbl = this.playerLabels[i];
+      const indCont = this.indicatorContainers[i];
+      const indGfx = this.indicatorGraphics[i];
+      const indHead = this.indicatorHeadSprites[i];
+      const indLbl = this.indicatorLabels[i];
       const ropeBase = this.ropeBaseSprites[i];
       const ropeBeam = this.ropeBeamSprites[i];
       const orangeRing = this.orangeShieldMeshes[i];
@@ -2197,6 +2271,7 @@ export class RotasticWebClient {
       if (!p || !p.active || p.status === PlayerStatus.DEAD) {
         spr.visible = false;
         lbl.visible = false;
+        if (indCont) indCont.visible = false;
         ropeBase.visible = false;
         ropeBeam.visible = false;
         if (orangeRing) orangeRing.mesh.visible = false;
@@ -2207,73 +2282,133 @@ export class RotasticWebClient {
       const colorMeta = PLAYER_COLORS[p.colorId] ?? PLAYER_COLORS[0];
       const charMeta = CHARACTER_NAMES[p.characterId] ?? CHARACTER_NAMES[0];
 
-      // SPAWN_CURSOR: top-of-screen sliding drop selector
+      // SPAWN_CURSOR: top-of-screen sliding drop selector with portrait box
       if (p.status === PlayerStatus.SPAWN_CURSOR) {
-        spr.visible = true;
-        lbl.visible = true;
+        spr.visible = false;
+        lbl.visible = false;
         ropeBase.visible = false;
         ropeBeam.visible = false;
         if (orangeRing) orangeRing.mesh.visible = false;
         if (outerRing) outerRing.mesh.visible = false;
-        const cx = worldToScreenX(p.spawnCursorX);
-        const cy = 62;
-        const bob = Math.sin(nowSec * 8) * 4;
 
-        if (this.lastPlayerStates[i] !== 'spawn') {
-          this.lastPlayerStates[i] = 'spawn';
-          this.stateAnimElapsedMs[i] = 0;
-        } else {
-          this.stateAnimElapsedMs[i] += dt * 1000;
+        const cx = Math.max(48, Math.min(VIEW_WIDTH - 48, worldToScreenX(p.spawnCursorX)));
+        const cy = 48;
+        const bob = Math.sin(nowSec * 7) * 3;
+        const canDrop = p.spawnAllowDelay <= 0 && !this.isMatchCountdownActive;
+        const isLocal = i === this.mySlotIndex;
+
+        if (indCont && indGfx && indHead && indLbl) {
+          indCont.x = cx;
+          indCont.y = cy;
+          indCont.visible = true;
+
+          const headUrl = this.getHudHeadUrl(p.characterId, p.colorId, !canDrop);
+          const headTex = this.texturesCache.get(headUrl);
+          if (headTex && indHead.texture !== headTex) {
+            indHead.texture = headTex;
+          }
+          indHead.width = 46;
+          indHead.height = 46;
+          indHead.tint = canDrop ? 0xffffff : 0xb0b8c4;
+
+          indGfx.clear();
+          // Sombra suave
+          indGfx.roundRect(-29, -29, 58, 58, 14).fill({ color: 0x000000, alpha: 0.4 });
+          // Fundo da caixa
+          indGfx.roundRect(-27, -27, 54, 54, 12).fill({ color: 0x0f172a, alpha: 0.92 });
+          // Borda colorida (ou cinza enquanto bloqueado)
+          const borderCol = canDrop ? colorMeta.hex : 0x64748b;
+          indGfx.roundRect(-27, -27, 54, 54, 12).stroke({ color: borderCol, width: canDrop ? 3.5 : 2.5 });
+          // Seta apontando para baixo (em direção à arena)
+          const arrowY = 27;
+          indGfx.poly([-9, arrowY, 9, arrowY, 0, arrowY + 11 + bob]).fill({ color: borderCol });
+          // Linha guia vertical descendo para a arena
+          indGfx
+            .moveTo(0, arrowY + 14 + bob)
+            .lineTo(0, 110 + bob)
+            .stroke({ color: colorMeta.hex, width: 2.2, alpha: canDrop ? 0.6 : 0.25 });
+
+          // Texto informativo do jogador / ação
+          if (isLocal) {
+            indLbl.text = canDrop ? 'APERTE ESPAÇO!' : 'AGUARDE...';
+            indLbl.style.fill = canDrop ? 0x4ade80 : 0xf87171;
+          } else {
+            indLbl.text = p.name;
+            indLbl.style.fill = colorMeta.hex;
+          }
+          indLbl.x = 0;
+          indLbl.y = 44 + bob;
+          indLbl.visible = true;
         }
-        const tex = this.resolvePlayerFrameTexture(
-          colorMeta.code,
-          charMeta.id,
-          'spawn',
-          this.stateAnimElapsedMs[i],
-          true
-        );
-        const baseScale = tex ? 200 / tex.width : 1;
-        if (tex) {
-          if (spr.texture !== tex) spr.texture = tex;
-          spr.tint = 0xffffff;
-        } else {
-          spr.tint = colorMeta.hex;
-        }
-        spr.x = cx;
-        spr.y = cy;
-        spr.scale.set(p.spawnCursorDir >= 0 ? -baseScale : baseScale, baseScale);
-        spr.rotation = 0;
-        spr.alpha = 0.92;
-
-        // Dashed drop guide & chevron arrow pointing down
-        this.ropesGraphics
-          .moveTo(cx, cy + 40)
-          .lineTo(cx, cy + 92)
-          .stroke({ color: colorMeta.hex, width: 2.5, alpha: 0.45 });
-        this.ropesGraphics
-          .poly([cx - 12, cy + 44 + bob, cx + 12, cy + 44 + bob, cx, cy + 60 + bob])
-          .fill({ color: colorMeta.hex, alpha: 0.95 });
-        this.ropesGraphics
-          .circle(cx, cy, C.PLAYER_RADIUS)
-          .stroke({ color: colorMeta.hex, width: 3 });
-
-        lbl.text = i === this.mySlotIndex ? `${p.name} (APERTE ESPAÇO)` : p.name;
-        lbl.x = cx;
-        lbl.y = cy + 92;
         continue;
       }
-
-      spr.visible = true;
-      lbl.visible = true;
 
       const interpX = disp.prevX + (disp.x - disp.prevX) * renderAlpha;
       const interpY = disp.prevY + (disp.y - disp.prevY) * renderAlpha;
       const sx = worldToScreenX(interpX);
       const sy = worldToScreenY(interpY);
 
+      // Verificação Off-Screen (acima do topo y > 1080 / sy < 15, ou abaixo do fundo y < 0 / sy > 1065)
+      const isOffScreenTop = sy < 15;
+      const isOffScreenBottom = sy > 1065 && interpY > C.DEATH_BOTTOM_Y;
+
+      if (isOffScreenTop || isOffScreenBottom) {
+        // Personagem fora do campo de visão: exibe caixa com retrato nas margens
+        spr.visible = false;
+        lbl.visible = false;
+
+        if (indCont && indGfx && indHead && indLbl) {
+          const clampX = Math.max(48, Math.min(VIEW_WIDTH - 48, sx));
+          const isTop = isOffScreenTop;
+          const indY = isTop ? 42 : VIEW_HEIGHT - 42;
+
+          indCont.x = clampX;
+          indCont.y = indY;
+          indCont.visible = true;
+
+          const isDizzyOrHurt = p.status === PlayerStatus.DIZZY || this.hudHurtTimer[i] > 0 || isOffScreenBottom;
+          const headUrl = this.getHudHeadUrl(p.characterId, p.colorId, isDizzyOrHurt);
+          const headTex = this.texturesCache.get(headUrl);
+          if (headTex && indHead.texture !== headTex) {
+            indHead.texture = headTex;
+          }
+          indHead.width = 42;
+          indHead.height = 42;
+          indHead.tint = 0xffffff;
+
+          indGfx.clear();
+          // Sombra
+          indGfx.roundRect(-27, -27, 54, 54, 14).fill({ color: 0x000000, alpha: 0.45 });
+          // Fundo da caixa
+          indGfx.roundRect(-25, -25, 50, 50, 12).fill({ color: 0x0f172a, alpha: 0.92 });
+          // Borda com a cor do jogador
+          indGfx.roundRect(-25, -25, 50, 50, 12).stroke({ color: colorMeta.hex, width: 3 });
+
+          if (isTop) {
+            // Seta para CIMA no topo da caixa (indicando jogador acima da tela)
+            indGfx.poly([-8, -25, 8, -25, 0, -35]).fill({ color: colorMeta.hex });
+            indLbl.y = 28;
+          } else {
+            // Seta para BAIXO na base da caixa (indicando jogador abaixo da arena)
+            indGfx.poly([-8, 25, 8, 25, 0, 35]).fill({ color: colorMeta.hex });
+            indLbl.y = -46;
+          }
+
+          indLbl.text = p.name;
+          indLbl.style.fill = colorMeta.hex;
+          indLbl.x = 0;
+          indLbl.visible = true;
+        }
+      } else {
+        // Dentro da tela: esconde indicador off-screen e exibe jogador normalmente
+        if (indCont) indCont.visible = false;
+        spr.visible = true;
+        lbl.visible = true;
+      }
+
       if (i === leaderSlot) {
-        leaderScreenX = sx;
-        leaderScreenY = sy;
+        leaderScreenX = isOffScreenTop || isOffScreenBottom ? (indCont ? indCont.x : sx) : sx;
+        leaderScreenY = isOffScreenTop ? (indCont ? indCont.y - 32 : sy) : isOffScreenBottom ? (indCont ? indCont.y - 32 : sy) : sy;
         leaderAlive = true;
       }
 
@@ -2289,13 +2424,6 @@ export class RotasticWebClient {
         }
       }
 
-      // Off-screen bottom dip indicator (player allowed down to y=-300 before TriggerPlanePlayerDeath)
-      if (interpY < 0 && interpY > C.DEATH_BOTTOM_Y) {
-        this.ropesGraphics
-          .poly([sx - 18, VIEW_HEIGHT - 28, sx + 18, VIEW_HEIGHT - 28, sx, VIEW_HEIGHT - 6])
-          .fill({ color: colorMeta.hex, alpha: 0.9 })
-          .stroke({ color: 0xffffff, width: 2 });
-      }
 
       // Authentic Rope (`t_corde_c`) + Initial White Sweeping Beam (`t_cordebeam_c`, player -> pivot over 0.72s)
       if (p.status === PlayerStatus.SWINGING && p.attachedPivotId >= 0) {
