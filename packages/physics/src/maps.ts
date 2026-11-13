@@ -98,9 +98,9 @@ function defaultArenaWalls(startId = 0): WallDef[] {
     {
       id: startId,
       name: 'PRP_wallLeft',
-      cx: 15,
+      cx: -16,
       cy: 600,
-      halfW: 15,
+      halfW: 16,
       halfH: 950,
       rotDeg: 0,
       type: 'bouncy',
@@ -109,9 +109,9 @@ function defaultArenaWalls(startId = 0): WallDef[] {
     {
       id: startId + 1,
       name: 'PRP_wallRight',
-      cx: 1905,
+      cx: 1936,
       cy: 600,
-      halfW: 15,
+      halfW: 16,
       halfH: 950,
       rotDeg: 0,
       type: 'bouncy',

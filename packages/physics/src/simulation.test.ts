@@ -1290,7 +1290,7 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     p.status = PlayerStatus.SWINGING;
     p.invulnTimer = 0;
     p.attachedPivotId = centerPivot.id;
-    p.ropeLength = 230; // hits Prop006 right edge (691.6 + 44 = 735.6 > 730)
+    p.ropeLength = 240; // hits Prop006 right edge (691.6 + 32 = 723.6 > 720)
     p.ropeAngle = Math.PI * 0.5;
     p.omega = 20.0;
     p.x = centerPivot.x + Math.cos(p.ropeAngle) * p.ropeLength;
@@ -1307,8 +1307,8 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     expect(bounced).toBe(true);
     expect(p.omega).toBeLessThan(0);
 
-    // 2. Overlap recovery (!startClear) at r=245 pushes cleanly outside Prop006 clearance
-    p.ropeLength = 245;
+    // 2. Overlap recovery (!startClear) at r=250 pushes cleanly outside Prop006 clearance
+    p.ropeLength = 250;
     p.ropeAngle = Math.PI - 0.12;
     p.omega = 6.0;
     p.x = centerPivot.x + Math.cos(p.ropeAngle) * p.ropeLength;
@@ -1316,5 +1316,45 @@ describe('@rotastic/physics — RotasticSimulation 60 Hz Determinism & Mechanics
     const evs2 = sim.step({ 0: { seq: 61, actionHeld: true, axisX: 0, axisY: 0 } });
     expect(evs2.some((e) => e.type === 'bounce' && e.slotIndex === 0)).toBe(true);
     expect(p.x).toBeGreaterThanOrEqual(653.6 + 38 + C.PLAYER_RADIUS - 0.1);
+  });
+
+  it('matches Rotastic.exe PLAYER_RADIUS=32.0 and arena side wall contact at x=32 / x=1888 (#48)', () => {
+    const sim = new RotasticSimulation('w_multi_dm_lvl10');
+    sim.configurePlayerSlot(0, { active: true, name: 'P1' });
+    const p = sim.state.players[0];
+    p.status = PlayerStatus.FREE_FALL;
+    p.invulnTimer = 0;
+    p.x = 40;
+    p.y = 540;
+    p.vx = -600;
+    p.vy = 0;
+
+    let hitLeft = false;
+    for (let t = 1; t <= 6; t++) {
+      const evs = sim.step({ 0: { seq: t, actionHeld: false, axisX: 0, axisY: 0 } });
+      if (evs.some((e) => e.type === 'bounce' && e.slotIndex === 0)) {
+        hitLeft = true;
+        break;
+      }
+    }
+    expect(hitLeft).toBe(true);
+    expect(p.x).toBeGreaterThanOrEqual(C.PLAYER_RADIUS);
+    expect(p.vx).toBeGreaterThan(0);
+
+    p.x = 1880;
+    p.y = 540;
+    p.vx = 600;
+    p.vy = 0;
+    let hitRight = false;
+    for (let t = 7; t <= 12; t++) {
+      const evs = sim.step({ 0: { seq: t, actionHeld: false, axisX: 0, axisY: 0 } });
+      if (evs.some((e) => e.type === 'bounce' && e.slotIndex === 0)) {
+        hitRight = true;
+        break;
+      }
+    }
+    expect(hitRight).toBe(true);
+    expect(p.x).toBeLessThanOrEqual(C.ARENA_WIDTH - C.PLAYER_RADIUS);
+    expect(p.vx).toBeLessThan(0);
   });
 });

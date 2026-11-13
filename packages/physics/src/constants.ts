@@ -47,7 +47,7 @@ export const ROTASTIC_PHYSICS_CONSTANTS = {
   // Rope Cutting & Collisions (CRotasticRope::vfunc_44 @ 0x005435D0, OnCutEnemyRope @ 0x00578A90)
   ROPE_CUT_GRACE_SEC: 0.08, // Responsive close-quarters rope cutting while avoiding frame-0 self-attach snags
   ROPE_CAPSULE_RADIUS: 5.0, // Verified rope physics capsule radius [edx+0x20] = 5.0f @ 0x00543838
-  PLAYER_RADIUS: 44.0, // Matches 82.8px PvP contact distance in 1920x1080
+  PLAYER_RADIUS: 32.0, // Verified in Rotastic.exe simRefTable[0x78]=32, WALL_HIT x=31.9/1888.0, PVP ~64px
   SHIELD_BUBBLE_RADIUS: 78.0, // Full white bubble radius when c1 >= 1.0 (measured ~161px diameter in Rotastic.exe)
   WALL_BOUNCE_RESTITUTION: 1.0, // simRef[0x44] = 1.0
   PLAYER_RESTITUTION: 1.0, // Verified exact in 4/4 PVP_BOUNCE_SOLVER events
