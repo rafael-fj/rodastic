@@ -299,16 +299,12 @@ export function resolveWallActorTransform(
   }
 
   if (rawActor === 'o_rebonmetal01_md09' || rawActor === 'o_rebonmetal02_md09') {
-    // Align visual mesh bounds (~[-38.2..37.9] x [-198.2..198.4]) to CWall Prop006/Prop009 (halfW=18.75, halfH=87.5)
     return {
       actorName: 'o_rebonmetal02_md09',
       transform: {
         x: wall.cx,
         y: wall.cy,
         rotDegZ: rawActor === 'o_rebonmetal01_md09' ? 180 : 0,
-        scaleX: 18.75 / 38.225,
-        scaleY: 87.5 / 198.39,
-        scaleZ: 1,
         coordSpace: 'blitz',
         perspective: false,
       },
